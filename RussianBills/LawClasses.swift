@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-/// Список комитетов
-/// Class for Realm
+/// Отрасли законодательства
 class LawClass_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""

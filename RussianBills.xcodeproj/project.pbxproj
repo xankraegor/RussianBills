@@ -12,9 +12,14 @@
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
 		2A4ED0E01F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DF1F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
+		2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */; };
+		2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */; };
+		2A4FDBD91F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD81F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift */; };
+		2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBDF1F1039A0005C59AE /* UserServices.swift */; };
+		2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBE21F104576005C59AE /* NameStartEndTableViewCell.swift */; };
+		2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBE41F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift */; };
 		2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */; };
 		2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */; };
-		2A6315B11F0AE1B400611BD8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315B01F0AE1B400611BD8 /* ViewController.swift */; };
 		2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B21F0AE1B400611BD8 /* Main.storyboard */; };
 		2A6315B61F0AE1B400611BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B51F0AE1B400611BD8 /* Assets.xcassets */; };
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
@@ -34,6 +39,7 @@
 		2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */; };
 		2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */; };
 		2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */; };
+		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,10 +59,15 @@
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
 		2A4ED0DF1F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewController.swift; sourceTree = "<group>"; };
+		2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		2A4FDBD81F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewControllerSelector.swift; sourceTree = "<group>"; };
+		2A4FDBDF1F1039A0005C59AE /* UserServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		2A4FDBE21F104576005C59AE /* NameStartEndTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameStartEndTableViewCell.swift; sourceTree = "<group>"; };
+		2A4FDBE41F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameStartEndTableViewCellDateTextGenerator.swift; sourceTree = "<group>"; };
 		2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuery.swift; sourceTree = "<group>"; };
 		2A6315AB1F0AE1B400611BD8 /* RussianBills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RussianBills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2A6315B01F0AE1B400611BD8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A6315B31F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A6315B51F0AE1B400611BD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A6315B81F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,6 +90,7 @@
 		2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionalSubject.swift; sourceTree = "<group>"; };
 		2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialazibleWithJson.swift; sourceTree = "<group>"; };
 		2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouterBillParameters.swift; sourceTree = "<group>"; };
+		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BCBC56BC82CEA5AF364A1F54 /* Pods-RussianBillsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +145,33 @@
 			name = "Other Assets";
 			sourceTree = "<group>";
 		};
+		2A4FDBDA1F0EEFE5005C59AE /* SimpleTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */,
+				2A4FDBD81F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift */,
+			);
+			name = SimpleTableViewController;
+			sourceTree = "<group>";
+		};
+		2A4FDBE61F1055FA005C59AE /* SimpleTableViewCellViews */ = {
+			isa = PBXGroup;
+			children = (
+				2A4FDBE21F104576005C59AE /* NameStartEndTableViewCell.swift */,
+				2A4FDBE41F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift */,
+			);
+			name = SimpleTableViewCellViews;
+			sourceTree = "<group>";
+		};
+		2A4FDBE71F105639005C59AE /* SimpleTable */ = {
+			isa = PBXGroup;
+			children = (
+				2A4FDBDA1F0EEFE5005C59AE /* SimpleTableViewController */,
+				2A4FDBE61F1055FA005C59AE /* SimpleTableViewCellViews */,
+			);
+			name = SimpleTable;
+			sourceTree = "<group>";
+		};
 		2A6315A21F0AE1B400611BD8 = {
 			isa = PBXGroup;
 			children = (
@@ -157,7 +196,10 @@
 			isa = PBXGroup;
 			children = (
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
-				2A6315B01F0AE1B400611BD8 /* ViewController.swift */,
+				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
+				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
+				2AD1E93A1F127AB100CA0D89 /* FavoritesTable */,
+				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -231,6 +273,14 @@
 				2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */,
 			);
 			name = Requests;
+			sourceTree = "<group>";
+		};
+		2AD1E93A1F127AB100CA0D89 /* FavoritesTable */ = {
+			isa = PBXGroup;
+			children = (
+				2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */,
+			);
+			name = FavoritesTable;
 			sourceTree = "<group>";
 		};
 		446ACAC816582A6953401F6D /* Pods */ = {
@@ -452,13 +502,19 @@
 				2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */,
 				2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */,
 				2AA4D19A1F0C04D200EE2DA3 /* FederalSubject.swift in Sources */,
+				2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */,
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
+				2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */,
+				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
-				2A6315B11F0AE1B400611BD8 /* ViewController.swift in Sources */,
+				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
+				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
 				2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */,
 				2A98F1721F0AF3B4004F5524 /* Comittee.swift in Sources */,
+				2A4FDBD91F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift in Sources */,
+				2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */,
 				2A4ED0E01F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift in Sources */,
 				2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */,
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,

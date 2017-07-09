@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-/// Список комитетов
-/// Class for Realm
+/// Список комитетов ГД РФ
 @objc class Comittee_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""

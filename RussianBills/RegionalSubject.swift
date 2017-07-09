@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-/// Список федеральных органов власти
-/// Class for Realm
+/// Список федеральных органов власти, обладающих ПЗИ
 @objc class RegionalSubject_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""

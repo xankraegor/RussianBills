@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-/// Список депутатов Госдумы и Совета Федерации
-/// Class for Realm
+/// Список депутатов Госдумы и членов Совета Федерации
 class Deputy_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""

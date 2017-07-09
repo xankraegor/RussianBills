@@ -10,9 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-
 /// Список тематических блоков
-/// Class for Realm
 class Topic_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""

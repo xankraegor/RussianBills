@@ -9,7 +9,11 @@
 import Foundation
 import RealmSwift
 
-enum RealmCoordinator {
+class RealmCoordinator {
+
+    static func defaultRealmPath() -> String {
+        return String(describing: Realm.Configuration.defaultConfiguration.fileURL)
+    }
 
     // MARK: Write and update existing data in Realm
 
@@ -26,29 +30,51 @@ enum RealmCoordinator {
 
     // MARK: Load data from Realm
 
-    static func load<T: Object>(forObjects: T.Type) -> Results<T>? {
-        do {
-            let realm = try Realm()
-            return realm.objects(T.self)
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: \(error.localizedDescription)")
+    static func loadObjects<T: Object>(OfType: T.Type) -> Results<T>? {
+        let realm = try? Realm()
+        if let rlm = realm {
+            return rlm.objects(T.self)
+        } else {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
     }
+
+    static func loadObject<T: Object>(ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
+        let realm = try? Realm()
+        if let rlm = realm {
+            let objs = rlm.objects(T.self).sorted(byKeyPath: sortParameter, ascending: ascending)
+            return objs[byIndex]
+        } else {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
+        }
+    }
+
+    static func countObjects(ofType type: Object.Type) -> Int {
+        let realm = try? Realm()
+        if let rlm = realm {
+            return rlm.objects(type).count
+        } else {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
+        }
+    }
+
 
     // MARK: Delete data from realm
 
     static func deleteEverything() {
-        guard let realm = try? Realm() else {
-            fatalError("∆ Cannot reach the Realm to clear caches")
+        let realm = try? Realm()
+        if let rlm = realm {
+            do {
+                try rlm.write {
+                    rlm.deleteAll()
+                }
+            } catch let error {
+                fatalError("∆ Cannot reach the Realm to clear caches: \(error.localizedDescription)")
+            }
+        } else {
+            fatalError("∆ Cannot reach the Realm to clear caches: Realm is not initialized by the Realm coordinater")
         }
 
-        do {
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to clear caches: \(error.localizedDescription)")
-        }
     }
 
 }
