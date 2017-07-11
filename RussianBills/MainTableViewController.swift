@@ -13,7 +13,7 @@ class MainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Realm DB Path: \(RealmCoordinator.defaultRealmPath)\n")
-        UserServices.downloadAllSupportCategories()
+        UserServices.forcedDownloadAllSupportCategories()
     }
 
     // MARK: - Navigation

@@ -41,6 +41,7 @@
 		2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */; };
 		2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596C1F15526A00FF7BBD /* Stage.swift */; };
 		2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596E1F15530600FF7BBD /* Instances.swift */; };
+		2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -94,6 +95,7 @@
 		2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouterBillParameters.swift; sourceTree = "<group>"; };
 		2AB1596C1F15526A00FF7BBD /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		2AB1596E1F15530600FF7BBD /* Instances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instances.swift; sourceTree = "<group>"; };
+		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */,
+				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
 				2A98F16C1F0AF029004F5524 /* BillComponents */,
 			);
 			name = Model;
@@ -259,14 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				2A98F16A1F0AEFC1004F5524 /* Bill.swift */,
-				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
-				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
-				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
-				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
-				2A8782011F0BE4A400A0554F /* Deputy.swift */,
-				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
-				2AB1596E1F15530600FF7BBD /* Instances.swift */,
-				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
+				2AB159741F157FD100FF7BBD /* Reference Values */,
 			);
 			name = "Realm Classes";
 			sourceTree = "<group>";
@@ -279,6 +275,21 @@
 				2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */,
 			);
 			name = Requests;
+			sourceTree = "<group>";
+		};
+		2AB159741F157FD100FF7BBD /* Reference Values */ = {
+			isa = PBXGroup;
+			children = (
+				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
+				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
+				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
+				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
+				2A8782011F0BE4A400A0554F /* Deputy.swift */,
+				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
+				2AB1596E1F15530600FF7BBD /* Instances.swift */,
+				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
+			);
+			name = "Reference Values";
 			sourceTree = "<group>";
 		};
 		2AD1E93A1F127AB100CA0D89 /* FavoritesTable */ = {
@@ -508,6 +519,7 @@
 				2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */,
 				2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */,
 				2AA4D19A1F0C04D200EE2DA3 /* FederalSubject.swift in Sources */,
+				2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */,
 				2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */,
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
 				2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */,

@@ -23,6 +23,9 @@ class RealmCoordinator {
             try realm.write {
                 realm.add(collection, update: true)
             }
+            
+            UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
+            
         } catch let error {
             fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
         }

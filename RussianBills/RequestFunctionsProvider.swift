@@ -14,7 +14,7 @@ import RealmSwift
 
 /* ================================================================================
  
- Having added new methods to this class, keep it in consistency with UserServices
+ Having added new methods to this enum, keep it in consistency with UserServices
  
 ================================================================================= */
 
