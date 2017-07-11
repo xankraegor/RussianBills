@@ -39,6 +39,8 @@
 		2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */; };
 		2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */; };
 		2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */; };
+		2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596C1F15526A00FF7BBD /* Stage.swift */; };
+		2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596E1F15530600FF7BBD /* Instances.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +92,8 @@
 		2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionalSubject.swift; sourceTree = "<group>"; };
 		2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialazibleWithJson.swift; sourceTree = "<group>"; };
 		2AA4D1A21F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouterBillParameters.swift; sourceTree = "<group>"; };
+		2AB1596C1F15526A00FF7BBD /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
+		2AB1596E1F15530600FF7BBD /* Instances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instances.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
 				2A8782011F0BE4A400A0554F /* Deputy.swift */,
 				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
+				2AB1596E1F15530600FF7BBD /* Instances.swift */,
+				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
 			);
 			name = "Realm Classes";
 			sourceTree = "<group>";
@@ -509,6 +515,7 @@
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
 				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
 				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
+				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
 				2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */,
@@ -526,6 +533,7 @@
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
 				2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */,
 				2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */,
+				2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

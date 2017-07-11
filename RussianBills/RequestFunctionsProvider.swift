@@ -11,6 +11,13 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+
+/* ================================================================================
+ 
+ Having added new methods to this class, keep it in consistency with UserServices
+ 
+================================================================================= */
+
 enum Request {
 
     // MARK: - Bill Search Request Function
@@ -160,6 +167,24 @@ enum Request {
         }
     }
 
+
+    static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->() ) {
+        if let reqestMessage = RequestRouter.instances(current: current).urlRequest {
+            Alamofire.request(reqestMessage).responseJSON { response in
+                if let contents = response.result.value {
+                    let json = JSON(contents)
+                    var instances: [Instance_] = []
+                    for item in json {
+                        let instance = Instance_(withJson: item.1)
+                        instances.append(instance)
+                    }
+                    completion(instances)
+                }
+            }
+        } else {
+            debugPrint("Cannot forge a request about instances")
+        }
+    }
 
 
 

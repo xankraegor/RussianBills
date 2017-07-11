@@ -22,6 +22,9 @@ enum UserServices {
         downloadDeputies()
         downloadFederalSubjects()
         downloadRegionalSubjects()
+        downloadInstances()
+        
+        // TODO: Completion after functions finshed their completion
         if let compl = completion {
             compl()
         }
@@ -81,6 +84,16 @@ enum UserServices {
             }
         }
     }
+    
+    static func downloadInstances(completion: VoidToVoid = nil) {
+        Request.instances() { (result: [Instance_]) in
+            RealmCoordinator.save(collection: result)
+            if let compl = completion {
+                compl()
+            }
+        }
+    }
+    
 
     // MARK:- Bills
 

@@ -22,6 +22,7 @@ enum RequestRouter: URLRequestConvertible {
     case deputy(beginsWithChars: String?, position: DeputyPosition?, current: Bool?)
     case federalSubject(current: Bool?)
     case regionalSubject(current: Bool?)
+    case instances(current: Bool?)
 
     private var method: HTTPMethod {
         return .get
@@ -43,6 +44,8 @@ enum RequestRouter: URLRequestConvertible {
             return "/federal-organs.json"
         case .regionalSubject(current: _):
             return "/regional-organs.json"
+        case .instances(current: _):
+            return "/instances.json"
         }
     }
 
@@ -69,7 +72,8 @@ enum RequestRouter: URLRequestConvertible {
 
         case let .federalSubject(current),
              let .regionalSubject(current),
-             let .committees(current):
+             let .committees(current),
+             let .instances(current):
             if let currentState = current {
                 dict["current"] = currentState ? "1" : "0"
             }
