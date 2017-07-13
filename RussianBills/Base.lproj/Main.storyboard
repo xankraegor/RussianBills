@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F2104" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,10 +23,10 @@
                             <tableViewSection headerTitle="Законопроекты" id="Lfx-oH-NUc">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="45" id="zaz-KV-Ek9">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zaz-KV-Ek9" id="ubu-Dj-fE5">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Поиск законопроектов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARW-PB-m5T">
@@ -45,10 +45,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="45" id="NJB-bo-BNc">
-                                        <rect key="frame" x="0.0" y="100.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="101" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NJB-bo-BNc" id="ylE-Yc-WPk">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Избранные законопроекты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-H1-I7E">
@@ -74,10 +74,10 @@
                             <tableViewSection headerTitle="Перечни-справочники" id="Ceb-AL-tBF">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="b2D-8C-bB7" userLabel="Committees">
-                                        <rect key="frame" x="0.0" y="201.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="202" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b2D-8C-bB7" id="Kx1-no-ev9">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитеты ГД РФ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ8-3j-csy">
@@ -99,10 +99,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="yQy-v6-ToR" userLabel="LawClasses">
-                                        <rect key="frame" x="0.0" y="246.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="247" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yQy-v6-ToR" id="bjR-2g-3eq">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отрасли законодательства" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKW-B0-Psk">
@@ -124,10 +124,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="F8t-Zh-gWh" userLabel="Topics">
-                                        <rect key="frame" x="0.0" y="291.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="292" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F8t-Zh-gWh" id="uEW-0U-o1J">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тематические блоки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpc-IO-gHx">
@@ -149,10 +149,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="J44-KC-rpo" userLabel="Federal">
-                                        <rect key="frame" x="0.0" y="336.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="337" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J44-KC-rpo" id="x9D-s1-e1n">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Федеральные органы власти с правом закинициативы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1a1-f9-yIh">
@@ -174,10 +174,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="R9R-UT-Q2d" userLabel="Regional">
-                                        <rect key="frame" x="0.0" y="381.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="382" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R9R-UT-Q2d" id="oLx-JS-mZx">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Региональные органы власти с правом закинициативы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUW-Te-hJ6">
@@ -199,10 +199,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="q0z-Fc-1pW" userLabel="Deputees">
-                                        <rect key="frame" x="0.0" y="426.5" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="427" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q0z-Fc-1pW" id="HDf-vK-pdG">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Депутаты ГД РФ и члены СФ РФ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3N-X7-fpR">
@@ -235,31 +235,53 @@
             </objects>
             <point key="canvasLocation" x="1496" y="80"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Favorites Table View Controller-->
         <scene sceneID="n0u-nz-NCg">
             <objects>
-                <tableViewController id="JRx-t1-bpu" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="zsI-1L-tgo">
+                <tableViewController id="JRx-t1-bpu" customClass="FavoritesTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="184" sectionHeaderHeight="28" sectionFooterHeight="28" id="zsI-1L-tgo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" textLabel="UiI-38-A5y" rowHeight="64" style="IBUITableViewCellStyleDefault" id="dAf-y5-Kwn">
-                                <rect key="frame" x="0.0" y="28" width="375" height="64"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteCellId" id="8fd-wm-ZaT" customClass="FavoritesTableViewCell" customModule="RussianBills" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="184"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dAf-y5-Kwn" id="hkP-sh-9yU">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8fd-wm-ZaT" id="9JO-C0-67Z">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="184"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UiI-38-A5y">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="63.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHI-S4-CF4">
+                                            <rect key="frame" x="8" y="29" width="359" height="147"/>
+                                            <string key="text">О внесении изменений в Бюджетный кодекс Российской Федерации и признании утратившими силу отдельных положений Федерального закона "О внесении изменений в Бюджетный кодекс Российской Федерации в части регулирования бюджетного процесса и приведении в соответствие с бюджетным законодательством Российской Федерации отдельных законодательных актов Российской Федерации"</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-o9-qqk">
+                                            <rect key="frame" x="8" y="8" width="359" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="51U-Yb-ZPv"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="AHI-S4-CF4" firstAttribute="leading" secondItem="9JO-C0-67Z" secondAttribute="leadingMargin" id="0JB-hh-5FD"/>
+                                        <constraint firstItem="Ong-o9-qqk" firstAttribute="trailing" secondItem="9JO-C0-67Z" secondAttribute="trailingMargin" id="3eF-n8-ThU"/>
+                                        <constraint firstItem="AHI-S4-CF4" firstAttribute="top" secondItem="Ong-o9-qqk" secondAttribute="bottom" id="8hV-f1-zb3"/>
+                                        <constraint firstItem="Ong-o9-qqk" firstAttribute="leading" secondItem="9JO-C0-67Z" secondAttribute="leadingMargin" id="apC-NW-PfN"/>
+                                        <constraint firstItem="AHI-S4-CF4" firstAttribute="bottom" secondItem="9JO-C0-67Z" secondAttribute="bottomMargin" id="bKf-Jy-d7i"/>
+                                        <constraint firstItem="Ong-o9-qqk" firstAttribute="top" secondItem="9JO-C0-67Z" secondAttribute="topMargin" id="iEg-ce-Y6r"/>
+                                        <constraint firstItem="AHI-S4-CF4" firstAttribute="trailing" secondItem="9JO-C0-67Z" secondAttribute="trailingMargin" id="ilC-I1-APg"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="AHI-S4-CF4" id="Znf-8R-C9L"/>
+                                    <outlet property="numberLabel" destination="Ong-o9-qqk" id="uxe-Uv-FqX"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -279,7 +301,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="paG-gG-Yyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="-415"/>
+            <point key="canvasLocation" x="2396" y="-415.14242878560725"/>
         </scene>
         <!--Быстрый поиск-->
         <scene sceneID="JCM-tD-7g2">
@@ -351,7 +373,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="126"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iNt-Ff-zj9" id="kUh-Ij-UFF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345-6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEG-hz-HbB">
@@ -465,7 +487,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IiQ-r3-N3S" id="T7w-aR-hbl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="132.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">

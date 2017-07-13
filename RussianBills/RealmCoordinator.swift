@@ -87,7 +87,17 @@ class RealmCoordinator {
         }
     }
 
-    
+    static func loadFavoriteBills()->Results<Bill_> {
+        if let rlm = try? Realm() {
+            let obj = rlm.objects(Bill_.self)
+            return obj.filter("favorite == true")
+        } else {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
+        }
+        
+    }
+
+
     // MARK:- Count data in Realm
 
     static func countObjects(ofType type: Object.Type) -> Int {
