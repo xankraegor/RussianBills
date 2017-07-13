@@ -220,6 +220,31 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="5t0-tw-brD" userLabel="Deputees">
+                                        <rect key="frame" x="0.0" y="472" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5t0-tw-brD" id="xDj-Ko-DKc">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Инстанции рассмотрения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dby-L2-Kee">
+                                                    <rect key="frame" x="20" y="12" width="322" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="dby-L2-Kee" secondAttribute="bottom" constant="11.5" id="CTR-fU-aEk"/>
+                                                <constraint firstAttribute="trailing" secondItem="dby-L2-Kee" secondAttribute="trailing" id="PWF-a1-sal"/>
+                                                <constraint firstItem="dby-L2-Kee" firstAttribute="leading" secondItem="xDj-Ko-DKc" secondAttribute="leading" constant="20" symbolic="YES" id="Z7T-e5-f2D"/>
+                                                <constraint firstItem="dby-L2-Kee" firstAttribute="top" secondItem="xDj-Ko-DKc" secondAttribute="top" constant="12" id="gxA-Hp-ngN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="iyB-xj-RN1" kind="show" identifier="InstancesSegue" id="wXA-hc-24i"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -565,6 +590,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wXg-FX-UXV"/>
+        <segue reference="XZ3-13-8e4"/>
     </inferredMetricsTieBreakers>
 </document>

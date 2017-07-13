@@ -26,16 +26,30 @@ class SimpleTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         switch objectsToDisplay! {
-        case .lawClasses: UserServices.downloadLawCalsses { [weak self] in
-            self?.updateTableWithNewData()}
-        case .topics: UserServices.downloadTopics { [weak self] in
-            self?.updateTableWithNewData()}
-        case .committees: UserServices.downloadComittees { [weak self] in
-            self?.updateTableWithNewData()}
-        case .federalSubjects: UserServices.downloadFederalSubjects { [weak self] in
-            self?.updateTableWithNewData()}
-        case .regionalSubjects: UserServices.downloadFederalSubjects { [weak self] in
-            self?.updateTableWithNewData()}
+        case .lawClasses:
+            UserServices.downloadLawCalsses { [weak self] in
+            self?.updateTableWithNewData()
+            }
+        case .topics:
+            UserServices.downloadTopics { [weak self] in
+            self?.updateTableWithNewData()
+            }
+        case .committees:
+            UserServices.downloadComittees { [weak self] in
+            self?.updateTableWithNewData()
+            }
+        case .federalSubjects:
+            UserServices.downloadFederalSubjects { [weak self] in
+            self?.updateTableWithNewData()
+            }
+        case .regionalSubjects:
+            UserServices.downloadFederalSubjects { [weak self] in
+            self?.updateTableWithNewData()
+            }
+        case .instances:
+            UserServices.downloadInstances() { [weak self] in
+                self?.updateTableWithNewData()
+            }
         }
     }
 
@@ -52,6 +66,7 @@ class SimpleTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch objectsToDisplay! {
+
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = RealmCoordinator.loadObject(ofType: LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
@@ -62,6 +77,12 @@ class SimpleTableViewController: UITableViewController {
             let objct = RealmCoordinator.loadObject(ofType: Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
              return cell
+        case .instances:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
+            let objct = RealmCoordinator.loadObject(ofType: Instance_.self, sortedBy: "id", ascending: false, byIndex: indexPath.row)
+            cell.textLabel?.text = objct.name
+            return cell
+
         case .federalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
             let objct = RealmCoordinator.loadObject(ofType: FederalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)

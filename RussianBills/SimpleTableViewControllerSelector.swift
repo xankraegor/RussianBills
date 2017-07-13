@@ -15,6 +15,7 @@ enum SimpleTableViewControllerSelector: String {
     case committees
     case federalSubjects
     case regionalSubjects
+    case instances
 
     var description: String {
         return self.rawValue
@@ -32,6 +33,8 @@ enum SimpleTableViewControllerSelector: String {
             return "Федеральные органы власти ОПЗИ"
         case .regionalSubjects:
             return "Региональные органы власти ОПЗИ"
+        case .instances:
+            return "Инстанции рассмотрения"
         }
     }
 
@@ -47,6 +50,8 @@ enum SimpleTableViewControllerSelector: String {
             return FederalSubject_.self
         case .regionalSubjects:
             return RegionalSubject_.self
+        case .instances:
+            return Instance_.self
         }
     }
 }
