@@ -21,7 +21,6 @@ struct BillSearchQuery {
     /// ПАРАМЕТРЫ С ПРОИЗВОЛЬНЫМИ ЗНАЧЕНИЯМИ
 
     var name: String?
-    // TODO: - Test number parameter in request, seems to be an Integer in response (how ???)
     var number: String?
     var registrationStart: String?
     var registrationEnd: String?
@@ -60,14 +59,17 @@ struct BillSearchQuery {
 
     // MARK: - Methods
     
-    func hasAnyFilledField()->Bool {
-        // TODO: Mirroring solution
-        //        let mirror = Mirror(reflecting: self)
-        //        let count = mirror.children.filter{$0.value is Optional<Any>.Type}.count
-        //        debugPrint("BillSearchQuery has \(count) filled in fields")
-        //        return count > 0
-
-        return (name != nil) || (number != nil)
+    func hasAnyFilledFields()->Bool {
+        let mirror = Mirror(reflecting: self)
+        var count = 0
+        for child in mirror.children {
+            let val = child.value
+            let mir = Mirror(reflecting: val)
+            if mir.displayStyle == .optional, mir.children.first != nil {
+                count += 1
+            }
+        }
+        return count > 0
     }
 
     func produceFilter()->String? {

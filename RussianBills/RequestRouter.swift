@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-// Based on http://api.duma.gov.ru/pages/dokumentatsiya/poisk-po-zakonoproektam
+// Based on http://api.duma.gov.ru/
 
 enum RequestRouter: URLRequestConvertible {
 
@@ -93,6 +93,7 @@ enum RequestRouter: URLRequestConvertible {
         let url = try RequestRouter.baseUrl.asURL().appendingPathComponent(apikey)
         let urlRequest = URLRequest(url: url.appendingPathComponent(path))
         let request =  try URLEncoding.default.encode(urlRequest, with: parameters)
+        debugPrint("Request Router forged a request \(request)")
         return request
     }
 

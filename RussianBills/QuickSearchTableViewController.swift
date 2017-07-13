@@ -44,7 +44,7 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if query.hasAnyFilledField() {
+        if query.hasAnyFilledFields() {
             return loadedBills.count
         } else {
             return 0
@@ -73,7 +73,7 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
 
         refillQueryFromTextFields()
 
-        if query.hasAnyFilledField() {
+        if query.hasAnyFilledFields() {
             notificationToken = produceNotificationTokenForBill(havingFilter: query.produceFilter(), completion: { (Void) in
                 reloadTableUsingNewData()
             })
