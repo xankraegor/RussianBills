@@ -101,7 +101,7 @@ extension RequestRouter {
         }
 
         /// soexecutor_committee — идентификатор комитета-соисполнителя
-        if let coexecCommittee = bill.comitteeResponsible {
+        if let coexecCommittee = bill.comitteeCoexecutor {
             dict["soexecutor_committee"] = coexecCommittee.id
         }
 
