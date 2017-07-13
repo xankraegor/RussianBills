@@ -30,37 +30,72 @@ enum UserDefaultsCoordinator: String {
     /// Checks, if reference values of selected self type were updated prior to (now - defaultReferenceValuesUpdateTimeout)
     public func referenceValuesUpdateRequired()->Bool {
         let key = variableNameForUpdateTimeout()
-        if let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double? {
-            return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSinceReferenceDate
-        } else {
+        guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
+            debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) requires to be updated, because there's no timestamp")
             return true
         }
+
+        let now = Date()
+        let updateNeeded = previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < now.timeIntervalSinceReferenceDate
+        debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) \(!updateNeeded ? "does not have to be updated" : "requires update"), timestamp \(previousUpdateTimestamp)")
+        return updateNeeded
     }
     
     
 
-    public static func updateReferenceValuesTimestampUsingClassType<T>(ofCollection: [T]) where T: Object {
-        
-        switch T.className() {
-        case FederalSubject_.className():
-            UserDefaultsCoordinator.federalSubject.updateReferanceValuesTimestamp()
-        case RegionalSubject_.className():
-            UserDefaultsCoordinator.regionalSubject.updateReferanceValuesTimestamp()
-        case Comittee_.className():
-            UserDefaultsCoordinator.committee.updateReferanceValuesTimestamp()
-        case LawClass_.className():
-            UserDefaultsCoordinator.lawClass.updateReferanceValuesTimestamp()
-        case Deputy_.className():
-            UserDefaultsCoordinator.deputy.updateReferanceValuesTimestamp()
-        case Topic_.className():
-            UserDefaultsCoordinator.topics.updateReferanceValuesTimestamp()
-        case Instance_.className():
-            UserDefaultsCoordinator.instances.updateReferanceValuesTimestamp()
-// TODO:- Stage implementation
-//        case Stage_.className():
-//            UserDefaultsCoordinator.stage.updateReferanceValuesTimestamp()
-        default:
+    public static func updateReferenceValuesTimestampUsingClassType(ofCollection: [Object]) {
+        guard ofCollection.count > 0 else {
             return
+        }
+
+        if ofCollection.first is FederalSubject_ {
+            UserDefaultsCoordinator.federalSubject.updateReferanceValuesTimestamp()
+            return
+        }
+
+
+        if ofCollection.first is RegionalSubject_ {
+            UserDefaultsCoordinator.regionalSubject.updateReferanceValuesTimestamp()
+            return
+        }
+
+        if ofCollection.first is Comittee_ {
+            UserDefaultsCoordinator.committee.updateReferanceValuesTimestamp()
+            return
+        }
+
+        if ofCollection.first is LawClass_ {
+            UserDefaultsCoordinator.lawClass.updateReferanceValuesTimestamp()
+            return
+        }
+
+        if ofCollection.first is Deputy_ {
+            UserDefaultsCoordinator.deputy.updateReferanceValuesTimestamp()
+            return
+        }
+
+        if ofCollection.first is Topic_ {
+            UserDefaultsCoordinator.topics.updateReferanceValuesTimestamp()
+            return
+        }
+
+        if ofCollection.first is Instance_ {
+            UserDefaultsCoordinator.instances.updateReferanceValuesTimestamp()
+            return
+        }
+
+        debugPrint("∆ updateReferenceValuesTimestampUsingClassType: no key updated")
+
+
+        // TODO:- Stage implementation
+        //        case Stage_.className():
+        //            UserDefaultsCoordinator.stage.updateReferanceValuesTimestamp()
+    }
+
+    public static func DEBUG_printUserDefaults() {
+        debugPrint("USER DEFAULTS CONTENTS")
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            debugPrint("\(key) = \(value) \n")
         }
     }
     
@@ -76,5 +111,5 @@ enum UserDefaultsCoordinator: String {
         let key = variableNameForUpdateTimeout()
         UserDefaults.standard.set(Date().timeIntervalSinceReferenceDate, forKey: key)
     }
-    
+
 }

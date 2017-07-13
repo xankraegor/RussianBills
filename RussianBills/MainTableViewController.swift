@@ -12,8 +12,8 @@ class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Realm DB Path: \(RealmCoordinator.defaultRealmPath)\n")
-        UserServices.forcedDownloadAllSupportCategories()
+        debugPrint("Realm DB Path: \(RealmCoordinator.defaultRealmPath())\n")
+        UserServices.downloadAllReferenceCategories()
     }
 
     // MARK: - Navigation

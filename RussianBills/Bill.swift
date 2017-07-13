@@ -20,15 +20,21 @@ class Bill_: Object, InitializableWithJson {
     dynamic var introductionDate: String = ""
     dynamic var url: String = ""
     dynamic var transcriptUrl: String = ""
+    dynamic var favorite: Bool = false
 
 //    var lastEvent: [String : String]
 //    var subject: [String: String]
 //
-//    var comitteeResponsible: Comittee_
-//    var comitteeProfile: [Comittee_]
-//    var comitteeCoexecutor: [Comittee_]
-
-    convenience required init(withJson json: JSON) {
+    //    var comitteeResponsible: Comittee_
+    //    var comitteeProfile: [Comittee_]
+    //    var comitteeCoexecutor: [Comittee_]
+    
+    convenience  init(withJson json: JSON, favoriteMark: Bool = false) {
+        self.init(withJson: json)
+        favorite = favoriteMark
+    }
+    
+    internal convenience required init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
         lawType = LawType(rawValue: json["type"]["id"].intValue)!
@@ -38,7 +44,8 @@ class Bill_: Object, InitializableWithJson {
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
     }
-
+    
+    
     override static func primaryKey()->String {
         return "id"
     }

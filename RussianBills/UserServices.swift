@@ -23,14 +23,14 @@ enum UserServices {
 
     // MARK:- Download Reference Categories
 
-    static func forcedDownloadAllSupportCategories(completion: VoidToVoid = nil) {
-        downloadComittees()
-        downloadLawCalsses()
-        downloadTopics()
-        downloadDeputies()
-        downloadFederalSubjects()
-        downloadRegionalSubjects()
-        downloadInstances()
+    static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
+        downloadComittees(forced: forced)
+        downloadLawCalsses(forced: forced)
+        downloadTopics(forced: forced)
+        downloadDeputies(forced: forced)
+        downloadFederalSubjects(forced: forced)
+        downloadRegionalSubjects(forced: forced)
+        downloadInstances(forced: forced)
         
         // TODO:- Completion after functions finshed their completion
         if let compl = completion {
@@ -135,15 +135,14 @@ enum UserServices {
 
     // По умолчанию загружается не более 20 штук за раз!
     // TODO:- Сделать выгрузку большего количества или автоматическую подгрузку
-    static func downloadBills(withQuery query: BillSearchQuery, completion: VoidToVoid = nil) {
+    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_])->Void)? = nil) {
             Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
             RealmCoordinator.save(collection: result)
                 if let compl = completion {
-                    compl()
+                    compl(result)
                 }
         })
     }
-
 
 
 }

@@ -58,4 +58,38 @@ struct BillSearchQuery {
     var pageLimit: BillSearchQueryPageLimit?
     var sortType: BillSearchQuerySortType?
 
+    // MARK: - Methods
+    
+    func hasAnyFilledField()->Bool {
+        // TODO: Mirroring solution
+        //        let mirror = Mirror(reflecting: self)
+        //        let count = mirror.children.filter{$0.value is Optional<Any>.Type}.count
+        //        debugPrint("BillSearchQuery has \(count) filled in fields")
+        //        return count > 0
+
+        return (name != nil) || (number != nil)
+    }
+
+    func produceFilter()->String? {
+        // TODO: Mirroring solution?
+        var output = ""
+
+        func add(toText: inout String, text: String) {
+            if output.characters.count > 0 {
+                toText = toText + " && " + text
+            } else {
+                toText = text
+            }
+        }
+
+        if name != nil {
+            add(toText: &output, text: "name contains '\(name!)'")
+        }
+        if number != nil {
+            add(toText: &output, text: "number == \(number!)")
+        }
+
+        return output
+    }
+
 }

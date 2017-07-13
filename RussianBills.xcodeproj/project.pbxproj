@@ -24,6 +24,7 @@
 		2A6315B61F0AE1B400611BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B51F0AE1B400611BD8 /* Assets.xcassets */; };
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
 		2A6315C41F0AE1B400611BD8 /* RussianBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */; };
+		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
@@ -42,6 +43,7 @@
 		2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596C1F15526A00FF7BBD /* Stage.swift */; };
 		2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596E1F15530600FF7BBD /* Instances.swift */; };
 		2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
+		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +80,7 @@
 		2A6315BF1F0AE1B400611BD8 /* RussianBillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RussianBillsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianBillsTests.swift; sourceTree = "<group>"; };
 		2A6315C51F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
 		2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		2AB1596C1F15526A00FF7BBD /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		2AB1596E1F15530600FF7BBD /* Instances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instances.swift; sourceTree = "<group>"; };
 		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
+		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 		2A4ED0E21F0DB7EC008BF1B3 /* Other Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */,
 				2A6315B51F0AE1B400611BD8 /* Assets.xcassets */,
 				2A6315BA1F0AE1B400611BD8 /* Info.plist */,
 				2A4FDBD01F0EBB93005C59AE /* Keys.plist */,
@@ -202,12 +207,12 @@
 			isa = PBXGroup;
 			children = (
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
+				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2AD1E93A1F127AB100CA0D89 /* FavoritesTable */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
-				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
-				2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */,
+				2AB31E811F16A15B005E681F /* QuickSearchScene */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
 				2AA4D19F1F0C127500EE2DA3 /* Requests */,
 				2AA4D1961F0C026600EE2DA3 /* Model */,
@@ -290,6 +295,15 @@
 				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
 			);
 			name = "Reference Values";
+			sourceTree = "<group>";
+		};
+		2AB31E811F16A15B005E681F /* QuickSearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */,
+				2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */,
+			);
+			name = QuickSearchScene;
 			sourceTree = "<group>";
 		};
 		2AD1E93A1F127AB100CA0D89 /* FavoritesTable */ = {
@@ -522,6 +536,7 @@
 				2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */,
 				2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */,
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
+				2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */,
 				2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */,
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
@@ -530,6 +545,7 @@
 				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
+				2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */,
 				2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */,
 				2A98F1721F0AF3B4004F5524 /* Comittee.swift in Sources */,
 				2A4FDBD91F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift in Sources */,
