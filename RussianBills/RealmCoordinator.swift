@@ -70,15 +70,14 @@ class RealmCoordinator {
         }
     }
     
-    static func loadBills(matchingQuery: BillSearchQuery, sortedBy sortParameter: String, ascending: Bool) -> [Bill_] {
-        let realm = try? Realm()
-        if let rlm = realm {
+    static func loadBills(matchingQuery query: BillSearchQuery, sortedBy sortParameter: String, sortDirection ascending: Bool) -> [Bill_] {
+        if let rlm = try? Realm() {
             var objects = rlm.objects(Bill_.self)
             // TODO: Full mirroring
-            if let name = matchingQuery.name {
+            if let name = query.name {
                 objects = objects.filter("name contains '\(name)'")
             }
-            if let number = matchingQuery.number {
+            if let number = query.number {
                 objects = objects.filter("number contains '\(number)'")
             }
 
