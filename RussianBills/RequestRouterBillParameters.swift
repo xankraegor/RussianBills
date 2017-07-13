@@ -133,7 +133,7 @@ extension RequestRouter {
         }
         /// limit — количество результатов на странице, допустимые значения: 5, 10, 20 (по умолчанию)
         if let pageLimit = bill.pageLimit {
-            dict["page"] = pageLimit
+            dict["limit"] = pageLimit
         }
 
         /// sort — способ сортировки результатов, по умолчанию равно last_event_date, допустимые значения:
