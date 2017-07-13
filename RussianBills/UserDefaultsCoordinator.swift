@@ -84,12 +84,11 @@ enum UserDefaultsCoordinator: String {
             return
         }
 
-        debugPrint("∆ updateReferenceValuesTimestampUsingClassType: no key updated")
+        if ofCollection.first is Stage_ {
+            UserDefaultsCoordinator.stage.updateReferanceValuesTimestamp()
+            return
+        }
 
-
-        // TODO:- Stage implementation
-        //        case Stage_.className():
-        //            UserDefaultsCoordinator.stage.updateReferanceValuesTimestamp()
     }
 
     public static func DEBUG_printUserDefaults() {
