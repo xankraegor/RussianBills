@@ -36,18 +36,7 @@ class RussianBillsTests: XCTestCase {
 
     }
     
-    func billSearchRequestMirroringTest() {
-        var query = BillSearchQuery()
-        query.name = "курения"
-        query.status = BillStatus.signed
-        query.registrationStart = "2005-01-01"
-        XCTAssert(query.hasAnyFilledFields() == true)
-        query.name = nil
-        query.status = nil
-        query.registrationStart = nil
-        XCTAssert(query.hasAnyFilledFields() == false)
-    }
-
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
