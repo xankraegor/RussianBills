@@ -28,12 +28,12 @@ class Bill_: Object, InitializableWithJson {
     //    var comitteeResponsible: Comittee_
     //    var comitteeProfile: [Comittee_]
     //    var comitteeCoexecutor: [Comittee_]
-    
+
     convenience  init(withJson json: JSON, favoriteMark: Bool = false) {
         self.init(withJson: json)
         favorite = favoriteMark
     }
-    
+
     internal convenience required init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
@@ -44,9 +44,8 @@ class Bill_: Object, InitializableWithJson {
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
     }
-    
-    
-    override static func primaryKey()->String {
+
+    override static func primaryKey() -> String {
         return "id"
     }
 }

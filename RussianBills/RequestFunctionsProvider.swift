@@ -11,7 +11,6 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-
 /* ================================================================================
  
  Having added new methods to this enum, keep it in consistency with UserServices
@@ -22,7 +21,7 @@ enum Request {
 
     // MARK: - Bill Search Request Function
 
-    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_])->() ) {
+    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_])->Void ) {
         if let reqestMessage = RequestRouter.search(bill: bill).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -55,10 +54,9 @@ enum Request {
 //        }
 //    }
 
-
     // MARK: - Other request Functions
 
-    static func comittees(current: Bool? = nil, completion: @escaping ([Comittee_])->() ) {
+    static func comittees(current: Bool? = nil, completion: @escaping ([Comittee_])->Void ) {
         if let reqestMessage = RequestRouter.committees(current: current).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -76,7 +74,7 @@ enum Request {
         }
     }
 
-    static func lawClasses(completion: @escaping ([LawClass_])->()) {
+    static func lawClasses(completion: @escaping ([LawClass_])->Void) {
         if let reqestMessage = RequestRouter.classes.urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -94,7 +92,7 @@ enum Request {
         }
     }
 
-    static func topics(completion: @escaping ([Topic_])->()) {
+    static func topics(completion: @escaping ([Topic_])->Void) {
         if let reqestMessage = RequestRouter.topics.urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -112,7 +110,7 @@ enum Request {
         }
     }
 
-    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_])->() ) {
+    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_])->Void ) {
         if let reqestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -130,7 +128,7 @@ enum Request {
         }
     }
 
-    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_])->() ) {
+    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_])->Void ) {
         if let reqestMessage = RequestRouter.federalSubject(current: current).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -149,7 +147,7 @@ enum Request {
         }
     }
 
-    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_])->() ) {
+    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_])->Void ) {
         if let reqestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -167,8 +165,7 @@ enum Request {
         }
     }
 
-
-    static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->() ) {
+    static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->Void ) {
         if let reqestMessage = RequestRouter.instances(current: current).urlRequest {
             Alamofire.request(reqestMessage).responseJSON { response in
                 if let contents = response.result.value {
@@ -186,7 +183,4 @@ enum Request {
         }
     }
 
-
-
-    
 }

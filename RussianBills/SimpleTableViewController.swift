@@ -47,7 +47,7 @@ class SimpleTableViewController: UITableViewController {
             self?.updateTableWithNewData()
             }
         case .instances:
-            UserServices.downloadInstances() { [weak self] in
+            UserServices.downloadInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
         }
@@ -63,29 +63,28 @@ class SimpleTableViewController: UITableViewController {
         return RealmCoordinator.countObjects(ofType: (objectsToDisplay?.typeUsedForObjects)!)
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch objectsToDisplay! {
 
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = RealmCoordinator.loadObject(ofType: LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
              return cell
         case .topics:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = RealmCoordinator.loadObject(ofType: Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
              return cell
         case .instances:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = RealmCoordinator.loadObject(ofType: Instance_.self, sortedBy: "id", ascending: false, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(Instance_.self, sortedBy: "id", ascending: false, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
             return cell
 
         case .federalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = RealmCoordinator.loadObject(ofType: FederalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(FederalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -96,7 +95,7 @@ class SimpleTableViewController: UITableViewController {
              return cell
         case .regionalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = RealmCoordinator.loadObject(ofType: RegionalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(RegionalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -107,7 +106,7 @@ class SimpleTableViewController: UITableViewController {
              return cell
         case .committees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = RealmCoordinator.loadObject(ofType: Comittee_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = RealmCoordinator.loadObject(Comittee_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -119,7 +118,6 @@ class SimpleTableViewController: UITableViewController {
         }
 
     }
-
 
     private func updateTableWithNewData() {
         tableView.beginUpdates()

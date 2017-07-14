@@ -21,7 +21,6 @@ class FavoritesTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 184
     }
 
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,7 +30,6 @@ class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favorites.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 

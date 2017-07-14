@@ -11,9 +11,9 @@ import Foundation
 extension RequestRouter {
 
     /// Paremeters for bill search query
-    internal static func forgeBillRequestParameters(forQuery bill: BillSearchQuery)->[String: Any] {
+    internal static func forgeBillRequestParameters(forQuery bill: BillSearchQuery) -> [String: Any] {
         var dict = Dictionary<String, Any>()
-        
+
         /// ПАРАМЕТРЫ С ЗАДАННЫМИ ЗНАЧЕНИЯМИ
 
         /// law_type — тип законопроекта, возможны следующие значения:
@@ -124,7 +124,7 @@ extension RequestRouter {
         /// stage — идентификатор стадии рассмотрения
         /// phase — идентификатор события рассмотрения
         /// Параметры stage и phase взаимоисключающие. Параметр phase позволяет фильтровать по типу события, т.е. производить более точную фильтрацию по сравнению с параметром stage.
-        
+
         /// ПРОЧИЕ ПАРАМЕТРЫ
 
         /// page — номер запрашиваемой страницы результатов, по умолчанию равно 1

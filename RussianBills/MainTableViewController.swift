@@ -39,5 +39,4 @@ class MainTableViewController: UITableViewController {
         }
     }
 
-
 }

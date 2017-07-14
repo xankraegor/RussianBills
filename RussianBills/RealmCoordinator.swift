@@ -18,7 +18,7 @@ class RealmCoordinator {
     // MARK: Write and update existing data in Realm
 
     static func save(collection: [Object]) {
-        
+
         do {
             let realm = try Realm()
             try realm.write {
@@ -26,9 +26,9 @@ class RealmCoordinator {
                     realm.add(obj, update: true)
                 }
             }
-            
+
             UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
-            
+
         } catch let error {
             fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
         }
@@ -45,12 +45,12 @@ class RealmCoordinator {
         } catch let error {
             fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
         }
-        
+
     }
 
     // MARK: Load data from Realm
 
-    static func loadObjects<T: Object>(OfType: T.Type) -> Results<T>? {
+    static func loadObjects<T: Object>(_ ofType: T.Type) -> Results<T>? {
         let realm = try? Realm()
         if let rlm = realm {
             return rlm.objects(T.self)
@@ -58,9 +58,8 @@ class RealmCoordinator {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
     }
-    
-    
-    static func loadObject<T: Object>(ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
+
+    static func loadObject<T: Object>(_ ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
         let realm = try? Realm()
         if let rlm = realm {
             let objs = rlm.objects(T.self).sorted(byKeyPath: sortParameter, ascending: ascending)
@@ -69,7 +68,7 @@ class RealmCoordinator {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
     }
-    
+
     static func loadBills(matchingQuery query: BillSearchQuery, sortedBy sortParameter: String, sortDirection ascending: Bool) -> [Bill_] {
         if let rlm = try? Realm() {
             var objects = rlm.objects(Bill_.self)
@@ -87,18 +86,17 @@ class RealmCoordinator {
         }
     }
 
-    static func loadFavoriteBills()->Results<Bill_> {
+    static func loadFavoriteBills() -> Results<Bill_> {
         if let rlm = try? Realm() {
             let obj = rlm.objects(Bill_.self)
             return obj.filter("favorite == true")
         } else {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
-        
+
     }
 
-
-    // MARK:- Count data in Realm
+    // MARK: - Count data in Realm
 
     static func countObjects(ofType type: Object.Type) -> Int {
         let realm = try? Realm()
@@ -108,7 +106,7 @@ class RealmCoordinator {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
     }
-    
+
     static func countBills(matchingQuery: BillSearchQuery) -> Int {
         let realm = try? Realm()
         if let rlm = realm {
@@ -124,7 +122,6 @@ class RealmCoordinator {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
         }
     }
-
 
     // MARK: - Delete data from realm
 
@@ -143,7 +140,5 @@ class RealmCoordinator {
         }
 
     }
-
-    
 
 }

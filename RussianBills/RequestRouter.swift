@@ -97,9 +97,9 @@ enum RequestRouter: URLRequestConvertible {
         return request
     }
 
-    // MARK:- Private API and app keys
+    // MARK: - Private API and app keys
 
-    internal func appToken()->String {
+    internal func appToken() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let token = dict["appToken"] as? String {
                 return token
@@ -108,7 +108,7 @@ enum RequestRouter: URLRequestConvertible {
         fatalError("Cannot get app key from Keys.plist")
     }
 
-    private func apiKey()->String {
+    private func apiKey() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let key = dict["apiKey"] as? String {
                 return key

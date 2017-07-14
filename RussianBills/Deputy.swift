@@ -25,7 +25,7 @@ class Deputy_: Object, InitializableWithJson {
         isCurrent = json["isCurrent"].boolValue
     }
 
-    override static func primaryKey()->String {
+    override static func primaryKey() -> String {
         return "id"
     }
 }
