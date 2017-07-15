@@ -21,7 +21,7 @@ class Topic_: Object, InitializableWithJson {
         name = json["name"].stringValue
     }
 
-    override static func primaryKey()->String {
+    override static func primaryKey() -> String {
         return "id"
     }
 }

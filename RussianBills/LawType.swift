@@ -17,15 +17,13 @@ import Foundation
     case constitutionalAmendment = 41
 
     var description: String {
-        get {
-            switch self {
-            case .federalLaw:
-                return "Федеральный закон"
-            case .federalConstitionalLaw:
-                return "Федеральный конституционный закон"
-            case .constitutionalAmendment:
-                return "Закон о поправках к Конституции РФ"
-            }
+        switch self {
+        case .federalLaw:
+            return "Федеральный закон"
+        case .federalConstitionalLaw:
+            return "Федеральный конституционный закон"
+        case .constitutionalAmendment:
+            return "Закон о поправках к Конституции РФ"
         }
     }
 

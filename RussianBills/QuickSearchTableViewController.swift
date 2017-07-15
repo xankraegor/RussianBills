@@ -11,17 +11,17 @@ import RealmSwift
 
 class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    typealias VoidToVoid = ((Void)->Void)
+    typealias VoidToVoid = (() -> Void)
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
     @IBOutlet weak var number2TextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    var query = BillSearchQuery()
-    var loadedBills = Array<Bill_>()
 
-    var notificationToken: NotificationToken? = nil
+    var query = BillSearchQuery()
+    var loadedBills = [Bill_]()
+
+    var notificationToken: NotificationToken?
 
     // MARK: - View Life Cycle
 
@@ -50,7 +50,7 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
             return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
         let bill = loadedBills[indexPath.row]
@@ -66,18 +66,18 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
         self.dismiss(animated: true, completion: nil)
     }
 
-    
     // MARK: - Actions
-    
+
     @IBAction func searchButtonPressed(_ sender: UIButton) {
 
         refillQueryFromTextFields()
 
         if query.hasAnyFilledFields() {
-            notificationToken = produceNotificationTokenForBill(havingFilter: query.produceFilter(), completion: { (Void) in
+            notificationToken = produceNotificationTokenForBill(havingFilter: query.produceFilter(),
+                                                                completion: { (_) in
                 reloadTableUsingNewData()
             })
-            
+
             debugPrint("searchButtonPressed: Query got filled fields")
 
             UserServices.downloadBills(withQuery: query, completion: { result in
@@ -120,12 +120,16 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     // MARK: - Realm Notifications
-    func produceNotificationTokenForBill(havingFilter: String?, completion: VoidToVoid) -> NotificationToken?  {
-        let realm = try! Realm()
-        let results = realm.objects(Bill_.self)
-        return results.addNotificationBlock { [weak self] _ in
-            self?.reloadTableUsingNewData()
-        }
+    func produceNotificationTokenForBill(havingFilter: String?, completion: VoidToVoid) ->
+        NotificationToken? {
+            if let realm = try? Realm() {
+                let results = realm.objects(Bill_.self)
+                return results.addNotificationBlock { [weak self] _ in
+                    self?.reloadTableUsingNewData()
+                }
+            } else {
+                return nil
+            }
     }
 
 }

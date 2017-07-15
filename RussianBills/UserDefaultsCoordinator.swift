@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 enum UserDefaultsCoordinator: String {
-    
+
     case federalSubject
     case regionalSubject
     case committee
@@ -18,17 +18,17 @@ enum UserDefaultsCoordinator: String {
     case deputy
     case topics
     case instances
-    
+
     // TODO:- Stage implementation
     case stage
-    
+
     /// 24 hrs in seconds
     static let referenceValuesUpdateTimeout: TimeInterval = 86400
-    
-    // MARK:- Public methods
-    
+
+    // MARK: - Public methods
+
     /// Checks, if reference values of selected self type were updated prior to (now - defaultReferenceValuesUpdateTimeout)
-    public func referenceValuesUpdateRequired()->Bool {
+    public func referenceValuesUpdateRequired() -> Bool {
         let key = variableNameForUpdateTimeout()
         guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
             debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) requires to be updated, because there's no timestamp")
@@ -40,8 +40,6 @@ enum UserDefaultsCoordinator: String {
         debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) \(!updateNeeded ? "does not have to be updated" : "requires update"), timestamp \(previousUpdateTimestamp)")
         return updateNeeded
     }
-    
-    
 
     public static func updateReferenceValuesTimestampUsingClassType(ofCollection: [Object]) {
         guard ofCollection.count > 0 else {
@@ -52,7 +50,6 @@ enum UserDefaultsCoordinator: String {
             UserDefaultsCoordinator.federalSubject.updateReferanceValuesTimestamp()
             return
         }
-
 
         if ofCollection.first is RegionalSubject_ {
             UserDefaultsCoordinator.regionalSubject.updateReferanceValuesTimestamp()
@@ -97,15 +94,15 @@ enum UserDefaultsCoordinator: String {
             debugPrint("\(key) = \(value) \n")
         }
     }
-    
-    // MARK:- Private methods
-    
+
+    // MARK: - Private methods
+
     /// Returns variable name in UserDefaults to hold last updated timestamp
     /// i.g. lawClassUpdateTimeout
-    private func variableNameForUpdateTimeout()->String {
+    private func variableNameForUpdateTimeout() -> String {
         return self.rawValue + "UpdateTimeout"
     }
-    
+
     private func updateReferanceValuesTimestamp() {
         let key = variableNameForUpdateTimeout()
         UserDefaults.standard.set(Date().timeIntervalSinceReferenceDate, forKey: key)

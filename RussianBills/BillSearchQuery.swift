@@ -58,8 +58,8 @@ struct BillSearchQuery {
     var sortType: BillSearchQuerySortType?
 
     // MARK: - Methods
-    
-    func hasAnyFilledFields()->Bool {
+
+    func hasAnyFilledFields() -> Bool {
         let mirror = Mirror(reflecting: self)
         var count = 0
         for child in mirror.children {
@@ -72,13 +72,13 @@ struct BillSearchQuery {
         return count > 0
     }
 
-    func produceFilter()->String? {
+    func produceFilter() -> String? {
         // TODO: Mirroring solution?
         var output = ""
 
         func add(toText: inout String, text: String) {
             if output.characters.count > 0 {
-                toText = toText + " && " + text
+                toText += " && " + text
             } else {
                 toText = text
             }

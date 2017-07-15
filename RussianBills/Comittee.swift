@@ -27,7 +27,7 @@ import SwiftyJSON
         stopDate = json["stopDate"].stringValue
     }
 
-    override static func primaryKey()->String {
+    override static func primaryKey() -> String {
         return "id"
     }
 

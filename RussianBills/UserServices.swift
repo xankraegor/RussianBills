@@ -10,18 +10,16 @@ import Foundation
 import RealmSwift
 import Alamofire
 
-
 /* ================================================================================
  
  Having added new methods to this enum, keep it in consistency with RequestFunctionsProvider
  
  ================================================================================= */
 
-
 enum UserServices {
-    typealias VoidToVoid = ((Void)->Void)?
+    typealias VoidToVoid = (() -> Void)?
 
-    // MARK:- Download Reference Categories
+    // MARK: - Download Reference Categories
 
     static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
         downloadComittees(forced: forced)
@@ -31,7 +29,7 @@ enum UserServices {
         downloadFederalSubjects(forced: forced)
         downloadRegionalSubjects(forced: forced)
         downloadInstances(forced: forced)
-        
+
         // TODO:- Completion after functions finshed their completion
         if let compl = completion {
             compl()
@@ -42,7 +40,7 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
             return
         }
-        
+
         Request.comittees(current: true, completion: { (result: [Comittee_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
@@ -55,8 +53,8 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.lawClasses() { (result: [LawClass_]) in
+
+        Request.lawClasses { (result: [LawClass_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
@@ -68,8 +66,8 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.topics() { (result: [Topic_]) in
+
+        Request.topics { (result: [Topic_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
@@ -81,8 +79,8 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.deputies() { (result: [Deputy_]) in
+
+        Request.deputies { (result: [Deputy_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
@@ -94,8 +92,8 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.federalSubjects() { (result: [FederalSubject_]) in
+
+        Request.federalSubjects { (result: [FederalSubject_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
@@ -108,34 +106,33 @@ enum UserServices {
         guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.regionalSubjects() { (result: [RegionalSubject_]) in
+
+        Request.regionalSubjects { (result: [RegionalSubject_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
             }
         }
     }
-    
+
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
         guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
             return
         }
-        
-        Request.instances() { (result: [Instance_]) in
+
+        Request.instances { (result: [Instance_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
             }
         }
     }
-    
 
-    // MARK:- Bills
+    // MARK: - Bills
 
     // По умолчанию загружается не более 20 штук за раз!
     // TODO:- Сделать выгрузку большего количества или автоматическую подгрузку
-    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_])->Void)? = nil) {
+    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
             Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
             RealmCoordinator.save(collection: result)
                 if let compl = completion {
@@ -143,6 +140,5 @@ enum UserServices {
                 }
         })
     }
-
 
 }

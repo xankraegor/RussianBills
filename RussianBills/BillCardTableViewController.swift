@@ -1,44 +1,36 @@
 //
-//  FavoritesTableViewController.swift
+//  BillCardTableViewController.swift
 //  RussianBills
 //
-//  Created by Xan Kraegor on 09.07.2017.
+//  Created by Xan Kraegor on 14.07.2017.
 //  Copyright © 2017 Xan Kraegor. All rights reserved.
 //
 
 import UIKit
 
-class FavoritesTableViewController: UITableViewController {
-
-    var favorites = RealmCoordinator.loadFavoriteBills()
-
-    // MARK: - Life cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        debugPrint("Total favorites: \(RealmCoordinator.loadFavoriteBills().count)")
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 184
-    }
+class BillCardTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favorites.count
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
 
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
-        cell.nameLabel?.text = favorites[indexPath.row].name
-        cell.numberLabel?.text = favorites[indexPath.row].number
+        // Configure the cell...
 
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.

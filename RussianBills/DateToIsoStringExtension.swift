@@ -23,5 +23,5 @@ public extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string)
     }
-    
+
 }
