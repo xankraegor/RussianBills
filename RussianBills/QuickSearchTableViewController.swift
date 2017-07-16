@@ -119,6 +119,14 @@ class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UIT
 
     }
 
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? FavoritesTableViewController {
+            dest.favorites = RealmCoordinator.loadFavoriteBills()
+        }
+    }
+
     // MARK: - Realm Notifications
     func produceNotificationTokenForBill(havingFilter: String?, completion: VoidToVoid) ->
         NotificationToken? {

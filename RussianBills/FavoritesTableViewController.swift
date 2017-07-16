@@ -12,14 +12,19 @@ class FavoritesTableViewController: UITableViewController {
 
     var favorites = RealmCoordinator.loadFavoriteBills()
 
+
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debugPrint("Total favorites: \(RealmCoordinator.loadFavoriteBills().count)")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 184
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+
 
     // MARK: - Table view data source
 
