@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Законопроект
-class Bill_: Object, InitializableWithJson {
+final class Bill_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var lawType: LawType = LawType.federalLaw
     dynamic var number: String = ""

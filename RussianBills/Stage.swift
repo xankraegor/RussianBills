@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Cтадии рассмотрения
-class Stage_: Object, InitializableWithJson {
+final class Stage_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
 //    dynamic var phases: [Phase] = []

@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список федеральных органов власти, обладающих ПЗИ
-@objc class RegionalSubject_: Object, InitializableWithJson {
+final class RegionalSubject_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
     dynamic var isCurrent: Bool = false

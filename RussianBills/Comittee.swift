@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список комитетов ГД РФ
-@objc class Comittee_: Object, InitializableWithJson {
+final class Comittee_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
     dynamic var isCurrent: Bool = false

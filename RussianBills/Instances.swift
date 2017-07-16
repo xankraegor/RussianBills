@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список инстанций рассмотрения
-class Instance_: Object, InitializableWithJson {
+final class Instance_: Object, InitializableWithJson {
         dynamic var id: Int = 0
         dynamic var name: String = ""
         dynamic var isCurrent: Bool = false

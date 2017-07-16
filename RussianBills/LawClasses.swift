@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Отрасли законодательства
-class LawClass_: Object, InitializableWithJson {
+final class LawClass_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
 
