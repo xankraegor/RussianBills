@@ -26,11 +26,22 @@ class RealmCoordinator {
                     realm.add(obj, update: true)
                 }
             }
-
             UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
 
         } catch let error {
             fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
+        }
+    }
+    
+    static func save(object: Object) {
+
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(obj, update: true)
+            }
+        } catch let error {
+            fatalError("∆ Cannot reach the Realm to save object: \(error.localizedDescription)")
         }
     }
 
@@ -69,7 +80,7 @@ class RealmCoordinator {
         }
     }
 
-    static func loadObject<T: Object>(_ ofType: T.Type, id: Int) -> T? {
+    static func loadObject<T: Object>(_ ofType: T.Type, byId id: Int) -> T? {
         let realm = try? Realm()
         if let rlm = realm {
             let objs = rlm.objects(T.self).filter("id == \(id)")
