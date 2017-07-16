@@ -22,16 +22,16 @@ final class Bill_: Object, InitializableWithJson {
     dynamic var transcriptUrl: String = ""
     dynamic var favorite: Bool = false
     
-    dynamic var lastEventStageDesription: String = ""
-    dynamic var lastEventPhaseDescription: String = ""
+    dynamic var lastEventStage = Stage_()
+    dynamic var lastEventPhase = Phase_()
     dynamic var lastEventSolutionDescription: String = ""
     dynamic var lastEventDate: String = ""
     dynamic var lastEventDocumentName: String = ""
     dynamic var lastEventDocumentType: String = ""
 
-    dynamic var comitteeResponsible: [Comittee_] = []
-    dynamic var comitteeProfile: [Comittee_] = []
-    dynamic var comitteeCoexecutor: [Comittee_] = []
+    dynamic var comitteeResponsible = Comittee_()
+    dynamic var comitteeProfile = List<Comittee_>()
+    dynamic var comitteeCoexecutor = List<Comittee_>()
 
     convenience  init(withJson json: JSON, favoriteMark: Bool = false) {
         self.init(withJson: json)
@@ -49,23 +49,94 @@ final class Bill_: Object, InitializableWithJson {
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
         
-        let comitteeResponsibleId = json["committees"]["responsible"]["name"].stringValue
-        if let comRes = 
-
-
+        // Responsible committee
+        let comitteeId = json["committees"]["responsible"]["id"].stringValue
+        if let committeeById = RealmCoordinator.loadObject(
+Comittee_, byId: comitteeId) {
+            comitteeResponsible = committeeById
+        } else {
+            var committee = Comittee_()
+            committee.id = comitteeResponsibleId
+            committee.name = json["committees"]["responsible"]["name"].stringValue
+            committee.isCurrent = json["committees"]["responsible"]["isCurrent"].boolValue
+            committee.startDate = json["committees"]["responsible"]["startDate"].stringValue
+            committee.stopDate = json["committees"]["responsible"]["stopDate"].stringValue
+            
+            RealmCoordinator.save(object: committee)
+            comitteeResponsible = committee
+        }
+        
+        // Profile committees
         let profileComs = json["committees"]["profile"].arrayValue
+        
         for com in profileComs {
-            comitteeProfile.append(com["name"].stringValue)
+            let comitteeId = com["id"].stringValue
+        if let committeeById = RealmCoordinator.loadObject(
+Comittee_, byId: comitteeId) {
+            comitteeResponsible.append(committeeById)
+        } else {
+            var committee = Comittee_()
+            committee.id = comitteeResponsibleId
+            committee.name = com["name"].stringValue
+            committee.isCurrent = com["isCurrent"].boolValue
+            committee.startDate = com["startDate"].stringValue
+            committee.stopDate = com["stopDate"].stringValue
+            
+             RealmCoordinator.save(collection: [committee])
+            comitteeProfile.append(committee)
+        }
         }
         
+        // Coexexutor committees
         let coexecs = json["committees"]["soexecutor"].arrayValue
-        for coex in coexecs {
-            comitteeCoexecutor.append(coex["name"].stringValue)
-        }
-
         
-        lastEventStageDesription = json["lastEvent"]["stage"]["name"].stringValue
-        lastEventPhaseDescription = json["lastEvent"]["phase"]["name"].stringValue
+        for com in coexecs {
+            let comitteeId = com["id"].stringValue
+            if let committeeById = RealmCoordinator.loadObject(
+Comittee_, byId: comitteeId) {
+            comitteeResponsible.append(committeeById)
+        } else {
+            var committee = Comittee_()
+            committee.id = comitteeResponsibleId
+            committee.name = com["name"].stringValue
+            committee.isCurrent = com["isCurrent"].boolValue
+            committee.startDate = com["startDate"].stringValue
+            committee.stopDate = com["stopDate"].stringValue
+            
+             RealmCoordinator.save(collection: [committee])
+            comitteeCoexecutor.append(committee)
+        }
+        }
+        
+        // Stage
+        let lastEventStageId = json["lastEvent"]["stage"]["id"].intValue
+        if let lastStage = RealmCoordinator.loadObject(
+Stage_, byId: lastEventStageId) {
+             lastEventStage = lastStage
+        } else {
+             var lastStage = Stage_()
+             lastStage.id = lastEventStageId
+             lastStage.name = json["lastEvent"]["stage"]["name"].stringValue
+             
+             RealmCoordinator.save(object: lastStage)
+             lastEventStage = lastStage
+        }
+        
+        // Phase
+         let lastEventPhaseId = json["lastEvent"]["phase"]["id"].intValue
+        if let lastPhase = RealmCoordinator.loadObject(
+Stage_, byId: lastEventPhaseId) {
+             lastEventPhase = lastPhase
+        } else {
+             var lastPhase = Phase_()
+             lastPhase.id = lastEventPhaseId
+             lastPhase.name = json["lastEvent"]["phase"]["name"].stringValue
+             
+            RealmCoordinator.save(object: lastPhase)
+            lastEventPhase = lastPhase
+        }
+        
+        // Solution
         lastEventSolutionDescription = json["lastEvent"]["solution"].stringValue
         lastEventDate = json["lastEvent"]["date"].stringValue
         lastEventDocumentName = json["lastEvent"]["document"]["name"].stringValue
@@ -76,6 +147,7 @@ final class Bill_: Object, InitializableWithJson {
         return "id"
     }
     
+    // MARK: - Helper functions
     func generateFullSolutionDescription() -> String {
         var output = lastEventSolutionDescription + "\n"
         output += lastEventDocumentType.characters.count > 0 ? lastEventDocumentType + " " : ""
