@@ -25,6 +25,7 @@
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
 		2A6315C41F0AE1B400611BD8 /* RussianBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */; };
 		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
+		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
@@ -84,6 +85,7 @@
 		2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianBillsTests.swift; sourceTree = "<group>"; };
 		2A6315C51F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
+		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
@@ -255,7 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				2A98F16A1F0AEFC1004F5524 /* Bill.swift */,
-				2AB159741F157FD100FF7BBD /* Reference Values */,
+				2AB159741F157FD100FF7BBD /* Reference Categories */,
 			);
 			name = "Realm Classes";
 			sourceTree = "<group>";
@@ -270,19 +272,11 @@
 			name = Requests;
 			sourceTree = "<group>";
 		};
-		2AAA81661F1959A4005DF090 /* BillCardTableView */ = {
-			isa = PBXGroup;
-			children = (
-				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
-			);
-			name = BillCardTableView;
-			sourceTree = "<group>";
-		};
 		2AAA81671F195A64005DF090 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
-				2AAA81661F1959A4005DF090 /* BillCardTableView */,
+				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AD1E93A1F127AB100CA0D89 /* FavoritesTable */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2AB31E811F16A15B005E681F /* QuickSearch */,
@@ -290,7 +284,7 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
-		2AB159741F157FD100FF7BBD /* Reference Values */ = {
+		2AB159741F157FD100FF7BBD /* Reference Categories */ = {
 			isa = PBXGroup;
 			children = (
 				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
@@ -301,8 +295,9 @@
 				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
 				2AB1596E1F15530600FF7BBD /* Instances.swift */,
 				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
+				2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */,
 			);
-			name = "Reference Values";
+			name = "Reference Categories";
 			sourceTree = "<group>";
 		};
 		2AB31E811F16A15B005E681F /* QuickSearch */ = {
@@ -574,6 +569,7 @@
 				2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */,
 				2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */,
 				2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */,
+				2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

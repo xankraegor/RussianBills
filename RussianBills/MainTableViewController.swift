@@ -12,7 +12,7 @@ class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        debugPrint("Realm DB Path: \(RealmCoordinator.defaultRealmPath())\n")
+        debugPrint("Realm DB Path: \(RealmCoordinator.DEBUG_defaultRealmPath())\n")
         UserServices.downloadAllReferenceCategories()
     }
 

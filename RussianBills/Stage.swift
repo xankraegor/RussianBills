@@ -14,14 +14,11 @@ import SwiftyJSON
 final class Stage_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
-//    dynamic var phases: [Phase] = []
 
     convenience required init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
         name = json["name"].stringValue
-//        let phases = json["phases"].arrayValue
-
     }
 
     override static func primaryKey() -> String {
