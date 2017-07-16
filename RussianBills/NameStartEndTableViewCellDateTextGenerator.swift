@@ -16,21 +16,13 @@ enum NameStartEndTableViewCellDateTextGenerator {
     func description() -> String {
         switch self {
         case let .startDate(isoDate):
-            return "Начало работы: " + isoDateToNormalDate(isoDate: isoDate)
+            return "Начало работы: " + (isoDate.isoDateToReadableDate() ?? "нет данных")
+            
         case .noEndDate:
             return "Действует в настоящее время"
         case let .endDate(isoDate):
-            return "Окончание работы: " + isoDateToNormalDate(isoDate: isoDate)
+            return "Окончание работы: " + (isoDate.isoDateToReadableDate() ?? "нет данных")
         }
     }
 
-    private func isoDateToNormalDate(isoDate: String) -> String {
-        let date = Date.dateFromISOString(string: isoDate)
-        if let date = date {
-            return DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.long,
-                                                 timeStyle: DateFormatter.Style.none)
-        } else {
-            return "нет данных"
-        }
     }
-}

@@ -9,6 +9,43 @@
 import UIKit
 
 class BillCardTableViewController: UITableViewController {
+    
+    var bill: Bill_?
+    
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var billTypeLabel: UILabel!
+    @IBOutlet weak var billTitle: UILabel!
+    @IBOutlet weak var billSubtitleLabel: UILabel!
+    @IBOutlet weak var introductionDateLabel: UILabel!
+    @IBOutlet weak var introductedByLabel: UILabel!
+    
+    @IBOutlet weak var stageLabel: UILabel!
+    @IBOutlet weak var phaseLabel: UILabel!
+    @IBOutlet weak var decisionLabel: UILabel!
+    
+    
+    @IBOutlet weak var respCommitteeLabel: UILabel!
+    @IBOutlet weak var coexecCommitteeLabel: UILabel!
+    @IBOutlet weak var profileComitteesLable: UILabel!
+    
+    
+    override func viewDidLoad() {
+        if let bill = bill {
+            numberLabel.text = bill.number
+            billTypeLabel.text = bill.lawType.description
+            billTitle.text = bill.name
+            billSubtitleLabel.text = bill.comments
+            introductionDateLabel.text = bill.introductionDate
+            introductedByLabel.text = "_не добавлено_"
+            
+            stageLabel.text = bill.lastEventStageDesription
+            phaseLabel.text = bill.lastEventPhaseDescription
+            decisionLabel.text = bill.generateFullSolutionDescription()
+            
+        } else {
+            fatalError("Bill is not being provided")
+        }
+    }
 
     // MARK: - Table view data source
 

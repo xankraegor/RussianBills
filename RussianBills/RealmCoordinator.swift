@@ -69,6 +69,16 @@ class RealmCoordinator {
         }
     }
 
+    static func loadObject<T: Object>(_ ofType: T.Type, id: Int) -> T? {
+        let realm = try? Realm()
+        if let rlm = realm {
+            let objs = rlm.objects(T.self).filter("id == \(id)")
+            return objs.first
+        } else {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinater")
+        }
+    }
+
     static func loadBills(matchingQuery query: BillSearchQuery, sortedBy sortParameter: String, sortDirection ascending: Bool) -> [Bill_] {
         if let rlm = try? Realm() {
             var objects = rlm.objects(Bill_.self)

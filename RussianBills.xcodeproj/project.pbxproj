@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		01980DD847A75F282D981929 /* Pods_RussianBillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */; };
+		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
-		2A4ED0E01F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DF1F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
 		2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */; };
 		2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */; };
@@ -47,6 +47,7 @@
 		2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
 		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
+		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,9 +63,9 @@
 
 /* Begin PBXFileReference section */
 		0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.release.xcconfig"; sourceTree = "<group>"; };
+		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
-		2A4ED0DF1F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewController.swift; sourceTree = "<group>"; };
 		2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
 		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BCBC56BC82CEA5AF364A1F54 /* Pods-RussianBillsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +146,8 @@
 		2A4ED0E11F0D9922008BF1B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2A4ED0DF1F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift */,
+				2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */,
+				2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -547,6 +550,8 @@
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
 				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
+				2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */,
+				2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */,
 				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
 				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
@@ -556,7 +561,6 @@
 				2A98F1721F0AF3B4004F5524 /* Comittee.swift in Sources */,
 				2A4FDBD91F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift in Sources */,
 				2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */,
-				2A4ED0E01F0D5E8A008BF1B3 /* DateToIsoStringExtension.swift in Sources */,
 				2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */,
 				2AAE25A21F183C970053AD75 /* FavoritesTableViewCell.swift in Sources */,
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,
