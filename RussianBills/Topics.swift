@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список тематических блоков
-class Topic_: Object, InitializableWithJson {
+final class Topic_: Object, InitializableWithJson {
     dynamic var id: Int = 0
     dynamic var name: String = ""
 
