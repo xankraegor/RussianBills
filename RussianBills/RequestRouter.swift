@@ -14,6 +14,8 @@ import Alamofire
 enum RequestRouter: URLRequestConvertible {
 
     private static let baseUrl: String = "http://api.duma.gov.ru/api/"
+    
+    private static let baseParseUrl: String = "http://asozd2.duma.gov.ru/main.nsf/"
 
     case search(bill: BillSearchQuery)
     case committees(current: Bool?)
@@ -23,6 +25,7 @@ enum RequestRouter: URLRequestConvertible {
     case federalSubject(current: Bool?)
     case regionalSubject(current: Bool?)
     case instances(current: Bool?)
+    case bill(number: String)
 
     private var method: HTTPMethod {
         return .get
@@ -46,6 +49,8 @@ enum RequestRouter: URLRequestConvertible {
             return "/regional-organs.json"
         case .instances(current: _):
             return "/instances.json"
+        case .bill(number: _):
+            return "/(Spravka)"
         }
     }
 
@@ -69,6 +74,8 @@ enum RequestRouter: URLRequestConvertible {
             if let isDepuyCurrent = current {
                 dict["current"] = isDepuyCurrent ? "1" : "0"
             }
+        case let .bill(number):
+            return ["OpenAgent": nil, "RN" : number]
 
         case let .federalSubject(current),
              let .regionalSubject(current),
@@ -89,12 +96,19 @@ enum RequestRouter: URLRequestConvertible {
     /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
     /// - returns: A URL request.
     func asURLRequest() throws -> URLRequest {
-        let apikey: String = apiKey()
-        let url = try RequestRouter.baseUrl.asURL().appendingPathComponent(apikey)
-        let urlRequest = URLRequest(url: url.appendingPathComponent(path))
-        let request =  try URLEncoding.default.encode(urlRequest, with: parameters)
-//        debugPrint("Request Router forged a request \(request)")
+        if self != .bill {
+            let url = try RequestRouter.baseUrl.asURL().appendingPathComponent(apiKey())
+            let urlRequest = URLRequest(url: url.appendingPathComponent(path))
+            let request = try URLEncoding.default.encode(urlRequest, with: parameters)
+//          debugPrint("Request Router forged a request \(request)")
         return request
+        } else {
+            let url = try RequestRouter.baseParseUrl.asURL()
+            let urlRequest = URLRequest(url: url.appendingPathComponent(path))
+            let request = try URLEncoding.default.encode(urlRequest, with: parameters)
+//          debugPrint("Request Router forged a request \(request)")
+            return request
+        }
     }
 
     // MARK: - Private API and app keys
