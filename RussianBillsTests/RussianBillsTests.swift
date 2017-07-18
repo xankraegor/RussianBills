@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Alamofire
 @testable import RussianBills
 
 class RussianBillsTests: XCTestCase {
@@ -21,7 +22,7 @@ class RussianBillsTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func billSearchQueryHasAnyFilledFieldsTest() {
         var query = BillSearchQuery()
         query.name = "курения"
         query.status = BillStatus.signed
@@ -36,13 +37,19 @@ class RussianBillsTests: XCTestCase {
 
     }
     
-    
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func billRequestURL() {
+        let number = "15455-7"
+        if let url = RequestRouter.bill(number: number).urlRequest {
+            print(url)
         }
     }
+
+    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measure {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
     
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Xan Kraegor. All rights reserved.
 //
 
+import Foundation
+
 struct BillParserEvent {
 
     var name: String
