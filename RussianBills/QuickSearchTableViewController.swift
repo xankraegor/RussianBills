@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     typealias VoidToVoid = (() -> Void)
 

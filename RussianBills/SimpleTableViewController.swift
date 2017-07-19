@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class SimpleTableViewController: UITableViewController {
+final class SimpleTableViewController: UITableViewController {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 

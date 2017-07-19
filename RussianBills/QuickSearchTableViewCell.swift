@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuickSearchTableViewCell: UITableViewCell {
+final class QuickSearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var billNumberLabel: UILabel!
     @IBOutlet weak var billNameLabel: UILabel!

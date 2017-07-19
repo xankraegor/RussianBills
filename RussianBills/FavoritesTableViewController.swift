@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoritesTableViewController: UITableViewController {
+final class FavoritesTableViewController: UITableViewController {
 
     var favorites = RealmCoordinator.loadFavoriteBills()
 

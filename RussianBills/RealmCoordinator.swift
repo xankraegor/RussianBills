@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class RealmCoordinator {
+enum RealmCoordinator {
 
     static func DEBUG_defaultRealmPath() -> String {
         return "Default realm path: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))"

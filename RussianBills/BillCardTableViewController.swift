@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BillCardTableViewController: UITableViewController {
+final class BillCardTableViewController: UITableViewController {
     
     var bill: Bill_?
     

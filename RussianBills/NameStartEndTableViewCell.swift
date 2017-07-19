@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NameStartEndTableViewCell: UITableViewCell {
+final class NameStartEndTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var beginDateLabel: UILabel!
