@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import Kanna
 
 /* ================================================================================
  
@@ -39,7 +40,11 @@ enum Request {
         }
     }
 
-    // MARK: - Base request function
+    static func loadHtmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument)->Void) {
+
+    }
+
+    // TODO: - Base request function
 
 //    private func requestBody<T>(response: DataResponse<Any>, fetchType: T.Type,
 //                             completion: @escaping ([T])->()) where T: Object, T: InitializableWithJson {

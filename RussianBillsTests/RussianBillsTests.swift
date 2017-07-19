@@ -22,7 +22,7 @@ class RussianBillsTests: XCTestCase {
         super.tearDown()
     }
     
-    func billSearchQueryHasAnyFilledFieldsTest() {
+    func testBillSearchQueryHasAnyFilledFields() {
         var query = BillSearchQuery()
         query.name = "курения"
         query.status = BillStatus.signed
@@ -37,7 +37,7 @@ class RussianBillsTests: XCTestCase {
 
     }
     
-    func billRequestURL() {
+    func testBillRequestURL() {
         let number = "15455-7"
         if let url = RequestRouter.bill(number: number).urlRequest {
             print(url)

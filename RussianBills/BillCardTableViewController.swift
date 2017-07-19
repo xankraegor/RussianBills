@@ -7,12 +7,12 @@
 //
 
 import UIKit
+import Kanna
 
 class BillCardTableViewController: UITableViewController {
     
     var bill: Bill_?
-    
-    @IBOutlet weak var numberLabel: UILabel!
+
     @IBOutlet weak var billTypeLabel: UILabel!
     @IBOutlet weak var billTitle: UILabel!
     @IBOutlet weak var billSubtitleLabel: UILabel!
@@ -27,27 +27,18 @@ class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var coexecCommitteeLabel: UILabel!
     @IBOutlet weak var profileComitteesLable: UILabel!
     
-    
+    @IBOutlet weak var goToAllEventsCell: UITableViewCell!
+
     override func viewDidLoad() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        fetchBillData()
 
-        if let bill = bill {
-            debugPrint(bill)
+        if let billUrlString = bill?.url, let billUrl = URL(string: billUrlString) {
+            Request.loadHtmlToParse(forUrl: billUrl, completion: { (doc) in
+                self.DEBUG_parse(html: doc)
+            })
 
-            numberLabel.text = "№ \(bill.number)"
-            billTypeLabel.text = bill.lawType.description
-            billTitle.text = bill.name
-            billSubtitleLabel.text = bill.comments
-            introductionDateLabel.text = bill.introductionDate
-            introductedByLabel.text = bill.generateSubjectsDescription()
-            
-            stageLabel.text = bill.lastEventStage?.name
-            phaseLabel.text = bill.lastEventPhase?.name
-            decisionLabel.text = bill.generateFullSolutionDescription()
-            
-        } else {
-            fatalError("Bill is not being provided")
         }
     }
 
@@ -57,6 +48,28 @@ class BillCardTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
 
+    // MARK: - Helper functions
 
+    func fetchBillData() {
+        if let bill = bill {
+            navigationItem.title = "№ \(bill.number)"
+            billTypeLabel.text = bill.lawType.description
+            billTitle.text = bill.name
+            billSubtitleLabel.text = bill.comments
+            introductionDateLabel.text = bill.introductionDate
+            introductedByLabel.text = bill.generateSubjectsDescription()
+            stageLabel.text = bill.lastEventStage?.name
+            phaseLabel.text = bill.lastEventPhase?.name
+            decisionLabel.text = bill.generateFullSolutionDescription()
+        } else {
+            fatalError("Bill is not being provided")
+        }
+    }
+
+    func DEBUG_parse(html: HTMLDocument) {
+        print(html)
+        let doc = Kanna.HTML(html: html as! Data, encoding: .utf8)
+        print(doc?.body as Any)
+    }
 
 }

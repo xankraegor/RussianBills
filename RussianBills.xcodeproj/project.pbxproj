@@ -222,7 +222,7 @@
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
 				2AA4D19F1F0C127500EE2DA3 /* Requests */,
-				2AA4D1961F0C026600EE2DA3 /* Model */,
+				2AA4D1961F0C026600EE2DA3 /* Persistance */,
 				2A4ED0E21F0DB7EC008BF1B3 /* Other Assets */,
 			);
 			path = RussianBills;
@@ -237,25 +237,25 @@
 			path = RussianBillsTests;
 			sourceTree = "<group>";
 		};
-		2A98F16C1F0AF029004F5524 /* BillComponents */ = {
+		2A98F16C1F0AF029004F5524 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */,
 				2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */,
-				2AA4D19D1F0C121C00EE2DA3 /* Enums */,
 				2AA4D19E1F0C123D00EE2DA3 /* Realm Classes */,
 			);
-			name = BillComponents;
+			name = Model;
 			sourceTree = "<group>";
 		};
-		2AA4D1961F0C026600EE2DA3 /* Model */ = {
+		2AA4D1961F0C026600EE2DA3 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
 				2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */,
 				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
-				2A98F16C1F0AF029004F5524 /* BillComponents */,
+				2A98F16C1F0AF029004F5524 /* Model */,
+				2AA4D19D1F0C121C00EE2DA3 /* Enums */,
 			);
-			name = Model;
+			name = Persistance;
 			sourceTree = "<group>";
 		};
 		2AA4D19D1F0C121C00EE2DA3 /* Enums */ = {
@@ -274,7 +274,15 @@
 			isa = PBXGroup;
 			children = (
 				2A98F16A1F0AEFC1004F5524 /* Bill.swift */,
-				2AB159741F157FD100FF7BBD /* Reference Categories */,
+				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
+				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
+				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
+				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
+				2A8782011F0BE4A400A0554F /* Deputy.swift */,
+				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
+				2AB1596E1F15530600FF7BBD /* Instances.swift */,
+				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
+				2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */,
 			);
 			name = "Realm Classes";
 			sourceTree = "<group>";
@@ -299,22 +307,6 @@
 				2AB31E811F16A15B005E681F /* QuickSearch */,
 			);
 			name = Scenes;
-			sourceTree = "<group>";
-		};
-		2AB159741F157FD100FF7BBD /* Reference Categories */ = {
-			isa = PBXGroup;
-			children = (
-				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
-				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
-				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
-				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
-				2A8782011F0BE4A400A0554F /* Deputy.swift */,
-				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
-				2AB1596E1F15530600FF7BBD /* Instances.swift */,
-				2AB1596C1F15526A00FF7BBD /* Stage.swift */,
-				2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */,
-			);
-			name = "Reference Categories";
 			sourceTree = "<group>";
 		};
 		2AB31E811F16A15B005E681F /* QuickSearch */ = {
