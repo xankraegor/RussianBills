@@ -17,7 +17,11 @@ final public class BillParser {
             return nil
             }
         
-        let body = doc.body
+        guard let body = doc.body else {
+            return nil
+        }
+        
+        debugPrint(body)
         
     }
 }

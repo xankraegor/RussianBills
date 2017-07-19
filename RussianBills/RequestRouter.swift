@@ -9,14 +9,12 @@
 import Foundation
 import Alamofire
 
-// Based on http://api.duma.gov.ru/
-
 enum RequestRouter: URLRequestConvertible {
 
-    private static let baseUrl: String = "http://api.duma.gov.ru/api/"
-    
+    private static let baseApiUrl: String = "http://api.duma.gov.ru/api/"
     private static let baseParseUrl: String = "http://asozd2.duma.gov.ru/main.nsf/"
 
+    // API Functions
     case search(bill: BillSearchQuery)
     case committees(current: Bool?)
     case topics
@@ -25,6 +23,8 @@ enum RequestRouter: URLRequestConvertible {
     case federalSubject(current: Bool?)
     case regionalSubject(current: Bool?)
     case instances(current: Bool?)
+    
+    // Parsing
     case bill(number: String)
 
     private var method: HTTPMethod {
@@ -75,7 +75,7 @@ enum RequestRouter: URLRequestConvertible {
                 dict["current"] = isDepuyCurrent ? "1" : "0"
             }
         case let .bill(number):
-            return ["OpenAgent": nil, "RN" : number]
+            return ["OpenAgent": "", "RN" : number]
 
         case let .federalSubject(current),
              let .regionalSubject(current),
@@ -96,19 +96,20 @@ enum RequestRouter: URLRequestConvertible {
     /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
     /// - returns: A URL request.
     func asURLRequest() throws -> URLRequest {
-        if self != .bill {
-            let url = try RequestRouter.baseUrl.asURL().appendingPathComponent(apiKey())
-            let urlRequest = URLRequest(url: url.appendingPathComponent(path))
-            let request = try URLEncoding.default.encode(urlRequest, with: parameters)
-//          debugPrint("Request Router forged a request \(request)")
-        return request
-        } else {
-            let url = try RequestRouter.baseParseUrl.asURL()
-            let urlRequest = URLRequest(url: url.appendingPathComponent(path))
-            let request = try URLEncoding.default.encode(urlRequest, with: parameters)
-//          debugPrint("Request Router forged a request \(request)")
-            return request
+        var url: URL
+        
+        switch self {
+        case .bill:
+            url = try RequestRouter.baseParseUrl.asURL()
+        default:
+            url = try RequestRouter.baseApiUrl.asURL().appendingPathComponent(apiKey())
         }
+        
+        let urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        let request = try URLEncoding.default.encode(urlRequest, with: parameters)
+        // debugPrint("Request Router forged a request \(request)")
+        return request
+    
     }
 
     // MARK: - Private API and app keys

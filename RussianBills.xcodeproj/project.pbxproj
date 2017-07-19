@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		01980DD847A75F282D981929 /* Pods_RussianBillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */; };
+		2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C11F1E8C3A006C011F /* BillParser.swift */; };
+		2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
+		2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C51C61F1E8FE1006C011F /* Attribution.txt */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
@@ -64,6 +67,9 @@
 
 /* Begin PBXFileReference section */
 		0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.release.xcconfig"; sourceTree = "<group>"; };
+		2A0C51C11F1E8C3A006C011F /* BillParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParser.swift; sourceTree = "<group>"; };
+		2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserEvent.swift; sourceTree = "<group>"; };
+		2A0C51C61F1E8FE1006C011F /* Attribution.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Attribution.txt; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
@@ -145,6 +151,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2A0C51C51F1E8C61006C011F /* BillParser */ = {
+			isa = PBXGroup;
+			children = (
+				2A0C51C11F1E8C3A006C011F /* BillParser.swift */,
+				2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */,
+			);
+			name = BillParser;
+			sourceTree = "<group>";
+		};
 		2A4ED0E11F0D9922008BF1B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +176,7 @@
 				2A6315B51F0AE1B400611BD8 /* Assets.xcassets */,
 				2A6315BA1F0AE1B400611BD8 /* Info.plist */,
 				2A4FDBD01F0EBB93005C59AE /* Keys.plist */,
+				2A0C51C61F1E8FE1006C011F /* Attribution.txt */,
 			);
 			name = "Other Assets";
 			sourceTree = "<group>";
@@ -202,6 +218,7 @@
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
+				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
 				2AA4D19F1F0C127500EE2DA3 /* Requests */,
@@ -421,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */,
+				2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */,
 				2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */,
 				2A6315B61F0AE1B400611BD8 /* Assets.xcassets in Resources */,
 				2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */,
@@ -548,6 +566,7 @@
 				2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */,
 				2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */,
 				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
+				2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */,
 				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
@@ -563,6 +582,7 @@
 				2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */,
 				2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */,
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
+				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,
 				2AAA81651F19599E005DF090 /* BillCardTableViewController.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
