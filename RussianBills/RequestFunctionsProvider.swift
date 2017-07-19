@@ -40,7 +40,23 @@ enum Request {
         }
     }
 
-    static func loadHtmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument)->Void) {
+    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument)->Void) {
+
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
+
+            if error != nil {
+                debugPrint(error.debugDescription)
+            }
+
+            DispatchQueue.main.async(execute: { () -> Void in
+                if let doc = HTML(url: url, encoding: String.Encoding.windowsCP1251) {
+                    completion(doc)
+                } else {
+                    debugPrint("\n∆ HTML is not recieved or decoded")
+                }
+            })
+
+        }).resume()
 
     }
 

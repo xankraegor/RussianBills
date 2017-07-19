@@ -6,22 +6,84 @@
 //  Copyright © 2017 Xan Kraegor. All rights reserved.
 //
 
+import Foundation
 import Kanna
 
 // http://asozd2.duma.gov.ru/main.nsf/(Spravka)?OpenAgent&RN=15455-7
 
 final public class BillParser {
 
-    init?(withHTML html: String) {
-        guard let doc = HTML(html: html, encoding: .utf8) else {
-            return nil
-            }
-        
-        guard let body = doc.body else {
+    var tree: [BillParserPhase] = []
+
+    init?(withHTML html: HTMLDocument) {
+        guard let body = html.body else {
+            debugPrint("∆ BILL PARSER: Can't find the html body")
             return nil
         }
-        
-        debugPrint(body)
-        
+
+        guard let tab = body.xpath("//div[contains(@class, 'tab tab-act')]").first else {
+            debugPrint("∆ BILL PARSER: Can't find the tab")
+            return nil
+        }
+
+        let phases = tab.xpath("div[contains(@class, 'ata-block-doc data-block')]")
+
+        guard phases.count > 0 else {
+            debugPrint("∆ BILL PARSER: Can't find any phases")
+            return nil
+        }
+
+        for phase in phases {
+//            print(phase.innerHTML! + "\n" + String(repeating: "~", count: 100))
+            guard let phaseHeader = phase.xpath("div[contains(@class, 'date-block-header')]").first else {
+                 continue
+            }
+            guard let phaseHeaderName = phaseHeader.content else {
+                continue
+            }
+//            print(phaseHeaderName)
+            var phaseStorage = BillParserPhase(withName: phaseHeaderName)
+            let table = phase.xpath("table")[1]
+
+            let events = table.xpath(".//tr")
+
+            if events.count > 0 {
+
+                var eventStorage: BillParserEvent?
+
+                for event in events {
+
+                    let fields = event.xpath("td")
+
+                    if let linkObject = fields[0].xpath("a").first, eventStorage != nil  {
+                        print("\(linkObject.innerHTML)")
+                        if let href = linkObject.xpath("href").first {
+                            eventStorage?.attachments.append(href.text ?? "")
+
+                            eventStorage?.attachmentsNames.append(linkObject.text ?? "n/a")
+                        }
+                    } else if let name = fields[0].content {
+                        let date = fields[1].content
+                        let docNr = fields[2].content
+
+                        if let lastEventExists = eventStorage {
+                            phaseStorage.events.append(lastEventExists)
+                        }
+
+                        eventStorage = BillParserEvent(withName: name, date: date, docNr: docNr)
+                    }
+                }
+
+                if let lastEventExists = eventStorage {
+                    phaseStorage.events.append(lastEventExists)
+                }
+            }
+
+            tree.append(phaseStorage)
+        }
+
     }
+
+
 }
+

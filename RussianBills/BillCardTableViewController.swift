@@ -29,14 +29,21 @@ final class BillCardTableViewController: UITableViewController {
     
     @IBOutlet weak var goToAllEventsCell: UITableViewCell!
 
+    var parser: BillParser? {
+        didSet {
+
+        }
+    }
+
     override func viewDidLoad() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         fetchBillData()
 
-        if let billUrlString = bill?.url, let billUrl = URL(string: billUrlString) {
-            Request.loadHtmlToParse(forUrl: billUrl, completion: { (doc) in
-                self.DEBUG_parse(html: doc)
+        if let billUrlString = bill?.url,
+            let billUrl = URL(string: billUrlString) {
+            Request.htmlToParse(forUrl: billUrl, completion: { (html) in
+                self.parser = BillParser(withHTML: html)
             })
 
         }
@@ -64,12 +71,6 @@ final class BillCardTableViewController: UITableViewController {
         } else {
             fatalError("Bill is not being provided")
         }
-    }
-
-    func DEBUG_parse(html: HTMLDocument) {
-        print(html)
-        let doc = Kanna.HTML(html: html as! Data, encoding: .utf8)
-        print(doc?.body as Any)
     }
 
 }

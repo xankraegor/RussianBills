@@ -9,17 +9,17 @@
 import Foundation
 
 struct BillParserEvent {
-
-    var name: String
-    var date: Date
-    var docNr: String?
-    var attachments: [URL] = []
     
-    init(withName name: String, date: Date, docNr: String? = nil, attachments: [URL]) {
+    var name: String
+    var date: String?
+    var docNr: String?
+    var attachments: [String] = []
+    var attachmentsNames: [String] = []
+    
+    init(withName name: String, date: String?, docNr: String? = nil) {
         self.name = name
         self.date = date
         self.docNr = docNr
-        self.attachments = attachments
     }
     
 }

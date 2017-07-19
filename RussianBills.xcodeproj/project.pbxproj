@@ -12,6 +12,7 @@
 		2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
 		2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C51C61F1E8FE1006C011F /* Attribution.txt */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
+		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
@@ -71,6 +72,7 @@
 		2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserEvent.swift; sourceTree = "<group>"; };
 		2A0C51C61F1E8FE1006C011F /* Attribution.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Attribution.txt; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
+		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				2A0C51C11F1E8C3A006C011F /* BillParser.swift */,
 				2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */,
+				2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */,
 			);
 			name = BillParser;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
 				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
+				2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */,
 				2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */,
 				2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */,
 				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
