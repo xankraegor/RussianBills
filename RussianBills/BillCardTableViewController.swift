@@ -31,7 +31,7 @@ final class BillCardTableViewController: UITableViewController {
 
     var parser: BillParser? {
         didSet {
-
+            goToAllEventsCell.isHidden = false
         }
     }
 
@@ -70,6 +70,16 @@ final class BillCardTableViewController: UITableViewController {
             decisionLabel.text = bill.generateFullSolutionDescription()
         } else {
             fatalError("Bill is not being provided")
+        }
+    }
+    
+    // MARK: - Navigation 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "BillDetailsSegue" {
+            if let dest = segue.destination as? BillDetailsTableViewController, let tree = parser?.tree {
+                dest.tree = tree
+            }
         }
     }
 
