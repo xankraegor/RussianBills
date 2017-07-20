@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     typealias VoidToVoid = (() -> Void)
 
@@ -27,10 +27,15 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        
+        number1TextField.delegate = self
+        number2TextField.delegate = self
+        nameTextField.delegate = self
     }
 
     deinit {
@@ -64,6 +69,17 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RealmCoordinator.updateFavoriteStatusOf(bill: loadedBills[indexPath.row], to: true)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+    
+    // MARK: - Text Field Delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     // MARK: - Actions
