@@ -34,51 +34,37 @@ final public class BillParser {
         }
 
         for phase in phases {
-//            print(phase.innerHTML! + "\n" + String(repeating: "~", count: 100))
-            guard let phaseHeader = phase.xpath("div[contains(@class, 'date-block-header')]").first else {
-                 continue
-            }
-            guard let phaseHeaderName = phaseHeader.content else {
-                continue
-            }
-//            print(phaseHeaderName)
+            guard let phaseHeader = phase.xpath("div[contains(@class, 'date-block-header')]").first
+                else { continue }
+            guard let phaseHeaderName = phaseHeader.content
+                else { continue }
+            
             var phaseStorage = BillParserPhase(withName: phaseHeaderName)
             let table = phase.xpath("table")[1]
-
             let events = table.xpath(".//tr")
-
             if events.count > 0 {
-
                 var eventStorage: BillParserEvent?
 
                 for event in events {
-
                     let fields = event.xpath("td")
-
                     if let linkObject = fields[0].xpath("a").first, eventStorage != nil  {
-                        print("\(linkObject.innerHTML)")
-                        if let href = linkObject.xpath("href").first {
-                            eventStorage?.attachments.append(href.text ?? "")
-
-                            eventStorage?.attachmentsNames.append(linkObject.text ?? "n/a")
+                        if let href = linkObject["href"] {
+                            eventStorage?.attachments.append(href)
+                            eventStorage?.attachmentsNames.append(linkObject.text ?? "")
                         }
                     } else if let name = fields[0].content {
                         let date = fields[1].content
                         let docNr = fields[2].content
-
                         if let lastEventExists = eventStorage {
                             phaseStorage.events.append(lastEventExists)
                         }
-
                         eventStorage = BillParserEvent(withName: name, date: date, docNr: docNr)
                     }
                 }
-
                 if let lastEventExists = eventStorage {
                     phaseStorage.events.append(lastEventExists)
                 }
             }
-
             tree.append(phaseStorage)
         }
 
