@@ -11,9 +11,6 @@ import Alamofire
 
 enum RequestRouter: URLRequestConvertible {
 
-    private static let baseApiUrl: String = "http://api.duma.gov.ru/api/"
-    private static let baseParseUrl: String = "http://asozd2.duma.gov.ru/main.nsf/"
-
     // API Functions
     case search(bill: BillSearchQuery)
     case committees(current: Bool?)
@@ -26,9 +23,21 @@ enum RequestRouter: URLRequestConvertible {
     
     // Parsing
     case bill(number: String)
+    case document(link: String)
 
     private var method: HTTPMethod {
         return .get
+    }
+    
+    private func baseUrl() throws -> URL {
+        switch self{
+        case .bill(number: _):
+            return try "http://asozd2.duma.gov.ru/main.nsf".asURL()
+        case .document(link: _):
+            return try "http://asozd2.duma.gov.ru".asURL()
+        default:
+            return (try "http://api.duma.gov.ru/api/".asURL()).appendingPathComponent(apiKey())
+        }
     }
 
     private var path: String {
@@ -51,14 +60,24 @@ enum RequestRouter: URLRequestConvertible {
             return "/instances.json"
         case .bill(number: _):
             return "/(Spravka)"
+        case let .document(link):
+            return link
         }
     }
 
     private var parameters: Parameters {
-        var dict = ["app_token": appToken()]
-
+        var dict = ["app_token": appToken()] 
         switch self {
-
+            
+            // Early exit cases
+            
+        case let .bill(number):
+            return ["OpenAgent": "", "RN" : number]
+        case .document(link: _):
+            return [:]
+            
+            // Full cycle cases
+            
         case let .search(bill):
             var billParameters = RequestRouter.forgeBillRequestParameters(forQuery: bill)
             billParameters["app_token"] = appToken()
@@ -74,9 +93,6 @@ enum RequestRouter: URLRequestConvertible {
             if let isDepuyCurrent = current {
                 dict["current"] = isDepuyCurrent ? "1" : "0"
             }
-        case let .bill(number):
-            return ["OpenAgent": "", "RN" : number]
-
         case let .federalSubject(current),
              let .regionalSubject(current),
              let .committees(current),
@@ -84,7 +100,6 @@ enum RequestRouter: URLRequestConvertible {
             if let currentState = current {
                 dict["current"] = currentState ? "1" : "0"
             }
-
         case .topics, .classes:
             break
         }
@@ -96,25 +111,26 @@ enum RequestRouter: URLRequestConvertible {
     /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
     /// - returns: A URL request.
     func asURLRequest() throws -> URLRequest {
-        var url: URL
+        // Base URL + API code for non-parsed categories
+        let url = try baseUrl()
+        // Path URL + App Key for non-parsed categories
+        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         
+        // Generating request
         switch self {
-        case .bill:
-            url = try RequestRouter.baseParseUrl.asURL()
+        case .document(_):
+            break
         default:
-            url = try RequestRouter.baseApiUrl.asURL().appendingPathComponent(apiKey())
+            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+            break
         }
-        
-        let urlRequest = URLRequest(url: url.appendingPathComponent(path))
-        let request = try URLEncoding.default.encode(urlRequest, with: parameters)
         // debugPrint("Request Router forged a request \(request)")
-        return request
-    
+        return urlRequest
     }
 
     // MARK: - Private API and app keys
 
-    internal func appToken() -> String {
+    private func appToken() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let token = dict["appToken"] as? String {
                 return token
