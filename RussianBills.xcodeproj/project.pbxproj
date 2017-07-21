@@ -13,6 +13,7 @@
 		2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C51C61F1E8FE1006C011F /* Attribution.txt */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
+		2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
@@ -25,7 +26,6 @@
 		2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */; };
 		2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */; };
 		2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B21F0AE1B400611BD8 /* Main.storyboard */; };
-		2A6315B61F0AE1B400611BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B51F0AE1B400611BD8 /* Assets.xcassets */; };
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
 		2A6315C41F0AE1B400611BD8 /* RussianBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */; };
 		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
@@ -76,6 +76,7 @@
 		2A0C51C61F1E8FE1006C011F /* Attribution.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Attribution.txt; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
+		2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		2A6315AB1F0AE1B400611BD8 /* RussianBills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RussianBills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A6315B31F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2A6315B51F0AE1B400611BD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A6315B81F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A6315BA1F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6315BF1F0AE1B400611BD8 /* RussianBillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RussianBillsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,8 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */,
-				2A6315B51F0AE1B400611BD8 /* Assets.xcassets */,
 				2A6315BA1F0AE1B400611BD8 /* Info.plist */,
+				2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */,
 				2A4FDBD01F0EBB93005C59AE /* Keys.plist */,
 				2A0C51C61F1E8FE1006C011F /* Attribution.txt */,
 			);
@@ -449,10 +449,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */,
 				2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */,
 				2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */,
 				2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */,
-				2A6315B61F0AE1B400611BD8 /* Assets.xcassets in Resources */,
 				2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
