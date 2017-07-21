@@ -31,7 +31,9 @@ final class BillCardTableViewController: UITableViewController {
 
     var parser: BillParser? {
         didSet {
-            goToAllEventsCell.isHidden = false
+            if parser != nil {
+                goToAllEventsCell.isHidden = false
+            }
         }
     }
 
@@ -59,7 +61,7 @@ final class BillCardTableViewController: UITableViewController {
 
     func fetchBillData() {
         if let bill = bill {
-            navigationItem.title = "№ \(bill.number)"
+            navigationItem.title = "📃\(bill.number)"
             billTypeLabel.text = bill.lawType.description
             billTitle.text = bill.name
             billSubtitleLabel.text = bill.comments
@@ -79,6 +81,7 @@ final class BillCardTableViewController: UITableViewController {
         if segue.identifier == "BillDetailsSegue" {
             if let dest = segue.destination as? BillDetailsTableViewController, let tree = parser?.tree {
                 dest.tree = tree
+                dest.navigationTitle = "\(bill!.number)"
             }
         }
     }

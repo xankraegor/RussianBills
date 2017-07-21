@@ -12,6 +12,5 @@ class EventDescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventDocumentLabel: UILabel!
     @IBOutlet weak var eventTextLabel: UILabel!
-    
     @IBOutlet weak var documentsAttachedLabel: UILabel!
 }

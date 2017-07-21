@@ -11,6 +11,7 @@ import UIKit
 class BillAttachedDocumentsTableViewController: UITableViewController {
     
     var event: BillParserEvent?
+    var navigationTitle: String?
     
     // MARK: - Life Cycle
     
@@ -20,6 +21,10 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         }
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+
+        if let navigationTitle = navigationTitle {
+            self.navigationItem.title = "Документы 📃\(navigationTitle)"
+        }
     }
 
     // MARK: - Table view data source

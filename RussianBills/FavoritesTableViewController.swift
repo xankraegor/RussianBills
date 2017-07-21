@@ -39,7 +39,7 @@ final class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
         cell.nameLabel?.text = favorites[indexPath.row].name
-        cell.numberLabel?.text = favorites[indexPath.row].number
+        cell.numberLabel?.text = "📃" + favorites[indexPath.row].number
         return cell
     }
 

@@ -11,11 +11,16 @@ import UIKit
 class BillDetailsTableViewController: UITableViewController {
     
     var tree: [BillParserPhase]?
+    var navigationTitle: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         guard tree != nil else {
             fatalError("∆ No parsed data handed to BillDetailsTableViewController")
+        }
+
+        if let navigationTitle = navigationTitle {
+            self.navigationItem.title = "События 📃\(navigationTitle)"
         }
         
         tableView.rowHeight = UITableViewAutomaticDimension
