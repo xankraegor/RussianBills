@@ -140,5 +140,13 @@ enum UserServices {
                 }
         })
     }
+    
+    // MARK: - Documents
+    
+    static func downloadDocument(usingLink: String, toDestination dest: String, completion: (Data)->Void) {
+        try? Request.document(byLink: usingLink) { (data) in
+            
+        }
+    }
 
 }

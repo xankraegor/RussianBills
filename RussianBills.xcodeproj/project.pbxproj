@@ -30,6 +30,9 @@
 		2A6315C41F0AE1B400611BD8 /* RussianBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */; };
 		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
 		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
+		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
+		2A75E9011F22ADC20008FD8F /* BillAttachedDocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9001F22ADC20008FD8F /* BillAttachedDocumentsTableViewCell.swift */; };
+		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
@@ -97,6 +100,9 @@
 		2A6315C51F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
 		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
+		2A75E8FC1F2282F30008FD8F /* FilesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
+		2A75E9001F22ADC20008FD8F /* BillAttachedDocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillAttachedDocumentsTableViewCell.swift; sourceTree = "<group>"; };
+		2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-FileNameAndExtension.swift"; sourceTree = "<group>"; };
 		2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
@@ -173,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */,
+				2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */,
 				2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */,
 			);
 			name = Extensions;
@@ -227,6 +234,7 @@
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
+				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -244,6 +252,15 @@
 				2A6315C51F0AE1B400611BD8 /* Info.plist */,
 			);
 			path = RussianBillsTests;
+			sourceTree = "<group>";
+		};
+		2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
+				2A75E9001F22ADC20008FD8F /* BillAttachedDocumentsTableViewCell.swift */,
+			);
+			name = BillAttachedDocuments;
 			sourceTree = "<group>";
 		};
 		2A98F16C1F0AF029004F5524 /* Model */ = {
@@ -321,7 +338,7 @@
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AA6771F1F215325003CFD37 /* BillDetailsTable */,
-				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
+				2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */,
 				2AD1E93A1F127AB100CA0D89 /* FavoritesTable */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2AB31E811F16A15B005E681F /* QuickSearch */,
@@ -594,6 +611,7 @@
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,
 				2A98F1761F0AFBEA004F5524 /* LawClasses.swift in Sources */,
 				2AA677211F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift in Sources */,
+				2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */,
 				2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */,
 				2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */,
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
@@ -604,7 +622,9 @@
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
 				2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */,
 				2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */,
+				2A75E9011F22ADC20008FD8F /* BillAttachedDocumentsTableViewCell.swift in Sources */,
 				2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */,
+				2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */,
 				2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

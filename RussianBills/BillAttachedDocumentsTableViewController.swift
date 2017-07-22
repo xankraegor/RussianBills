@@ -38,9 +38,27 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
-        cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath) as! BillAttachedDocumentsTableViewCell
+        cell.mainTitleLabel.text = event!.attachmentsNames[indexPath.row]
+        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
+            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/")
+            cell.subtitileLabel.text = documentDownloaded ? "📦 Документ загружен" :  "🌐 Документ не загружен"
+        } else {
+            cell.subtitileLabel.text = "🌐 Документ не загружен"
+        }
+//        print(event!.attachments[indexPath.row])
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
+            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/")
+            if !documentDownloaded {
+                
+            }
+        } else {
+            debugPrint("∆ Can not get name part")
+        }
     }
 
 

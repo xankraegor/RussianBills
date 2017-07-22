@@ -115,7 +115,7 @@ enum RequestRouter: URLRequestConvertible {
         let url = try baseUrl()
         // Path URL + App Key for non-parsed categories
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
-        
+        urlRequest.allowsCellularAccess = true
         // Generating request
         switch self {
         case .document(_):
@@ -126,6 +126,11 @@ enum RequestRouter: URLRequestConvertible {
         }
         // debugPrint("Request Router forged a request \(request)")
         return urlRequest
+    }
+    
+    func asStringWithoutPercentEncoding() throws -> String? {
+        let urlRequest = try self.asURLRequest()
+        return String(describing: urlRequest).removingPercentEncoding
     }
 
     // MARK: - Private API and app keys
