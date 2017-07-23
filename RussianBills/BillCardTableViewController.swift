@@ -29,6 +29,8 @@ final class BillCardTableViewController: UITableViewController {
     
     @IBOutlet weak var goToAllEventsCell: UITableViewCell!
 
+    
+
     var parser: BillParser? {
         didSet {
             if parser != nil {
@@ -85,5 +87,75 @@ final class BillCardTableViewController: UITableViewController {
             }
         }
     }
+
+    // MARK: - AlertController
+
+    @IBAction func ComposeButtonPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Сохранить данные о законопроекте", message: "Выберите действие", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { (action) in
+            self.saveBillEventsToAFile()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { (action) in
+            UIPasteboard.general.string = self.generateBillDescriptionText()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    // MARK: - Helper functions
+
+    private func generateBillDescriptionText()->String {
+        let repl = "отсутствует"
+        var output = ""
+        if let bill = bill {
+            output += "Проект нормативно-правового акта №" + replace(WithText: repl, ifMissingSourceText: bill.number) + "\n"
+            output += "Тип нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: bill.lawType.description) + "\n"
+            output += "Наименование проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: bill.name) + "\n"
+            output += "Описание проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: bill.comments) + "\n"
+            output += "Внёсен: " + replace(WithText: repl, ifMissingSourceText: bill.introductionDate) + "\n"
+            output += "Субъекты законодательной инициативы: " + replace(WithText: repl, ifMissingSourceText: bill.generateSubjectsDescription() ?? "") + "\n"
+            if let parser = parser {
+                output += "СОБЫТИЯ РАССМОТРЕНИЯ ПРОЕКТА НОРМАТИВНО-ПРАВОВОГО АКТА\n"
+                for phase in parser.tree {
+                    output += String(repeating: " ", count: 5)
+                    for event in phase.events {
+                        output += "\n"
+                        output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
+                        output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
+                        output += String(repeating: " ", count: 10) + "Прикреплено документов: " + String(event.attachments.count) + "\n"
+                    }
+                }
+            } else {
+                output += "Текущая стадия рассмотрения: " + replace(WithText: repl, ifMissingSourceText: bill.lastEventStage?.name ?? "") + "\n"
+                output += "Текущая фаза рассмотрения: " + replace(WithText: repl, ifMissingSourceText: bill.lastEventPhase?.name ?? "") + "\n"
+                output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: bill.generateFullSolutionDescription()) + "\n"
+            }
+        }
+
+        return output
+    }
+
+    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
+        return textWithoutSpaces.characters.count > 0 ? source : replacementText
+    }
+
+    private func saveBillEventsToAFile() {
+        if let bill = self.bill {
+            let text = self.generateBillDescriptionText()
+
+            let existingFile = FilesManager.doesFileExist(withNamePart: "\(bill.name).txt", atPath: "/")
+            if !existingFile {
+                FilesManager.createEmptyFile(named: "\(bill.name).txt", placedAt: "/")
+            }
+
+            FilesManager.writeToFile(string: text, named: "\(bill.name).txt", placedAt: "/")
+        }
+    }
+    
 
 }
