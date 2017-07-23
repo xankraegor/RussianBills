@@ -64,7 +64,14 @@ enum FilesManager {
         return false
     }
 
-    
+    static func createAndOrWriteToFile(text: String, name: String, path: String) {
+        let existingFile = FilesManager.doesFileExist(withNamePart: name, atPath: path)
+        if !existingFile {
+            FilesManager.createEmptyFile(named: name, placedAt: path)
+        }
+        FilesManager.writeToFile(string: text, named: name, placedAt: path)
+    }
+
     // MARK : - Dirs
 
     static func filesInDirectory(placedAt relativePath: String) -> [String] {

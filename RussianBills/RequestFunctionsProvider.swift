@@ -204,22 +204,4 @@ enum Request {
         }
     }
     
-    // MARK: - Documents
-    
-    static func document(byLink link: String, completion: @escaping (Data)->Void) throws {
-        try Alamofire.download(link.asURL())
-        .downloadProgress(closure: { (progress) in
-            print("\(progress.fractionCompleted * 100)% downloaded")
-        })
-        .responseData(completionHandler: { (response) in
-            if let data = response.result.value {
-                completion(data)
-            } else {
-                if let error = response.error {
-                    debugPrint("∆ Cannot download a document as rawData: \(error.localizedDescription)")
-                }
-            }
-        })
-    }
-
 }

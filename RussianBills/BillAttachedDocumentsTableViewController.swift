@@ -38,64 +38,40 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath) as! BillAttachedDocumentsTableViewCell
-        cell.mainTitleLabel.text = event!.attachmentsNames[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
+        cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
         if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
             let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/")
-            cell.subtitileLabel.text = documentDownloaded ? "📦 Документ загружен" :  "🌐 Документ не загружен"
+            cell.detailTextLabel?.text = documentDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
         } else {
-            cell.subtitileLabel.text = "🌐 Документ не загружен"
+            cell.detailTextLabel?.text = "🌐 Документ не загружен"
         }
 //        print(event!.attachments[indexPath.row])
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
-            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/")
+        if let linkString = event?.attachments[indexPath.row],
+            let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
+            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/Attachments/\(String(describing: navigationTitle))/")
+            let cell = tableView.cellForRow(at: indexPath)
             if !documentDownloaded {
-                
+                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/Attachments/\(String(describing: navigationTitle))/",
+                    progressStatus: { (progressValue) in
+                        if progressValue < 1 {
+                            cell?.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"
+                        } else {
+                            cell?.detailTextLabel?.text = "\n📦 Документ загружен"
+                        }
+                }, fileURL: { (filePath) in
+                    // TODO: Preview downloaded file
+                    print(filePath)
+                })
             }
         } else {
             debugPrint("∆ Can not get name part")
         }
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

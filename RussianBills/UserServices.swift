@@ -142,11 +142,36 @@ enum UserServices {
     }
     
     // MARK: - Documents
-    
-    static func downloadDocument(usingLink: String, toDestination dest: String, completion: (Data)->Void) {
-        try? Request.document(byLink: usingLink) { (data) in
-            
-        }
-    }
 
+    static func downloadDocument(usingRelativeLink link: String, toDestination dest: String, progressStatus: @escaping (Double)->Void, fileURL: @escaping (String)->Void ) {
+        guard let url = try? RequestRouter.document(link: link).documentStringLink() else {
+            debugPrint("∆ Cannot transform \(link) to a URL to download an attached document")
+            return
+        }
+        print("DOC FULL LINK: \(String(describing: url))")
+        Alamofire.download(url!)
+            .downloadProgress(closure: { (progress) in
+                print("\(progress.fractionCompleted * 100)% downloaded")
+                progressStatus(progress.fractionCompleted)
+            })
+            .validate()
+            .responseData(completionHandler: { (response) in
+                if response.error != nil {
+                    debugPrint("∆ Can't download \(response.request.debugDescription) due to error: \(response.error.debugDescription)")
+                }
+
+                if let data = response.value, let utf8Text = String(data: data, encoding: .utf8) {
+                    let fileName = response.destinationURL!.lastPathComponent
+                    print("Recommended file name: \(fileName)")
+                    if let uniqueName = FilesManager.extractUniqueDocumentNameFrom(urlString: String(describing: response.request?.url)) {
+                        if let suggestedFileName = response.response?.suggestedFilename {
+                            let recommendedExtension = suggestedFileName.fileExtension()
+                            FilesManager.createAndOrWriteToFile(text: utf8Text, name: "\(uniqueName).\(recommendedExtension)", path: dest)
+                            fileURL("\(dest)\(uniqueName).\(recommendedExtension)")
+                        }
+                    }
+                }
+            })
+    }
+    
 }

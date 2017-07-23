@@ -29,10 +29,10 @@ enum RequestRouter: URLRequestConvertible {
         return .get
     }
     
-    private func baseUrl() throws -> URL {
+    private func baseUrl() throws -> URL? {
         switch self{
         case .bill(number: _):
-            return try "http://asozd2.duma.gov.ru/main.nsf".asURL()
+            return nil
         case .document(link: _):
             return try "http://asozd2.duma.gov.ru".asURL()
         default:
@@ -59,7 +59,7 @@ enum RequestRouter: URLRequestConvertible {
         case .instances(current: _):
             return "/instances.json"
         case .bill(number: _):
-            return "/(Spravka)"
+            return ""
         case let .document(link):
             return link
         }
@@ -114,7 +114,7 @@ enum RequestRouter: URLRequestConvertible {
         // Base URL + API code for non-parsed categories
         let url = try baseUrl()
         // Path URL + App Key for non-parsed categories
-        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        var urlRequest = URLRequest(url: url!.appendingPathComponent(path))
         urlRequest.allowsCellularAccess = true
         // Generating request
         switch self {
@@ -127,14 +127,18 @@ enum RequestRouter: URLRequestConvertible {
         // debugPrint("Request Router forged a request \(request)")
         return urlRequest
     }
-    
-    func asStringWithoutPercentEncoding() throws -> String? {
-        let urlRequest = try self.asURLRequest()
-        return String(describing: urlRequest).removingPercentEncoding
+
+    func documentStringLink() throws -> String? {
+        switch self {
+        case let .document(link):
+            return "http://asozd2.duma.gov.ru/main.nsf/(ViewDoc)?OpenAgent&work/dz.nsf/ByID&\(FilesManager.extractUniqueDocumentNameFrom(urlString: link)!)".replacingOccurrences(of: "%3F", with: "?")
+        default:
+            return nil
+        }
     }
 
     // MARK: - Private API and app keys
-
+    
     private func appToken() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let token = dict["appToken"] as? String {

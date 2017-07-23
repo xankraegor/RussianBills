@@ -20,7 +20,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="1" green="0.018721711901257154" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Законопроекты" footerTitle=" " id="Lfx-oH-NUc">
+                            <tableViewSection headerTitle=" " footerTitle=" " id="Lfx-oH-NUc">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="45" id="zaz-KV-Ek9">
                                         <rect key="frame" x="0.0" y="28" width="375" height="45"/>
@@ -920,28 +920,28 @@
         <scene sceneID="Rw6-cv-OgV">
             <objects>
                 <tableViewController id="3yu-96-Bfc" customClass="BillAttachedDocumentsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="206" sectionHeaderHeight="28" sectionFooterHeight="28" id="OcL-IV-ruf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" id="OcL-IV-ruf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="1" green="0.0" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AttachedDocumentCellId" textLabel="KG6-9S-OYT" detailTextLabel="Zvu-q0-GDU" rowHeight="206" style="IBUITableViewCellStyleSubtitle" id="A58-Hg-QKN" customClass="BillAttachedDocumentsTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="206"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AttachedDocumentCellId" textLabel="uXz-yh-JS8" detailTextLabel="MP3-CO-s82" rowHeight="92" style="IBUITableViewCellStyleSubtitle" id="wkd-Ma-CVZ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="92"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A58-Hg-QKN" id="gwk-dz-qpx">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="205.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wkd-Ma-CVZ" id="BhK-ol-qnM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="91.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KG6-9S-OYT">
-                                            <rect key="frame" x="16" y="15" width="324" height="162.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uXz-yh-JS8">
+                                            <rect key="frame" x="15" y="29" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <string key="text">Приложение 31 к тексту законопроекта (Распределение бюджетных ассигнований на 2017 год на осуществление социальных выплат для приобретения жилья гражданами, выезжающими из районов Крайнего Севера) (Комитет Государственной Думы по бюджету и налогам)</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="🌐 Документ не загружен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zvu-q0-GDU">
-                                            <rect key="frame" x="16" y="177.5" width="155.5" height="14.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MP3-CO-s82">
+                                            <rect key="frame" x="15" y="49.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -949,11 +949,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="mainTitleLabel" destination="KG6-9S-OYT" id="5kJ-St-pXs"/>
-                                    <outlet property="subtitileLabel" destination="Zvu-q0-GDU" id="Mff-lU-bge"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1142,7 +1137,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Уголовное право. Исполнение наказаний" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qER-ib-xKS">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="59.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
