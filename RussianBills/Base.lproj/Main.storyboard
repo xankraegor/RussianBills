@@ -821,17 +821,17 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-gP-OVe">
                                             <rect key="frame" x="8" y="8" width="334" height="186.5"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="6vu-Ch-2gr">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="6vu-Ch-2gr">
                                                     <rect key="frame" x="0.0" y="0.0" width="334" height="20.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="189" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="413-7 ГД" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AR-Zw-VTO">
-                                                            <rect key="frame" x="264" y="0.0" width="70" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="413-7 ГД" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AR-Zw-VTO">
+                                                            <rect key="frame" x="225" y="0.0" width="109" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -839,21 +839,22 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="3AR-Zw-VTO" secondAttribute="trailing" id="Ofe-F9-fZ7"/>
+                                                        <constraint firstItem="wYZ-mf-Wv2" firstAttribute="leading" secondItem="6vu-Ch-2gr" secondAttribute="leading" id="Vs6-cw-cKb"/>
                                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="top" secondItem="6vu-Ch-2gr" secondAttribute="top" id="YGh-P7-uue"/>
                                                         <constraint firstAttribute="bottom" secondItem="3AR-Zw-VTO" secondAttribute="bottom" id="r1Q-J3-4yo"/>
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-5r-zP6">
-                                                    <rect key="frame" x="0.0" y="20.5" width="334" height="130"/>
+                                                    <rect key="frame" x="0.0" y="20.5" width="334" height="140"/>
                                                     <string key="text">предложить принять законопроект к рассмотрению (срок представления отзывов, предложений и замечаний в комитет 06.11.2016, предлагаемая дата рассмотрения Государственной Думой 18.11.2016)</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text=" 📘 Документы: 12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7c6-rh-pg0">
-                                                    <rect key="frame" x="0.0" y="150.5" width="334" height="36"/>
+                                                    <rect key="frame" x="0.0" y="160.5" width="334" height="26"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="36" id="Ftz-ki-AUt"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="26" id="Ftz-ki-AUt"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -866,7 +867,6 @@
                                                 <constraint firstItem="7c6-rh-pg0" firstAttribute="width" secondItem="6vu-Ch-2gr" secondAttribute="width" id="OJB-g5-Fdm"/>
                                                 <constraint firstAttribute="bottom" secondItem="7c6-rh-pg0" secondAttribute="bottom" id="S30-xd-Nuu"/>
                                                 <constraint firstItem="7c6-rh-pg0" firstAttribute="leading" secondItem="Eqg-gP-OVe" secondAttribute="leading" id="WjB-go-Znz"/>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="d6R-sQ-gjb"/>
                                                 <constraint firstItem="fF7-5r-zP6" firstAttribute="width" secondItem="6vu-Ch-2gr" secondAttribute="width" id="f0r-9h-mbJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="6vu-Ch-2gr" secondAttribute="trailing" id="hBg-Wb-zSZ"/>
                                             </constraints>
