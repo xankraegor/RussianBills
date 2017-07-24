@@ -83,7 +83,7 @@ final class BillCardTableViewController: UITableViewController {
         if segue.identifier == "BillDetailsSegue" {
             if let dest = segue.destination as? BillDetailsTableViewController, let tree = parser?.tree {
                 dest.tree = tree
-                dest.navigationTitle = "\(bill!.number)"
+                dest.billNumber = "\(bill!.number)"
             }
         }
     }

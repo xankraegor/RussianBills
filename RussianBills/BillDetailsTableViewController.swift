@@ -11,7 +11,7 @@ import UIKit
 class BillDetailsTableViewController: UITableViewController {
     
     var tree: [BillParserPhase]?
-    var navigationTitle: String?
+    var billNumber: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class BillDetailsTableViewController: UITableViewController {
             fatalError("∆ No parsed data handed to BillDetailsTableViewController")
         }
 
-        if let navigationTitle = navigationTitle {
+        if let navigationTitle = billNumber {
             self.navigationItem.title = "События 📃\(navigationTitle)"
         }
         
@@ -71,6 +71,7 @@ class BillDetailsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BillAttachedDocumentsTableViewController, let indexPath = tableView.indexPathForSelectedRow {
             dest.event = tree![indexPath.section].events[indexPath.row]
+            dest.billNumber = self.billNumber
         }
     }
     

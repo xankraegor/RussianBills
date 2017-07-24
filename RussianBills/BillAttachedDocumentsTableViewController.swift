@@ -11,7 +11,7 @@ import UIKit
 class BillAttachedDocumentsTableViewController: UITableViewController {
     
     var event: BillParserEvent?
-    var navigationTitle: String?
+    var billNumber: String?
     
     // MARK: - Life Cycle
     
@@ -22,7 +22,7 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
 
-        if let navigationTitle = navigationTitle {
+        if let navigationTitle = billNumber {
             self.navigationItem.title = "Документы 📃\(navigationTitle)"
         }
     }
@@ -53,11 +53,11 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let linkString = event?.attachments[indexPath.row],
             let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
-            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/Attachments/\(String(describing: navigationTitle))/")
+            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/Attachments/\(String(describing: billNumber))/")
             let cell = tableView.cellForRow(at: indexPath)
             if !documentDownloaded {
-                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/Attachments/\(String(describing: navigationTitle))/",
-                    progressStatus: { (progressValue) in
+                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/Attachments/\(String(describing: billNumber))/",
+                    updateProgressStatus: { (progressValue) in
                         if progressValue < 1 {
                             cell?.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"
                         } else {
