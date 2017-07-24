@@ -47,33 +47,45 @@ enum Request {
             if error != nil {
                 debugPrint(error.debugDescription)
             }
-
-            DispatchQueue.main.async(execute: { () -> Void in
+            
+            let queue = DispatchQueue(label: "html-parse-queue")
+            queue.async {
                 if let doc = HTML(url: url, encoding: String.Encoding.windowsCP1251) {
                     completion(doc)
                 } else {
                     debugPrint("\n∆ HTML is not recieved or decoded")
                 }
-            })
+            }
 
         }).resume()
 
     }
+    
+    // MARK: - Attached Document Request Function
+    
+    static func document(documentLink: String, destination: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
+        
+        guard let fullLink = try? RequestRouter.document(link: documentLink).documentStringLink() else {
+            debugPrint("Cannot forge a request for document using link: \(documentLink)")
+            return
+        }
+        
+        Alamofire.download(fullLink!)
+            .downloadProgress(closure: { (progress) in
+                print("\(progress.fractionCompleted * 100)% downloaded")
+                progressStatus(progress.fractionCompleted)
+            })
+            .validate()
+            .responseData(completionHandler: { (response) in
+                if response.error != nil {
+                    debugPrint("∆ Can't download \(response.request.debugDescription) due to error: \(response.error.debugDescription)")
+                } else {
+                    completion(response)
+                }
+                
+            })
+    }
 
-    // TODO: - Base request function
-
-//    private func requestBody<T>(response: DataResponse<Any>, fetchType: T.Type,
-//                             completion: @escaping ([T])->()) where T: Object, T: InitializableWithJson {
-//        if let contents = response.result.value {
-//            let json = JSON(contents)
-//            var colection: [T] = []
-//            for itemRaw in json  {
-//                let item = T.init(withJson: itemRaw.1)
-//                colection.append(item)
-//            }
-//            completion(colection)
-//        }
-//    }
 
     // MARK: - Other request Functions
 

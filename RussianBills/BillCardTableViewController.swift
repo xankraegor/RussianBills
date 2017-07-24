@@ -47,7 +47,9 @@ final class BillCardTableViewController: UITableViewController {
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
             Request.htmlToParse(forUrl: billUrl, completion: { (html) in
-                self.parser = BillParser(withHTML: html)
+                DispatchQueue.main.sync {
+                    self.parser = BillParser(withHTML: html)
+                }
             })
 
         }
