@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F2104" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -277,7 +277,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="184"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8fd-wm-ZaT" id="9JO-C0-67Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="184"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="183.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHI-S4-CF4">
@@ -424,20 +424,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fAG-Gn-J4E" id="wRg-cK-92L">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="4"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUd-kT-mhs">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="4"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="hUd-kT-mhs" secondAttribute="bottom" id="7bl-o0-ZmG"/>
-                                                <constraint firstItem="hUd-kT-mhs" firstAttribute="leading" secondItem="wRg-cK-92L" secondAttribute="leading" constant="20" symbolic="YES" id="DBW-ww-QIq"/>
-                                                <constraint firstAttribute="trailing" secondItem="hUd-kT-mhs" secondAttribute="trailing" constant="20" symbolic="YES" id="qK4-MT-8UY"/>
-                                                <constraint firstItem="hUd-kT-mhs" firstAttribute="top" secondItem="wRg-cK-92L" secondAttribute="top" id="r8z-W4-EY1"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="4" id="qwH-cA-uPa" userLabel="Blue">
@@ -826,10 +812,10 @@
                         <color key="separatorColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventDescriptionCell" rowHeight="199" id="Is7-Uk-8iu" customClass="EventDescriptionTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="56" width="375" height="199"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="199"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Is7-Uk-8iu" id="gQ8-ml-vf3">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="198"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="198.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Eqg-gP-OVe">
@@ -1034,7 +1020,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="126"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iNt-Ff-zj9" id="kUh-Ij-UFF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345-6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEG-hz-HbB">
@@ -1150,7 +1136,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="133"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IiQ-r3-N3S" id="T7w-aR-hbl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="132.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
