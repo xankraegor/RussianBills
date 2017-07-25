@@ -223,6 +223,9 @@
                                                 <constraint firstItem="w3N-X7-fpR" firstAttribute="leading" secondItem="HDf-vK-pdG" secondAttribute="leading" constant="20" symbolic="YES" id="lbz-Ff-6S9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="iyB-xj-RN1" kind="show" identifier="DeputeesSegue" id="rJG-Es-w9c"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="5t0-tw-brD" userLabel="Deputees">
                                         <rect key="frame" x="0.0" y="444" width="375" height="45"/>
@@ -1130,43 +1133,42 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComitteesCellId" rowHeight="133" id="IiQ-r3-N3S" customClass="NameStartEndTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="133"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComitteesCellId" id="IiQ-r3-N3S" customClass="NameStartEndTableViewCell" customModule="RussianBills" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IiQ-r3-N3S" id="T7w-aR-hbl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="132.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
-                                            <rect key="frame" x="20" y="8" width="335" height="59"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует с 12 мая 1992 года" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-QZ-Fpg">
-                                            <rect key="frame" x="20" y="75" width="335" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует в настоящее время" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-x8-yDM">
-                                            <rect key="frame" x="20" y="100" width="335" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bao-Mu-WLJ">
+                                            <rect key="frame" x="8" y="0.0" width="359" height="43.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="12.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует с 12 мая 1992 года" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-QZ-Fpg">
+                                                    <rect key="frame" x="0.0" y="20.5" width="359" height="10.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует в настоящее время" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-x8-yDM">
+                                                    <rect key="frame" x="0.0" y="39" width="359" height="4.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="idV-QZ-Fpg" secondAttribute="trailing" constant="20" symbolic="YES" id="4Lk-gD-AA3"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="iKq-x8-yDM" secondAttribute="trailing" constant="12" id="4Xe-aU-Hu3"/>
-                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leadingMargin" constant="12" id="6vd-zF-JNp"/>
-                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="top" secondItem="idV-QZ-Fpg" secondAttribute="bottom" constant="8" id="7kY-xC-kEz"/>
-                                        <constraint firstItem="ext-Ol-QRs" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="20" symbolic="YES" id="8DN-ph-Wyp"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="iKq-x8-yDM" secondAttribute="bottom" constant="8" id="9JY-C5-U3J"/>
-                                        <constraint firstItem="ext-Ol-QRs" firstAttribute="top" secondItem="T7w-aR-hbl" secondAttribute="topMargin" id="Anf-uW-mLA"/>
-                                        <constraint firstItem="idV-QZ-Fpg" firstAttribute="top" secondItem="ext-Ol-QRs" secondAttribute="bottom" constant="8" id="BMy-qD-Wbe"/>
-                                        <constraint firstItem="idV-QZ-Fpg" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="20" symbolic="YES" id="Rkh-aX-59s"/>
-                                        <constraint firstAttribute="trailing" secondItem="ext-Ol-QRs" secondAttribute="trailing" constant="20" symbolic="YES" id="UIf-Hd-NAi"/>
+                                        <constraint firstItem="bao-Mu-WLJ" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="8" id="L7v-OG-SeA"/>
+                                        <constraint firstItem="bao-Mu-WLJ" firstAttribute="top" secondItem="T7w-aR-hbl" secondAttribute="top" id="l75-qj-OSl"/>
+                                        <constraint firstAttribute="bottom" secondItem="bao-Mu-WLJ" secondAttribute="bottom" id="ngq-QV-fW6"/>
+                                        <constraint firstAttribute="trailing" secondItem="bao-Mu-WLJ" secondAttribute="trailing" constant="8" id="vUj-2L-T2R"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1174,6 +1176,30 @@
                                     <outlet property="endDateLabel" destination="iKq-x8-yDM" id="31c-xQ-Esb"/>
                                     <outlet property="nameLabel" destination="ext-Ol-QRs" id="DcN-Q3-KCE"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeputeesCellId" textLabel="m0x-nD-iOI" detailTextLabel="25f-3F-rOM" style="IBUITableViewCellStyleSubtitle" id="Hup-Vb-d60">
+                                <rect key="frame" x="0.0" y="132" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hup-Vb-d60" id="umX-a2-dnr">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Жириновский Владимир Вольфович" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m0x-nD-iOI">
+                                            <rect key="frame" x="15" y="5" width="292.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="В должности ✅ Депутат ГД РФ  🏢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25f-3F-rOM">
+                                            <rect key="frame" x="15" y="25.5" width="212" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1186,7 +1212,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sax-wj-JUF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="409"/>
+            <point key="canvasLocation" x="2396" y="408.84557721139436"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sFv-Qh-FXJ">
@@ -1213,6 +1239,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XZ3-13-8e4"/>
+        <segue reference="rJG-Es-w9c"/>
     </inferredMetricsTieBreakers>
 </document>

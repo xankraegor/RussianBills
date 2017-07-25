@@ -34,6 +34,8 @@ final class MainTableViewController: UITableViewController {
                 (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
                 case "InstancesSegue":
                 (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.instances
+                case "DeputeesSegue":
+                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.deputees
             default:
                 break
             }

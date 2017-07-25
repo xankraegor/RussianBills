@@ -17,6 +17,7 @@ final class SimpleTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.title = objectsToDisplay!.fullDescription
         self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
 
@@ -48,6 +49,10 @@ final class SimpleTableViewController: UITableViewController {
             }
         case .instances:
             UserServices.downloadInstances { [weak self] in
+                self?.updateTableWithNewData()
+            }
+        case .deputees:
+            UserServices.downloadInstances() { [weak self] in
                 self?.updateTableWithNewData()
             }
         }
@@ -115,6 +120,13 @@ final class SimpleTableViewController: UITableViewController {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
             return cell
+            
+        case .deputees:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
+            let objct = RealmCoordinator.loadObject(Deputy_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            cell.textLabel?.text = objct.name
+            cell.detailTextLabel?.text = (objct.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + objct.position
+            return cell
         }
 
     }
@@ -125,41 +137,7 @@ final class SimpleTableViewController: UITableViewController {
         tableView.endUpdates()
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     /*
     // MARK: - Navigation
 
