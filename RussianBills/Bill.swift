@@ -219,23 +219,10 @@ final class Bill_: Object, InitializableWithJson {
 
     func generateSubjectsDescription() -> String? {
         var output: [String] = []
-        
-        for faction in factions {
-            output.append("\(faction.name)")
-        }
-        
-        for deputy in deputees {
-            output.append("\(deputy.position) \(deputy.name)")
-        }
-        
-        for subject in federalSubjects {
-            output.append("\(subject.name)")
-        }
-        
-        for subject in regionalSubjects {
-            output.append("\(subject.name)")
-        }
-        
+        factions.forEach({output.append($0.name)})
+        deputees.forEach({output.append("\($0.position) \($0.name)")})
+        federalSubjects.forEach({output.append($0.name)})
+        regionalSubjects.forEach({output.append($0.name)})
         return output.joined(separator: "; ")
     }
 }

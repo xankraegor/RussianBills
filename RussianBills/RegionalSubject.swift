@@ -26,6 +26,10 @@ final class RegionalSubject_: Object, InitializableWithJson {
         startDate = json["startDate"].stringValue
         stopDate = json["stopDate"].stringValue
     }
+    
+    static var fields: [String] {
+        return ["name", "isCurrent", "startDate", "stopDate"]
+    }
 
     override static func primaryKey() -> String {
         return "id"

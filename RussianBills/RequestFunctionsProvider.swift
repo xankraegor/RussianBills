@@ -65,12 +65,12 @@ enum Request {
     
     static func document(documentLink: String, destination: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
         
-        guard let fullLink = try? RequestRouter.document(link: documentLink).documentStringLink() else {
+        guard let fullLink = RequestRouter.document(link: documentLink).documentStringLink() else {
             debugPrint("Cannot forge a request for document using link: \(documentLink)")
             return
         }
         
-        Alamofire.download(fullLink!)
+        Alamofire.download(fullLink)
             .downloadProgress(closure: { (progress) in
                 print("\(progress.fractionCompleted * 100)% downloaded")
                 progressStatus(progress.fractionCompleted)

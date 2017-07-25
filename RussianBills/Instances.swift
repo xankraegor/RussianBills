@@ -22,6 +22,11 @@ final class Instance_: Object, InitializableWithJson {
         name = json["name"].stringValue
         isCurrent = json["isCurrent"].boolValue
     }
+    
+    static var fields: [String] {
+        return ["name", "isCurrent"]
+    }
+
 
     override static func primaryKey() -> String {
         return "id"

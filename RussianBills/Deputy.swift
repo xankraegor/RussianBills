@@ -24,6 +24,11 @@ final class Deputy_: Object, InitializableWithJson {
         position = json["position"].stringValue
         isCurrent = json["isCurrent"].boolValue
     }
+    
+    static var fields: [String] {
+        return ["name", "isCurrent", "position"]
+    }
+
 
     override static func primaryKey() -> String {
         return "id"

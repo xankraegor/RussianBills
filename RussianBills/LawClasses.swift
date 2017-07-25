@@ -20,6 +20,11 @@ final class LawClass_: Object, InitializableWithJson {
         id = json["id"].intValue
         name = json["name"].stringValue
     }
+    
+    static var fields: [String] {
+        return ["name"]
+    }
+
 
     override static func primaryKey() -> String {
         return "id"

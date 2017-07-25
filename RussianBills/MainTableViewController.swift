@@ -14,7 +14,6 @@ final class MainTableViewController: UITableViewController {
         super.viewDidLoad()
         debugPrint("Realm DB Path: \(RealmCoordinator.DEBUG_defaultRealmPath())\n")
         UserServices.downloadAllReferenceCategories()
-        print(try! RequestRouter.document(link: "main.nsf/(ViewDoc)?OpenAgent&work/dz.nsf/ByID&8BFBDF27B15A61404325815D003C6CF5").documentStringLink())
     }
 
     // MARK: - Navigation
