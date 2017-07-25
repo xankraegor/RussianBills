@@ -56,6 +56,16 @@ struct BillSearchQuery {
     var pageNumber: UInt?
     var pageLimit: BillSearchQueryPageLimit?
     var sortType: BillSearchQuerySortType?
+    
+    // MARK: - Initialization
+    
+    init() {
+        
+    }
+    
+    init(withNumber: String) {
+        self.number = withNumber
+    }
 
     // MARK: - Methods
 

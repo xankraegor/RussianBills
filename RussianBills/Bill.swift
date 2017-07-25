@@ -24,6 +24,7 @@ final class Bill_: Object, InitializableWithJson {
     dynamic var favorite: Bool = false
 
     /* Introduced by: */
+    let factions = List<Factions_>()
     let deputees = List<Deputy_>()
     let federalSubjects = List<FederalSubject_>()
     let regionalSubjects = List<RegionalSubject_>()
@@ -60,9 +61,26 @@ final class Bill_: Object, InitializableWithJson {
         introductionDate = json["introductionDate"].stringValue
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
+        
+        // Factions ==============================================================================
+        let factions = json["subject"]["factions"].arrayValue
+        
+        for fac in factions {
+            let facId = fac["id"].intValue
+            if let faction = RealmCoordinator.loadObject(Factions_.self, byId: facId) {
+                self.factions.append(faction)
+            } else {
+                let faction = Factions_()
+                faction.id = facId
+                faction.name = fac["name"].stringValue
+                
+                RealmCoordinator.save(object: faction)
+                self.factions.append(faction)
+            }
+        }
 
         // Deputies ==============================================================================
-        let deputies = json["subject"]["deputy"].arrayValue
+        let deputies = json["subject"]["deputies"].arrayValue
 
         for dep in deputies {
             let depId = dep["id"].intValue
@@ -81,7 +99,7 @@ final class Bill_: Object, InitializableWithJson {
         }
 
         // Other subjects ==============================================================================
-        let subjects = json["subject"]["department"].arrayValue
+        let subjects = json["subject"]["departments"].arrayValue
 
         for sub in subjects {
             let subId = sub["id"].intValue
@@ -200,30 +218,24 @@ final class Bill_: Object, InitializableWithJson {
     }
 
     func generateSubjectsDescription() -> String? {
-        var output = ""
-        if deputees.count > 0 {
-            for deputy in deputees {
-                output += "\(deputy.position) \(deputy.name)\n"
-            }
-        }
-        if federalSubjects.count > 0 {
-            for subject in federalSubjects {
-                output += "\(subject.name)\n"
-            }
-        }
-        if federalSubjects.count > 0 {
-            for subject in federalSubjects {
-                output += "\(subject.name)\n"
-            }
-        }
-
-        if output.characters.count > 0 {
-            // Removing last end of line sign
-            output = output.substring(to: output.index(before: output.endIndex))
-            return output
-        } else {
-            return nil
+        var output: [String] = []
+        
+        for faction in factions {
+            output.append("\(faction.name)")
         }
         
+        for deputy in deputees {
+            output.append("\(deputy.position) \(deputy.name)")
+        }
+        
+        for subject in federalSubjects {
+            output.append("\(subject.name)")
+        }
+        
+        for subject in regionalSubjects {
+            output.append("\(subject.name)")
+        }
+        
+        return output.joined(separator: "; ")
     }
 }

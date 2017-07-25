@@ -42,6 +42,7 @@
 		2A98F1721F0AF3B4004F5524 /* Comittee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F1711F0AF3B4004F5524 /* Comittee.swift */; };
 		2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F1731F0AFB3C004F5524 /* Topics.swift */; };
 		2A98F1761F0AFBEA004F5524 /* LawClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F1751F0AFBEA004F5524 /* LawClasses.swift */; };
+		2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA471EE1F26B903006DF8B0 /* Factions.swift */; };
 		2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1971F0C03D200EE2DA3 /* BillStatus.swift */; };
 		2AA4D19A1F0C04D200EE2DA3 /* FederalSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */; };
 		2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */; };
@@ -111,6 +112,7 @@
 		2A98F1711F0AF3B4004F5524 /* Comittee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comittee.swift; sourceTree = "<group>"; };
 		2A98F1731F0AFB3C004F5524 /* Topics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topics.swift; sourceTree = "<group>"; };
 		2A98F1751F0AFBEA004F5524 /* LawClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawClasses.swift; sourceTree = "<group>"; };
+		2AA471EE1F26B903006DF8B0 /* Factions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factions.swift; sourceTree = "<group>"; };
 		2AA4D1971F0C03D200EE2DA3 /* BillStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStatus.swift; sourceTree = "<group>"; };
 		2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FederalSubject.swift; sourceTree = "<group>"; };
 		2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionalSubject.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
 				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
 				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
+				2AA471EE1F26B903006DF8B0 /* Factions.swift */,
 				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
 				2A8782011F0BE4A400A0554F /* Deputy.swift */,
 				2A98F1731F0AFB3C004F5524 /* Topics.swift */,
@@ -614,6 +617,7 @@
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
 				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,
 				2AAA81651F19599E005DF090 /* BillCardTableViewController.swift in Sources */,
+				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2AA6771E1F215321003CFD37 /* EventDescriptionTableViewCell.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,

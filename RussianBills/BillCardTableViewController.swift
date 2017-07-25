@@ -29,8 +29,6 @@ final class BillCardTableViewController: UITableViewController {
     
     @IBOutlet weak var goToAllEventsCell: UITableViewCell!
 
-    
-
     var parser: BillParser? {
         didSet {
             if parser != nil {
@@ -40,8 +38,10 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 40
+        
         fetchBillData()
 
         if let billUrlString = bill?.url,
@@ -51,15 +51,33 @@ final class BillCardTableViewController: UITableViewController {
                     self.parser = BillParser(withHTML: html)
                 }
             })
-
         }
+        
+        if let billNumber = bill?.number {
+            let searchQuery = BillSearchQuery(withNumber: billNumber)
+            UserServices.downloadBills(withQuery: searchQuery, markFavorite: true, completion: { (bills)->Void in
+                if bills.count > 0 {
+                    self.bill = bills.first!
+                    self.fetchBillData()
+                }
+            })
+        
+        }
+        
     }
-
+    
     // MARK: - Table view delegate
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
+//
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if indexPath.section == 0 && ( 4...6 ~= indexPath.row ) { // Flag colors
+//            print("(\(indexPath.section)\(indexPath.row)) height = 8")
+//            return 8
+//        } else {
+//            print("(\(indexPath.section)\(indexPath.row)) height = \(UITableViewAutomaticDimension)")
+//            return UITableViewAutomaticDimension
+//        }
+//    }
+    
 
     // MARK: - Helper functions
 

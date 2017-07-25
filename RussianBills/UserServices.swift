@@ -127,17 +127,25 @@ enum UserServices {
             }
         }
     }
-
+    
     // MARK: - Bills
-
+    
     // По умолчанию загружается не более 20 штук за раз!
     // TODO:- Сделать выгрузку большего количества или автоматическую подгрузку
-    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
-            Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-            RealmCoordinator.save(collection: result)
-                if let compl = completion {
-                    compl(result)
+    static func downloadBills(withQuery query: BillSearchQuery, markFavorite: Bool = false, completion: (([Bill_]) -> Void)? = nil) {
+        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
+            
+            if markFavorite {
+                for res in result {
+                    res.favorite = true
                 }
+            }
+            
+            RealmCoordinator.save(collection: result)
+            if let compl = completion {
+                compl(result)
+            }
+            
         })
     }
     
