@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список федеральных органов власти, обладающих ПЗИ
-final class FederalSubject_: Object, InitializableWithJson {
+final class FederalSubject_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
     dynamic var id: Int = 0
     dynamic var name: String = ""
     dynamic var isCurrent: Bool = false
@@ -27,8 +27,12 @@ final class FederalSubject_: Object, InitializableWithJson {
         stopDate = json["stopDate"].stringValue
     }
     
-    static var fields: [String] {
+    static var sortFields: [String] {
         return ["name", "isCurrent", "startDate", "stopDate"]
+    }
+    
+    static var filterFields: [String] {
+        return ["isCurrent"]
     }
 
     override static func primaryKey() -> String {

@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Отрасли законодательства
-final class LawClass_: Object, InitializableWithJson {
+final class LawClass_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
     dynamic var id: Int = 0
     dynamic var name: String = ""
 
@@ -21,10 +21,13 @@ final class LawClass_: Object, InitializableWithJson {
         name = json["name"].stringValue
     }
     
-    static var fields: [String] {
+    static var sortFields: [String] {
         return ["name"]
     }
-
+    
+    static var filterFields: [String] {
+        return []
+    }
 
     override static func primaryKey() -> String {
         return "id"

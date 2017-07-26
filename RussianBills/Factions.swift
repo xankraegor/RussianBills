@@ -21,10 +21,6 @@ final class Factions_: Object, InitializableWithJson {
         name = json["name"].stringValue
     }
     
-    static var fields: [String] {
-        return ["name"]
-    }
-    
     override static func primaryKey() -> String {
         return "id"
     }

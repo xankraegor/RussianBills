@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список депутатов Госдумы и членов Совета Федерации
-final class Deputy_: Object, InitializableWithJson {
+final class Deputy_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
     dynamic var id: Int = 0
     dynamic var name: String = ""
     dynamic var position: String = ""
@@ -25,10 +25,13 @@ final class Deputy_: Object, InitializableWithJson {
         isCurrent = json["isCurrent"].boolValue
     }
     
-    static var fields: [String] {
+    static var sortFields: [String] {
         return ["name", "isCurrent", "position"]
     }
-
+    
+    static var filterFields: [String] {
+        return ["isCurrent", "position"]
+    }
 
     override static func primaryKey() -> String {
         return "id"

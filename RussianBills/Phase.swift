@@ -20,11 +20,6 @@ final class Phase_: Object, InitializableWithJson {
         id = json["id"].intValue
         name = json["name"].stringValue
     }
-    
-    static var fields: [String] {
-        return ["name"]
-    }
-
 
     override static func primaryKey() -> String {
         return "id"
