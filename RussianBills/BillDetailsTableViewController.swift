@@ -13,33 +13,33 @@ class BillDetailsTableViewController: UITableViewController {
     var tree: [BillParserPhase]?
     var billNumber: String?
 
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard tree != nil else {
-            fatalError("∆ No parsed data handed to BillDetailsTableViewController")
-        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
 
         if let navigationTitle = billNumber {
             self.navigationItem.title = "События 📃\(navigationTitle)"
         }
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
     }
-
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tree!.count
+        return tree?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tree![section].events.count
+        return tree?[section].events.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tree![section].name
+        return tree?[section].name ?? ""
     }
 
 
@@ -48,7 +48,7 @@ class BillDetailsTableViewController: UITableViewController {
         cell.eventDateLabel.text = tree![indexPath.section].events[indexPath.row].date
         cell.eventDocumentLabel.text = tree![indexPath.section].events[indexPath.row].docNr
         cell.eventTextLabel.text = tree![indexPath.section].events[indexPath.row].name
-        let docsCount = tree![indexPath.section].events[indexPath.row].attachments.count
+        let docsCount = tree?[indexPath.section].events[indexPath.row].attachments.count ?? 0
         if docsCount > 0 {
             cell.documentsAttachedLabel.text = "📘 Документы: \(docsCount)"
             cell.accessoryType = .disclosureIndicator

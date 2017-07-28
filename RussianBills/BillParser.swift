@@ -9,6 +9,7 @@
 import Foundation
 import Kanna
 
+// An example: the lanrgest existing page of this type to parse:
 // http://asozd2.duma.gov.ru/main.nsf/(Spravka)?OpenAgent&RN=15455-7
 
 final public class BillParser {
@@ -42,6 +43,7 @@ final public class BillParser {
             var phaseStorage = BillParserPhase(withName: phaseHeaderName)
             let table = phase.xpath("table")[1]
             let events = table.xpath(".//tr")
+
             if events.count > 0 {
                 var eventStorage: BillParserEvent?
 
@@ -64,7 +66,11 @@ final public class BillParser {
                 if let lastEventExists = eventStorage {
                     phaseStorage.events.append(lastEventExists)
                 }
+            } else {
+                debugPrint("∆ BILL PARSER: Events count equals zero")
+                return nil
             }
+
             tree.append(phaseStorage)
         }
 

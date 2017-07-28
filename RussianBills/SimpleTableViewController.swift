@@ -13,16 +13,21 @@ final class SimpleTableViewController: UITableViewController {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
+
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        if objectsToDisplay == nil {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = objectsToDisplay!.fullDescription
         self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
-        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +70,7 @@ final class SimpleTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RealmCoordinator.countObjects(ofType: (objectsToDisplay?.typeUsedForObjects)!)
+        return RealmCoordinator.countObjects(ofType: (objectsToDisplay?.typeUsedForObjects)!) 
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,11 +81,13 @@ final class SimpleTableViewController: UITableViewController {
             let objct = RealmCoordinator.loadObject(LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
              return cell
+
         case .topics:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = RealmCoordinator.loadObject(Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
              return cell
+
         case .instances:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = RealmCoordinator.loadObject(Instance_.self, sortedBy: "id", ascending: false, byIndex: indexPath.row)
@@ -98,6 +105,7 @@ final class SimpleTableViewController: UITableViewController {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
              return cell
+
         case .regionalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
             let objct = RealmCoordinator.loadObject(RegionalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
@@ -109,6 +117,7 @@ final class SimpleTableViewController: UITableViewController {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
              return cell
+
         case .committees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
             let objct = RealmCoordinator.loadObject(Comittee_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
@@ -130,6 +139,8 @@ final class SimpleTableViewController: UITableViewController {
         }
 
     }
+
+    // MARK: - Helper functions
 
     private func updateTableWithNewData() {
         tableView.beginUpdates()

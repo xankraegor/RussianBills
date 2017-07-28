@@ -15,7 +15,7 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     
     // MARK: - Life Cycle
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
         if event == nil {
             fatalError("No event handed to the UITableViewController")
         }

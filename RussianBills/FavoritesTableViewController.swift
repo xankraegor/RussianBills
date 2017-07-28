@@ -12,16 +12,16 @@ final class FavoritesTableViewController: UITableViewController {
 
     var favorites = RealmCoordinator.loadFavoriteBills()
 
-
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 184
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 184
         tableView.reloadData()
     }
 

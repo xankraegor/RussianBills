@@ -10,9 +10,13 @@ import UIKit
 
 final class MainTableViewController: UITableViewController {
 
+    // MARK: - Life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        debugPrint("Realm DB Path: \(RealmCoordinator.DEBUG_defaultRealmPath())\n")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         UserServices.downloadAllReferenceCategories()
     }
 

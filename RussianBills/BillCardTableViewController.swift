@@ -37,11 +37,16 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 40
-        
+
         fetchBillData()
 
         if let billUrlString = bill?.url,
@@ -52,7 +57,7 @@ final class BillCardTableViewController: UITableViewController {
                 }
             })
         }
-        
+
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
             UserServices.downloadBills(withQuery: searchQuery, markFavorite: true, completion: { (bills)->Void in
@@ -61,11 +66,9 @@ final class BillCardTableViewController: UITableViewController {
                     self.fetchBillData()
                 }
             })
-        
         }
-        
     }
-    
+
     // MARK: - Table view delegate
 //
 //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
