@@ -204,7 +204,7 @@ final class Bill_: Object, InitializableWithJson {
     }
 
     override static func primaryKey() -> String {
-        return "id"
+        return "number"
     }
 
     // MARK: - Helper functions
