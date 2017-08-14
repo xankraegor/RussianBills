@@ -132,16 +132,24 @@ enum UserServices {
     
     // По умолчанию загружается не более 20 штук за раз!
     // TODO:- Сделать выгрузку большего количества или автоматическую подгрузку
-    static func downloadBills(withQuery query: BillSearchQuery, markFavorite: Bool = false, completion: (([Bill_]) -> Void)? = nil) {
+    static func downloadBills(withQuery query: BillSearchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector, completion: (([Bill_]) -> Void)? = nil) {
+        
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-            
-            if markFavorite {
+            switch favoriteSelector {
+            case .none:
+                break
+            case .makeAllFavorite:
                 for res in result {
                     res.favorite = true
+                }
+            case .preserveFavorite:
+                for res in result {
+                    res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
                 }
             }
             
             RealmCoordinator.save(collection: result)
+            
             if let compl = completion {
                 compl(result)
             }
