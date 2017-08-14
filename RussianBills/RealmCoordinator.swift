@@ -118,6 +118,16 @@ enum RealmCoordinator {
         }
 
     }
+    
+    static func getFavoriteStatusOf(billNr: String)->Bool? {
+        do {
+            let realm = try Realm()
+            return (realm.object(ofType: Bill_.self, forPrimaryKey: billNr))?.favorite
+        } catch let error {
+            fatalError("∆ Cannot reach the Realm to get favorite status for a bill: \(error.localizedDescription)")
+        }
+    }
+
 
     // MARK: - Count data in Realm
 
