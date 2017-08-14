@@ -18,8 +18,6 @@ enum UserDefaultsCoordinator: String {
     case deputy
     case topics
     case instances
-
-    // TODO:- Stage implementation
     case stage
 
     /// 24 hrs in seconds
@@ -94,6 +92,19 @@ enum UserDefaultsCoordinator: String {
 //            debugPrint("\(key) = \(value) \n")
 //        }
 //    }
+    
+    public static func saveQuickSearchFields(name: String, nr1: String, nr2: String) {
+        UserDefaults.standard.set(name, forKey: "quickSearchSavedName")
+        UserDefaults.standard.set(nr1, forKey: "quickSearchSavedNr1")
+        UserDefaults.standard.set(nr2, forKey: "quickSearchSavedNr2")
+    }
+    
+    public static func getQuickSearchFields()->(name: String?, nr1: String?, nr2: String?) {
+        let name = UserDefaults.standard.string(forKey: "quickSearchSavedName")
+        let nr1 = UserDefaults.standard.string(forKey: "quickSearchSavedNr1")
+        let nr2 = UserDefaults.standard.string(forKey: "quickSearchSavedNr2")
+        return (name, nr1, nr2)
+    }
 
     // MARK: - Private methods
 
