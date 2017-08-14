@@ -60,7 +60,7 @@ final class BillCardTableViewController: UITableViewController {
 
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
-            UserServices.downloadBills(withQuery: searchQuery, markFavorite: true, completion: { (bills)->Void in
+            UserServices.downloadBills(withQuery: searchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.none, completion: { (bills)->Void in
                 if bills.count > 0 {
                     self.bill = bills.first!
                     self.fetchBillData()

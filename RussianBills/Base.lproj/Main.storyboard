@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F2104" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FV3-Kl-nKh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1013,18 +1013,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="126" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ome-z4-Ebt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ome-z4-Ebt">
                                 <rect key="frame" x="0.0" y="262.5" width="375" height="404.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpressAddBillTableViewCell" rowHeight="126" id="iNt-Ff-zj9" customClass="QuickSearchTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="126"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpressAddBillTableViewCell" rowHeight="98" id="iNt-Ff-zj9" customClass="QuickSearchTableViewCell" customModule="RussianBills" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iNt-Ff-zj9" id="kUh-Ij-UFF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="125.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="97.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345-6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEG-hz-HbB">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📃12345-6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEG-hz-HbB">
                                                     <rect key="frame" x="8" y="8" width="359" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KpT-Dl-E6I"/>
@@ -1034,7 +1034,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="О внесении изменений в Налоговый кодекс Российской Федерации" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU6-cJ-eBA">
-                                                    <rect key="frame" x="8" y="37" width="359" height="80.5"/>
+                                                    <rect key="frame" x="8" y="37" width="359" height="52.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1105,7 +1105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vDS-3J-A44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3281" y="164"/>
+            <point key="canvasLocation" x="3280.8000000000002" y="163.26836581709148"/>
         </scene>
         <!--$UniversalTitle$-->
         <scene sceneID="aez-dd-Gp5">
@@ -1212,7 +1212,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sax-wj-JUF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="408.84557721139436"/>
+            <point key="canvasLocation" x="2396" y="239"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sFv-Qh-FXJ">

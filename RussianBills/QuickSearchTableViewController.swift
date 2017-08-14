@@ -10,68 +10,94 @@ import UIKit
 import RealmSwift
 
 final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-
-    typealias VoidToVoid = (() -> Void)
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
     @IBOutlet weak var number2TextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-
+    
     var query = BillSearchQuery()
-    var loadedBills = [Bill_]()
-
-    var notificationToken: NotificationToken?
-
+    
+    let favoriteAddedColor = #colorLiteral(red: 1, green: 0.9601590037, blue: 0.855443418, alpha: 1)
+    let fovoriteFalseColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    
+    var realmNotificationToken: NotificationToken? = nil
+    
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        debugPrint(RealmCoordinator.DEBUG_defaultRealmPath())
+        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
-        
         number1TextField.delegate = self
         number2TextField.delegate = self
         nameTextField.delegate = self
     }
-
-    deinit {
-        notificationToken?.stop()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+        loadSavedQuickSearchFields()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let results = RealmCoordinator.getQuickSearchBillsList()
+        
+        realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
+            self!.tableView.reloadData()
+        }
     }
 
-    // MARK: - Table view data source
 
+    override func viewDidDisappear(_ animated: Bool) {
+        UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "", nr2: number2TextField.text ?? "")
+    }
+    
+    deinit {
+        realmNotificationToken?.stop()
+    }
+    
+    // MARK: - Table view data source
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
-            return loadedBills.count
+            return RealmCoordinator.getQuickSearchBillsListItems().count 
         } else {
             return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
-        let bill = loadedBills[indexPath.row]
+        let bill = RealmCoordinator.getQuickSearchBillsListItems()[indexPath.row]
+        if bill.comments.characters.count > 0 {
+            cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
+        } else {
+            cell.billNameLabel.text = bill.name
+        }
         cell.billNameLabel.text = bill.name
-        cell.billNumberLabel.text = bill.number
+        cell.backgroundColor = bill.favorite ? favoriteAddedColor : fovoriteFalseColor
+        debugPrint(bill.favorite)
+        setColorAndNumberForCell(at: indexPath)
+        
         return cell
     }
-
-    // MARK: - TableViewDelegate
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RealmCoordinator.updateFavoriteStatusOf(bill: loadedBills[indexPath.row], to: true)
-        self.dismiss(animated: true, completion: nil)
-    }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    // MARK: - TableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bills = RealmCoordinator.getQuickSearchBillsListItems()
+        RealmCoordinator.updateFavoriteStatusOf(bill: bills[indexPath.row], to: !bills[indexPath.row].favorite)
+        { [weak self] in
+            self?.setColorAndNumberForCell(at: indexPath)
+        }
         
     }
     
@@ -81,79 +107,69 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         textField.resignFirstResponder()
         return true
     }
-
+    
     // MARK: - Actions
-
+    
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-
+        
         refillQueryFromTextFields()
-
+        
         if query.hasAnyFilledFields() {
-            notificationToken = produceNotificationTokenForBill(havingFilter: query.produceFilter(),
-                                                                completion: { (_) in
-                reloadTableUsingNewData()
+            
+            UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
+               result in
+                RealmCoordinator.setQuickSearchBillsList(toContain: result)
             })
-
-            debugPrint("searchButtonPressed: Query got filled fields")
-
-            UserServices.downloadBills(withQuery: query, completion: { result in
-                self.loadedBills = result
-                print(self.loadedBills.count)
-            })
-
-        } else {
-            debugPrint("searchButtonPressed: Query has no filled fields")
+            
         }
     }
-
+    
     // MARK: - Helper functions
-
-    private func reloadTableUsingNewData() {
-        debugPrint("reloadTableUsingNewData")
-
-        tableView.reloadData()
-
-    }
-
+    
     private func refillQueryFromTextFields() {
-
+        
         query = BillSearchQuery()
-
+        
         if let num1 = Int(number1TextField.text!), let num2 = Int(number2TextField.text!) {
             if num1 > 0 && num2 > 0 {
                 query.number = "\(num1)-\(num2)"
-                debugPrint("query.number = \(String(describing: query.number))")
             }
         }
-
+        
         if let name = nameTextField.text {
             if name.characters.count > 0 {
                 query.name = name
-                debugPrint("query.name = \(String(describing: query.name))")
             }
         }
-
+        
     }
-
+    
+    func setColorAndNumberForCell(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
+            let quickSearchBills = RealmCoordinator.getQuickSearchBillsListItems()
+            if quickSearchBills[indexPath.row].favorite  {
+                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(quickSearchBills[indexPath.row].number)"
+                cell.backgroundColor = favoriteAddedColor
+            } else {
+                cell.billNumberLabel.text = "📃" + quickSearchBills[indexPath.row].number
+                cell.backgroundColor = fovoriteFalseColor
+            }
+        }
+    }
+    
+    func loadSavedQuickSearchFields() {
+        let savedTextFields = UserDefaultsCoordinator.getQuickSearchFields()
+        self.nameTextField.text = savedTextFields.name
+        self.number1TextField.text = savedTextFields.nr1
+        self.number2TextField.text = savedTextFields.nr2
+    }
+    
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? FavoritesTableViewController {
             dest.favorites = RealmCoordinator.loadFavoriteBills()
         }
     }
-
-    // MARK: - Realm Notifications
-    func produceNotificationTokenForBill(havingFilter: String?, completion: VoidToVoid) ->
-        NotificationToken? {
-            if let realm = try? Realm() {
-                let results = realm.objects(Bill_.self)
-                return results.addNotificationBlock { [weak self] _ in
-                    self?.reloadTableUsingNewData()
-                }
-            } else {
-                return nil
-            }
-    }
-
+    
 }
