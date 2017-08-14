@@ -45,7 +45,7 @@ enum RealmCoordinator {
         }
     }
 
-    static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool) {
+    static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool, completion: (()->Void)? = nil) {
         do {
             let realm = try Realm()
             let updBill = bill
@@ -53,10 +53,12 @@ enum RealmCoordinator {
                 updBill.favorite = isFavourite
                 realm.add(updBill, update: true)
             }
+            if completion != nil {
+                completion!()
+            }
         } catch let error {
             fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
         }
-
     }
 
     // MARK: Load data from Realm
@@ -111,8 +113,8 @@ enum RealmCoordinator {
     static func loadFavoriteBills() -> Results<Bill_> {
         do {
             let realm = try Realm()
-            let obj = realm.objects(Bill_.self)
-            return obj.filter("favorite == true")
+            let objs = realm.objects(Bill_.self)
+            return objs.filter("favorite == true")
         } catch let error {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
         }
