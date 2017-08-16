@@ -14,6 +14,7 @@ import RealmSwift
 final class BillsList_: Object {
     
     dynamic var name = "notSet"
+    
     let bills = List<Bill_>()
     
     override static func primaryKey() -> String {

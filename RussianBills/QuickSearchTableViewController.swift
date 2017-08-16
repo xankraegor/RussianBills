@@ -84,9 +84,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         }
         cell.billNameLabel.text = bill.name
         cell.backgroundColor = bill.favorite ? favoriteAddedColor : fovoriteFalseColor
-        debugPrint(bill.favorite)
         setColorAndNumberForCell(at: indexPath)
-        
         return cell
     }
     
@@ -98,7 +96,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         { [weak self] in
             self?.setColorAndNumberForCell(at: indexPath)
         }
-        
     }
     
     // MARK: - Text Field Delegate
