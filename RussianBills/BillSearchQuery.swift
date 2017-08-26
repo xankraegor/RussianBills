@@ -53,9 +53,9 @@ struct BillSearchQuery {
     /// Параметры stage и phase взаимоисключающие. Параметр phase позволяет фильтровать по типу события, т.е. производить более точную фильтрацию по сравнению с параметром stage.
 
     /// ПРОЧИЕ ПАРАМЕТРЫ
-    var pageNumber: UInt?
-    var pageLimit: BillSearchQueryPageLimit?
-    var sortType: BillSearchQuerySortType?
+    var pageNumber: UInt = 1
+    var pageLimit: BillSearchQueryPageLimit = .p20
+    var sortType: BillSearchQuerySortType = .last_event_date
     
     // MARK: - Initialization
     

@@ -17,6 +17,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     @IBOutlet weak var nameTextField: UITextField!
     
     var query = BillSearchQuery()
+    var isLoading = false
     
     let favoriteAddedColor = #colorLiteral(red: 1, green: 0.9601590037, blue: 0.855443418, alpha: 1)
     let fovoriteFalseColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -48,6 +49,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         
         realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
             self!.tableView.reloadData()
+            self!.loading = false
         }
     }
 
@@ -95,6 +97,18 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         RealmCoordinator.updateFavoriteStatusOf(bill: bills[indexPath.row], to: !bills[indexPath.row].favorite)
         { [weak self] in
             self?.setColorAndNumberForCell(at: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row > RealmCoordinator.getQuickSearchBillsList().count - 15 && !isLoading {
+            isLoading = true
+            query.pageNumber += 1
+            UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
+               result in
+                var bills = RealmCoordinator.getQuickSearchBillsList().append(result)
+                RealmCoordinator.setQuickSearchBillsList(toContain: bills)
+            })
         }
     }
     
