@@ -51,6 +51,8 @@ final class BillCardTableViewController: UITableViewController {
 
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
+            debugPrint("BillURL: \(billUrlString)")
+
             Request.htmlToParse(forUrl: billUrl, completion: { (html) in
                 DispatchQueue.main.sync {
                     self.parser = BillParser(withHTML: html)
@@ -60,7 +62,7 @@ final class BillCardTableViewController: UITableViewController {
 
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
-            UserServices.downloadBills(withQuery: searchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.none, completion: { (bills)->Void in
+            UserServices.downloadBills(withQuery: searchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: { (bills)->Void in
                 if bills.count > 0 {
                     self.bill = bills.first!
                     self.fetchBillData()
@@ -113,7 +115,7 @@ final class BillCardTableViewController: UITableViewController {
 
     // MARK: - AlertController
 
-    @IBAction func ComposeButtonPressed(_ sender: Any) {
+    @IBAction func composeButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Сохранить данные о законопроекте", message: "Выберите действие", preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { (action) in

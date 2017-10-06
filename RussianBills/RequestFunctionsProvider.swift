@@ -50,10 +50,10 @@ enum Request {
             
             let queue = DispatchQueue(label: "html-parse-queue")
             queue.async {
-                if let doc = HTML(url: url, encoding: String.Encoding.windowsCP1251) {
+                if let doc = HTML(url: url, encoding: String.Encoding.utf8) {
                     completion(doc)
                 } else {
-                    debugPrint("\n∆ HTML is not recieved or decoded")
+                    debugPrint("∆ HTML is not recieved or decoded")
                 }
             }
 
