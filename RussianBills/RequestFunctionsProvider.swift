@@ -16,7 +16,7 @@ import Kanna
  
  Having added new methods to this enum, keep it in consistency with UserServices
  
-================================================================================= */
+ ================================================================================= */
 
 enum Request {
 
@@ -50,11 +50,11 @@ enum Request {
             
             let queue = DispatchQueue(label: "html-parse-queue")
             queue.async {
-                if let doc = HTML(url: url, encoding: String.Encoding.utf8) {
-                    completion(doc)
-                } else {
-                    debugPrint("∆ HTML is not recieved or decoded")
-                }
+
+                    if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
+                        completion(doc)
+                    }
+
             }
 
         }).resume()

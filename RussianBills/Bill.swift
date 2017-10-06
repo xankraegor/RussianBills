@@ -13,15 +13,15 @@ import SwiftyJSON
 /// Законопроект
 final class Bill_: Object, InitializableWithJson {
 
-    dynamic var id: Int = 0
-    dynamic var lawType: LawType = LawType.federalLaw
-    dynamic var number: String = ""
-    dynamic var name: String = ""
-    dynamic var comments: String = ""
-    dynamic var introductionDate: String = ""
-    dynamic var url: String = ""
-    dynamic var transcriptUrl: String = ""
-    dynamic var favorite: Bool = false
+    @objc dynamic var id: Int = 0
+    @objc dynamic var lawType: LawType = LawType.federalLaw
+    @objc dynamic var number: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var comments: String = ""
+    @objc dynamic var introductionDate: String = ""
+    @objc dynamic var url: String = ""
+    @objc dynamic var transcriptUrl: String = ""
+    @objc dynamic var favorite: Bool = false
 
     /* Introduced by: */
     let factions = List<Factions_>()
@@ -32,15 +32,15 @@ final class Bill_: Object, InitializableWithJson {
      Duma deputies and members of the Federal Council, ferderal and regional subjects of legislative initiative
      */
 
-    dynamic var lastEventStage: Stage_?
-    dynamic var lastEventPhase: Phase_?
+    @objc dynamic var lastEventStage: Stage_?
+    @objc dynamic var lastEventPhase: Phase_?
 
-    dynamic var lastEventSolutionDescription: String = ""
-    dynamic var lastEventDate: String = ""
-    dynamic var lastEventDocumentName: String = ""
-    dynamic var lastEventDocumentType: String = ""
+    @objc dynamic var lastEventSolutionDescription: String = ""
+    @objc dynamic var lastEventDate: String = ""
+    @objc dynamic var lastEventDocumentName: String = ""
+    @objc dynamic var lastEventDocumentType: String = ""
 
-    dynamic var comitteeResponsible: Comittee_?
+    @objc dynamic var comitteeResponsible: Comittee_?
     let comitteeProfile = List<Comittee_>()
     let comitteeCoexecutor = List<Comittee_>()
 

@@ -12,8 +12,8 @@ import SwiftyJSON
 
 /// Отрасли законодательства
 final class LawClass_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
 
     convenience required init(withJson json: JSON) {
         self.init()

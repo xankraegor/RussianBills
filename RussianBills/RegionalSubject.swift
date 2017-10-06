@@ -12,11 +12,11 @@ import SwiftyJSON
 
 /// Список федеральных органов власти, обладающих ПЗИ
 final class RegionalSubject_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
-    dynamic var isCurrent: Bool = false
-    dynamic var startDate: String = ""
-    dynamic var stopDate: String = ""
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var isCurrent: Bool = false
+    @objc dynamic var startDate: String = ""
+    @objc dynamic var stopDate: String = ""
 
     convenience required init(withJson json: JSON) {
         self.init()

@@ -12,9 +12,9 @@ import SwiftyJSON
 
 /// Список инстанций рассмотрения
 final class Instance_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
-    dynamic var isCurrent: Bool = false
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var isCurrent: Bool = false
 
     convenience required init(withJson json: JSON) {
         self.init()

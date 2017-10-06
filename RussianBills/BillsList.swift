@@ -13,7 +13,7 @@ import RealmSwift
 /// between API response and cached data)
 final class BillsList_: Object {
     
-    dynamic var name = "notSet"
+    @objc dynamic var name = "notSet"
     
     let bills = List<Bill_>()
     

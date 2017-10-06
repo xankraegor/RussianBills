@@ -12,10 +12,10 @@ import SwiftyJSON
 
 /// Список депутатов Госдумы и членов Совета Федерации
 final class Deputy_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
-    dynamic var position: String = ""
-    dynamic var isCurrent: Bool = false
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var position: String = ""
+    @objc dynamic var isCurrent: Bool = false
 
     convenience required init(withJson json: JSON) {
         self.init()
