@@ -173,15 +173,24 @@ enum RealmCoordinator {
     
     // MARK: - Managing Lists
     
-    static func getQuickSearchBillsList()->Results<BillsList_> {
+    static func getQuickSearchBillsList()->BillsList_ {
         do {
             let realm = try Realm()
-            return realm.objects(BillsList_.self)
+            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: "quickSearchList") {
+                return list
+            } else {
+                let newList = BillsList_()
+                newList.name = "quickSearchList"
+                try realm.write {
+                    realm.add(newList, update: true)
+                }
+                return newList
+            }
         } catch let error {
             fatalError("∆ Cannot get quick search bills list: \(error)")
         }
     }
-    
+
     static func getQuickSearchBillsListItems()->[Bill_] {
         do {
             let realm = try Realm()

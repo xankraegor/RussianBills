@@ -49,7 +49,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         
         realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
             self!.tableView.reloadData()
-            self!.loading = false
+            self!.isLoading = false
         }
     }
 
@@ -101,12 +101,13 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row > RealmCoordinator.getQuickSearchBillsList().count - 15 && !isLoading {
+        if indexPath.row > RealmCoordinator.getQuickSearchBillsList().bills.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
                result in
-                var bills = RealmCoordinator.getQuickSearchBillsList().append(result)
+                var bills = RealmCoordinator.getQuickSearchBillsListItems()
+                bills.append(contentsOf: result)
                 RealmCoordinator.setQuickSearchBillsList(toContain: bills)
             })
         }

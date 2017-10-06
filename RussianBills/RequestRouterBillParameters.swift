@@ -128,13 +128,9 @@ extension RequestRouter {
         /// ПРОЧИЕ ПАРАМЕТРЫ
 
         /// page — номер запрашиваемой страницы результатов, по умолчанию равно 1
-        if let page = bill.pageNumber {
-            dict["page"] = page
-        }
+        dict["page"] = bill.pageNumber
         /// limit — количество результатов на странице, допустимые значения: 5, 10, 20 (по умолчанию)
-        if let pageLimit = bill.pageLimit {
-            dict["limit"] = pageLimit
-        }
+        dict["limit"] = bill.pageLimit
 
         /// sort — способ сортировки результатов, по умолчанию равно last_event_date, допустимые значения:
         /// name — по названию законопроекта
@@ -144,9 +140,7 @@ extension RequestRouter {
         /// last_event_date — по дате последнего события (по убыванию)
         /// last_event_date_asc — по дате последнего события (по возрастанию)
         /// responsible_committee — по ответственному комитету
-        if let sortType = bill.sortType {
-            dict["sort"] = sortType.rawValue
-        }
+        dict["sort"] = bill.sortType.rawValue 
 
         return dict
     }
