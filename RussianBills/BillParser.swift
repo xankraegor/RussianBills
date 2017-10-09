@@ -60,8 +60,8 @@ final public class BillParser {
                 } else if let eventContentDateBlock = div.xpath("div[contains(@class, 'bh_etap_date')]").first  {
 
                     // General Event Description
-                    // TODO: Remove Resolution Description from String
-                    guard let eventName = div.content else {
+
+                    guard let eventName = div.xpath("div[contains(@class, 'algstname')]").first?.content else {
                         continue
                     }
 
