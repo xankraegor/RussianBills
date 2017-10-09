@@ -9,76 +9,111 @@
 import Foundation
 import Kanna
 
-// An example: the lanrgest existing page of this type to parse:
-// http://asozd2.duma.gov.ru/main.nsf/(Spravka)?OpenAgent&RN=15455-7
+// Example from the new site
+// http://sozd.parlament.gov.ru/bill/15455-7
 
 final public class BillParser {
 
     var tree: [BillParserPhase] = []
 
     init?(withHTML html: HTMLDocument) {
-        guard let body = html.body else {
-            debugPrint("∆ BILL PARSER: Can't find the html body")
+
+        let phases = html.xpath("//div[contains(@class, 'child_etaps arrh_div')]")
+
+        guard phases.count > 0 else {
+            debugPrint("∆ BILL PARSER: Can't find any phases")
             return nil
         }
 
-        let events = body.xpath("//div[contains(@class, 'child_etaps')]")
-        print(events.count)
+        var phaseStorage: BillParserPhase?
+        var currentEvent: BillParserEvent?
 
-//        else {
-//            debugPrint("∆ BILL PARSER: Can't find the tab")
-//            return nil
-//        }
+        for phase in phases {
 
-//        let phases = tab.xpath("div[contains(@class, 'ata-block-doc data-block')]")
-//
-//        guard phases.count > 0 else {
-//            debugPrint("∆ BILL PARSER: Can't find any phases")
-//            return nil
-//        }
-//
-//        for phase in phases {
-//            guard let phaseHeader = phase.xpath("div[contains(@class, 'date-block-header')]").first
-//                else { continue }
-//            guard let phaseHeaderName = phaseHeader.content
-//                else { continue }
-//
-//            var phaseStorage = BillParserPhase(withName: phaseHeaderName)
-//            let table = phase.xpath("table")[1]
-//            let events = table.xpath(".//tr")
-//
-//            if events.count > 0 {
-//                var eventStorage: BillParserEvent?
-//
-//                for event in events {
-//                    let fields = event.xpath("td")
-//                    if let linkObject = fields[0].xpath("a").first, eventStorage != nil  {
-//                        if let href = linkObject["href"] {
-//                            eventStorage?.attachments.append(href)
-//                            eventStorage?.attachmentsNames.append(linkObject.text ?? "")
-//                        }
-//                    } else if let name = fields[0].content {
-//                        let date = fields[1].content
-//                        let docNr = fields[2].content
-//                        if let lastEventExists = eventStorage {
-//                            phaseStorage.events.append(lastEventExists)
-//                        }
-//                        eventStorage = BillParserEvent(withName: name, date: date, docNr: docNr)
-//                    }
-//                }
-//                if let lastEventExists = eventStorage {
-//                    phaseStorage.events.append(lastEventExists)
-//                }
-//            } else {
-//                debugPrint("∆ BILL PARSER: Events count equals zero")
-//                return nil
-//            }
-//
-//            tree.append(phaseStorage)
-//        }
-//
+            let divs = phase.xpath("div")
+            guard divs.count > 0 else { continue }
+
+            for div in divs {
+
+                // Phase header located: div class="oz_event bh_etap bh_etap_not"
+                if let header = div.xpath("div[contains(@class, 'table_td')]").first {
+                    guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content  else {
+                        continue }
+
+                    print("Type 1")
+
+                    // Saving existing events and phase if any:
+
+                    if phaseStorage != nil {
+                        tree.append(phaseStorage!)
+                    }
+
+                    // Reinitializing storage
+                    phaseStorage = BillParserPhase(withName: headerName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+                    //                    print("Phase Header: \(phaseStorage!.name)")
+
+                    // Event content block div class="oz_event bh_etap with_datatime"
+
+                } else if let eventContentDateBlock = div.xpath("div[contains(@class, 'bh_etap_date')]").first  {
+
+                    print("Type 2")
+
+                    // General Event Description
+                    // TODO: Remove Resolution Description from String
+                    let eventName = div.content?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+                    print("Event name: \(eventName)")
+
+                    // Reinitializing current event
+                    currentEvent = BillParserEvent(withName: eventName, date: nil)
+
+                    // Date and time strings
+                    if let eventDateString = eventContentDateBlock.xpath("span[contains(@class, 'mob_not')]").first?.content {
+                        let date = eventDateString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        currentEvent?.date = date
+                    }
+
+                    if let eventTimeString = eventContentDateBlock.xpath("div[contains(@class, 'bh_etap_date_time')]").first?.content {
+                        let time = eventTimeString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        let fullDate = (currentEvent?.date ?? "") + " " + time
+                        currentEvent?.date = fullDate
+                    }
+
+                    if let otherEventContent = div.xpath("div[contains(@class, 'algstname')]/div[contains(@class, 'table_td')]//li").first {
+
+                        // Does it have attached resolutios?
+                        if let detailedDescr = otherEventContent.xpath("span[contains(@class, 'pun_number pull-right')]").first {
+
+                            // Attached resolution description
+                            let resolutionDesc = detailedDescr.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? "(указание отсутствует)"
+                            currentEvent?.attachmentsNames.append("Решение, см. " + resolutionDesc)
+
+                            // Attached resolution link
+                            if let resolutionLink = detailedDescr.xpath("span/a").first?["href"] {
+                                let resLink = resolutionLink.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                                currentEvent?.attachments.append(resLink)
+                            }
+                        }
+                    }
+
+                    // Attachments
+                    let attachments = div.xpath("div[contains(@class, 'event_files')]/span/a")
+                    for attachment in attachments {
+                        if let attLink = attachment["href"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), let attName =
+                            attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
+                            currentEvent?.attachments.append(attLink)
+                            currentEvent?.attachmentsNames.append(attName)
+                        }
+                    }
+
+                    phaseStorage?.events.append(currentEvent!)
+                }
+            }
+        }
+
+        if phaseStorage != nil {
+            tree.append(phaseStorage!)
+            phaseStorage = nil
+        }
     }
 
-
 }
-
