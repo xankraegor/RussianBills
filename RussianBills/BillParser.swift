@@ -31,16 +31,20 @@ final public class BillParser {
         for phase in phases {
 
             let divs = phase.xpath("div")
-            guard divs.count > 0 else { continue }
+            guard divs.count > 0 else {
+                debugPrint("∆ BILL PARSER: Can't find any events in a phase")
+                continue
+            }
 
             for div in divs {
 
                 // Phase header located: div class="oz_event bh_etap bh_etap_not"
                 if let header = div.xpath("div[contains(@class, 'table_td')]").first {
-                    guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content  else {
-                        continue }
 
-                    print("Type 1")
+                    guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content  else {
+                        debugPrint("∆ BILL PARSER: Can't find event header. Event will not be dispalyed")
+                        continue
+                    }
 
                     // Saving existing events and phase if any:
 
@@ -50,13 +54,10 @@ final public class BillParser {
 
                     // Reinitializing storage
                     phaseStorage = BillParserPhase(withName: headerName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
-                                        print("Phase Header: \(phaseStorage!.name)")
 
                     // Event content block div class="oz_event bh_etap with_datatime"
 
                 } else if let eventContentDateBlock = div.xpath("div[contains(@class, 'bh_etap_date')]").first  {
-
-                    print("Type 2")
 
                     // General Event Description
                     // TODO: Remove Resolution Description from String
@@ -65,9 +66,9 @@ final public class BillParser {
                     }
 
                     let trimmedName = eventName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).condenseWhitespace()
-                    debugPrint("Event name: \(trimmedName)")
+
                     // Reinitializing current event
-                    currentEvent = BillParserEvent(withName: eventName, date: nil)
+                    currentEvent = BillParserEvent(withName: trimmedName, date: nil)
 
                     // Date and time strings
                     if let eventDateString = eventContentDateBlock.xpath("span[contains(@class, 'mob_not')]").first?.content {
@@ -80,8 +81,6 @@ final public class BillParser {
                         let fullDate = (currentEvent?.date ?? "") + " " + time
                         currentEvent?.date = fullDate
                     }
-
-                    debugPrint("Datetime: \(currentEvent?.date ?? "")")
 
                     if let otherEventContent = div.xpath("div[contains(@class, 'algstname')]/div[contains(@class, 'table_td')]//li").first {
 
@@ -119,13 +118,6 @@ final public class BillParser {
                             currentEvent?.attachmentsNames.append(attName)
                         }
                     }
-
-                    if let count = currentEvent?.attachments.count, count > 0 {
-                        for i in 0...count - 1 {
-                            debugPrint("Attachment '\(currentEvent?.attachmentsNames[i] ?? "наименовение отсутствует")'; \(currentEvent?.attachments[i] ?? "ссылка отсутствует") ")
-                        }
-                    }
-
 
                     phaseStorage?.events.append(currentEvent!)
                 }
