@@ -50,7 +50,7 @@ final public class BillParser {
 
                     // Reinitializing storage
                     phaseStorage = BillParserPhase(withName: headerName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
-                    //                    print("Phase Header: \(phaseStorage!.name)")
+                                        print("Phase Header: \(phaseStorage!.name)")
 
                     // Event content block div class="oz_event bh_etap with_datatime"
 
@@ -60,9 +60,12 @@ final public class BillParser {
 
                     // General Event Description
                     // TODO: Remove Resolution Description from String
-                    let eventName = div.content?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
-                    print("Event name: \(eventName)")
+                    guard let eventName = div.content else {
+                        continue
+                    }
 
+                    let trimmedName = eventName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).condenseWhitespace()
+                    debugPrint("Event name: \(trimmedName)")
                     // Reinitializing current event
                     currentEvent = BillParserEvent(withName: eventName, date: nil)
 
@@ -77,6 +80,8 @@ final public class BillParser {
                         let fullDate = (currentEvent?.date ?? "") + " " + time
                         currentEvent?.date = fullDate
                     }
+
+                    debugPrint("Datetime: \(currentEvent?.date ?? "")")
 
                     if let otherEventContent = div.xpath("div[contains(@class, 'algstname')]/div[contains(@class, 'table_td')]//li").first {
 
@@ -104,6 +109,23 @@ final public class BillParser {
                             currentEvent?.attachmentsNames.append(attName)
                         }
                     }
+
+                    // Hidden attachments
+                    let hiddenAttBlock = div.xpath("div[contains(@class, 'event_files')]/div[contains(@class, 'event_files')]/span/a")
+                    for attachment in hiddenAttBlock {
+                        if let attLink = attachment["href"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), let attName =
+                            attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
+                            currentEvent?.attachments.append(attLink)
+                            currentEvent?.attachmentsNames.append(attName)
+                        }
+                    }
+
+                    if let count = currentEvent?.attachments.count, count > 0 {
+                        for i in 0...count - 1 {
+                            debugPrint("Attachment '\(currentEvent?.attachmentsNames[i] ?? "наименовение отсутствует")'; \(currentEvent?.attachments[i] ?? "ссылка отсутствует") ")
+                        }
+                    }
+
 
                     phaseStorage?.events.append(currentEvent!)
                 }
