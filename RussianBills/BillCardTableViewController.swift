@@ -41,13 +41,6 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
-    func activateMoreDocsCell() {
-        moreDocsLabel.text = "Все события и документы"
-        moreDocsLabel.textColor = UIColor.blue
-        moreDocsIndicator.stopAnimating()
-        moreDocsCell.accessoryType = .disclosureIndicator
-        moreDocsCell.isUserInteractionEnabled = true
-    }
 
     // MARK: - Life Cycle
 
@@ -56,10 +49,9 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        fetchBillData()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 40
-
-        fetchBillData()
 
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
@@ -187,6 +179,13 @@ final class BillCardTableViewController: UITableViewController {
             FilesManager.createAndOrWriteToFile(text: text, name: "\(bill.name).txt", path: "/")
         }
     }
-    
+
+    private func activateMoreDocsCell() {
+        moreDocsLabel.text = "Все события и документы"
+        moreDocsLabel.textColor = UIColor.blue
+        moreDocsIndicator.stopAnimating()
+        moreDocsCell.accessoryType = .disclosureIndicator
+        moreDocsCell.isUserInteractionEnabled = true
+    }
 
 }

@@ -19,9 +19,12 @@ final class FavoritesTableViewController: UITableViewController {
         super.viewDidLoad()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 184
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
     }
 

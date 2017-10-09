@@ -10,11 +10,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="TimesNewRoman.ttf">
-            <string>TimesNewRomanPSMT</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--🇷🇺Законопроекты-->
         <scene sceneID="ssA-En-DFa">
@@ -409,7 +404,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKw-0Y-NJB">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="42"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                                                     <string key="text">в части информировании населения о максимальных розничных ценах на табачные изделия в информационных системах общего пользования</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -417,10 +412,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="jKw-0Y-NJB" firstAttribute="top" secondItem="jaz-5I-0No" secondAttribute="top" id="4Dp-UZ-hvS"/>
-                                                <constraint firstItem="jKw-0Y-NJB" firstAttribute="leading" secondItem="jaz-5I-0No" secondAttribute="leading" constant="16" id="9Us-i8-jfK"/>
-                                                <constraint firstAttribute="trailing" secondItem="jKw-0Y-NJB" secondAttribute="trailing" constant="16" id="NOq-Cv-qOj"/>
-                                                <constraint firstAttribute="bottom" secondItem="jKw-0Y-NJB" secondAttribute="bottom" id="cEh-EF-xs2"/>
+                                                <constraint firstAttribute="bottom" secondItem="jKw-0Y-NJB" secondAttribute="bottom" id="GO5-Qb-wjz"/>
+                                                <constraint firstAttribute="trailing" secondItem="jKw-0Y-NJB" secondAttribute="trailing" id="QLh-lv-mol"/>
+                                                <constraint firstItem="jKw-0Y-NJB" firstAttribute="leading" secondItem="jaz-5I-0No" secondAttribute="leading" id="XCI-R9-UFk"/>
+                                                <constraint firstItem="jKw-0Y-NJB" firstAttribute="top" secondItem="jaz-5I-0No" secondAttribute="top" id="feo-FW-Ot4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -803,7 +798,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="billSubtitleLabel" destination="jKw-0Y-NJB" id="bYQ-u7-Opn"/>
                         <outlet property="billTitle" destination="KM1-2R-YN8" id="Jmm-fM-6iP"/>
@@ -831,23 +825,23 @@
         <scene sceneID="q4z-sn-gcP">
             <objects>
                 <tableViewController id="mYG-kS-5th" customClass="BillDetailsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="199" sectionHeaderHeight="28" sectionFooterHeight="28" id="A3W-i4-Hl7">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" rowHeight="199" sectionHeaderHeight="18" sectionFooterHeight="18" id="A3W-i4-Hl7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventDescriptionCell" rowHeight="199" id="Is7-Uk-8iu" customClass="EventDescriptionTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="199"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="199"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Is7-Uk-8iu" id="gQ8-ml-vf3">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="198.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text=" 📘 Документы: 12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7c6-rh-pg0">
-                                            <rect key="frame" x="0.0" y="177" width="342" height="21"/>
+                                            <rect key="frame" x="0.0" y="168" width="342" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="vGc-Fe-bPC"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="vGc-Fe-bPC"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -868,10 +862,10 @@
                                             <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-5r-zP6">
-                                            <rect key="frame" x="8" y="36.5" width="334" height="132.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-5r-zP6">
+                                            <rect key="frame" x="8" y="37" width="326" height="123"/>
                                             <string key="text">предложить принять законопроект к рассмотрению (срок представления отзывов, предложений и замечаний в комитет 06.11.2016, предлагаемая дата рассмотрения Государственной Думой 18.11.2016)</string>
-                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -879,17 +873,17 @@
                                     <constraints>
                                         <constraint firstItem="wYZ-mf-Wv2" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leadingMargin" id="0Ue-5M-GNi"/>
                                         <constraint firstItem="7c6-rh-pg0" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leading" id="1dK-Ca-sza"/>
-                                        <constraint firstAttribute="trailing" secondItem="7c6-rh-pg0" secondAttribute="trailing" id="3WR-bS-cw2"/>
-                                        <constraint firstAttribute="trailing" secondItem="fF7-5r-zP6" secondAttribute="trailing" id="BnB-BI-Q8d"/>
+                                        <constraint firstItem="7c6-rh-pg0" firstAttribute="top" secondItem="fF7-5r-zP6" secondAttribute="bottom" constant="8" id="GBt-eG-TsG"/>
                                         <constraint firstItem="wYZ-mf-Wv2" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="topMargin" id="LtA-9Z-wBd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="fF7-5r-zP6" secondAttribute="trailing" id="Ly5-Ro-3Ww"/>
                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="height" secondItem="wYZ-mf-Wv2" secondAttribute="height" id="TYg-IV-cDz"/>
-                                        <constraint firstItem="fF7-5r-zP6" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leading" constant="8" id="TvU-UG-bVa"/>
+                                        <constraint firstItem="fF7-5r-zP6" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leadingMargin" id="TvU-UG-bVa"/>
                                         <constraint firstAttribute="bottom" secondItem="7c6-rh-pg0" secondAttribute="bottom" id="X26-3b-QzX"/>
                                         <constraint firstItem="fF7-5r-zP6" firstAttribute="top" secondItem="wYZ-mf-Wv2" secondAttribute="bottom" constant="8" id="oC1-ZO-It1"/>
                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="top" constant="8" id="oYy-D7-9vQ"/>
                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="leading" secondItem="wYZ-mf-Wv2" secondAttribute="trailing" constant="8" id="pIL-5f-6xQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="7c6-rh-pg0" secondAttribute="trailing" id="q5P-9o-4n0"/>
                                         <constraint firstAttribute="trailing" secondItem="3AR-Zw-VTO" secondAttribute="trailing" id="sBt-FR-ziA"/>
-                                        <constraint firstItem="7c6-rh-pg0" firstAttribute="top" secondItem="fF7-5r-zP6" secondAttribute="bottom" constant="8" id="swX-6P-wMC"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -910,6 +904,10 @@
                     <navigationItem key="navigationItem" title="События 📃№ 123456-7" id="Mwd-5I-bmn">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="eq5-J1-xdc"/>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="PMt-3c-7fI">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7G-CF-QE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

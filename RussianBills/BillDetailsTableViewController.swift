@@ -53,7 +53,7 @@ class BillDetailsTableViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .default
         } else {
-            cell.documentsAttachedLabel.text = "Документы к разделу не приложены"
+            cell.documentsAttachedLabel.text = ""
             cell.accessoryType = .none
             cell.selectionStyle = .none
         }
