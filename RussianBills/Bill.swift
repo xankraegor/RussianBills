@@ -61,7 +61,7 @@ final class Bill_: Object, InitializableWithJson {
         introductionDate = json["introductionDate"].stringValue
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
-        
+
         // Factions ==============================================================================
         let factions = json["subject"]["factions"].arrayValue
         
@@ -73,7 +73,6 @@ final class Bill_: Object, InitializableWithJson {
                 let faction = Factions_()
                 faction.id = facId
                 faction.name = fac["name"].stringValue
-                
                 RealmCoordinator.save(object: faction)
                 self.factions.append(faction)
             }
@@ -106,13 +105,14 @@ final class Bill_: Object, InitializableWithJson {
 
             if let fedSub = RealmCoordinator.loadObject(FederalSubject_.self, byId: subId) {
                 RealmCoordinator.save(object: fedSub)
+                federalSubjects.append(fedSub)
             } else if let regSub = RealmCoordinator.loadObject(RegionalSubject_.self, byId: subId) {
                 RealmCoordinator.save(object: regSub)
+                regionalSubjects.append(regSub)
             } else {
                 debugPrint("∆ FED/REG SUBJECT NOT FOUND IN DB: \n\(sub)\n===================================================")
             }
         }
-
 
         // Responsible committee ==============================================================================
         let comitteeId = json["committees"]["responsible"]["id"].intValue
