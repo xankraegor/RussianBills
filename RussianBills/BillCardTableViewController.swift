@@ -29,12 +29,24 @@ final class BillCardTableViewController: UITableViewController {
     
     @IBOutlet weak var goToAllEventsCell: UITableViewCell!
 
+    @IBOutlet weak var moreDocsLabel: UILabel!
+    @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var moreDocsCell: UITableViewCell!
+
     var parser: BillParser? {
         didSet {
             if parser != nil {
-                goToAllEventsCell.isHidden = false
+                activateMoreDocsCell()
             }
         }
+    }
+
+    func activateMoreDocsCell() {
+        moreDocsLabel.text = "Все события и документы"
+        moreDocsLabel.textColor = UIColor.blue
+        moreDocsIndicator.stopAnimating()
+        moreDocsCell.accessoryType = .disclosureIndicator
+        moreDocsCell.isUserInteractionEnabled = true
     }
 
     // MARK: - Life Cycle
