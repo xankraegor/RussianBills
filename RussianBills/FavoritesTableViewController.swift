@@ -20,8 +20,12 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 184
+        if favorites.count == 0 {
+            setupEmptyFavoriteViewTemplate ()
+        } else {
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.estimatedRowHeight = 184
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -69,5 +73,11 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
  
+    
+    // MARK: - Additional Views
+    
+    func setupEmptyFavoriteViewTemplate () {
+        tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
+    }
 
 }

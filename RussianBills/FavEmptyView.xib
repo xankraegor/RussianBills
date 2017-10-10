@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYH-OI-TdN">
+                    <rect key="frame" x="16" y="211" width="343" height="77"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="64"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34I-zD-gGX">
+                    <rect key="frame" x="16" y="296" width="343" height="107.5"/>
+                    <string key="text">Избранные законопроекты не добавлены. Для добавления нажмите «＋» для перехода к быстрому поиску или перейдите в раздел потска законопроектов</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GYH-OI-TdN" secondAttribute="trailing" constant="16" id="U1T-Bg-rRX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="34I-zD-gGX" secondAttribute="trailing" constant="16" id="cdy-On-DSf"/>
+                <constraint firstItem="34I-zD-gGX" firstAttribute="top" secondItem="GYH-OI-TdN" secondAttribute="bottom" constant="8" id="k2c-Yh-klF"/>
+                <constraint firstItem="34I-zD-gGX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="mMZ-DY-QyK"/>
+                <constraint firstItem="GYH-OI-TdN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="muR-5a-8hc"/>
+                <constraint firstItem="GYH-OI-TdN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-84" id="yl9-t8-6Ie"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-171.5" y="102.5"/>
+        </view>
+    </objects>
+</document>
