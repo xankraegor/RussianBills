@@ -20,6 +20,7 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
         if favorites.count == 0 {
             setupEmptyFavoriteViewTemplate ()
         } else {
@@ -78,6 +79,7 @@ final class FavoritesTableViewController: UITableViewController {
     
     func setupEmptyFavoriteViewTemplate () {
         tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
+        tableView.separatorStyle = .none
     }
 
 }

@@ -24,7 +24,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34I-zD-gGX">
                     <rect key="frame" x="16" y="296" width="343" height="107.5"/>
-                    <string key="text">Избранные законопроекты не добавлены. Для добавления нажмите «＋» для перехода к быстрому поиску или перейдите в раздел потска законопроектов</string>
+                    <string key="text">Избранные законопроекты не добавлены. Для добавления нажмите «＋» для перехода к быстрому поиску или перейдите в раздел поиска законопроектов</string>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

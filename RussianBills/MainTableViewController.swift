@@ -18,6 +18,7 @@ final class MainTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         UserServices.downloadAllReferenceCategories()
+        navigationController?.isToolbarHidden = true
     }
 
     // MARK: - Navigation

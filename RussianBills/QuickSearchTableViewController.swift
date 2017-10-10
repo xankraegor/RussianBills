@@ -42,6 +42,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
+        navigationController?.toolbar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
