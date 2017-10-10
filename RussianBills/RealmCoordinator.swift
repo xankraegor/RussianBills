@@ -204,13 +204,15 @@ enum RealmCoordinator {
         }
     }
     
-    static func setQuickSearchBillsList(toContain bills: [Bill_]) {
+    static func setQuickSearchBillsList(toContain bills: [Bill_]?) {
         do {
             let realm = try Realm()
             try realm.write {
                 let newList = BillsList_()
                 newList.name = "quickSearchList"
-                newList.bills.append(objectsIn: bills)
+                if let billsNoNil = bills {
+                    newList.bills.append(objectsIn: billsNoNil)
+                }
                 realm.add(newList, update: true)
             }
         } catch let error {

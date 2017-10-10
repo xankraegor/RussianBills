@@ -337,13 +337,13 @@
 			name = Requests;
 			sourceTree = "<group>";
 		};
-		2AA6771F1F215325003CFD37 /* BillDetailsTable */ = {
+		2AA6771F1F215325003CFD37 /* BillDetails */ = {
 			isa = PBXGroup;
 			children = (
 				2AA6771B1F214EDD003CFD37 /* BillDetailsTableViewController.swift */,
 				2AA6771D1F215321003CFD37 /* EventDescriptionTableViewCell.swift */,
 			);
-			name = BillDetailsTable;
+			name = BillDetails;
 			sourceTree = "<group>";
 		};
 		2AAA81671F195A64005DF090 /* Scenes */ = {
@@ -351,9 +351,9 @@
 			children = (
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
-				2AA6771F1F215325003CFD37 /* BillDetailsTable */,
+				2AA6771F1F215325003CFD37 /* BillDetails */,
 				2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */,
-				2AD1E93A1F127AB100CA0D89 /* FavoritesTable */,
+				2AD1E93A1F127AB100CA0D89 /* Favorites */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2AB31E811F16A15B005E681F /* QuickSearch */,
 			);
@@ -369,14 +369,14 @@
 			name = QuickSearch;
 			sourceTree = "<group>";
 		};
-		2AD1E93A1F127AB100CA0D89 /* FavoritesTable */ = {
+		2AD1E93A1F127AB100CA0D89 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
 				2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */,
 				2AAE25A11F183C970053AD75 /* FavoritesTableViewCell.swift */,
 				2AA62DB81F8CE764000405F5 /* FavEmptyView.xib */,
 			);
-			name = FavoritesTable;
+			name = Favorites;
 			sourceTree = "<group>";
 		};
 		446ACAC816582A6953401F6D /* Pods */ = {

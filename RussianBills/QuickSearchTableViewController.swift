@@ -136,6 +136,14 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             
         }
     }
+
+    @IBAction func clearButtonPressed(_ sender: Any) {
+        number1TextField.text = ""
+        number2TextField.text = ""
+        nameTextField.text = ""
+        RealmCoordinator.setQuickSearchBillsList(toContain: nil)
+    }
+
     
     // MARK: - Helper functions
     
