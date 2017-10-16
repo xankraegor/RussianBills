@@ -72,6 +72,47 @@ enum RealmCoordinator {
         }
     }
 
+    static func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {
+        do {
+            let realm = try Realm()
+
+            // Case 1: no filters, return all objects
+            guard let existingFilterString = filterString, existingFilterString.count > 0 else {
+                return realm.objects(T.self)
+            }
+
+            // Case 2: Object has only one field capable of filtering by
+            let objectsOfType = realm.objects(T.self)
+
+            let searchFieldsCount = T.searchFields.count
+            print("∆ Existing filter string: \(existingFilterString)")
+
+            let baseFilterPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
+
+            guard searchFieldsCount > 1 else {
+                print("∆ PREDICATE DESCRIPTION: " + baseFilterPredicate.description)
+                return objectsOfType.filter(baseFilterPredicate)
+            }
+
+            // Case 3: Many filtering fields, compound predicate needed
+
+            var groupOfPredicates: Array<NSPredicate> = [baseFilterPredicate]
+
+            for i in 1...searchFieldsCount-1 {
+                let otherPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
+                groupOfPredicates.append(otherPredicate)
+            }
+
+            let cumulativePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: groupOfPredicates)
+            print("∆ CUMULATIVE PREDICATE DESCRIPTION: " + cumulativePredicate.description)
+
+            return objectsOfType.filter(cumulativePredicate)
+
+        } catch let error {
+            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
+        }
+    }
+
     static func loadObject<T: Object>(_ ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
         do {
             let realm = try Realm()

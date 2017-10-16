@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список инстанций рассмотрения
-final class Instance_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
+final class Instance_: Object, InitializableWithJson, QuickSearchFieldsReporting {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var isCurrent: Bool = false
@@ -22,16 +22,12 @@ final class Instance_: Object, InitializableWithJson, SortAndFilterFieldsReporti
         name = json["name"].stringValue
         isCurrent = json["isCurrent"].boolValue
     }
-    
-    static var sortFields: [String] {
-        return ["name", "isCurrent"]
-    }
-    
-    static var filterFields: [String] {
-        return ["isCurrent"]
-    }
 
     override static func primaryKey() -> String {
         return "id"
     }
+
+    // MARK: - QuickSearchFieldsReporting
+
+    static var searchFields = ["name"]
 }

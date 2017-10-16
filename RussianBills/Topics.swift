@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список тематических блоков
-final class Topic_: Object, InitializableWithJson, SortAndFilterFieldsReporting {
+final class Topic_: Object, InitializableWithJson, QuickSearchFieldsReporting {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
 
@@ -20,16 +20,12 @@ final class Topic_: Object, InitializableWithJson, SortAndFilterFieldsReporting 
         id = json["id"].intValue
         name = json["name"].stringValue
     }
-    
-    static var sortFields: [String] {
-        return ["name"]
-    }
-    
-    static var filterFields: [String] {
-        return []
-    }
 
     override static func primaryKey() -> String {
         return "id"
     }
+
+    // MARK: - QuickSearchFieldsReporting
+
+    static var searchFields = ["name"]
 }
