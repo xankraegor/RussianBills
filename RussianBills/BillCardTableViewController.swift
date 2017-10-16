@@ -46,12 +46,14 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
+//        tableView.estimatedRowHeight = 40
+//        tableView.rowHeight = UITableViewAutomaticDimension
+
         fetchBillData()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 40
 
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
@@ -76,17 +78,32 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     // MARK: - Table view delegate
-//
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        if indexPath.section == 0 && ( 4...6 ~= indexPath.row ) { // Flag colors
-//            print("(\(indexPath.section)\(indexPath.row)) height = 8")
-//            return 8
-//        } else {
-//            print("(\(indexPath.section)\(indexPath.row)) height = \(UITableViewAutomaticDimension)")
-//            return UITableViewAutomaticDimension
-//        }
-//    }
-    
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0: // Header
+            switch indexPath.row {
+            case 2: // Bill Description
+                let count = bill?.comments.characters.count ?? 0
+                return count > 0 ? UITableViewAutomaticDimension : 0
+            case 3...5: // Flag colors
+                return 4
+            default:
+                return UITableViewAutomaticDimension
+            }
+            //        case 1: // Last events
+            //            break
+            //        case 2: // Committees
+        //            break
+        default:
+            return UITableViewAutomaticDimension
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 20
+    }
+
 
     // MARK: - Helper functions
 
