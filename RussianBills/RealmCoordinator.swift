@@ -82,30 +82,21 @@ enum RealmCoordinator {
             }
 
             // Case 2: Object has only one field capable of filtering by
-
             let searchFieldsCount = T.searchFields.count
-
             let baseFilterPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
-
             guard searchFieldsCount > 1 else {
-                print("∆ TYPE \(T.className()) PREDICATE DESCRIPTION: " + baseFilterPredicate.description)
                 return realm.objects(T.self).filter(baseFilterPredicate)
             }
 
             // Case 3: Many filtering fields, compound predicate needed
-
             var groupOfPredicates: Array<NSPredicate> = [baseFilterPredicate]
-
             for i in 1...searchFieldsCount-1 {
                 let otherPredicate = NSPredicate(format: "\(T.searchFields[i]) CONTAINS[cd] '\(existingFilterString)'")
                 groupOfPredicates.append(otherPredicate)
             }
 
             let cumulativePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: groupOfPredicates)
-            print("∆ TYPE \(T.className()) CUMULATIVE PREDICATE DESCRIPTION: " + cumulativePredicate.description)
-
             return realm.objects(T.self).filter(cumulativePredicate)
-
         } catch let error {
             fatalError("∆ Cannot load filtered objects by reason: \(error)")
         }

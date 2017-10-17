@@ -13,24 +13,18 @@ import RealmSearchViewController
 final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
-
-    var filteredObjects: [Object]? {
-        didSet {
-            print("∆ Filtered Objects \(filteredObjects?.count ?? -1): \(filteredObjects ?? [])")
-        }
-    }
-
+    var filteredObjects: [Object]?
+    let searchController = UISearchController(searchResultsController: nil)
     var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
-
-    let searchController = UISearchController(searchResultsController: nil)
 
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         if objectsToDisplay == nil {
             dismiss(animated: true, completion: nil)
         }
@@ -189,8 +183,10 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     internal func updateSearchResults(for searchController: UISearchController) {
         if let filterText = searchController.searchBar.text {
+
             var objects: [Object] = []
-            switch objectsToDisplay! {
+
+            switch self.objectsToDisplay! {
             case .committees:
                 objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
             case .deputees:
@@ -212,3 +208,4 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         }
     }
 }
+
