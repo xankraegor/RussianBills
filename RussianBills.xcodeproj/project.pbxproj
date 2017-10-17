@@ -15,6 +15,7 @@
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
 		2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */; };
+		2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
@@ -31,7 +32,6 @@
 		2A6315C41F0AE1B400611BD8 /* RussianBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315C31F0AE1B400611BD8 /* RussianBillsTests.swift */; };
 		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
 		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
-		2A70447A1F28939B00A28279 /* SearchAndFilterFieldsReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7044791F28939B00A28279 /* SearchAndFilterFieldsReporting.swift */; };
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */; };
@@ -86,6 +86,7 @@
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
 		2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchFieldsReporting.swift; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		2A6315C51F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
 		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
-		2A7044791F28939B00A28279 /* SearchAndFilterFieldsReporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAndFilterFieldsReporting.swift; sourceTree = "<group>"; };
 		2A75E8FC1F2282F30008FD8F /* FilesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-FileNameAndExtension.swift"; sourceTree = "<group>"; };
 		2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 			children = (
 				2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */,
 				2AA4D1A01F0C191900EE2DA3 /* InitialazibleWithJson.swift */,
-				2A7044791F28939B00A28279 /* SearchAndFilterFieldsReporting.swift */,
+				2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */,
 				2AA4D19E1F0C123D00EE2DA3 /* Realm Classes */,
 			);
 			name = Model;
@@ -607,6 +607,7 @@
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
 				2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */,
 				2AA6771C1F214EDD003CFD37 /* BillDetailsTableViewController.swift in Sources */,
+				2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */,
 				2A4FDBD71F0EEE5E005C59AE /* MainTableViewController.swift in Sources */,
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
@@ -643,7 +644,6 @@
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
 				2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */,
-				2A70447A1F28939B00A28279 /* SearchAndFilterFieldsReporting.swift in Sources */,
 				2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */,
 				2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */,
 				2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */,

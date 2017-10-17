@@ -4,6 +4,8 @@ PODS:
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
   - Realm/Headers (2.8.3)
+  - RealmSearchViewController (2.2.1):
+    - RealmSwift (>= 1.0.0)
   - RealmSwift (2.8.3):
     - Realm (= 2.8.3)
   - SwiftyJSON (3.1.4)
@@ -11,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
+  - RealmSearchViewController
   - RealmSwift
   - SwiftyJSON
 
@@ -28,9 +31,10 @@ SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
+  RealmSearchViewController: 685a112c09c271d769bbf43911ac4d5f12dc8862
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: f4f90e9bc3b09a3cb8ad074815324f1daded0e9e
+PODFILE CHECKSUM: 04cd3e931285bf54d4c5c059c005adf983b90f46
 
 COCOAPODS: 1.2.1

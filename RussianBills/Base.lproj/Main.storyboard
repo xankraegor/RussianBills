@@ -1134,7 +1134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vDS-3J-A44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2424.375" y="921.12676056338034"/>
+            <point key="canvasLocation" x="2423.1999999999998" y="920.68965517241384"/>
         </scene>
         <!--$UniversalTitle$-->
         <scene sceneID="aez-dd-Gp5">
@@ -1144,18 +1144,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Фильтровать по категории" id="kMM-mB-VD1">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartDashesType="no"/>
-                            <scopeButtonTitles>
-                                <string>Title</string>
-                                <string>Title</string>
-                            </scopeButtonTitles>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopicCellId" textLabel="qER-ib-xKS" rowHeight="50" style="IBUITableViewCellStyleDefault" id="L4i-PS-whd">
-                                <rect key="frame" x="0.0" y="84" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L4i-PS-whd" id="xHV-L3-JOI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
@@ -1172,7 +1163,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComitteesCellId" rowHeight="72" id="IiQ-r3-N3S" customClass="NameStartEndTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="134" width="375" height="72"/>
+                                <rect key="frame" x="0.0" y="78" width="375" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IiQ-r3-N3S" id="T7w-aR-hbl">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
@@ -1216,7 +1207,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeputeesCellId" textLabel="m0x-nD-iOI" detailTextLabel="25f-3F-rOM" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Hup-Vb-d60">
-                                <rect key="frame" x="0.0" y="206" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="150" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hup-Vb-d60" id="umX-a2-dnr">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
@@ -1249,8 +1240,19 @@
                         <barButtonItem key="rightBarButtonItem" title="Сбросить" id="gyW-Kh-wls"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="B1Z-fK-baC" id="LPZ-tH-Nqu"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sax-wj-JUF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="B1Z-fK-baC">
+                    <connections>
+                        <outlet property="delegate" destination="iyB-xj-RN1" id="ueq-IP-Rdz"/>
+                        <outlet property="searchContentsController" destination="iyB-xj-RN1" id="XlI-ve-1Dr"/>
+                        <outlet property="searchResultsDataSource" destination="iyB-xj-RN1" id="vaj-bO-Q1s"/>
+                        <outlet property="searchResultsDelegate" destination="iyB-xj-RN1" id="cJZ-Ub-cX2"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1493.5999999999999" y="921.58920539730138"/>
         </scene>
