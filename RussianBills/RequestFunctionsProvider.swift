@@ -91,9 +91,8 @@ enum Request {
                     debugPrint("∆ Can't download \(response.request.debugDescription) due to error: \(response.error.debugDescription)")
                         print(response.description)
 
-                    var statusCode = response.response?.statusCode
+
                     if let error = response.result.error as? AFError {
-                        statusCode = error._code // statusCode private
                         switch error {
                         case .invalidURL(let url):
                             print("Invalid URL: \(url) - \(error.localizedDescription)")
@@ -116,7 +115,6 @@ enum Request {
                                 print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
                             case .unacceptableStatusCode(let code):
                                 print("Response status code was unacceptable: \(code)")
-                                statusCode = code
                             }
                         case .responseSerializationFailed(let reason):
                             print("Response serialization failed: \(error.localizedDescription)")

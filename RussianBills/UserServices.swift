@@ -166,7 +166,7 @@ enum UserServices {
 
         Request.document(documentLink: link, relativeDestination: dest, progressStatus: { (progress) in
             // For UI update
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 updateProgressStatus(progress)
             }
         }) { (response) in

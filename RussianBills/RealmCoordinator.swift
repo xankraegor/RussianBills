@@ -107,7 +107,7 @@ enum RealmCoordinator {
             return realm.objects(T.self).filter(cumulativePredicate)
 
         } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
+            fatalError("∆ Cannot load filtered objects by reason: \(error)")
         }
     }
 

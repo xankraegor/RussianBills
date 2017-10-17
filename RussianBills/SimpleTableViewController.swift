@@ -14,18 +14,18 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
-    var filteredObjects: [Object]? 
+    var filteredObjects: [Object]? {
+        didSet {
+            print("∆ Filtered Objects \(filteredObjects?.count ?? -1): \(filteredObjects ?? [])")
+        }
+    }
 
     var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty
+        return searchController.isActive && !searchBarIsEmpty()
     }
 
     let searchController = UISearchController(searchResultsController: nil)
 
-    var searchBarIsEmpty: Bool {
-        filteredObjects = nil
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
 
     // MARK: - Life Cycle
 
@@ -38,7 +38,12 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
+
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,23 +57,23 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         switch objectsToDisplay! {
         case .lawClasses:
             UserServices.downloadLawCalsses { [weak self] in
-            self?.updateTableWithNewData()
+                self?.updateTableWithNewData()
             }
         case .topics:
             UserServices.downloadTopics { [weak self] in
-            self?.updateTableWithNewData()
+                self?.updateTableWithNewData()
             }
         case .committees:
             UserServices.downloadComittees { [weak self] in
-            self?.updateTableWithNewData()
+                self?.updateTableWithNewData()
             }
         case .federalSubjects:
             UserServices.downloadFederalSubjects { [weak self] in
-            self?.updateTableWithNewData()
+                self?.updateTableWithNewData()
             }
         case .regionalSubjects:
             UserServices.downloadFederalSubjects { [weak self] in
-            self?.updateTableWithNewData()
+                self?.updateTableWithNewData()
             }
         case .instances:
             UserServices.downloadInstances { [weak self] in
@@ -102,13 +107,13 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : RealmCoordinator.loadObject(LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
-             return cell
+            return cell
 
         case .topics:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = isFiltering ? filteredObjects![indexPath.row] as! Topic_: RealmCoordinator.loadObject(Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
             cell.textLabel?.text = objct.name
-             return cell
+            return cell
 
         case .instances:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
@@ -126,7 +131,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             } else {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
-             return cell
+            return cell
 
         case .regionalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
@@ -138,7 +143,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             } else {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
-             return cell
+            return cell
 
         case .committees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
@@ -170,32 +175,40 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         tableView.endUpdates()
     }
 
+    func searchBarIsEmpty() -> Bool {
+        let isEmpty = searchController.searchBar.text?.isEmpty ?? true
+
+        if isEmpty {
+            filteredObjects = nil
+        }
+
+        return isEmpty
+    }
+
     // MARK: - Search Controller Updating
 
     internal func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
+        if let filterText = searchController.searchBar.text {
+            var objects: [Object] = []
+            switch objectsToDisplay! {
+            case .committees:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
+            case .deputees:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
+            case .federalSubjects:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
+            case .instances:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
+            case .lawClasses:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
+            case .regionalSubjects:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
+            case .topics:
+                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
+            }
 
-    private func filterContentForSearchText(_ filterText: String) {
-
-        switch objectsToDisplay! {
-        case .committees:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
-        case .deputees:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
-        case .federalSubjects:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
-        case .instances:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
-        case .lawClasses:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
-        case .regionalSubjects:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
-        case .topics:
-            filteredObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
+            self.filteredObjects = objects
+            self.tableView.reloadData()
         }
-
-        tableView.reloadData()
     }
-
 }
