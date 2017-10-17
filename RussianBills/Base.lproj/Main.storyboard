@@ -1236,9 +1236,7 @@
                             <outlet property="delegate" destination="iyB-xj-RN1" id="vTa-em-NAT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="$UniversalTitle$" id="N4a-f0-1gH">
-                        <barButtonItem key="rightBarButtonItem" title="Сбросить" id="gyW-Kh-wls"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="$UniversalTitle$" id="N4a-f0-1gH"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="B1Z-fK-baC" id="LPZ-tH-Nqu"/>

@@ -14,11 +14,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
-    var filteredObjects: [Object]? {
-        didSet {
-            debugPrint(filteredObjects)
-        }
-    }
+    var filteredObjects: [Object]? 
 
     var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty
@@ -93,7 +89,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            return filteredObjects?.count ?? RealmCoordinator.countObjects(ofType: (objectsToDisplay?.typeUsedForObjects)!)
+            return filteredObjects?.count ?? 0
         } else {
             return RealmCoordinator.countObjects(ofType: objectsToDisplay!.typeUsedForObjects)
         }
@@ -181,8 +177,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     }
 
     private func filterContentForSearchText(_ filterText: String) {
-
-        print("∆ Search Bar Text: \(filterText)")
 
         switch objectsToDisplay! {
         case .committees:

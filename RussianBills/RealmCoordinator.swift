@@ -82,16 +82,14 @@ enum RealmCoordinator {
             }
 
             // Case 2: Object has only one field capable of filtering by
-            let objectsOfType = realm.objects(T.self)
 
             let searchFieldsCount = T.searchFields.count
-            print("∆ Existing filter string: \(existingFilterString)")
 
             let baseFilterPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
 
             guard searchFieldsCount > 1 else {
                 print("∆ PREDICATE DESCRIPTION: " + baseFilterPredicate.description)
-                return objectsOfType.filter(baseFilterPredicate)
+                return realm.objects(T.self).filter(baseFilterPredicate)
             }
 
             // Case 3: Many filtering fields, compound predicate needed
@@ -99,14 +97,14 @@ enum RealmCoordinator {
             var groupOfPredicates: Array<NSPredicate> = [baseFilterPredicate]
 
             for i in 1...searchFieldsCount-1 {
-                let otherPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
+                let otherPredicate = NSPredicate(format: "\(T.searchFields[i]) CONTAINS[cd] '\(existingFilterString)'")
                 groupOfPredicates.append(otherPredicate)
             }
 
             let cumulativePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: groupOfPredicates)
             print("∆ CUMULATIVE PREDICATE DESCRIPTION: " + cumulativePredicate.description)
 
-            return objectsOfType.filter(cumulativePredicate)
+            return realm.objects(T.self).filter(cumulativePredicate)
 
         } catch let error {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
