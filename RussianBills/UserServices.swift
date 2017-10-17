@@ -129,9 +129,7 @@ enum UserServices {
     }
     
     // MARK: - Bills
-    
-    // По умолчанию загружается не более 20 штук за раз!
-    // TODO:- Сделать выгрузку большего количества или автоматическую подгрузку
+
     static func downloadBills(withQuery query: BillSearchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector, completion: (([Bill_]) -> Void)? = nil) {
         
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
@@ -160,23 +158,34 @@ enum UserServices {
     // MARK: - Documents
 
     static func downloadDocument(usingRelativeLink link: String, toDestination dest: String, updateProgressStatus: @escaping (Double)->Void, fileURL: @escaping (String)->Void ) {
-        Request.document(documentLink: link, destination: dest, progressStatus: { (progress) in
+
+        debugPrint("∆ Relative link is: \(link)")
+        debugPrint("∆ Destination is: \(dest)")
+
+        FilesManager.createDirIfItDontExist(atRelativePath: dest) // Создает директорию!
+
+        Request.document(documentLink: link, relativeDestination: dest, progressStatus: { (progress) in
             // For UI update
             DispatchQueue.main.sync {
                 updateProgressStatus(progress)
             }
         }) { (response) in
-            
             if let data = response.value, let utf8Text = String(data: data, encoding: .utf8) {
-                let fileName = response.destinationURL!.lastPathComponent
-                print("Recommended file name: \(fileName)")
-                if let uniqueName = FilesManager.extractUniqueDocumentNameFrom(urlString: String(describing: response.request?.url)) {
-                    if let suggestedFileName = response.response?.suggestedFilename {
-                        let recommendedExtension = suggestedFileName.fileExtension()
-                        FilesManager.createAndOrWriteToFile(text: utf8Text, name: "\(uniqueName).\(recommendedExtension)", path: dest)
-                        fileURL("\(dest)\(uniqueName).\(recommendedExtension)")
+
+                if let requestUrl = response.request?.url?.absoluteString {
+                    if let uniqueName = FilesManager.extractUniqueDocumentNameFrom(urlString: requestUrl) {
+                        if let suggestedFileName = response.response?.suggestedFilename {
+                            debugPrint("∆ Suggested file name: \(suggestedFileName)")
+                            let recommendedExtension = suggestedFileName.fileExtension()
+                            debugPrint("∆ Recommended extension: \(recommendedExtension)")
+                            FilesManager.createAndOrWriteToFile(text: utf8Text, name: "\(uniqueName).\(recommendedExtension)", atRelativePath: dest)
+                            fileURL("\(dest)\(uniqueName).\(recommendedExtension)")
+                        }
                     }
+                } else {
+                    debugPrint("∆ Request Url not found")
                 }
+
             }
         }
     }

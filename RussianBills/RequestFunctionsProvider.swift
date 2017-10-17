@@ -63,22 +63,66 @@ enum Request {
     
     // MARK: - Attached Document Request Function
     
-    static func document(documentLink: String, destination: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
+    static func document(documentLink: String, relativeDestination: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
         
         guard let fullLink = RequestRouter.document(link: documentLink).documentStringLink() else {
-            debugPrint("Cannot forge a request for document using link: \(documentLink)")
+            debugPrint("Cannot produce a request for document using link: \(documentLink)")
             return
         }
-        
-        Alamofire.download(fullLink)
+
+        let absolutePath = FilesManager.homeDirPath.appending(relativeDestination)
+
+       let destinationUrl =  URL(fileURLWithPath: absolutePath)
+
+        let destinationAF: DownloadRequest.DownloadFileDestination = { _, _ in
+            return (destinationUrl, [.removePreviousFile, .createIntermediateDirectories])
+        }
+
+
+
+        Alamofire.download(fullLink, to: destinationAF)
             .downloadProgress(closure: { (progress) in
                 print("\(progress.fractionCompleted * 100)% downloaded")
-                progressStatus(progress.fractionCompleted)
+//                progressStatus(progress.fractionCompleted)
             })
             .validate()
             .responseData(completionHandler: { (response) in
                 if response.error != nil {
                     debugPrint("∆ Can't download \(response.request.debugDescription) due to error: \(response.error.debugDescription)")
+                        print(response.description)
+
+                    var statusCode = response.response?.statusCode
+                    if let error = response.result.error as? AFError {
+                        statusCode = error._code // statusCode private
+                        switch error {
+                        case .invalidURL(let url):
+                            print("Invalid URL: \(url) - \(error.localizedDescription)")
+                        case .parameterEncodingFailed(let reason):
+                            print("Parameter encoding failed: \(error.localizedDescription)")
+                            print("Failure Reason: \(reason)")
+                        case .multipartEncodingFailed(let reason):
+                            print("Multipart encoding failed: \(error.localizedDescription)")
+                            print("Failure Reason: \(reason)")
+                        case .responseValidationFailed(let reason):
+                            print("Response validation failed: \(error.localizedDescription)")
+                            print("Failure Reason: \(reason)")
+
+                            switch reason {
+                            case .dataFileNil, .dataFileReadFailed:
+                                print("Downloaded file could not be read")
+                            case .missingContentType(let acceptableContentTypes):
+                                print("Content Type Missing: \(acceptableContentTypes)")
+                            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                                print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                            case .unacceptableStatusCode(let code):
+                                print("Response status code was unacceptable: \(code)")
+                                statusCode = code
+                            }
+                        case .responseSerializationFailed(let reason):
+                            print("Response serialization failed: \(error.localizedDescription)")
+                            print("Failure Reason: \(reason)")
+                        }
+                    }
                 } else {
                     completion(response)
                 }

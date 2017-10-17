@@ -88,7 +88,7 @@ enum RealmCoordinator {
             let baseFilterPredicate = NSPredicate(format: "\(T.searchFields[0]) CONTAINS[cd] '\(existingFilterString)'")
 
             guard searchFieldsCount > 1 else {
-                print("∆ PREDICATE DESCRIPTION: " + baseFilterPredicate.description)
+                print("∆ TYPE \(T.className()) PREDICATE DESCRIPTION: " + baseFilterPredicate.description)
                 return realm.objects(T.self).filter(baseFilterPredicate)
             }
 
@@ -102,7 +102,7 @@ enum RealmCoordinator {
             }
 
             let cumulativePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: groupOfPredicates)
-            print("∆ CUMULATIVE PREDICATE DESCRIPTION: " + cumulativePredicate.description)
+            print("∆ TYPE \(T.className()) CUMULATIVE PREDICATE DESCRIPTION: " + cumulativePredicate.description)
 
             return realm.objects(T.self).filter(cumulativePredicate)
 

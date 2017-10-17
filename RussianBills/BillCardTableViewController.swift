@@ -193,7 +193,7 @@ final class BillCardTableViewController: UITableViewController {
     private func saveBillEventsToAFile() {
         if let bill = self.bill {
             let text = self.generateBillDescriptionText()
-            FilesManager.createAndOrWriteToFile(text: text, name: "\(bill.name).txt", path: "/")
+            FilesManager.createAndOrWriteToFile(text: text, name: "\(bill.name).txt", atRelativePath: "/")
         }
     }
 

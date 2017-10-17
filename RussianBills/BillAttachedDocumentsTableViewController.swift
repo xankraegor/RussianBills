@@ -40,8 +40,8 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
-        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
-            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/")
+        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]), let billString = billNumber {
+            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atRelativePath: "/\(billString))/Attachments/")
             cell.detailTextLabel?.text = documentDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
         } else {
             cell.detailTextLabel?.text = "🌐 Документ не загружен"
@@ -51,12 +51,14 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let linkString = event?.attachments[indexPath.row],
+        if let linkString = event?.attachments[indexPath.row], let billString = billNumber,
             let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
-            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atPath: "/Attachments/\(String(describing: billNumber))/")
             let cell = tableView.cellForRow(at: indexPath)
-            if !documentDownloaded {
-                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/Attachments/\(String(describing: billNumber))/",
+
+            let documentAlreadyDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atRelativePath: "/\(billString)/Attachments/")
+
+            if !documentAlreadyDownloaded {
+                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/\(billString)/Attachments/",
                     updateProgressStatus: { (progressValue) in
                         if progressValue < 1 {
                             cell?.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"

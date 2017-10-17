@@ -246,7 +246,6 @@
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2AE05F9C1F41240B00AEE2D1 /* UserServicesDownloadBillsFavoriteStatusSelector.swift */,
-				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -288,6 +287,7 @@
 		2AA4D1961F0C026600EE2DA3 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
+				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
 				2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */,
 				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
 				2A98F16C1F0AF029004F5524 /* Model */,

@@ -14,6 +14,7 @@ final class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Realm path: \(RealmCoordinator.DEBUG_defaultRealmPath())")
     }
     
     override func viewWillAppear(_ animated: Bool) {
