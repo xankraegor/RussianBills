@@ -11,6 +11,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Search Form Controller-->
+        <scene sceneID="bu7-2L-Cv7">
+            <objects>
+                <viewController id="ldw-gj-cUn" customClass="SearchFormController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Tl-oe-oqF"/>
+                        <viewControllerLayoutGuide type="bottom" id="vtE-OB-2TA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3ua-fQ-TcL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f3z-YE-lFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="-710"/>
+        </scene>
         <!--🇷🇺Законопроекты-->
         <scene sceneID="ssA-En-DFa">
             <objects>
@@ -44,6 +62,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="ARW-PB-m5T" secondAttribute="trailing" id="nyC-Py-bXN"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ldw-gj-cUn" kind="show" id="3EB-K3-3Dt"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="45" id="NJB-bo-BNc">
                                         <rect key="frame" x="0.0" y="73" width="375" height="45"/>

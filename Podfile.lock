@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.5.0)
+  - Eureka (3.1.0)
   - Kanna (4.0.0)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
@@ -12,29 +13,37 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `Xcode9-Swift4`)
   - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
   - RealmSearchViewController
   - RealmSwift
   - SwiftyJSON
 
 EXTERNAL SOURCES:
+  Eureka:
+    :branch: Xcode9-Swift4
+    :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :branch: feature/v4.0.0
     :git: https://github.com/tid-kijyun/Kanna.git
 
 CHECKOUT OPTIONS:
+  Eureka:
+    :commit: a238bbdd7245eecbde7c81a4870f6e273c18cab3
+    :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :commit: 9091f84ed0e39b7fa8536da98a1812c3456bc4e3
     :git: https://github.com/tid-kijyun/Kanna.git
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Eureka: '06695c5795c7be2ed84261d652c266228e19820d'
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSearchViewController: 685a112c09c271d769bbf43911ac4d5f12dc8862
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 04cd3e931285bf54d4c5c059c005adf983b90f46
+PODFILE CHECKSUM: bd73c84f54620abbcfad6a86ffaab7ecfe9f873e
 
 COCOAPODS: 1.2.1
