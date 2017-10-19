@@ -106,11 +106,19 @@ public final class Form {
      */
     public func values(includeHidden: Bool = false) -> [String: Any?] {
         if includeHidden {
-            return getValues(for: allRows.filter({ $0.tag != nil }))
-                .merging(getValues(for: allSections.filter({ $0 is MultivaluedSection && $0.tag != nil }) as? [MultivaluedSection]), uniquingKeysWith: {(_, new) in new })
+            return allRows.filter({ $0.tag != nil })
+                .reduce([String: Any?]()) {
+                    var result = $0
+                    result[$1.tag!] = $1.baseValue
+                    return result
+                }
         }
-        return getValues(for: rows.filter({ $0.tag != nil }))
-            .merging(getValues(for: allSections.filter({ $0 is MultivaluedSection && $0.tag != nil }) as? [MultivaluedSection]), uniquingKeysWith: {(_, new) in new })
+        return rows.filter({ $0.tag != nil })
+            .reduce([String: Any?]()) {
+                var result = $0
+                result[$1.tag!] = $1.baseValue
+                return result
+            }
     }
 
     /**
@@ -351,22 +359,6 @@ extension Form {
             formIndex = kvoWrapper.sections.index(of: previous)
         }
         kvoWrapper.sections.insert(section, at: formIndex == NSNotFound ? 0 : formIndex + 1 )
-    }
-
-    func getValues(for rows: [BaseRow]) -> [String: Any?] {
-        return rows.reduce([String: Any?]()) {
-            var result = $0
-            result[$1.tag!] = $1.baseValue
-            return result
-        }
-    }
-
-    func getValues(for multivaluedSections: [MultivaluedSection]?) -> [String: [Any?]] {
-        return multivaluedSections?.reduce([String: [Any?]]()) {
-            var result = $0
-            result[$1.tag!] = $1.values()
-            return result
-            } ?? [:]
     }
 }
 

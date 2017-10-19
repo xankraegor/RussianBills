@@ -88,6 +88,5 @@ public final class PickerInlineRow<T> : _PickerInlineRow<T>, RowType, InlineRowT
     public func setupInlineRow(_ inlineRow: InlineRow) {
         inlineRow.options = self.options
         inlineRow.displayValueFor = self.displayValueFor
-        inlineRow.cell.height = { UITableViewAutomaticDimension }
     }
 }

@@ -30,13 +30,13 @@ import Foundation
  */
 public protocol PresenterRowType: TypedRowType {
 
-    associatedtype PresentedControllerType : UIViewController, TypedRowControllerType
+    associatedtype ProviderType : UIViewController, TypedRowControllerType
 
     /// Defines how the view controller will be presented, pushed, etc.
-    var presentationMode: PresentationMode<PresentedControllerType>? { get set }
+    var presentationMode: PresentationMode<ProviderType>? { get set }
 
     /// Will be called before the presentation occurs.
-    var onPresentCallback: ((FormViewController, PresentedControllerType) -> Void)? { get set }
+    var onPresentCallback: ((FormViewController, ProviderType) -> Void)? { get set }
 }
 
 extension PresenterRowType {
@@ -48,7 +48,7 @@ extension PresenterRowType {
      
      - returns: this row
      */
-    public func onPresent(_ callback: ((FormViewController, PresentedControllerType) -> Void)?) -> Self {
+    public func onPresent(_ callback: ((FormViewController, ProviderType) -> Void)?) -> Self {
         onPresentCallback = callback
         return self
     }

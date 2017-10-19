@@ -59,4 +59,6 @@ enum BillStatus: Int, CustomStringConvertible {
         }
     }
 
+    static let allValues = [submitted, examination, inProgramme, inCommitteeProgramme, extraprogrammaticalSubmitted, finished, signed, rejected, recalled, finishedByOtherReasons]
+
 }
