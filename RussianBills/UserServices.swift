@@ -41,7 +41,7 @@ enum UserServices {
             return
         }
 
-        Request.comittees(current: true, completion: { (result: [Comittee_]) in
+        Request.comittees(current: nil, completion: { (result: [Comittee_]) in
             RealmCoordinator.save(collection: result)
             if let compl = completion {
                 compl()
