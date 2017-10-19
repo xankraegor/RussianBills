@@ -41,6 +41,7 @@
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
 		2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */; };
+		2A92D6611F99386B00B2DD4E /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A92D6601F99386B00B2DD4E /* Dispatcher.swift */; };
 		2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F1681F0AEEFC004F5524 /* RequestRouter.swift */; };
 		2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F16A1F0AEFC1004F5524 /* Bill.swift */; };
 		2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F16D1F0AF070004F5524 /* LawType.swift */; };
@@ -119,6 +120,7 @@
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
 		2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFunctionsProvider.swift; sourceTree = "<group>"; };
+		2A92D6601F99386B00B2DD4E /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		2A98F1681F0AEEFC004F5524 /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
 		2A98F16A1F0AEFC1004F5524 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		2A98F16D1F0AF070004F5524 /* LawType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawType.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2AE05F9C1F41240B00AEE2D1 /* UserServicesDownloadBillsFavoriteStatusSelector.swift */,
+				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -616,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A92D6611F99386B00B2DD4E /* Dispatcher.swift in Sources */,
 				2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */,
 				2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */,
 				2AA4D19A1F0C04D200EE2DA3 /* FederalSubject.swift in Sources */,

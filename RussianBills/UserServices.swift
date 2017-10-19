@@ -30,100 +30,115 @@ enum UserServices {
         downloadRegionalSubjects(forced: forced)
         downloadInstances(forced: forced)
 
-        // TODO:- Completion after functions finshed their completion
-        if let compl = completion {
-            compl()
+        Dispatcher.shared.referenceDownloadDispatchGroup.notify(queue: DispatchQueue.main) {
+            debugPrint("∆ All reference categories donloaded!")
+            if let compl = completion {
+                compl()
+            }
         }
     }
 
     static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
-            return
-        }
-
-        Request.comittees(current: nil, completion: { (result: [Comittee_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
+                return
             }
-        })
+
+            Request.comittees(current: nil, completion: { (result: [Comittee_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
+            })
+        }
     }
 
     static func downloadLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.lawClasses { (result: [LawClass_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.lawClasses { (result: [LawClass_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
     }
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.topics { (result: [Topic_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.topics { (result: [Topic_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
     }
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.deputies { (result: [Deputy_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.deputies { (result: [Deputy_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
     }
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.federalSubjects { (result: [FederalSubject_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.federalSubjects { (result: [FederalSubject_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
-
     }
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.regionalSubjects { (result: [RegionalSubject_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.regionalSubjects { (result: [RegionalSubject_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
     }
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
-            return
-        }
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
+                return
+            }
 
-        Request.instances { (result: [Instance_]) in
-            RealmCoordinator.save(collection: result)
-            if let compl = completion {
-                compl()
+            Request.instances { (result: [Instance_]) in
+                RealmCoordinator.save(collection: result)
+                if let compl = completion {
+                    compl()
+                }
             }
         }
     }
@@ -131,7 +146,7 @@ enum UserServices {
     // MARK: - Bills
 
     static func downloadBills(withQuery query: BillSearchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector, completion: (([Bill_]) -> Void)? = nil) {
-        
+
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
             switch favoriteSelector {
             case .none:

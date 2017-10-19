@@ -19,7 +19,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         return searchController.isActive && !searchBarIsEmpty()
     }
 
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {

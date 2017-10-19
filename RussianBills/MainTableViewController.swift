@@ -18,7 +18,7 @@ final class MainTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UserServices.downloadAllReferenceCategories()
+        
     }
 
     // MARK: - Navigation
