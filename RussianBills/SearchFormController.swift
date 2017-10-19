@@ -11,9 +11,12 @@ import Eureka
 
 final class SearchFormController: FormViewController {
     
+    @IBOutlet weak var startButton: UIBarButtonItem!
+    
     var query = BillSearchQuery() {
         didSet {
             DEBUG_printQueryValues()
+            startButton.isEnabled = query.hasAnyFilledFields()
         }
     }
     
@@ -111,6 +114,10 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationEnd = self?.dateToString(forDate: existingDate)
                     }
                 })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        startButton.isEnabled = query.hasAnyFilledFields()
     }
     
     

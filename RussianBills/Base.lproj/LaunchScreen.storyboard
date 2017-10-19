@@ -27,18 +27,11 @@
                                     <navigationItem title="🇷🇺Законопроекты" id="ES1-Bo-mvh"/>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H09-Na-39c">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
+                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="H09-Na-39c" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="1Hn-4Q-Kbg"/>
-                            <constraint firstAttribute="trailing" secondItem="H09-Na-39c" secondAttribute="trailing" id="Ai8-GK-eP3"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="H09-Na-39c" secondAttribute="bottom" id="IPw-BM-Rtl"/>
                             <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Yqh-iP-r1Y"/>
                             <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="iEh-5v-9tp"/>
-                            <constraint firstItem="H09-Na-39c" firstAttribute="top" secondItem="uZ4-Ne-H3Y" secondAttribute="bottom" id="m4k-Ur-ezb"/>
                             <constraint firstAttribute="trailing" secondItem="uZ4-Ne-H3Y" secondAttribute="trailing" id="pa0-ND-fY7"/>
                         </constraints>
                     </view>
