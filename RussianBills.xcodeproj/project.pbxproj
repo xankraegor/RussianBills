@@ -10,7 +10,6 @@
 		01980DD847A75F282D981929 /* Pods_RussianBillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */; };
 		2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C11F1E8C3A006C011F /* BillParser.swift */; };
 		2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
-		2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C51C61F1E8FE1006C011F /* Attribution.txt */; };
 		2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A290A281F96D2440056E990 /* SearchFormController.swift */; };
@@ -85,7 +84,6 @@
 		0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.release.xcconfig"; sourceTree = "<group>"; };
 		2A0C51C11F1E8C3A006C011F /* BillParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParser.swift; sourceTree = "<group>"; };
 		2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserEvent.swift; sourceTree = "<group>"; };
-		2A0C51C61F1E8FE1006C011F /* Attribution.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Attribution.txt; sourceTree = "<group>"; };
 		2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-CondenseWhitespaces.swift"; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A290A281F96D2440056E990 /* SearchFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormController.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				2A6315BA1F0AE1B400611BD8 /* Info.plist */,
 				2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */,
 				2A4FDBD01F0EBB93005C59AE /* Keys.plist */,
-				2A0C51C61F1E8FE1006C011F /* Attribution.txt */,
 			);
 			name = "Other Assets";
 			sourceTree = "<group>";
@@ -505,7 +502,6 @@
 			files = (
 				2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */,
 				2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */,
-				2A0C51C71F1E8FE1006C011F /* Attribution.txt in Resources */,
 				2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */,
 				2AA62DB91F8CE764000405F5 /* FavEmptyView.xib in Resources */,
 				2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */,
