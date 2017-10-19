@@ -20,7 +20,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     var isLoading = false
     
     let favoriteAddedColor = #colorLiteral(red: 1, green: 0.9601590037, blue: 0.855443418, alpha: 1)
-    let fovoriteFalseColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    let notFavoriteColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     
     var realmNotificationToken: NotificationToken? = nil
     
@@ -86,7 +86,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             cell.billNameLabel.text = bill.name
         }
         cell.billNameLabel.text = bill.name
-        cell.backgroundColor = bill.favorite ? favoriteAddedColor : fovoriteFalseColor
         setColorAndNumberForCell(at: indexPath)
         return cell
     }
@@ -173,7 +172,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
                 cell.backgroundColor = favoriteAddedColor
             } else {
                 cell.billNumberLabel.text = "📃" + quickSearchBills[indexPath.row].number
-                cell.backgroundColor = fovoriteFalseColor
+                cell.backgroundColor = notFavoriteColor
             }
         }
     }
