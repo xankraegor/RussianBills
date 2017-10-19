@@ -11,6 +11,11 @@ import RealmSwift
 
 enum RealmCoordinator {
 
+    public enum ListType: String {
+        case quickSearchList
+        case mainSearchList
+    }
+
     static func DEBUG_defaultRealmPath() -> String {
         return "Default realm path: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))"
     }
@@ -203,50 +208,50 @@ enum RealmCoordinator {
     
     // MARK: - Managing Lists
     
-    static func getQuickSearchBillsList()->BillsList_ {
+    static func getBillsList(ofType type: ListType)->BillsList_ {
         do {
             let realm = try Realm()
-            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: "quickSearchList") {
+            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue) {
                 return list
             } else {
                 let newList = BillsList_()
-                newList.name = "quickSearchList"
+                newList.name = type.rawValue
                 try realm.write {
                     realm.add(newList, update: true)
                 }
                 return newList
             }
         } catch let error {
-            fatalError("∆ Cannot get quick search bills list: \(error)")
+            fatalError("∆ Cannot get \(type.rawValue) bills list: \(error)")
         }
     }
 
-    static func getQuickSearchBillsListItems()->[Bill_] {
+    static func getBillsListItems(ofType type: ListType)->[Bill_] {
         do {
             let realm = try Realm()
-            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: "quickSearchList")?.bills {
+            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue)?.bills {
                 return Array(list)
             } else {
                 return []
             }
         } catch let error {
-            fatalError("∆ Cannot get quick search bills list items: \(error)")
+            fatalError("∆ Cannot get \(type.rawValue) bills list items: \(error)")
         }
     }
     
-    static func setQuickSearchBillsList(toContain bills: [Bill_]?) {
+    static func setBillsList(ofType type: ListType, toContain bills: [Bill_]?) {
         do {
             let realm = try Realm()
             try realm.write {
                 let newList = BillsList_()
-                newList.name = "quickSearchList"
+                newList.name = type.rawValue
                 if let billsNoNil = bills {
                     newList.bills.append(objectsIn: billsNoNil)
                 }
                 realm.add(newList, update: true)
             }
         } catch let error {
-            fatalError("∆ Cannot set quick search bills list: \(error)")
+            fatalError("∆ Cannot set \(type.rawValue) bills list: \(error)")
         }
     }
     

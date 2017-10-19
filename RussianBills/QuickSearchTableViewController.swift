@@ -46,7 +46,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let results = RealmCoordinator.getQuickSearchBillsList()
+        let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList)
         
         realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
             self!.tableView.reloadData()
@@ -71,7 +71,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
-            return RealmCoordinator.getQuickSearchBillsListItems().count 
+            return RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList).count
         } else {
             return 0
         }
@@ -79,7 +79,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
-        let bill = RealmCoordinator.getQuickSearchBillsListItems()[indexPath.row]
+        let bill = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)[indexPath.row]
         if bill.comments.characters.count > 0 {
             cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
@@ -94,7 +94,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let bills = RealmCoordinator.getQuickSearchBillsListItems()
+        let bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
         RealmCoordinator.updateFavoriteStatusOf(bill: bills[indexPath.row], to: !bills[indexPath.row].favorite)
         { [weak self] in
             self?.setColorAndNumberForCell(at: indexPath)
@@ -102,14 +102,14 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row > RealmCoordinator.getQuickSearchBillsList().bills.count - 15 && !isLoading {
+        if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList).bills.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
                result in
-                var bills = RealmCoordinator.getQuickSearchBillsListItems()
+                var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
                 bills.append(contentsOf: result)
-                RealmCoordinator.setQuickSearchBillsList(toContain: bills)
+                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: bills)
             })
         }
     }
@@ -131,7 +131,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             
             UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
                result in
-                RealmCoordinator.setQuickSearchBillsList(toContain: result)
+                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: result)
             })
             
         }
@@ -141,7 +141,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         number1TextField.text = ""
         number2TextField.text = ""
         nameTextField.text = ""
-        RealmCoordinator.setQuickSearchBillsList(toContain: nil)
+        RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: nil)
     }
 
     
@@ -167,7 +167,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func setColorAndNumberForCell(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
-            let quickSearchBills = RealmCoordinator.getQuickSearchBillsListItems()
+            let quickSearchBills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
             if quickSearchBills[indexPath.row].favorite  {
                 cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(quickSearchBills[indexPath.row].number)"
                 cell.backgroundColor = favoriteAddedColor
