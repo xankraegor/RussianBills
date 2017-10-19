@@ -31,7 +31,6 @@ enum UserServices {
         downloadInstances(forced: forced)
 
         Dispatcher.shared.referenceDownloadDispatchGroup.notify(queue: DispatchQueue.main) {
-            debugPrint("∆ All reference categories donloaded!")
             if let compl = completion {
                 compl()
             }
