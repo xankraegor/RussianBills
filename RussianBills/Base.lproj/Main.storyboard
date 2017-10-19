@@ -27,7 +27,7 @@
                     <navigationItem key="navigationItem" title="🛠 Критерии поиска" id="136-fa-jIL">
                         <barButtonItem key="rightBarButtonItem" title="Начать" id="N2C-dc-EFb">
                             <connections>
-                                <segue destination="Qs9-rJ-346" kind="show" id="E6z-qO-Roa"/>
+                                <segue destination="Qs9-rJ-346" kind="show" identifier="SearchResultsSegueId" id="E6z-qO-Roa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -45,7 +45,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="219" id="6Gt-Qu-Gwo">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BillTableViewCellId" rowHeight="219" id="6Gt-Qu-Gwo" customClass="SearchResultsTableViewCell" customModule="RussianBills" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="219"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Gt-Qu-Gwo" id="KXM-RZ-pom">
@@ -76,6 +76,11 @@
                                         <constraint firstAttribute="trailing" secondItem="Rac-lJ-aLw" secondAttribute="trailing" constant="8" id="vuQ-zb-GHN"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="Rac-lJ-aLw" id="JUi-G1-Iah"/>
+                                    <outlet property="numberLabel" destination="tAc-x6-87v" id="MdF-Cl-mRE"/>
+                                    <segue destination="lxy-Bg-9id" kind="show" identifier="BillSearchReusltSegueId" id="ECW-Zv-M8L"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1361,5 +1366,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="XZ3-13-8e4"/>
+        <segue reference="ECW-Zv-M8L"/>
     </inferredMetricsTieBreakers>
 </document>

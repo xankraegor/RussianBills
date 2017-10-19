@@ -15,7 +15,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     @IBOutlet weak var number1TextField: UITextField!
     @IBOutlet weak var number2TextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    
+
     var query = BillSearchQuery()
     var isLoading = false
     
@@ -42,12 +42,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
-        navigationController?.toolbar.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+
         let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList)
-        
+
         realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
             self!.tableView.reloadData()
             self!.isLoading = false
@@ -85,7 +82,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         } else {
             cell.billNameLabel.text = bill.name
         }
-        cell.billNameLabel.text = bill.name
         setColorAndNumberForCell(at: indexPath)
         return cell
     }
@@ -133,6 +129,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
                 RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: result)
             })
             
+            self.view.endEditing(true)
         }
     }
 

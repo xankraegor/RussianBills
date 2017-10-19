@@ -175,5 +175,13 @@ final class SearchFormController: FormViewController {
         output += "Дата конца внесения: \(query.registrationEnd ?? "nil")\n"
         print(output)
     }
+
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SearchResultsSegueId" {
+            (segue.destination as! SearchResultsTableViewController).query = query
+        }
+    }
 }
 
