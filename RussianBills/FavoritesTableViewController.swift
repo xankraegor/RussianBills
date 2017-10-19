@@ -10,9 +10,6 @@ import UIKit
 
 final class FavoritesTableViewController: UITableViewController {
 
-    var favorites = RealmCoordinator.loadFavoriteBills()
-
-    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -20,12 +17,10 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
-        if favorites.count == 0 {
             setupEmptyFavoriteViewTemplate ()
-        } else {
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 184
+        if RealmCoordinator.loadFavoriteBills().count > 0 {
         }
     }
 
@@ -41,13 +36,17 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favorites.count
+        let numberOfRows = RealmCoordinator.loadFavoriteBills().count
+        if numberOfRows == 0 {
+            setupEmptyFavoriteViewTemplate ()
+        }
+        return numberOfRows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
-        cell.nameLabel?.text = favorites[indexPath.row].name
-        cell.numberLabel?.text = "📃" + favorites[indexPath.row].number
+        cell.nameLabel?.text = RealmCoordinator.loadFavoriteBills()[indexPath.row].name
+        cell.numberLabel?.text = "📃" + RealmCoordinator.loadFavoriteBills()[indexPath.row].number
         return cell
     }
 
@@ -57,8 +56,12 @@ final class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RealmCoordinator.updateFavoriteStatusOf(bill: favorites[indexPath.row], to: false)
+            RealmCoordinator.updateFavoriteStatusOf(bill: RealmCoordinator.loadFavoriteBills()[indexPath.row], to: false)
             tableView.deleteRows(at: [indexPath], with: .fade)
+
+            if RealmCoordinator.loadFavoriteBills().count == 0 {
+                setupEmptyFavoriteViewTemplate ()
+            }
         }    
     }
 
@@ -69,7 +72,7 @@ final class FavoritesTableViewController: UITableViewController {
         if segue.identifier == "BillCardSegue" {
             if let path = tableView.indexPathForSelectedRow,
                 let dest = segue.destination as? BillCardTableViewController {
-                dest.bill = favorites[path.row]
+                dest.bill = RealmCoordinator.loadFavoriteBills()[path.row]
             }
         }
     }

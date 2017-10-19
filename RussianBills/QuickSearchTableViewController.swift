@@ -184,12 +184,4 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         self.number2TextField.text = savedTextFields.nr2
     }
     
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? FavoritesTableViewController {
-            dest.favorites = RealmCoordinator.loadFavoriteBills()
-        }
-    }
-    
 }
