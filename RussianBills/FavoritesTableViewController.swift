@@ -17,10 +17,10 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-            setupEmptyFavoriteViewTemplate ()
-            tableView.rowHeight = UITableViewAutomaticDimension
-            tableView.estimatedRowHeight = 184
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 184
         if RealmCoordinator.loadFavoriteBills().count > 0 {
+            uninstallEmptyFavoriteViewTemplate()
         }
     }
 
@@ -83,6 +83,11 @@ final class FavoritesTableViewController: UITableViewController {
     func setupEmptyFavoriteViewTemplate () {
         tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
         tableView.separatorStyle = .none
+    }
+
+    func uninstallEmptyFavoriteViewTemplate () {
+        tableView.backgroundView = nil
+        tableView.separatorStyle = .singleLine
     }
 
 }
