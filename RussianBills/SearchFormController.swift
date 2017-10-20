@@ -21,6 +21,7 @@ final class SearchFormController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        startButton.isEnabled = false
         form
             
             +++ Section("Основные данные")
@@ -114,11 +115,7 @@ final class SearchFormController: FormViewController {
                     }
                 })
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        startButton.isEnabled = query.hasAnyFilledFields()
-    }
-    
+
     
     // MARK: - Updating Query
     
