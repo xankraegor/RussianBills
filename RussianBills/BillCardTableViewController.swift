@@ -50,8 +50,6 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        tableView.estimatedRowHeight = 40
-//        tableView.rowHeight = UITableViewAutomaticDimension
 
         fetchBillData()
 
@@ -199,7 +197,7 @@ final class BillCardTableViewController: UITableViewController {
 
     private func activateMoreDocsCell() {
         moreDocsLabel.text = "Все события и документы"
-        moreDocsLabel.textColor = UIColor.blue
+        moreDocsLabel.textColor = moreDocsLabel.tintColor
         moreDocsIndicator.stopAnimating()
         moreDocsCell.accessoryType = .disclosureIndicator
         moreDocsCell.isUserInteractionEnabled = true

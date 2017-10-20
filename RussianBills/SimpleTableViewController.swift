@@ -34,6 +34,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
         } else {
             tableView.tableHeaderView = searchController.searchBar
         }

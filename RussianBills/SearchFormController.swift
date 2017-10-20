@@ -91,7 +91,7 @@ final class SearchFormController: FormViewController {
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
-                        // Set value from begin date to query
+                        // Set value from end date to query
                         let dateRow: DateRow? = self?.form.rowBy(tag: "endDate")
                         if let existingDate = dateRow?.value {
                             self?.query.registrationEnd = self?.dateToString(forDate: existingDate)

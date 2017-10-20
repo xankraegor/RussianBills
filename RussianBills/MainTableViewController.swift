@@ -15,6 +15,9 @@ final class MainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Realm path: \(RealmCoordinator.DEBUG_defaultRealmPath())")
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -27,9 +27,16 @@
                                     <navigationItem title="🇷🇺Законопроекты" id="ES1-Bo-mvh"/>
                                 </items>
                             </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9B-lS-bi5">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="i9B-lS-bi5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Hsw-z5-HAY"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="i9B-lS-bi5" secondAttribute="bottom" id="MYt-U9-fFo"/>
+                            <constraint firstAttribute="trailing" secondItem="i9B-lS-bi5" secondAttribute="trailing" id="Qfn-ud-jcF"/>
                             <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Yqh-iP-r1Y"/>
                             <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="iEh-5v-9tp"/>
                             <constraint firstAttribute="trailing" secondItem="uZ4-Ne-H3Y" secondAttribute="trailing" id="pa0-ND-fY7"/>
