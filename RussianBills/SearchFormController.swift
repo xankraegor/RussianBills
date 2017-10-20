@@ -16,12 +16,14 @@ final class SearchFormController: FormViewController {
     var query = BillSearchQuery() {
         didSet {
             startButton.isEnabled = query.hasAnyFilledFields()
+            preprocessRequest(usingQuery: query, afterSeconds: 0.5)
         }
     }
+
+    var prefetchedBills = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startButton.isEnabled = false
         form
             
             +++ Section("Основные данные")
@@ -44,8 +46,9 @@ final class SearchFormController: FormViewController {
                 }.onChange { [weak self] row in
                     self?.query.number = row.value
             }
-            <<< PushRow<String>() {
-                $0.title = "Статус"
+            +++ Section("Статус")
+            <<< PushRow<String>("Статус") {
+                $0.title = ""
                 $0.selectorTitle = "Выберите статус законопроекта"
                 var allValues = (BillStatus.allValues.map{$0.description})
                 allValues.append("Любой")
@@ -116,7 +119,6 @@ final class SearchFormController: FormViewController {
                 })
     }
 
-    
     // MARK: - Updating Query
     
     func setLawType(withStatus type: String) {
@@ -159,17 +161,9 @@ final class SearchFormController: FormViewController {
         }
     }
 
-    // MARK: Debug
-
-    func DEBUG_printQueryValues() {
-        var output = ""
-        output += "Наименование: \(query.name ?? "nil")\n"
-        output += "Тип: \(query.lawType?.description ?? "nil")\n"
-        output += "Номер: \(query.number ?? "nil")\n"
-        output += "Статус: \(query.status?.description ?? "nil")\n"
-        output += "Дата начала внесения: \(query.registrationStart ?? "nil")\n"
-        output += "Дата конца внесения: \(query.registrationEnd ?? "nil")\n"
-        print(output)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startButton.isEnabled = query.hasAnyFilledFields()
     }
 
     // MARK: - Navigation
@@ -177,7 +171,19 @@ final class SearchFormController: FormViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SearchResultsSegueId" {
             (segue.destination as! SearchResultsTableViewController).query = query
+            (segue.destination as! SearchResultsTableViewController).isPrefetched = prefetchedBills
+        }
+    }
+
+    // MARK: - Request Preprocessing
+
+    func preprocessRequest(usingQuery: BillSearchQuery, afterSeconds: Double) {
+        Dispatcher.shared.dispatchBillsPrefetching(afterSeconds: afterSeconds) { [weak self] in
+            UserServices.downloadBills(withQuery: (self?.query)!, favoriteSelector: .preserveFavorite)
+            { [weak self] (bills) in
+                RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: bills)
+                self?.prefetchedBills = true
+            }
         }
     }
 }
-

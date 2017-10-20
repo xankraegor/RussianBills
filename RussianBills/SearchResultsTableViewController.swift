@@ -13,6 +13,7 @@ class SearchResultsTableViewController: UITableViewController {
 
     var query = BillSearchQuery()
     var isLoading: Bool = false
+    var isPrefetched: Bool = false
 
     var realmNotificationToken: NotificationToken? = nil
 
@@ -28,10 +29,12 @@ class SearchResultsTableViewController: UITableViewController {
             fatalError("∆ Did not recieve a search query")
         }
 
-        UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
-            result in
-            RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.mainSearchList, toContain: result)
-        })
+        if !isPrefetched {
+            UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
+                result in
+                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.mainSearchList, toContain: result)
+            })
+        }
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100

@@ -871,9 +871,9 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="📃№ 123456-7" id="BG1-9U-MPp">
                         <barButtonItem key="backBarButtonItem" title="Back" id="J7h-ad-HKQ"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="qQy-m7-8zp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qQy-m7-8zp">
                             <connections>
-                                <action selector="ComposeButtonPressed:" destination="lxy-Bg-9id" id="Awy-xj-1fw"/>
+                                <action selector="composeButtonPressed:" destination="lxy-Bg-9id" id="njW-QK-bpm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -13,10 +13,27 @@ class Dispatcher {
     static let shared = Dispatcher()
 
     let referenceDownloadDispatchGroup = DispatchGroup()
-    let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: DispatchQoS.userInteractive, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit, target: nil)
+    let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: .userInteractive, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit, target: nil)
+    let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .userInitiated)
+
+    var prefetchBillsWorkItem: DispatchWorkItem?
+
+    func dispatchReferenceDownload(with: @escaping ()->()) {
+        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+            with()
+        }
+    }
+
+    func dispatchBillsPrefetching(afterSeconds: Double, block: @escaping ()->()) {
+        prefetchBillsWorkItem?.cancel()
+        debugPrint("∆ Dispatcher: prefetchBillsWorkItem?.cancel()")
+        billsPrefetchDispatchQueue.asyncAfter(deadline: DispatchTime.now() + afterSeconds) {
+            debugPrint("∆ Dispatcher: billsPrefetchDispatchQueue.asyncAfter(_ \(afterSeconds)")
+            block()
+        }
+    }
 
     init() {
         debugPrint("Dispatcher Initialization")
-        
     }
 }

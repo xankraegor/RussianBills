@@ -365,8 +365,8 @@
 			isa = PBXGroup;
 			children = (
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
-				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
+				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
 				2AA6771F1F215325003CFD37 /* BillDetails */,
 				2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */,

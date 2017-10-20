@@ -89,10 +89,6 @@ final class BillCardTableViewController: UITableViewController {
             default:
                 return UITableViewAutomaticDimension
             }
-            //        case 1: // Last events
-            //            break
-            //        case 2: // Committees
-        //            break
         default:
             return UITableViewAutomaticDimension
         }
@@ -107,7 +103,7 @@ final class BillCardTableViewController: UITableViewController {
 
     func fetchBillData() {
         if let bill = bill {
-            navigationItem.title = "📃\(bill.number)"
+            navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
             billTypeLabel.text = bill.lawType.description
             billTitle.text = bill.name
             billSubtitleLabel.text = bill.comments
@@ -135,7 +131,7 @@ final class BillCardTableViewController: UITableViewController {
     // MARK: - AlertController
 
     @IBAction func composeButtonPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Сохранить данные о законопроекте", message: "Выберите действие", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { (action) in
             self.saveBillEventsToAFile()
@@ -143,6 +139,11 @@ final class BillCardTableViewController: UITableViewController {
 
         alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { (action) in
             UIPasteboard.general.string = self.generateBillDescriptionText()
+        }))
+
+        alert.addAction(UIAlertAction(title: (bill?.favorite)! ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
+            RealmCoordinator.updateFavoriteStatusOf(bill: (self?.bill!)!, to: !(self?.bill?.favorite)!)
+            self?.navigationItem.title = (self?.bill?.favorite)! ? "🎖\(self?.bill!.number ?? "")" : "📃\(self?.bill!.number ?? "")"
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -153,6 +154,12 @@ final class BillCardTableViewController: UITableViewController {
     // MARK: - Helper functions
 
     private func generateBillDescriptionText()->String {
+
+        func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+            let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
+            return textWithoutSpaces.characters.count > 0 ? source : replacementText
+        }
+
         let repl = "отсутствует"
         var output = ""
         if let bill = bill {
@@ -183,10 +190,7 @@ final class BillCardTableViewController: UITableViewController {
         return output
     }
 
-    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
-        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
-        return textWithoutSpaces.characters.count > 0 ? source : replacementText
-    }
+
 
     private func saveBillEventsToAFile() {
         if let bill = self.bill {

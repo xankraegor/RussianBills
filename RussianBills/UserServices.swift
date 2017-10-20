@@ -38,7 +38,7 @@ enum UserServices {
     }
 
     static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
                 return
             }
@@ -53,7 +53,7 @@ enum UserServices {
     }
 
     static func downloadLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
                 return
             }
@@ -68,7 +68,7 @@ enum UserServices {
     }
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
                 return
             }
@@ -83,7 +83,7 @@ enum UserServices {
     }
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
                 return
             }
@@ -98,7 +98,7 @@ enum UserServices {
     }
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
                 return
             }
@@ -113,7 +113,7 @@ enum UserServices {
     }
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
                 return
             }
@@ -128,7 +128,7 @@ enum UserServices {
     }
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
-        DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
+        Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
                 return
             }
