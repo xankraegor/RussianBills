@@ -15,7 +15,6 @@ final class SearchFormController: FormViewController {
     
     var query = BillSearchQuery() {
         didSet {
-            DEBUG_printQueryValues()
             startButton.isEnabled = query.hasAnyFilledFields()
         }
     }
@@ -65,7 +64,7 @@ final class SearchFormController: FormViewController {
                         // Set value from begin date to query
                         let dateRow: DateRow? = self?.form.rowBy(tag: "beginDate")
                         if let existingDate = dateRow?.value {
-                            self?.query.registrationStart = self?.dateToString(forDate: existingDate)
+                            self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                             } else {
                             debugPrint("∆ Something went wrong with accessing begin date from the search form")
                         }
@@ -82,7 +81,7 @@ final class SearchFormController: FormViewController {
                 $0.value = Date()
                 }.onChange({ [weak self] row in
                     if let existingDate = row.value {
-                        self?.query.registrationStart = self?.dateToString(forDate: existingDate)
+                        self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                     }
                 })
             <<< SwitchRow("endDateSwitch"){
@@ -94,7 +93,7 @@ final class SearchFormController: FormViewController {
                         // Set value from end date to query
                         let dateRow: DateRow? = self?.form.rowBy(tag: "endDate")
                         if let existingDate = dateRow?.value {
-                            self?.query.registrationEnd = self?.dateToString(forDate: existingDate)
+                            self?.query.registrationEnd = Date.ISOStringFromDate(date: existingDate)
                         } else {
                             debugPrint("∆ Something went wrong with accessing end date from the search form")
                         }
@@ -111,7 +110,7 @@ final class SearchFormController: FormViewController {
                 $0.value = Date()
                 }.onChange({ [weak self] row in
                     if let existingDate = row.value {
-                        self?.query.registrationEnd = self?.dateToString(forDate: existingDate)
+                        self?.query.registrationEnd = Date.ISOStringFromDate(date: existingDate)
                     }
                 })
     }
@@ -161,13 +160,6 @@ final class SearchFormController: FormViewController {
         default:
             query.status = nil
         }
-    }
-
-    func dateToString(forDate date: Date)->String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        debugPrint("Output date: \(formatter.string(from: date))")
-        return (formatter.string(from: date))
     }
 
     // MARK: Debug
