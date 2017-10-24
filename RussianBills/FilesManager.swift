@@ -9,107 +9,115 @@
 import UIKit
 
 enum FilesManager {
-    
-    static var homeDirPath: String {
-        return NSHomeDirectory() + "/Documents"
+
+    static func attachmentDir(forBillNumber number: String)->String {
+        return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
     }
 
     // MARK: - Files
     
-    static func createEmptyFile(named fileName: String, atRelativePath relativePath: String) {
-        FilesManager.createDirIfItDontExist(atRelativePath: relativePath)
-        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
+    static func createEmptyFile(named fileName: String, atPath path: String) {
+        FilesManager.createDirectory(atPath: path)
+        let fullPath = (path as NSString).appendingPathComponent(fileName)
         let emptyContent = ""
         do {
-            try emptyContent.write(toFile: absolutePath, atomically: true, encoding: String.Encoding.utf8)
+            try emptyContent.write(toFile: fullPath, atomically: true, encoding: .utf8)
         } catch let error {
-            debugPrint("∆ Error when creating an empty file in folder \(absolutePath): \(error.localizedDescription)")
+            debugPrint("∆ Error when creating an empty file in folder \(fullPath): \(error.localizedDescription)")
         }
     }
     
-    static func writeToFile(string: String, named fileName: String, atRelativePath relativePath: String) {
-        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
+    static func writeToFile(string: String, named fileName: String, atPath path: String) {
         do {
-            try string.write(toFile: absolutePath, atomically: true, encoding: String.Encoding.utf8)
+            try string.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
         } catch let error {
             debugPrint("∆ Error when creating an empty file: \(error.localizedDescription)")
         }
     }
-    
-    static func readFile(named fileName: String, atRelativePath relativePath: String) -> String {
-        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
-        var contents = String()
+
+//    static func readFile(named fileName: String, atRelativePath relativePath: String) -> String {
+//        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
+//        var contents = String()
+//        do {
+//            contents = try NSString(contentsOfFile: absolutePath, encoding: String.Encoding.utf8.rawValue) as String
+//        } catch let error {
+//            debugPrint("∆ Error when reading a file: \(error.localizedDescription)")
+//        }
+//        return contents
+//    }
+
+    static func deleteFile(named fileName: String, atPath path: String) {
+        let filePath = (path as NSString).appendingPathComponent(fileName)
         do {
-            contents = try NSString(contentsOfFile: absolutePath, encoding: String.Encoding.utf8.rawValue) as String
-        } catch let error {
-            debugPrint("∆ Error when reading a file: \(error.localizedDescription)")
-        }
-        return contents
-    }
-    
-    static func deleteFile(named fileName: String, atRelativePath relativePath: String) {
-        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
-        do {
-            try FileManager.default.removeItem(atPath: absolutePath)
+            try FileManager.default.removeItem(atPath: filePath)
         } catch let error {
             print("∆ Error deleting file: \(error.localizedDescription)")
         }
     }
-    
-    static func doesFileExist(withName fileName: String, atRelativePath relativePath: String)->Bool {
-        // TODO:
 
-        let absolutePath = homeDirPath.appending(relativePath)
-        let fullPathUrl = URL(fileURLWithPath: absolutePath, isDirectory: true).appendingPathComponent(fileName)
-        let isFound = FileManager.default.fileExists(atPath: fullPathUrl.path)
-        print("File '\(fullPathUrl)' is found: \(isFound)")
-        return isFound
-//        let filesList = filesInDirectory(atRelativePath: relativePath).map{$0.fileName()}
-//        debugPrint("All files in directory are: \(filesList)")
-//        if filesList.contains(fileName) {
-//            return true
-//        }
-//        return false
+    static func pathForFile(containingInName namePart: String, inDirectory path: String)->String? {
+        let filesPathesList = filesInDirectory(atPath: path) //.map{$0.fileName()}
+        for i in 0..<filesPathesList.count {
+            if filesPathesList[i].fileName().contains(namePart) {
+                return filesPathesList[i]
+            }
+        }
+        return nil
     }
 
-    static func createAndOrWriteToFile(text: String, name: String, atRelativePath relativePath: String) {
-        let existingFile = FilesManager.doesFileExist(withName: name, atRelativePath: relativePath)
-        if !existingFile {
-            FilesManager.createEmptyFile(named: name, atRelativePath: relativePath)
+    static func createAndOrWriteToFileBillDescrition(text: String, name: String, atPath path: String) {
+        let fullPath = URL(fileURLWithPath: path).appendingPathComponent(name).path
+        let fileExists = FileManager.default.fileExists(atPath: fullPath)
+
+        if !fileExists {
+            FilesManager.createEmptyFile(named: name, atPath: path)
         }
-        FilesManager.writeToFile(string: text, named: name, atRelativePath: relativePath)
+        FilesManager.writeToFile(string: text, named: name, atPath: path)
+    }
+
+    static func renameFile(named: String, atPath: String, newName: String) {
+        let existingFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(named)
+        guard FileManager.default.fileExists(atPath: existingFullPath.path) else {
+            debugPrint("∆ Cannot move the file: source file at path \(existingFullPath.path) does not exist")
+            return
+        }
+        let newFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(newName)
+
+        do {
+            try FileManager.default.moveItem(atPath: existingFullPath.path, toPath: newFullPath.path)
+        }
+        catch let error {
+            debugPrint("∆ Cannot move the file: \(error)")
+        }
     }
 
     // MARK : - Directories
 
-    static func doesDirExist(atRelativePath relativePath: String)->Bool {
-        let absolutePath = homeDirPath.appending(relativePath)
+    static func doesDirExist(atPath path: String)->Bool {
         var isDir: ObjCBool = false
-        return FileManager.default.fileExists(atPath: absolutePath, isDirectory: &isDir)
+        return FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
     }
 
-    static func createDirectory(atRelativePath relativePath: String) {
-        let absolutePath = homeDirPath.appending(relativePath)
+    static func createDirectory(atPath path: String) {
         do {
-            try FileManager.default.createDirectory(atPath: absolutePath, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            debugPrint("∆ Error when creating a new directory with FileManager.default.createDirectory(atPath: absolutePath, withIntermediateDirectories: true, attributes: nil):: \(error.localizedDescription) at path \(absolutePath)")
+            debugPrint("∆ Error when creating a new directory with FileManager.default.createDirectory(atPath: absolutePath, withIntermediateDirectories: true, attributes: nil):: \(error.localizedDescription) at path \(path)")
         }
     }
 
-    static func createDirIfItDontExist(atRelativePath relativePath: String) {
-        if !doesDirExist(atRelativePath: relativePath) {
-            createDirectory(atRelativePath: relativePath)
-        }
-    }
+//    static func createDirIfItDontExist(atPath path: String) {
+//        if !doesDirExist(atPath: path) {
+//            createDirectory(atPath: path)
+//        }
+//    }
 
-    static func filesInDirectory(atRelativePath relativePath: String) -> [String] {
-        let absolutePath = homeDirPath.appending(relativePath)
+    static func filesInDirectory(atPath path: String) -> [String] {
         var fileList: [String] = []
         do {
-            fileList = try FileManager.default.contentsOfDirectory(atPath: absolutePath)
+            fileList = try FileManager.default.contentsOfDirectory(atPath: path)
         } catch let error {
-            debugPrint("∆ Error when examining contents of a directory at \(absolutePath):: \(error.localizedDescription)")
+            debugPrint("∆ Error when examining contents of a directory at \(path):: \(error.localizedDescription)")
         }
         return fileList
     }
@@ -117,7 +125,6 @@ enum FilesManager {
     // MARK: - Specific functions 
     
     static func extractUniqueDocumentNameFrom(urlString: String)->String? {
-        debugPrint("∆ Url String is: \(urlString)")
         // Example: http://sozd.parlament.gov.ru/download/78155743-0269-463E-8EEE-5648D5A0B40E
         if let key = urlString.components(separatedBy: "/").last?.components(separatedBy: "&").last {
             let forbiddenCharactersSet = CharacterSet(charactersIn: "-0123456789ABCDEF").inverted

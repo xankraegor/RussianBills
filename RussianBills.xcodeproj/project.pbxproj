@@ -280,14 +280,6 @@
 			path = RussianBillsTests;
 			sourceTree = "<group>";
 		};
-		2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */ = {
-			isa = PBXGroup;
-			children = (
-				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
-			);
-			name = BillAttachedDocuments;
-			sourceTree = "<group>";
-		};
 		2A98F16C1F0AF029004F5524 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,9 +359,9 @@
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
+				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
 				2AA6771F1F215325003CFD37 /* BillDetails */,
-				2A75E8FF1F22AD9F0008FD8F /* BillAttachedDocuments */,
 				2AD1E93A1F127AB100CA0D89 /* Favorites */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2AB31E811F16A15B005E681F /* QuickSearch */,

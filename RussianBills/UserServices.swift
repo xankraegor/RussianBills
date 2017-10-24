@@ -168,40 +168,82 @@ enum UserServices {
             
         })
     }
-    
-    // MARK: - Documents
 
-    static func downloadDocument(usingRelativeLink link: String, toDestination dest: String, updateProgressStatus: @escaping (Double)->Void, fileURL: @escaping (String)->Void ) {
 
-        debugPrint("∆ Relative link is: \(link)")
-        debugPrint("∆ Destination is: \(dest)")
+    // MARK: - Attachments
 
-        FilesManager.createDirIfItDontExist(atRelativePath: dest) // Создает директорию!
-
-        Request.document(documentLink: link, relativeDestination: dest, progressStatus: { (progress) in
-            // For UI update
-            DispatchQueue.main.async {
-                updateProgressStatus(progress)
-            }
-        }) { (response) in
-            if let data = response.value, let utf8Text = String(data: data, encoding: .utf8) {
-
-                if let requestUrl = response.request?.url?.absoluteString {
-                    if let uniqueName = FilesManager.extractUniqueDocumentNameFrom(urlString: requestUrl) {
-                        if let suggestedFileName = response.response?.suggestedFilename {
-                            debugPrint("∆ Suggested file name: \(suggestedFileName)")
-                            let recommendedExtension = suggestedFileName.fileExtension()
-                            debugPrint("∆ Recommended extension: \(recommendedExtension)")
-                            FilesManager.createAndOrWriteToFile(text: utf8Text, name: "\(uniqueName).\(recommendedExtension)", atRelativePath: dest)
-                            fileURL("\(dest)\(uniqueName).\(recommendedExtension)")
-                        }
-                    }
-                } else {
-                    debugPrint("∆ Request Url not found")
-                }
-
-            }
+    static func isAttachmentDownloaded(forBillNumber: String, withLink link: String)->Bool {
+        let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
+        if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link), let _ = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttacmentsDirectory) {
+            return true
+        } else {
+            return false
         }
     }
-    
+
+    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void, fileURL: @escaping (String)->Void ) {
+        let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downladLink)
+        let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
+        let temporaryFileName = String(downladLink.hashValue)
+        let temporaryFullPath = URL(fileURLWithPath: billAttacmentsDirectory).appendingPathComponent(temporaryFileName).path
+
+        FilesManager.createDirectory(atPath: billAttacmentsDirectory)
+
+        let destinationAF: DownloadRequest.DownloadFileDestination = { _, _ in
+            return (URL(fileURLWithPath: temporaryFullPath), [.removePreviousFile, .createIntermediateDirectories])
+        }
+
+        Alamofire.download(downladLink, to: destinationAF)
+
+            .downloadProgress(closure: { (progress) in
+                print("\(progress.fractionCompleted * 100)% downloaded")
+                // For UI update
+                DispatchQueue.main.async {
+                    updateProgressStatus(progress.fractionCompleted)
+                }
+            })
+
+            .validate()
+
+            .responseData(completionHandler: { (response) in
+                if let error = response.result.error as? AFError {
+                    switch error {
+                    case .invalidURL(let url):
+                        print("Invalid URL: \(url) - \(error.localizedDescription)")
+                    case .parameterEncodingFailed(let reason):
+                        print("Parameter encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .multipartEncodingFailed(let reason):
+                        print("Multipart encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .responseValidationFailed(let reason):
+                        print("Response validation failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+
+                        switch reason {
+                        case .dataFileNil, .dataFileReadFailed:
+                            print("Downloaded file could not be read")
+                        case .missingContentType(let acceptableContentTypes):
+                            print("Content Type Missing: \(acceptableContentTypes)")
+                        case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                            print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                        case .unacceptableStatusCode(let code):
+                            print("Response status code was unacceptable: \(code)")
+                        }
+                    case .responseSerializationFailed(let reason):
+                        print("Response serialization failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    }
+                } else { // No errors!
+                    if let suggestedFullFileName = response.response?.suggestedFilename?.removingPercentEncoding,
+                        let fileId = fileId {
+                        let suggestedExtension = URL(fileURLWithPath: suggestedFullFileName).pathExtension
+                        let fileNameWithoutExtension = URL(fileURLWithPath: suggestedFullFileName).deletingPathExtension()
+                        let targetFileName = "\(fileNameWithoutExtension.lastPathComponent.removingPercentEncoding ?? "")_#\(fileId).\(suggestedExtension)"
+                        FilesManager.renameFile(named: temporaryFileName, atPath: billAttacmentsDirectory, newName: targetFileName)
+                    }
+                }
+            })
+    }
+
 }

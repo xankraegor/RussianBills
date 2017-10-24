@@ -63,21 +63,14 @@ enum Request {
     
     // MARK: - Attached Document Request Function
     
-    static func document(documentLink: String, relativeDestination: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
+    static func document(downladLink: String, toSaveAt path: String, progressStatus: @escaping (Double)->Void, completion: @escaping (DownloadResponse<Data>)->Void) {
         
-        guard let fullLink = RequestRouter.document(link: documentLink).documentStringLink() else {
-            debugPrint("Cannot produce a request for document using link: \(documentLink)")
-            return
-        }
-
-        let absolutePath = FilesManager.homeDirPath.appending(relativeDestination)
-        let destinationUrl =  URL(fileURLWithPath: absolutePath)
-        debugPrint("∆ Request.Document() :: DestinationURL: \(destinationUrl)")
+        debugPrint("∆ Request.Document() :: destination: \(path)")
         let destinationAF: DownloadRequest.DownloadFileDestination = { _, _ in
-            return (destinationUrl, [.removePreviousFile, .createIntermediateDirectories])
+            return (URL(fileURLWithPath: path), [.removePreviousFile, .createIntermediateDirectories])
         }
 
-        Alamofire.download(fullLink, to: destinationAF)
+        Alamofire.download(downladLink, to: destinationAF)
             .downloadProgress(closure: { (progress) in
                 print("\(progress.fractionCompleted * 100)% downloaded")
                 progressStatus(progress.fractionCompleted)

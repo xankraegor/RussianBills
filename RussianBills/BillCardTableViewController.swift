@@ -133,8 +133,8 @@ final class BillCardTableViewController: UITableViewController {
     @IBAction func composeButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
-        alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { (action) in
-            self.saveBillEventsToAFile()
+        alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { [weak self] (action) in
+            FilesManager.createAndOrWriteToFileBillDescrition(text: (self?.generateBillDescriptionText())!, name: (self?.bill!.number)!, atPath: NSHomeDirectory())
         }))
 
         alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { (action) in
@@ -192,12 +192,7 @@ final class BillCardTableViewController: UITableViewController {
 
 
 
-    private func saveBillEventsToAFile() {
-        if let bill = self.bill {
-            let text = self.generateBillDescriptionText()
-            FilesManager.createAndOrWriteToFile(text: text, name: "\(bill.name).txt", atRelativePath: "/")
-        }
-    }
+    
 
     private func activateMoreDocsCell() {
         moreDocsLabel.text = "Все события и документы"

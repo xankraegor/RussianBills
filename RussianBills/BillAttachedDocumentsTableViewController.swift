@@ -40,38 +40,38 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
-        if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]), let billString = billNumber {
-            let documentDownloaded = FilesManager.doesFileExist(withName: namePart, atRelativePath: "/\(billString)/Attachments/")
-            cell.detailTextLabel?.text = documentDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
-        } else {
-            cell.detailTextLabel?.text = "🌐 Документ не загружен"
-        }
+
+        let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
+        cell.detailTextLabel?.text = attachmentAlreadyDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let linkString = event?.attachments[indexPath.row], let billString = billNumber,
-            let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
-            let cell = tableView.cellForRow(at: indexPath)
-
-            let documentAlreadyDownloaded = FilesManager.doesFileExist(withName: namePart, atRelativePath: "/\(billString)/Attachments/")
-
-            if !documentAlreadyDownloaded {
-                UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/\(billString)/Attachments/",
-                    updateProgressStatus: { (progressValue) in
-                        if progressValue < 1 {
-                            cell?.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"
-                        } else {
-                            cell?.detailTextLabel?.text = "\n📦 Документ загружен"
-                        }
-                }, fileURL: { (filePath) in
-                    // TODO: Preview downloaded file
-                    print(filePath)
-                })
-            }
-        } else {
-            debugPrint("∆ Can not get name part")
+        guard let downloadLink = event?.attachments[indexPath.row],
+            let billNr = billNumber, let cell = tableView.cellForRow(at: indexPath) else {
+            return
         }
+
+        let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: downloadLink)
+
+        if attachmentAlreadyDownloaded {
+            // TODO: When downloaded - open!
+            debugPrint("∆ Attachment for bill \(billNr) already downloaded with link \(downloadLink)")
+        } else { // Download it and do something with fileUrl
+
+            UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
+                if progressValue < 1 {
+                    cell.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"
+                } else {
+                    cell.detailTextLabel?.text = "\n📦 Документ загружен"
+                }
+            }, fileURL: { (filePath) in
+                // TODO: Open it now?
+                debugPrint("∆ Downloaded file path is \(filePath)")
+            })
+
+        }
+
     }
 
     /*
