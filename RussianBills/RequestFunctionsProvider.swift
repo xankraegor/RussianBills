@@ -51,9 +51,9 @@ enum Request {
             let queue = DispatchQueue(label: "html-parse-queue")
             queue.async {
 
-                    if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
-                        completion(doc)
-                    }
+                if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
+                    completion(doc)
+                }
 
             }
 
@@ -71,25 +71,27 @@ enum Request {
         }
 
         let absolutePath = FilesManager.homeDirPath.appending(relativeDestination)
-
-       let destinationUrl =  URL(fileURLWithPath: absolutePath)
-
+        let destinationUrl =  URL(fileURLWithPath: absolutePath)
+        debugPrint("∆ Request.Document() :: DestinationURL: \(destinationUrl)")
         let destinationAF: DownloadRequest.DownloadFileDestination = { _, _ in
             return (destinationUrl, [.removePreviousFile, .createIntermediateDirectories])
         }
 
-
-
         Alamofire.download(fullLink, to: destinationAF)
             .downloadProgress(closure: { (progress) in
                 print("\(progress.fractionCompleted * 100)% downloaded")
-//                progressStatus(progress.fractionCompleted)
+                progressStatus(progress.fractionCompleted)
             })
             .validate()
             .responseData(completionHandler: { (response) in
+
+                let suggestedFileName = response.response?.suggestedFilename?.removingPercentEncoding
+                print("∆ Response suggestedFileName: \(suggestedFileName ?? "missing")")
+
+                // DEBUG: Somewhere here the Attachments folder is being replaced with an empty file
                 if response.error != nil {
                     debugPrint("∆ Can't download \(response.request.debugDescription) due to error: \(response.error.debugDescription)")
-                        print(response.description)
+                    print(response.description)
 
 
                     if let error = response.result.error as? AFError {

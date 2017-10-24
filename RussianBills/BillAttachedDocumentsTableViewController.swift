@@ -41,12 +41,11 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
         if let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]), let billString = billNumber {
-            let documentDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atRelativePath: "/\(billString))/Attachments/")
+            let documentDownloaded = FilesManager.doesFileExist(withName: namePart, atRelativePath: "/\(billString)/Attachments/")
             cell.detailTextLabel?.text = documentDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
         } else {
             cell.detailTextLabel?.text = "🌐 Документ не загружен"
         }
-//        print(event!.attachments[indexPath.row])
         return cell
     }
     
@@ -55,7 +54,7 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
             let namePart = FilesManager.extractUniqueDocumentNameFrom(urlString: event!.attachments[indexPath.row]) {
             let cell = tableView.cellForRow(at: indexPath)
 
-            let documentAlreadyDownloaded = FilesManager.doesFileExist(withNamePart: namePart, atRelativePath: "/\(billString)/Attachments/")
+            let documentAlreadyDownloaded = FilesManager.doesFileExist(withName: namePart, atRelativePath: "/\(billString)/Attachments/")
 
             if !documentAlreadyDownloaded {
                 UserServices.downloadDocument(usingRelativeLink: linkString, toDestination: "/\(billString)/Attachments/",

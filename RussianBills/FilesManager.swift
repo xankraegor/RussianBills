@@ -56,17 +56,24 @@ enum FilesManager {
         }
     }
     
-    static func doesFileExist(withNamePart fileNameWithoutExtension: String, atRelativePath relativePath: String)->Bool {
-        let filesList = filesInDirectory(atRelativePath: relativePath).map{$0.fileName()}
-        debugPrint("All files in directory are: \(filesList)")
-        if filesList.contains(fileNameWithoutExtension) {
-            return true
-        }
-        return false
+    static func doesFileExist(withName fileName: String, atRelativePath relativePath: String)->Bool {
+        // TODO:
+
+        let absolutePath = homeDirPath.appending(relativePath)
+        let fullPathUrl = URL(fileURLWithPath: absolutePath, isDirectory: true).appendingPathComponent(fileName)
+        let isFound = FileManager.default.fileExists(atPath: fullPathUrl.path)
+        print("File '\(fullPathUrl)' is found: \(isFound)")
+        return isFound
+//        let filesList = filesInDirectory(atRelativePath: relativePath).map{$0.fileName()}
+//        debugPrint("All files in directory are: \(filesList)")
+//        if filesList.contains(fileName) {
+//            return true
+//        }
+//        return false
     }
 
     static func createAndOrWriteToFile(text: String, name: String, atRelativePath relativePath: String) {
-        let existingFile = FilesManager.doesFileExist(withNamePart: name, atRelativePath: relativePath)
+        let existingFile = FilesManager.doesFileExist(withName: name, atRelativePath: relativePath)
         if !existingFile {
             FilesManager.createEmptyFile(named: name, atRelativePath: relativePath)
         }
@@ -113,7 +120,6 @@ enum FilesManager {
         debugPrint("∆ Url String is: \(urlString)")
         // Example: http://sozd.parlament.gov.ru/download/78155743-0269-463E-8EEE-5648D5A0B40E
         if let key = urlString.components(separatedBy: "/").last?.components(separatedBy: "&").last {
-            debugPrint("∆ Extracted key is: \(key)")
             let forbiddenCharactersSet = CharacterSet(charactersIn: "-0123456789ABCDEF").inverted
             if key.rangeOfCharacter(from: forbiddenCharactersSet) == nil {
                 return key

@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1105,7 +1105,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер - созыв" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="8u2-TC-v0P">
-                                                <rect key="frame" x="126.5" y="0.0" width="106.5" height="18"/>
+                                                <rect key="frame" x="-8" y="0.0" width="0.0" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1367,6 +1367,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="XZ3-13-8e4"/>
-        <segue reference="ECW-Zv-M8L"/>
+        <segue reference="LwO-fy-era"/>
     </inferredMetricsTieBreakers>
 </document>

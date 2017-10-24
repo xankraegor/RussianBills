@@ -131,7 +131,9 @@ enum RequestRouter: URLRequestConvertible {
     func documentStringLink() -> String? {
         switch self {
         case let .document(link):
-            return "http://asozd2.duma.gov.ru/main.nsf/(ViewDoc)?OpenAgent&work/dz.nsf/ByID&\(FilesManager.extractUniqueDocumentNameFrom(urlString: link)!)".replacingOccurrences(of: "%3F", with: "?")
+            // OLD: http://asozd2.duma.gov.ru/main.nsf/(ViewDoc)?OpenAgent&work/dz.nsf/ByID&FA2D700A-5146-49F1-A20B-A96D57480918
+            // NEW: http://sozd.parlament.gov.ru/download/FA2D700A-5146-49F1-A20B-A96D57480918
+            return "http://sozd.parlament.gov.ru/download/\(FilesManager.extractUniqueDocumentNameFrom(urlString: link)!)"//.replacingOccurrences(of: "%3F", with: "?")
         default:
             return nil
         }
