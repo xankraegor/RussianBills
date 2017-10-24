@@ -10,6 +10,7 @@ import UIKit
 
 final class MainTableViewController: UITableViewController {
 
+    
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -26,19 +27,19 @@ final class MainTableViewController: UITableViewController {
         if let segueIdentifier = segue.identifier {
             switch segueIdentifier {
             case "LawClassesSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.lawClasses
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.lawClasses
             case "TopicsSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.topics
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.topics
                 case "CommitteesSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.committees
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.committees
                 case "FederalSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.federalSubjects
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.federalSubjects
                 case "RegionalSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
                 case "InstancesSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.instances
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.instances
                 case "DeputeesSegue":
-                (segue.destination as! SimpleTableViewController).objectsToDisplay = SimpleTableViewControllerSelector.deputees
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.deputees
             default:
                 break
             }

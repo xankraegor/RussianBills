@@ -170,8 +170,8 @@ final class SearchFormController: FormViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SearchResultsSegueId" {
-            (segue.destination as! SearchResultsTableViewController).query = query
-            (segue.destination as! SearchResultsTableViewController).isPrefetched = prefetchedBills
+            (segue.destination as? SearchResultsTableViewController)?.query = query
+            (segue.destination as? SearchResultsTableViewController)?.isPrefetched = prefetchedBills
         }
     }
 
@@ -179,10 +179,14 @@ final class SearchFormController: FormViewController {
 
     func preprocessRequest(usingQuery: BillSearchQuery, afterSeconds: Double) {
         Dispatcher.shared.dispatchBillsPrefetching(afterSeconds: afterSeconds) { [weak self] in
-            UserServices.downloadBills(withQuery: (self?.query)!, favoriteSelector: .preserveFavorite)
-            { [weak self] (bills) in
-                RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: bills)
-                self?.prefetchedBills = true
+            if let existingQuery = self?.query {
+                UserServices.downloadBills(withQuery: existingQuery, favoriteSelector: .preserveFavorite)
+                { [weak self] (bills) in
+                    RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: bills)
+                    self?.prefetchedBills = true
+                }
+            } else {
+                debugPrint("∆ preprocessRequest: existingQuery missing")
             }
         }
     }

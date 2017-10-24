@@ -35,17 +35,6 @@ enum FilesManager {
         }
     }
 
-//    static func readFile(named fileName: String, atRelativePath relativePath: String) -> String {
-//        let absolutePath = (homeDirPath.appending(relativePath) as NSString).appendingPathComponent(fileName)
-//        var contents = String()
-//        do {
-//            contents = try NSString(contentsOfFile: absolutePath, encoding: String.Encoding.utf8.rawValue) as String
-//        } catch let error {
-//            debugPrint("∆ Error when reading a file: \(error.localizedDescription)")
-//        }
-//        return contents
-//    }
-
     static func deleteFile(named fileName: String, atPath path: String) {
         let filePath = (path as NSString).appendingPathComponent(fileName)
         do {
@@ -106,12 +95,6 @@ enum FilesManager {
         }
     }
 
-//    static func createDirIfItDontExist(atPath path: String) {
-//        if !doesDirExist(atPath: path) {
-//            createDirectory(atPath: path)
-//        }
-//    }
-
     static func filesInDirectory(atPath path: String) -> [String] {
         var fileList: [String] = []
         do {
@@ -136,5 +119,4 @@ enum FilesManager {
         }
         return nil
     }
-    
 }

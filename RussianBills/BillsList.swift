@@ -20,5 +20,4 @@ final class BillsList_: Object {
     override static func primaryKey() -> String {
         return "name"
     }
-    
 }

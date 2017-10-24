@@ -9,7 +9,6 @@
 import Foundation
 
 extension String {
-    
     func fileName() -> String {
         
         if let fileNameWithoutExtension = NSURL(fileURLWithPath: self).deletingPathExtension?.lastPathComponent {

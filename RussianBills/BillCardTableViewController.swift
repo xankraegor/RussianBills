@@ -11,8 +11,6 @@ import Kanna
 
 final class BillCardTableViewController: UITableViewController {
     
-    var bill: Bill_?
-
     @IBOutlet weak var billTypeLabel: UILabel!
     @IBOutlet weak var billTitle: UILabel!
     @IBOutlet weak var billSubtitleLabel: UILabel!
@@ -32,6 +30,8 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var moreDocsLabel: UILabel!
     @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
     @IBOutlet weak var moreDocsCell: UITableViewCell!
+    
+    var bill: Bill_?
 
     var parser: BillParser? {
         didSet {
@@ -75,6 +75,7 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
+    
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -117,6 +118,7 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
     
+    
     // MARK: - Navigation 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -128,6 +130,7 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
+    
     // MARK: - AlertController
 
     @IBAction func composeButtonPressed(_ sender: Any) {
@@ -151,6 +154,7 @@ final class BillCardTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    
     // MARK: - Helper functions
 
     private func generateBillDescriptionText()->String {
@@ -189,10 +193,6 @@ final class BillCardTableViewController: UITableViewController {
 
         return output
     }
-
-
-
-    
 
     private func activateMoreDocsCell() {
         moreDocsLabel.text = "Все события и документы"

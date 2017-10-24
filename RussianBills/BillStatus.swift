@@ -33,7 +33,7 @@ enum BillStatus: Int, CustomStringConvertible {
     case rejected = 8
     case recalled = 9
     case finishedByOtherReasons = 99
-
+    
     var description: String {
         switch self {
         case .submitted:
@@ -58,7 +58,6 @@ enum BillStatus: Int, CustomStringConvertible {
             return "рассмотрение которых завершено по прочим причинам"
         }
     }
-
+    
     static let allValues = [submitted, examination, inProgramme, inCommitteeProgramme, extraprogrammaticalSubmitted, finished, signed, rejected, recalled, finishedByOtherReasons]
-
 }

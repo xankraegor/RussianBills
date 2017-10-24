@@ -30,5 +30,4 @@ import Foundation
     var id: Int {
         return self.rawValue
     }
-
 }

@@ -34,5 +34,4 @@ final class FederalSubject_: Object, InitializableWithJson, QuickSearchFieldsRep
     // MARK: - QuickSearchFieldsReporting
     
     static var searchFields = ["name"]
-
 }

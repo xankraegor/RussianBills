@@ -34,5 +34,4 @@ final class RegionalSubject_: Object, InitializableWithJson, QuickSearchFieldsRe
     // MARK: - QuickSearchFieldsReporting
 
     static var searchFields = ["name"]
-
 }

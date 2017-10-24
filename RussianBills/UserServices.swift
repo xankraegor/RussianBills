@@ -10,12 +10,6 @@ import Foundation
 import RealmSwift
 import Alamofire
 
-/* ================================================================================
- 
- Having added new methods to this enum, keep it in consistency with RequestFunctionsProvider
- 
- ================================================================================= */
-
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
 
@@ -234,7 +228,7 @@ enum UserServices {
                         print("Response serialization failed: \(error.localizedDescription)")
                         print("Failure Reason: \(reason)")
                     }
-                } else { // No errors!
+                } else {
                     if let suggestedFullFileName = response.response?.suggestedFilename?.removingPercentEncoding,
                         let fileId = fileId {
                         let suggestedExtension = URL(fileURLWithPath: suggestedFullFileName).pathExtension

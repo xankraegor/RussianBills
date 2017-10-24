@@ -34,5 +34,4 @@ final class Comittee_: Object, InitializableWithJson, QuickSearchFieldsReporting
     // MARK: - QuickSearchFieldsReporting
 
     static var searchFields = ["name"]
-
 }

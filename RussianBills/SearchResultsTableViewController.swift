@@ -62,7 +62,7 @@ class SearchResultsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList).count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
         let bill = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList)[indexPath.row]
@@ -74,7 +74,6 @@ class SearchResultsTableViewController: UITableViewController {
         cell.numberLabel.text = bill.number
         return cell
     }
-
 
     // MARK: - TableViewDelegate
 
