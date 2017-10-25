@@ -40,25 +40,22 @@ enum Request {
         }
     }
 
-    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument)->Void) {
-
+    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument) -> Void ) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
-
             if error != nil {
-                debugPrint(error.debugDescription)
+                debugPrint(error!.localizedDescription)
+            }
+
+            if let resp = response as? HTTPURLResponse {
+                debugPrint("∆ Parser [\(Date())] recieved HTTPURLResponse with status code: \(resp.statusCode)")
             }
             
-            let queue = DispatchQueue(label: "html-parse-queue")
-            queue.async {
-
+            Dispatcher.shared.htmlParseQueue.async {
                 if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
                     completion(doc)
                 }
-
             }
-
         }).resume()
-
     }
     
     // MARK: - Attached Document Request Function

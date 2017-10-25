@@ -15,6 +15,7 @@ class Dispatcher {
     let referenceDownloadDispatchGroup = DispatchGroup()
     let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: .userInteractive, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit, target: nil)
     let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .userInitiated)
+    let htmlParseQueue = DispatchQueue(label: "html-parse-queue", qos: .userInitiated)
 
     var prefetchBillsWorkItem: DispatchWorkItem?
 
