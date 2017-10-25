@@ -9,7 +9,7 @@
 import UIKit
 
 class BillAttachedDocumentsTableViewController: UITableViewController {
-    
+
     var event: BillParserEvent?
     var billNumber: String?
     
@@ -37,6 +37,8 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         return event!.attachments.count
     }
 
+    // MARK: - Table View Delegate
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
@@ -57,6 +59,7 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         if attachmentAlreadyDownloaded {
             // TODO: When downloaded - open!
             debugPrint("∆ Attachment for bill \(billNr) already downloaded with link \(downloadLink)")
+            
         } else { // Download it and do something with fileUrl
 
             UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
@@ -69,9 +72,20 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
                 // TODO: Open it now?
                 debugPrint("∆ Downloaded file path is \(filePath)")
             })
-
         }
+    }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let key = FilesManager.extractUniqueDocumentNameFrom(urlString: (event?.attachments[indexPath.row]) ?? "") {
+                UserServices.deleteAttachment(usingKey: key, forBillNr: billNumber!)
+                tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            }
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
     }
 
     /*
@@ -83,5 +97,5 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

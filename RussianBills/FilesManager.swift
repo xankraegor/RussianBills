@@ -40,20 +40,25 @@ enum FilesManager {
         }
     }
 
-    static func deleteFile(named fileName: String, atPath path: String) {
-        let filePath = (path as NSString).appendingPathComponent(fileName)
-        do {
-            try FileManager.default.removeItem(atPath: filePath)
-        } catch let error {
-            print("∆ Error deleting file: \(error.localizedDescription)")
+    static func deleteFile(atPath path: String, withSeparateName name: String? = nil) {
+        if let filePath = URL(fileURLWithPath: path).appendingPathComponent(name ?? "").path.removingPercentEncoding {
+            debugPrint("∆ File Path to delete: \(filePath)")
+            do {
+                try FileManager.default.removeItem(atPath: filePath)
+            } catch let error {
+                print("∆ Error deleting file: \(error.localizedDescription)")
+            }
+        } else {
+            debugPrint("∆ Cannot generate path to delete a file")
         }
+
     }
 
     static func pathForFile(containingInName namePart: String, inDirectory path: String)->String? {
-        let filesPathesList = filesInDirectory(atPath: path) //.map{$0.fileName()}
+        let filesPathesList = filesInDirectory(atPath: path)
         for i in 0..<filesPathesList.count {
             if filesPathesList[i].fileName().contains(namePart) {
-                return filesPathesList[i]
+                return URL(fileURLWithPath: path).appendingPathComponent(filesPathesList[i]).path
             }
         }
         return nil

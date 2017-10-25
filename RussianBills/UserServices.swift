@@ -240,4 +240,14 @@ enum UserServices {
             })
     }
 
+
+    static func deleteAttachment(usingKey key: String, forBillNr: String) {
+        let attachmentsDir = FilesManager.attachmentDir(forBillNumber: forBillNr)
+        if let filePath = FilesManager.pathForFile(containingInName: key, inDirectory: attachmentsDir) {
+            FilesManager.deleteFile(atPath: filePath)
+        } else {
+            debugPrint("∆ UserServices.deleteAttachment cannot generate filePath to delete the file. The file may be already deleted or moved")
+        }
+    }
+
 }
