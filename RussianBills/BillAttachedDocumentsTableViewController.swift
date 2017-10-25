@@ -7,25 +7,22 @@
 //
 
 import UIKit
+import QuickLook
 
-class BillAttachedDocumentsTableViewController: UITableViewController {
+final class BillAttachedDocumentsTableViewController: UITableViewController, QLPreviewControllerDataSource {
 
     var event: BillParserEvent?
     var billNumber: String?
-    
+    var previewItemUrlString: String? = nil
+
+
     // MARK: - Life Cycle
     
-    override func viewWillAppear(_ animated: Bool) {
-        if event == nil {
-            fatalError("No event handed to the UITableViewController")
-        }
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
-
-        if let navigationTitle = billNumber {
-            self.navigationItem.title = "Документы 📃\(navigationTitle)"
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        doPreinstallation()
     }
+
 
     // MARK: - Table view data source
 
@@ -42,7 +39,6 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
-
         let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
         cell.detailTextLabel?.text = attachmentAlreadyDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
         return cell
@@ -54,24 +50,10 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
             return
         }
 
-        let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: downloadLink)
-
-        if attachmentAlreadyDownloaded {
-            // TODO: When downloaded - open!
-            debugPrint("∆ Attachment for bill \(billNr) already downloaded with link \(downloadLink)")
-            
-        } else { // Download it and do something with fileUrl
-
-            UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
-                if progressValue < 1 {
-                    cell.detailTextLabel?.text = "\n⬇️ Документ загружается: \(progressValue * 100)%"
-                } else {
-                    cell.detailTextLabel?.text = "\n📦 Документ загружен"
-                }
-            }, fileURL: { (filePath) in
-                // TODO: Open it now?
-                debugPrint("∆ Downloaded file path is \(filePath)")
-            })
+        if UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: downloadLink) {
+            previewCellContent(withDownloadLink: downloadLink, billNr: billNr)
+        } else {
+            downloadAttachment(forCell: cell, billNr: billNr, downloadLink: downloadLink)
         }
     }
 
@@ -88,14 +70,56 @@ class BillAttachedDocumentsTableViewController: UITableViewController {
         return UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    // MARK: - QLPreviewControllerDataSource
+    
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        if previewItemUrlString != nil {
+            return 1
+        }
+        return 0
+    }
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return URL(fileURLWithPath: previewItemUrlString!) as QLPreviewItem
+    }
+
+
+    // MARK: - Helper functions
+
+    func previewCellContent(withDownloadLink downloadLink: String, billNr: String) {
+        previewItemUrlString = FilesManager.pathForFile(containingInName: FilesManager.extractUniqueDocumentNameFrom(urlString: downloadLink)!, inDirectory: FilesManager.attachmentDir(forBillNumber: billNr))
+        let qpController = QLPreviewController()
+        qpController.dataSource = self
+        show(qpController, sender: nil)
+    }
+
+    func downloadAttachment(forCell cell: UITableViewCell, billNr: String, downloadLink: String) {
+        UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
+            if progressValue < 1 {
+                DispatchQueue.main.async {
+                    let percent = progressValue * 100
+                    cell.detailTextLabel?.text = String(format: "\n⬇️ Документ загружается: %2.1f%%", percent)
+                }
+            } else {
+                cell.detailTextLabel?.text = "\n📦 Документ загружен"
+            }
+        }, fileURL: { (filePath) in
+            // TODO: Open it now?
+            debugPrint("∆ Downloaded file path is \(filePath)")
+        })
+    }
+
+    func doPreinstallation() {
+        guard event != nil else {
+            fatalError("No event handed to the UITableViewController")
+        }
+
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+
+        if let navigationTitle = billNumber {
+            self.navigationItem.title = "Документы 📃\(navigationTitle)"
+        }
+    }
 }
