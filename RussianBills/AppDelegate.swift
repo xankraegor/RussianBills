@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var dispatcher: Dispatcher?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        var config = Realm.Configuration()
+        config.fileURL = FilesManager.defaultRealmPath()
+        Realm.Configuration.defaultConfiguration = config
+
         // Override point for customization after application launch.
         dispatcher = Dispatcher.shared
         UserServices.downloadAllReferenceCategories()

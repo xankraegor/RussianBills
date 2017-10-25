@@ -14,6 +14,11 @@ enum FilesManager {
         return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
     }
 
+    static func defaultRealmPath()->URL {
+        let path = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!.appendingPathComponent("default.realm")
+        return path
+    }
+
     // MARK: - Files
     
     static func createEmptyFile(named fileName: String, atPath path: String) {
