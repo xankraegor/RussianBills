@@ -79,7 +79,7 @@ enum RequestRouter: URLRequestConvertible {
             // Full cycle cases
             
         case let .search(bill):
-            var billParameters = RequestRouter.forgeBillRequestParameters(forQuery: bill)
+            var billParameters = RequestRouter.generateBillRequestParameters(forQuery: bill)
             billParameters["app_token"] = appToken()
             return billParameters
 
@@ -124,7 +124,6 @@ enum RequestRouter: URLRequestConvertible {
             urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
             break
         }
-        // debugPrint("Request Router forged a request \(request)")
         return urlRequest
     }
 

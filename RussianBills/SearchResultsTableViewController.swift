@@ -14,7 +14,6 @@ final class SearchResultsTableViewController: UITableViewController {
     var query = BillSearchQuery()
     var isLoading: Bool = false
     var isPrefetched: Bool = false
-
     var realmNotificationToken: NotificationToken? = nil
 
 
@@ -46,8 +45,6 @@ final class SearchResultsTableViewController: UITableViewController {
             self?.tableView.reloadData()
             self?.isLoading = false
         }
-
-        debugPrint("RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList).count: \(RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList).count)")
     }
 
     deinit {

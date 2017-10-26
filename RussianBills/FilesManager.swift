@@ -79,7 +79,7 @@ enum FilesManager {
     static func renameFile(named: String, atPath: String, newName: String) {
         let existingFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(named)
         guard FileManager.default.fileExists(atPath: existingFullPath.path) else {
-            debugPrint("∆ Cannot move the file: source file at path \(existingFullPath.path) does not exist")
+            debugPrint("∆ Cannot move a file, because it does not exist at path \(existingFullPath.path)")
             return
         }
         let newFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(newName)

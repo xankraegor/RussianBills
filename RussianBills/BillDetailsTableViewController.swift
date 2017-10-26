@@ -102,7 +102,6 @@ final class BillDetailsTableViewController: UITableViewController {
                 if currentBill.parserContent != nil, let newContent = BillParserContent.deserialize(data: currentBill.parserContent!) {
                     self?.parserContent = newContent
                     self?.tableView.reloadData()
-                    debugPrint("∆ BillDetailsTableViewController reloaded parsed content for bill \(self?.bill?.number ?? "numeber is missing")")
                 }
             }
         }

@@ -36,7 +36,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about regional subjects")
+            debugPrint("Cannot generate a request about regional subjects")
         }
     }
 
@@ -46,7 +46,8 @@ enum Request {
                 debugPrint(error!.localizedDescription)
             }
 
-            if let resp = response as? HTTPURLResponse {
+            if let resp = response as? HTTPURLResponse,
+                resp.statusCode / 100 != 2 { // Not-normal response
                 debugPrint("∆ Parser [\(Date())] recieved HTTPURLResponse with status code: \(resp.statusCode)")
             }
             
@@ -137,7 +138,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about committees")
+            debugPrint("Cannot generate a request about committees")
         }
     }
 
@@ -155,7 +156,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about law classes")
+            debugPrint("Cannot generate a request about law classes")
         }
     }
 
@@ -173,7 +174,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about topics")
+            debugPrint("Cannot generate a request about topics")
         }
     }
 
@@ -191,7 +192,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about deputies")
+            debugPrint("Cannot generate a request about deputies")
         }
     }
 
@@ -210,7 +211,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about federal subjects")
+            debugPrint("Cannot generate a request about federal subjects")
         }
     }
 
@@ -228,7 +229,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about regional subjects")
+            debugPrint("Cannot generate a request about regional subjects")
         }
     }
 
@@ -246,7 +247,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot forge a request about instances")
+            debugPrint("Cannot generate a request about instances")
         }
     }
     

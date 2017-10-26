@@ -29,13 +29,11 @@ enum UserDefaultsCoordinator: String {
     public func referenceValuesUpdateRequired() -> Bool {
         let key = variableNameForUpdateTimeout()
         guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
-//            debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) requires to be updated, because there's no timestamp")
             return true
         }
 
         let now = Date()
         let updateNeeded = previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < now.timeIntervalSinceReferenceDate
-//        debugPrint("UserDefaultsCoordinator: \(self.variableNameForUpdateTimeout()) \(!updateNeeded ? "does not have to be updated" : "requires update"), timestamp \(previousUpdateTimestamp)")
         return updateNeeded
     }
 
@@ -85,13 +83,6 @@ enum UserDefaultsCoordinator: String {
         }
 
     }
-
-//    public static func DEBUG_printUserDefaults() {
-//        debugPrint("USER DEFAULTS CONTENTS")
-//        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-//            debugPrint("\(key) = \(value) \n")
-//        }
-//    }
     
     public static func saveQuickSearchFields(name: String, nr1: String, nr2: String) {
         UserDefaults.standard.set(name, forKey: "quickSearchSavedName")

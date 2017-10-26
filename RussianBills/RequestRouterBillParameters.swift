@@ -11,7 +11,7 @@ import Foundation
 extension RequestRouter {
 
     /// Paremeters for bill search query
-    internal static func forgeBillRequestParameters(forQuery bill: BillSearchQuery) -> [String: Any] {
+    internal static func generateBillRequestParameters(forQuery bill: BillSearchQuery) -> [String: Any] {
         var dict = Dictionary<String, Any>()
 
         /// ПАРАМЕТРЫ С ЗАДАННЫМИ ЗНАЧЕНИЯМИ
