@@ -40,7 +40,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
         cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
         let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
-        cell.detailTextLabel?.text = attachmentAlreadyDownloaded ? "\n📦 Документ загружен" :  "\n🌐 Документ не загружен"
+        cell.detailTextLabel?.text = attachmentAlreadyDownloaded ? "📦 Документ загружен" :  "🌐 Документ не загружен"
         return cell
     }
     
@@ -99,10 +99,10 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             if progressValue < 1 {
                 DispatchQueue.main.async {
                     let percent = progressValue * 100
-                    cell.detailTextLabel?.text = String(format: "\n⬇️ Документ загружается: %2.1f%%", percent)
+                    cell.detailTextLabel?.text = String(format: "⬇️ Документ загружается: %2.1f%%", percent)
                 }
             } else {
-                cell.detailTextLabel?.text = "\n📦 Документ загружен"
+                cell.detailTextLabel?.text = "📦 Документ загружен"
             }
         })
     }
