@@ -4,7 +4,8 @@ use_frameworks!
 
 target 'RussianBills' do
 
-pod ‘Alamofire’
+#pod ‘Alamofire’
+pod ‘Alamofire’, :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'master'
 #pod ‘RealmSwift’
 pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
 pod 'RealmSearchViewController'

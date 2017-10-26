@@ -42,7 +42,7 @@ class SearchResultsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 100
 
         let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList)
-        realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
+        realmNotificationToken = results.observe { [weak self] (_)->Void in
             self?.tableView.reloadData()
             self?.isLoading = false
         }
@@ -51,7 +51,7 @@ class SearchResultsTableViewController: UITableViewController {
     }
 
     deinit {
-        realmNotificationToken?.stop()
+        realmNotificationToken?.invalidate()
     }
 
 

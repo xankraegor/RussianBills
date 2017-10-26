@@ -45,7 +45,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
 
         let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList)
 
-        realmNotificationToken = results.addNotificationBlock { [weak self] (_)->Void in
+        realmNotificationToken = results.observe { [weak self] (_)->Void in
             self!.tableView.reloadData()
             self!.isLoading = false
         }
@@ -57,7 +57,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     deinit {
-        realmNotificationToken?.stop()
+        realmNotificationToken?.invalidate()
     }
     
     // MARK: - Table view data source

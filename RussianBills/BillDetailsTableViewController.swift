@@ -35,7 +35,7 @@ class BillDetailsTableViewController: UITableViewController {
     }
 
     deinit {
-        realmNotificationToken?.stop()
+        realmNotificationToken?.invalidate()
     }
 
 
@@ -98,7 +98,7 @@ class BillDetailsTableViewController: UITableViewController {
 
     func installRealmToken() {
         if let currentBill = bill {
-            realmNotificationToken = currentBill.addNotificationBlock { [weak self] (_)-> Void in
+            realmNotificationToken = currentBill.observe { [weak self] (_)-> Void in
                 if currentBill.parserContent != nil, let newContent = BillParserContent.deserialize(data: currentBill.parserContent!) {
                     self?.parserContent = newContent
                     self?.tableView.reloadData()

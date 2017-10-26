@@ -66,7 +66,7 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     deinit {
-        realmNotificationToken?.stop()
+        realmNotificationToken?.invalidate()
     }
 
     
@@ -191,7 +191,7 @@ final class BillCardTableViewController: UITableViewController {
 
     func installRealmToken() {
         if let currentBill = bill {
-            realmNotificationToken = currentBill.addNotificationBlock { [weak self] (_)->Void in
+            realmNotificationToken = currentBill.observe { [weak self] (_)->Void in
                 if currentBill.parserContent != nil {
                     self?.activateMoreInfoCell()
                     debugPrint("∆ BillCardTableViewController reloaded parsed content for bill \(self?.bill?.number ?? "numeber is missing")")
