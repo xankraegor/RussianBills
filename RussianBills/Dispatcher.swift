@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Dispatcher {
+final class Dispatcher {
     // Singletone
     static let shared = Dispatcher()
 

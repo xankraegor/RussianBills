@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class BillDetailsTableViewController: UITableViewController {
+final class BillDetailsTableViewController: UITableViewController {
     
     var parserContent: BillParserContent?
     var billNumber: String?

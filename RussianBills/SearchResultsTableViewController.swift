@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class SearchResultsTableViewController: UITableViewController {
+final class SearchResultsTableViewController: UITableViewController {
 
     var query = BillSearchQuery()
     var isLoading: Bool = false

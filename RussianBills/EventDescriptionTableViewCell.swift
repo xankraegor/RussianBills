@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventDescriptionTableViewCell: UITableViewCell {
+final class EventDescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventDocumentLabel: UILabel!
     @IBOutlet weak var eventTextLabel: UILabel!

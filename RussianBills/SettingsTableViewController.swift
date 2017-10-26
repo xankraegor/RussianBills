@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+final class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel!
 
