@@ -122,7 +122,7 @@ final class Bill_: Object, InitializableWithJson {
                 RealmCoordinator.save(object: regSub)
                 regionalSubjects.append(regSub)
             } else {
-                debugPrint("∆ FED/REG SUBJECT NOT FOUND IN DB: \n\(sub)\n===================================================")
+                debugPrint("∆ Federal or regional subject named '\(sub)' is not found in Realm")
             }
         }
     }
@@ -238,4 +238,44 @@ final class Bill_: Object, InitializableWithJson {
         regionalSubjects.forEach({output.append($0.name)})
         return output.joined(separator: "; ")
     }
+
+    // MARK: = Additional Description
+
+    override var description: String {
+        let repl = "отсутствует"
+        var output = ""
+
+        output += "Проект нормативно-правового акта №" + replace(WithText: repl, ifMissingSourceText: number) + "\n"
+        output += "Тип нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: lawType.description) + "\n"
+        output += "Наименование проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: name) + "\n"
+        output += "Описание проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: comments) + "\n"
+        output += "Внёсен: " + replace(WithText: repl, ifMissingSourceText: introductionDate) + "\n"
+        output += "Субъекты законодательной инициативы: " + replace(WithText: repl, ifMissingSourceText: generateSubjectsDescription() ?? "") + "\n"
+
+        if let content = parserContent, let parser = BillParserContent.deserialize(data: content) {
+            output += "СОБЫТИЯ РАССМОТРЕНИЯ ПРОЕКТА НОРМАТИВНО-ПРАВОВОГО АКТА\n"
+            for phase in parser.phases {
+                output += String(repeating: " ", count: 5)
+                for event in phase.events {
+                    output += "\n"
+                    output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
+                    output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
+                    output += String(repeating: " ", count: 10) + "Прикреплено документов: " + String(event.attachments.count) + "\n"
+                }
+            }
+        } else {
+            output += "Текущая стадия рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventStage?.name ?? "") + "\n"
+            output += "Текущая фаза рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventPhase?.name ?? "") + "\n"
+            output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: generateFullSolutionDescription()) + "\n"
+        }
+
+        return output
+    }
+
+
+    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
+        return textWithoutSpaces.characters.count > 0 ? source : replacementText
+    }
+
 }
