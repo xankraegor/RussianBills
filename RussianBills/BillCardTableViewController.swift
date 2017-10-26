@@ -8,6 +8,7 @@
 
 import UIKit
 import Kanna
+import RealmSwift
 
 final class BillCardTableViewController: UITableViewController {
     
@@ -35,43 +36,37 @@ final class BillCardTableViewController: UITableViewController {
 
     var parser: BillParser? {
         didSet {
-            if parser != nil {
-                activateMoreDocsCell()
+            if let currentBill = bill, parser?.tree != nil {
+                UserServices.setParserContent(ofBill: currentBill, to: parser!.tree)
             }
         }
     }
 
+    var realmNotificationToken: NotificationToken? = nil
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        installRealmToken()
         tableView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchBillData()
-        if let billUrlString = bill?.url,
-            let billUrl = URL(string: billUrlString) {
-            debugPrint("BillURL: \(billUrlString)")
-
-            Request.htmlToParse(forUrl: billUrl, completion: { (html) in
-                DispatchQueue.main.async {
-                    self.parser = BillParser(withHTML: html)
-                }
-            })
+        fetchExistingBillData()
+        if let currentBill = bill {
+            if currentBill.parserContent != nil  {
+                activateMoreInfoCell()
+            }
         }
 
-        if let billNumber = bill?.number {
-            let searchQuery = BillSearchQuery(withNumber: billNumber)
-            UserServices.downloadBills(withQuery: searchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: { (bills)->Void in
-                if bills.count > 0 {
-                    self.bill = bills.first!
-                    self.fetchBillData()
-                }
-            })
-        }
+        beginStagesParsing()
+        reloadCurrentBillData()
+    }
+
+    deinit {
+        realmNotificationToken?.stop()
     }
 
     
@@ -101,7 +96,7 @@ final class BillCardTableViewController: UITableViewController {
 
     // MARK: - Helper functions
 
-    func fetchBillData() {
+    func fetchExistingBillData() {
         if let bill = bill {
             navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
             billTypeLabel.text = bill.lawType.description
@@ -122,8 +117,8 @@ final class BillCardTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "BillDetailsSegue" {
-            if let dest = segue.destination as? BillDetailsTableViewController, let tree = parser?.tree {
-                dest.tree = tree
+            if let dest = segue.destination as? BillDetailsTableViewController, let content = bill?.parserContent {
+                dest.parserContent = BillParserContent.deserialize(data: content)
                 dest.billNumber = "\(bill!.number)"
             }
         }
@@ -174,7 +169,7 @@ final class BillCardTableViewController: UITableViewController {
             output += "Субъекты законодательной инициативы: " + replace(WithText: repl, ifMissingSourceText: bill.generateSubjectsDescription() ?? "") + "\n"
             if let parser = parser {
                 output += "СОБЫТИЯ РАССМОТРЕНИЯ ПРОЕКТА НОРМАТИВНО-ПРАВОВОГО АКТА\n"
-                for phase in parser.tree {
+                for phase in parser.tree.phases {
                     output += String(repeating: " ", count: 5)
                     for event in phase.events {
                         output += "\n"
@@ -193,12 +188,47 @@ final class BillCardTableViewController: UITableViewController {
         return output
     }
 
-    private func activateMoreDocsCell() {
+    func installRealmToken() {
+        if let currentBill = bill {
+            realmNotificationToken = currentBill.addNotificationBlock { [weak self] (_)->Void in
+                if currentBill.parserContent != nil {
+                    self?.activateMoreInfoCell()
+                }
+            }
+        }
+    }
+
+    func activateMoreInfoCell() {
         moreDocsLabel.text = "Все события и документы"
         moreDocsLabel.textColor = moreDocsLabel.tintColor
         moreDocsIndicator.stopAnimating()
         moreDocsCell.accessoryType = .disclosureIndicator
         moreDocsCell.isUserInteractionEnabled = true
+    }
+
+    func beginStagesParsing() {
+        if let billUrlString = bill?.url,
+            let billUrl = URL(string: billUrlString) {
+            debugPrint("BillURL: \(billUrlString)")
+
+            Request.htmlToParse(forUrl: billUrl, completion: { (html) in
+                DispatchQueue.main.async {
+                    self.parser = BillParser(withHTML: html)
+                }
+            })
+        }
+    }
+
+    func reloadCurrentBillData() {
+        if let billNumber = bill?.number {
+            let searchQuery = BillSearchQuery(withNumber: billNumber)
+            UserServices.downloadBills(withQuery: searchQuery, completion: { (bills)->Void in
+                if bills.count > 0 {
+                    self.bill = bills.first!
+                    self.fetchExistingBillData()
+                }
+            })
+        }
     }
 
 }

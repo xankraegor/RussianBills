@@ -14,7 +14,7 @@ import Kanna
 
 final public class BillParser {
 
-    var tree: [BillParserPhase] = []
+    var tree = BillParserContent()
 
     init?(withHTML html: HTMLDocument) {
 
@@ -49,7 +49,7 @@ final public class BillParser {
                     // Saving existing events and phase if any:
 
                     if phaseStorage != nil {
-                        tree.append(phaseStorage!)
+                        tree.phases.append(phaseStorage!)
                     }
 
                     // Reinitializing storage
@@ -125,7 +125,7 @@ final public class BillParser {
         }
 
         if phaseStorage != nil {
-            tree.append(phaseStorage!)
+            tree.phases.append(phaseStorage!)
             phaseStorage = nil
         }
     }

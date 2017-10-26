@@ -10,6 +10,8 @@ import UIKit
 
 enum FilesManager {
 
+    // MARK: - Reference Paths
+
     static func attachmentDir(forBillNumber number: String)->String {
         return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
     }

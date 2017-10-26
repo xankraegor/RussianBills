@@ -10,7 +10,7 @@ import UIKit
 
 class BillDetailsTableViewController: UITableViewController {
     
-    var tree: [BillParserPhase]?
+    var parserContent: BillParserContent?
     var billNumber: String?
 
     // MARK: - Life Cycle
@@ -28,23 +28,23 @@ class BillDetailsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tree?.count ?? 0
+        return parserContent?.phases.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tree?[section].events.count ?? 0
+        return parserContent?.phases[section].events.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tree?[section].name ?? ""
+        return parserContent?.phases[section].name ?? ""
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventDescriptionCell", for: indexPath) as! EventDescriptionTableViewCell
-        cell.eventDateLabel.text = tree![indexPath.section].events[indexPath.row].date
-        cell.eventDocumentLabel.text = tree![indexPath.section].events[indexPath.row].docNr
-        cell.eventTextLabel.text = tree![indexPath.section].events[indexPath.row].name
-        let docsCount = tree?[indexPath.section].events[indexPath.row].attachments.count ?? 0
+        cell.eventDateLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].date
+        cell.eventDocumentLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].docNr
+        cell.eventTextLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].name
+        let docsCount = parserContent?.phases[indexPath.section].events[indexPath.row].attachments.count ?? 0
         if docsCount > 0 {
             cell.documentsAttachedLabel.text = "📘 Документы: \(docsCount)"
             cell.accessoryType = .disclosureIndicator
@@ -66,14 +66,14 @@ class BillDetailsTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? BillAttachedDocumentsTableViewController, let indexPath = tableView.indexPathForSelectedRow {
-            dest.event = tree![indexPath.section].events[indexPath.row]
+            dest.event = parserContent!.phases[indexPath.section].events[indexPath.row]
             dest.billNumber = self.billNumber
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if let indexPath = tableView.indexPathForSelectedRow {
-            return tree![indexPath.section].events[indexPath.row].attachments.count > 0
+            return parserContent!.phases[indexPath.section].events[indexPath.row].attachments.count > 0
         }
         return false
     }
