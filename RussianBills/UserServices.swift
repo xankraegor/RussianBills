@@ -138,20 +138,13 @@ enum UserServices {
     
     // MARK: - Bills
 
-    static func downloadBills(withQuery query: BillSearchQuery, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector, completion: (([Bill_]) -> Void)? = nil) {
+    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
 
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-            switch favoriteSelector {
-            case .none:
-                break
-            case .makeAllFavorite:
-                for res in result {
-                    res.favorite = true
-                }
-            case .preserveFavorite:
-                for res in result {
-                    res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
-                }
+
+            for res in result {
+                res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
+                res.parserContent = RealmCoordinator.getParserContentsOf(billNr: res.number)
             }
             
             RealmCoordinator.save(collection: result)

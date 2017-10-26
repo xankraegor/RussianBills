@@ -32,7 +32,7 @@ class SearchResultsTableViewController: UITableViewController {
         }
 
         if !isPrefetched {
-            UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                 result in
                 RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.mainSearchList, toContain: result)
             })
@@ -83,7 +83,7 @@ class SearchResultsTableViewController: UITableViewController {
         if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList).bills.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
-            UserServices.downloadBills(withQuery: query, favoriteSelector: UserServicesDownloadBillsFavoriteStatusSelector.preserveFavorite, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                 result in
                 var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList)
                 bills.append(contentsOf: result)

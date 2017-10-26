@@ -180,7 +180,7 @@ final class SearchFormController: FormViewController {
     func preprocessRequest(usingQuery: BillSearchQuery, afterSeconds: Double) {
         Dispatcher.shared.dispatchBillsPrefetching(afterSeconds: afterSeconds) { [weak self] in
             if let existingQuery = self?.query {
-                UserServices.downloadBills(withQuery: existingQuery, favoriteSelector: .preserveFavorite)
+                UserServices.downloadBills(withQuery: existingQuery)
                 { [weak self] (bills) in
                     RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: bills)
                     self?.prefetchedBills = true
