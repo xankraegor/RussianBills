@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-import RealmSearchViewController
 
 final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating {
 
