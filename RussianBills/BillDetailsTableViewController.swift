@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BillDetailsTableViewController: UITableViewController {
     
     var parserContent: BillParserContent?
     var billNumber: String?
+    var bill: Bill_?
+    var realmNotificationToken: NotificationToken? = nil
+
 
     // MARK: - Life Cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        installRealmToken()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -24,6 +33,11 @@ class BillDetailsTableViewController: UITableViewController {
             self.navigationItem.title = "События 📃\(navigationTitle)"
         }
     }
+
+    deinit {
+        realmNotificationToken?.stop()
+    }
+
 
     // MARK: - Table view data source
 
@@ -62,6 +76,7 @@ class BillDetailsTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
 
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,6 +91,21 @@ class BillDetailsTableViewController: UITableViewController {
             return parserContent!.phases[indexPath.section].events[indexPath.row].attachments.count > 0
         }
         return false
+    }
+
+
+    // MARK: - Helper functions
+
+    func installRealmToken() {
+        if let currentBill = bill {
+            realmNotificationToken = currentBill.addNotificationBlock { [weak self] (_)-> Void in
+                if currentBill.parserContent != nil, let newContent = BillParserContent.deserialize(data: currentBill.parserContent!) {
+                    self?.parserContent = newContent
+                    self?.tableView.reloadData()
+                    debugPrint("∆ BillDetailsTableViewController reloaded parsed content for bill \(self?.bill?.number ?? "numeber is missing")")
+                }
+            }
+        }
     }
 
 }

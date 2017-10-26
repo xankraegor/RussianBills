@@ -120,6 +120,7 @@ final class BillCardTableViewController: UITableViewController {
             if let dest = segue.destination as? BillDetailsTableViewController, let content = bill?.parserContent {
                 dest.parserContent = BillParserContent.deserialize(data: content)
                 dest.billNumber = "\(bill!.number)"
+                dest.bill = bill
             }
         }
     }
@@ -193,6 +194,7 @@ final class BillCardTableViewController: UITableViewController {
             realmNotificationToken = currentBill.addNotificationBlock { [weak self] (_)->Void in
                 if currentBill.parserContent != nil {
                     self?.activateMoreInfoCell()
+                    debugPrint("∆ BillCardTableViewController reloaded parsed content for bill \(self?.bill?.number ?? "numeber is missing")")
                 }
             }
         }
