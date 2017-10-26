@@ -66,6 +66,22 @@ enum RealmCoordinator {
         }
     }
 
+    static func updateParserDataOf(bill: Bill_, withContent content: Data?, completion: (()->Void)? = nil) {
+        do {
+            let realm = try Realm()
+            let updBill = bill
+            try realm.write {
+                updBill.parserContent = content
+                realm.add(updBill, update: true)
+            }
+            if completion != nil {
+                completion!()
+            }
+        } catch let error {
+            fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
+        }
+    }
+
     // MARK: Load data from Realm
 
     static func loadObjects<T: Object>(_ ofType: T.Type) -> Results<T>? {

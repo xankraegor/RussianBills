@@ -163,6 +163,16 @@ enum UserServices {
         })
     }
 
+    // MARK: - Parsed content
+
+    static func setParserContent(ofBill bill: Bill_, to content: BillParserContent?) {
+        if let existingContent = content {
+            let serializedContent = existingContent.serialize()
+            RealmCoordinator.updateParserDataOf(bill: bill, withContent: serializedContent, completion: nil)
+        } else {
+            RealmCoordinator.updateParserDataOf(bill: bill, withContent: nil, completion: nil)
+        }
+    }
 
     // MARK: - Attachments
 
