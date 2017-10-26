@@ -44,6 +44,8 @@ final class Bill_: Object, InitializableWithJson {
     let comitteeProfile = List<Comittee_>()
     let comitteeCoexecutor = List<Comittee_>()
 
+    @objc dynamic var parserContent: Data?
+
     convenience  init(withJson json: JSON, favoriteMark: Bool = false) {
         self.init(withJson: json)
         favorite = favoriteMark

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BillParserEvent {
+struct BillParserEvent: Codable {
     
     var name: String
     var date: String?

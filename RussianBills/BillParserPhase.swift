@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-struct BillParserPhase {
+struct BillParserPhase: Codable {
     var name: String
     var events: [BillParserEvent] = []
 
