@@ -175,7 +175,7 @@ enum UserServices {
         }
     }
 
-    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void, fileURL: @escaping (String)->Void ) {
+    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void) {
         let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downladLink)
         let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
         let temporaryFileName = String(downladLink.hashValue)

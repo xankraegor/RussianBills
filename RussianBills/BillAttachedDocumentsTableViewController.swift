@@ -104,9 +104,6 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             } else {
                 cell.detailTextLabel?.text = "\n📦 Документ загружен"
             }
-        }, fileURL: { (filePath) in
-            // TODO: Open it now?
-            debugPrint("∆ Downloaded file path is \(filePath)")
         })
     }
 
