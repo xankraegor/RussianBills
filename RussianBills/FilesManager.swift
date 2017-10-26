@@ -114,6 +114,40 @@ enum FilesManager {
         }
         return fileList
     }
+
+    static func sizeOfDirectoryContents(atPath path: String)->String? {
+        let documentsDirectoryURL = URL(fileURLWithPath: path)
+        var bool: ObjCBool = false
+        if FileManager.default.fileExists(atPath: documentsDirectoryURL.path, isDirectory: &bool), bool.boolValue {
+            var folderSize = 0
+            FileManager.default.enumerator(at: documentsDirectoryURL, includingPropertiesForKeys: [.fileSizeKey], options: [])?.forEach {
+                folderSize += (try? ($0 as? URL)?.resourceValues(forKeys: [.fileSizeKey]))??.fileSize ?? 0
+            }
+            let  byteCountFormatter =  ByteCountFormatter()
+            byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
+//            byteCountFormatter.countStyle = .file
+            let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(folderSize))
+            return sizeToDisplay
+        } else {
+            return nil
+        }
+    }
+
+    static func deleteAllAttachments() {
+        let documentsDirectory = URL(fileURLWithPath: "\(NSHomeDirectory())/Documents/")
+        if let directoryContents = try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory.path) {
+            for elementPath in directoryContents {
+                let fullPath = documentsDirectory.appendingPathComponent(elementPath).path
+                do {
+                    try FileManager.default.removeItem(atPath: fullPath)
+                } catch let error {
+                    debugPrint("∆ deleteAllAttachments: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            debugPrint("∆ deleteAllAttachments: can't recieve Documents directory contents")
+        }
+    }
     
     // MARK: - Specific functions 
     
