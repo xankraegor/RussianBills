@@ -10,6 +10,7 @@
 		01980DD847A75F282D981929 /* Pods_RussianBillsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */; };
 		2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C11F1E8C3A006C011F /* BillParser.swift */; };
 		2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
+		2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */; };
 		2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
 		2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A290A281F96D2440056E990 /* SearchFormController.swift */; };
@@ -84,6 +85,7 @@
 		0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.release.xcconfig"; sourceTree = "<group>"; };
 		2A0C51C11F1E8C3A006C011F /* BillParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParser.swift; sourceTree = "<group>"; };
 		2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserEvent.swift; sourceTree = "<group>"; };
+		2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-CondenseWhitespaces.swift"; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
 		2A290A281F96D2440056E990 /* SearchFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormController.swift; sourceTree = "<group>"; };
@@ -257,11 +259,10 @@
 			isa = PBXGroup;
 			children = (
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
-				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2AE05F9C1F41240B00AEE2D1 /* UserServicesDownloadBillsFavoriteStatusSelector.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
-				2AAA81671F195A64005DF090 /* Scenes */,
+				2AAA81671F195A64005DF090 /* MainScenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
 				2AA4D19F1F0C127500EE2DA3 /* Requests */,
@@ -353,20 +354,22 @@
 			name = BillDetails;
 			sourceTree = "<group>";
 		};
-		2AAA81671F195A64005DF090 /* Scenes */ = {
+		2AAA81671F195A64005DF090 /* MainScenes */ = {
 			isa = PBXGroup;
 			children = (
+				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
+				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
 				2AA6771F1F215325003CFD37 /* BillDetails */,
 				2AD1E93A1F127AB100CA0D89 /* Favorites */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 				2AB31E811F16A15B005E681F /* QuickSearch */,
 			);
-			name = Scenes;
+			name = MainScenes;
 			sourceTree = "<group>";
 		};
 		2AB31E811F16A15B005E681F /* QuickSearch */ = {
@@ -672,6 +675,7 @@
 				2AAA81651F19599E005DF090 /* BillCardTableViewController.swift in Sources */,
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
+				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
 				2AA6771E1F215321003CFD37 /* EventDescriptionTableViewCell.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
