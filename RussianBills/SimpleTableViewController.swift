@@ -41,6 +41,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationItem.title = objectsToDisplay!.fullDescription
         self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
         tableView.rowHeight = UITableViewAutomaticDimension

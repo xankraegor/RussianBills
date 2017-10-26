@@ -25,6 +25,8 @@ class SearchResultsTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         guard query.hasAnyFilledFields() else {
             fatalError("∆ Did not recieve a search query")
         }

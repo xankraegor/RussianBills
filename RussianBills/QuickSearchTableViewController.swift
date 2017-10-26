@@ -28,8 +28,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        debugPrint(RealmCoordinator.DEBUG_defaultRealmPath())
+      debugPrint(RealmCoordinator.DEBUG_defaultRealmPath())
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -39,6 +38,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()

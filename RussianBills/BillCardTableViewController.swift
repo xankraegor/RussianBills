@@ -50,9 +50,8 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
+        super.viewWillAppear(animated)
         fetchBillData()
-
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
             debugPrint("BillURL: \(billUrlString)")
