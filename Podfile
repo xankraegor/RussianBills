@@ -5,7 +5,8 @@ use_frameworks!
 target 'RussianBills' do
 
 pod ‘Alamofire’
-pod ‘RealmSwift’
+#pod ‘RealmSwift’
+pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
 pod 'RealmSearchViewController'
 pod ‘SwiftyJSON’
 pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feature/v4.0.0'
