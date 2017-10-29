@@ -65,6 +65,7 @@
 		2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
 		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
+		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
@@ -144,6 +145,7 @@
 		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
 		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
@@ -361,7 +363,7 @@
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
-				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
+				2AD350D61FA51CB300EAC827 /* Attachments Scene */,
 				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
 				2AA6771F1F215325003CFD37 /* BillDetails */,
@@ -389,6 +391,15 @@
 				2AA62DB81F8CE764000405F5 /* FavEmptyView.xib */,
 			);
 			name = Favorites;
+			sourceTree = "<group>";
+		};
+		2AD350D61FA51CB300EAC827 /* Attachments Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2AA677201F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift */,
+				2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */,
+			);
+			name = "Attachments Scene";
 			sourceTree = "<group>";
 		};
 		446ACAC816582A6953401F6D /* Pods */ = {
@@ -667,6 +678,7 @@
 				2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */,
 				2A3A04031F992BB9007D4EFE /* SearchResultsTableViewCell.swift in Sources */,
 				2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */,
+				2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */,
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
 				2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */,
 				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,

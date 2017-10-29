@@ -169,16 +169,16 @@ enum UserServices {
 
     // MARK: - Attachments
 
-    static func isAttachmentDownloaded(forBillNumber: String, withLink link: String)->Bool {
+    static func pathForDownloadAttachment(forBillNumber: String, withLink link: String)->String? {
         let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
-        if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link), let _ = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttacmentsDirectory) {
-            return true
+        if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link), let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttacmentsDirectory) {
+            return path
         } else {
-            return false
+            return nil
         }
     }
 
-    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void) {
+    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void, completion: VoidToVoid) {
         let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downladLink)
         let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
         let temporaryFileName = String(downladLink.hashValue)
@@ -238,11 +238,13 @@ enum UserServices {
                         let fileNameWithoutExtension = URL(fileURLWithPath: suggestedFullFileName).deletingPathExtension()
                         let targetFileName = "\(fileNameWithoutExtension.lastPathComponent.removingPercentEncoding ?? "")_#\(fileId).\(suggestedExtension)"
                         FilesManager.renameFile(named: temporaryFileName, atPath: billAttacmentsDirectory, newName: targetFileName)
+                        if let comp = completion {
+                            comp()
+                        }
                     }
                 }
             })
     }
-
 
     static func deleteAttachment(usingKey key: String, forBillNr: String) {
         let attachmentsDir = FilesManager.attachmentDir(forBillNumber: forBillNr)

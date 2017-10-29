@@ -91,14 +91,24 @@ enum FilesManager {
             debugPrint("∆ Cannot move the file: \(error)")
         }
     }
-
+    
+    static func sizeOfFile(atPath: String)->String? {
+        guard let attributes = try? FileManager.default.attributesOfItem(atPath: atPath), let fileSize = attributes[FileAttributeKey.size] as? UInt64  else {
+            return nil
+        }
+        let  byteCountFormatter =  ByteCountFormatter()
+        byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
+        let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(fileSize))
+        return sizeToDisplay
+    }
+    
     // MARK : - Directories
-
+    
     static func doesDirExist(atPath path: String)->Bool {
         var isDir: ObjCBool = false
         return FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
     }
-
+    
     static func createDirectory(atPath path: String) {
         do {
             try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
@@ -127,7 +137,6 @@ enum FilesManager {
             }
             let  byteCountFormatter =  ByteCountFormatter()
             byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
-//            byteCountFormatter.countStyle = .file
             let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(folderSize))
             return sizeToDisplay
         } else {

@@ -37,10 +37,9 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     // MARK: - Table View Delegate
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath)
-        cell.textLabel?.text = event!.attachmentsNames[indexPath.row]
-        let attachmentAlreadyDownloaded = UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
-        cell.detailTextLabel?.text = attachmentAlreadyDownloaded ? "📦 Документ загружен" :  "🌐 Документ не загружен"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath) as! AttachmentTableViewCell
+        cell.billTitle.text = event!.attachmentsNames[indexPath.row]
+        setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
         return cell
     }
     
@@ -50,10 +49,10 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             return
         }
 
-        if UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: downloadLink) {
+        if UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: downloadLink) != nil {
             previewCellContent(withDownloadLink: downloadLink, billNr: billNr)
         } else {
-            downloadAttachment(forCell: cell, billNr: billNr, downloadLink: downloadLink)
+            downloadAttachment(forCell: cell as! AttachmentTableViewCell, billNr: billNr, downloadLink: downloadLink)
         }
     }
 
@@ -67,7 +66,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return UserServices.isAttachmentDownloaded(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!)
+        return UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!) != nil
     }
 
     
@@ -93,20 +92,23 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         qpController.dataSource = self
         show(qpController, sender: nil)
     }
-
-    func downloadAttachment(forCell cell: UITableViewCell, billNr: String, downloadLink: String) {
+    
+    func downloadAttachment(forCell cell: AttachmentTableViewCell, billNr: String, downloadLink: String) {
         UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
-            if progressValue < 1 {
-                DispatchQueue.main.async {
-                    let percent = progressValue * 100
-                    cell.detailTextLabel?.text = String(format: "⬇️ Документ загружается: %2.1f%%", percent)
-                }
-            } else {
-                cell.detailTextLabel?.text = "📦 Документ загружен"
+            DispatchQueue.main.async {
+                let percent = progressValue * 100
+                cell.infoLabel?.text = String(format: "Документ загружается: %2.1f%%", percent)
             }
+            
+            }, completion: { [weak self] in
+                DispatchQueue.main.async {
+                    if let indexPath = self?.tableView.indexPath(for: cell) {
+                        self?.setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
+                    }
+                }
         })
     }
-
+    
     func doPreinstallation() {
         guard event != nil else {
             fatalError("No event handed to the UITableViewController")
@@ -119,4 +121,24 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             self.navigationItem.title = "Документы 📃\(navigationTitle)"
         }
     }
+    
+    func setCellDownloadImageAndLabel(cell: AttachmentTableViewCell, atIndexPath indexPath: IndexPath) {
+        if let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!) {
+            cell.infoLabel.text = "Документ загружен (\(FilesManager.sizeOfFile(atPath: existingPath) ?? ""))"
+            switch URL(fileURLWithPath: existingPath).pathExtension {
+            case "doc", "docx":
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_doc")
+            case "xls", "xlsx":
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_xls")
+            case "pdf":
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_pdf")
+            default:
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_unknown")
+            }
+        } else {
+            cell.docTypeImage.image = #imageLiteral(resourceName: "file_download")
+            cell.infoLabel.text = "Документ не загружен"
+        }
+    }
+
 }

@@ -56,17 +56,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-x6-87v">
-                                            <rect key="frame" x="8" y="8" width="359" height="21"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="20.5"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
-                                            <rect key="frame" x="8" y="37" width="359" height="173.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
+                                            <rect key="frame" x="8" y="36.5" width="359" height="174"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">О внесении изменений в Бюджетный кодекс Российской Федерации и признании утратившими силу отдельных положений Федерального закона "О внесении изменений в Бюджетный кодекс Российской Федерации в части регулирования бюджетного процесса и приведении в соответствие с бюджетным законодательством Российской Федерации отдельных законодательных актов Российской Федерации"</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -502,7 +502,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О внесении дополнений в Федеральный закон «Об ограничении курения табака» и еще более длинное название" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsM-qm-98s">
                                                     <rect key="frame" x="8" y="0.0" width="359" height="77"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -952,7 +952,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text=" 📘 Документы: 12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7c6-rh-pg0">
-                                            <rect key="frame" x="0.0" y="155.5" width="342" height="30"/>
+                                            <rect key="frame" x="0.0" y="157" width="342" height="28.5"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="vGc-Fe-bPC"/>
@@ -979,10 +979,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-5r-zP6">
-                                            <rect key="frame" x="8" y="34" width="326" height="113.5"/>
+                                            <rect key="frame" x="8" y="34" width="326" height="115"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">предложить принять законопроект к рассмотрению (срок представления отзывов, предложений и замечаний в комитет 06.11.2016, предлагаемая дата рассмотрения Государственной Думой 18.11.2016)</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1018,7 +1018,7 @@
                             <outlet property="delegate" destination="mYG-kS-5th" id="nvp-i8-Phx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="События 📃№ 123456-7" id="Mwd-5I-bmn">
+                    <navigationItem key="navigationItem" title="События 📃№ 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Mwd-5I-bmn">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="eq5-J1-xdc"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1035,36 +1035,58 @@
         <scene sceneID="Rw6-cv-OgV">
             <objects>
                 <tableViewController id="3yu-96-Bfc" customClass="BillAttachedDocumentsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" id="OcL-IV-ruf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="83" sectionHeaderHeight="28" sectionFooterHeight="28" id="OcL-IV-ruf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AttachedDocumentCellId" textLabel="uXz-yh-JS8" detailTextLabel="MP3-CO-s82" rowHeight="92" style="IBUITableViewCellStyleSubtitle" id="wkd-Ma-CVZ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="92"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AttachedDocumentCellId" rowHeight="83" id="wkd-Ma-CVZ" customClass="AttachmentTableViewCell" customModule="RussianBills" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wkd-Ma-CVZ" id="BhK-ol-qnM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="91.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Проект федерального закона" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uXz-yh-JS8">
-                                            <rect key="frame" x="16" y="26" width="237" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="file_download" translatesAutoresizingMaskIntoConstraints="NO" id="OVb-vr-JEN">
+                                            <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="64" id="S4p-Sq-sRP"/>
+                                                <constraint firstAttribute="height" constant="64" id="uhf-JV-QJJ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Проект федерального закона" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDf-zh-nqs">
+                                            <rect key="frame" x="80" y="8" width="287" height="42"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="🌐 Документ не загружен" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MP3-CO-s82">
-                                            <rect key="frame" x="16" y="49.5" width="155.5" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaz-Sv-eFG">
+                                            <rect key="frame" x="80" y="57.5" width="287" height="17"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jaz-Sv-eFG" secondAttribute="bottom" id="3c0-jm-Fdu"/>
+                                        <constraint firstItem="FDf-zh-nqs" firstAttribute="trailing" secondItem="BhK-ol-qnM" secondAttribute="trailingMargin" id="BVQ-F8-1GY"/>
+                                        <constraint firstItem="OVb-vr-JEN" firstAttribute="top" secondItem="BhK-ol-qnM" secondAttribute="topMargin" id="HD8-eJ-UxP"/>
+                                        <constraint firstItem="OVb-vr-JEN" firstAttribute="leading" secondItem="BhK-ol-qnM" secondAttribute="leadingMargin" id="VI9-Fz-V1e"/>
+                                        <constraint firstItem="jaz-Sv-eFG" firstAttribute="trailing" secondItem="BhK-ol-qnM" secondAttribute="trailingMargin" id="WOP-gp-2bX"/>
+                                        <constraint firstItem="jaz-Sv-eFG" firstAttribute="leading" secondItem="OVb-vr-JEN" secondAttribute="trailing" constant="8" id="c8d-cm-Z6e"/>
+                                        <constraint firstItem="FDf-zh-nqs" firstAttribute="top" secondItem="BhK-ol-qnM" secondAttribute="topMargin" id="cZv-y9-Uf4"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="OVb-vr-JEN" secondAttribute="bottom" id="fiF-co-8UP"/>
+                                        <constraint firstItem="FDf-zh-nqs" firstAttribute="leading" secondItem="OVb-vr-JEN" secondAttribute="trailing" constant="8" id="hHb-ni-bz6"/>
+                                        <constraint firstItem="jaz-Sv-eFG" firstAttribute="top" secondItem="FDf-zh-nqs" secondAttribute="bottom" constant="8" id="y26-AX-8dw"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="billTitle" destination="FDf-zh-nqs" id="B5P-Hc-ZT2"/>
+                                    <outlet property="docTypeImage" destination="OVb-vr-JEN" id="WCj-gJ-OaY"/>
+                                    <outlet property="infoLabel" destination="jaz-Sv-eFG" id="OBt-Mw-apQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1072,13 +1094,13 @@
                             <outlet property="delegate" destination="3yu-96-Bfc" id="rDJ-fg-Hho"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Документы 📃№ 123456-7" largeTitleDisplayMode="never" id="Spq-Q7-gUk">
+                    <navigationItem key="navigationItem" title="Документы 📃№ 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Spq-Q7-gUk">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="ny5-Mh-x5s"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0I4-HC-PHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5396" y="80"/>
+            <point key="canvasLocation" x="5396" y="79.610194902548727"/>
         </scene>
         <!--⏱ Быстрый поиск-->
         <scene sceneID="JCM-tD-7g2">
@@ -1510,6 +1532,24 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="h10-im-OPb" rowHeight="48" style="IBUITableViewCellStyleDefault" id="r79-vW-Jvg">
+                                        <rect key="frame" x="0.0" y="337.5" width="375" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r79-vW-Jvg" id="Pqi-TU-PNk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="В программе использованы изображения, созданные Dimitry Miroliubov ( https://www.flaticon.com/packs/files-8 )" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h10-im-OPb">
+                                                    <rect key="frame" x="16" y="0.0" width="344" height="47.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1532,9 +1572,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkU-ld-MwH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2343" y="922"/>
+            <point key="canvasLocation" x="2341.5999999999999" y="921.58920539730138"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="file_download" width="64" height="64"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XZ3-13-8e4"/>
         <segue reference="ECW-Zv-M8L"/>
