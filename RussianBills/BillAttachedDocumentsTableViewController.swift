@@ -125,13 +125,17 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     func setCellDownloadImageAndLabel(cell: AttachmentTableViewCell, atIndexPath indexPath: IndexPath) {
         if let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!) {
             cell.infoLabel.text = "Документ загружен (\(FilesManager.sizeOfFile(atPath: existingPath) ?? ""))"
-            switch URL(fileURLWithPath: existingPath).pathExtension {
+            switch URL(fileURLWithPath: existingPath).pathExtension.lowercased() {
             case "doc", "docx":
                 cell.docTypeImage.image = #imageLiteral(resourceName: "file_doc")
             case "xls", "xlsx":
                 cell.docTypeImage.image = #imageLiteral(resourceName: "file_xls")
             case "pdf":
                 cell.docTypeImage.image = #imageLiteral(resourceName: "file_pdf")
+            case "ppt", "pptx":
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_ppt")
+            case "rtf":
+                cell.docTypeImage.image = #imageLiteral(resourceName: "file_rtf")
             default:
                 cell.docTypeImage.image = #imageLiteral(resourceName: "file_unknown")
             }
