@@ -12,11 +12,21 @@ final class Dispatcher {
     // Singletone
     static let shared = Dispatcher()
 
+    // Queues and groups
     let referenceDownloadDispatchGroup = DispatchGroup()
-    let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: .userInteractive, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit, target: nil)
-    let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .userInitiated)
+    let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
+
+    let billsDownloadDispatchGroup = DispatchGroup()
+    let billsDownloadDispatchQueue = DispatchQueue(label: "billsDownloadDispatchQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
+
+    let attachmentsDownloadQueue = DispatchQueue(label: "attachmentsDownloadQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
+
+    let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .utility, attributes: DispatchQueue.Attributes.concurrent)
+
     let htmlParseQueue = DispatchQueue(label: "html-parse-queue", qos: .userInitiated)
     var prefetchBillsWorkItem: DispatchWorkItem?
+
+    // Dispatcher Functions
 
     func dispatchReferenceDownload(with: @escaping ()->()) {
         DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
