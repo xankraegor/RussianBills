@@ -239,6 +239,14 @@ final class Bill_: Object, InitializableWithJson {
         return output.joined(separator: "; ")
     }
 
+    func generateCoexecitorCommitteesDescription() -> String? {
+         return comitteeCoexecutor.map{$0.name}.joined(separator: "; ")
+    }
+
+    func generateProfileCommitteesDescription()->String? {
+        return comitteeProfile.map{$0.name}.joined(separator: "; ")
+    }
+
     // MARK: = Additional Description
 
     override var description: String {

@@ -107,6 +107,9 @@ final class BillCardTableViewController: UITableViewController {
             stageLabel.text = bill.lastEventStage?.name
             phaseLabel.text = bill.lastEventPhase?.name
             decisionLabel.text = bill.generateFullSolutionDescription()
+            respCommitteeLabel.text = bill.comitteeResponsible?.name
+            profileComitteesLable.text = bill.generateProfileCommitteesDescription()
+            coexecCommitteeLabel.text = bill.generateCoexecitorCommitteesDescription()
         } else {
             fatalError("Bill is not being provided")
         }
