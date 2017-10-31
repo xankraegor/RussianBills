@@ -41,22 +41,20 @@ enum Request {
     }
 
     static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument) -> Void ) {
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                debugPrint(error!.localizedDescription)
+        Alamofire.request(url).responseData(queue: Dispatcher.shared.htmlParseQueue) { (response) in
+            if response.error != nil {
+                debugPrint(response.error!.localizedDescription)
             }
 
-            if let resp = response as? HTTPURLResponse,
+            if let resp = response.response,
                 resp.statusCode / 100 != 2 { // Not-normal response
                 debugPrint("∆ Parser [\(Date())] recieved HTTPURLResponse with status code: \(resp.statusCode)")
             }
-            
-            Dispatcher.shared.htmlParseQueue.async {
-                if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
-                    completion(doc)
-                }
+
+            if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
+                completion(doc)
             }
-        }).resume()
+        }
     }
     
     // MARK: - Attached Document Request Function

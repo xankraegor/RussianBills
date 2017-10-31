@@ -122,7 +122,7 @@ enum FilesManager {
         do {
             fileList = try FileManager.default.contentsOfDirectory(atPath: path)
         } catch let error {
-            debugPrint("∆ Error when examining contents of a directory at \(path):: \(error.localizedDescription)")
+            debugPrint("∆ Can't examine contents at path \(path):: \(error.localizedDescription)")
         }
         return fileList
     }
