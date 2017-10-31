@@ -100,7 +100,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList).bills.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
-            UserServices.downloadAndSaveBills(withQuery: query, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                result in
                 var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
                 bills.append(contentsOf: result)
@@ -124,7 +124,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         
         if query.hasAnyFilledFields() {
             
-            UserServices.downloadAndSaveBills(withQuery: query, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                result in
                 RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: result)
             })

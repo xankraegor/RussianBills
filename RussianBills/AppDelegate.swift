@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Override point for customization after application launch.
         dispatcher = Dispatcher.shared
-        UserServices.downloadAndSaveAllReferenceCategories()
+        UserServices.downloadAllReferenceCategories()
         return true
     }
 

@@ -31,16 +31,16 @@ final class SearchResultsTableViewController: UITableViewController {
         }
 
         if !isPrefetched {
-            UserServices.downloadAndSaveBills(withQuery: query, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                 result in
-                RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: result)
+                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.mainSearchList, toContain: result)
             })
         }
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
 
-        let results = RealmCoordinator.getBillsList(ofType: .mainSearchList)
+        let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList)
         realmNotificationToken = results.observe { [weak self] (_)->Void in
             self?.tableView.reloadData()
             self?.isLoading = false
@@ -80,7 +80,7 @@ final class SearchResultsTableViewController: UITableViewController {
         if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList).bills.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
-            UserServices.downloadAndSaveBills(withQuery: query, completion: {
+            UserServices.downloadBills(withQuery: query, completion: {
                 result in
                 var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.mainSearchList)
                 bills.append(contentsOf: result)
@@ -95,8 +95,7 @@ final class SearchResultsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let path = tableView.indexPathForSelectedRow,
             let dest = segue.destination as? BillCardTableViewController {
-            let selectedBillNumber = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList).bills[path.row].number
-            dest.billNumber = selectedBillNumber
+            dest.bill = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.mainSearchList).bills[path.row]
         }
     }
 
