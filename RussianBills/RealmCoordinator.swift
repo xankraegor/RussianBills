@@ -9,16 +9,16 @@
 import Foundation
 import RealmSwift
 
+public enum RealmCoordinatorListType: String {
+    case quickSearchList
+    case mainSearchList
+}
+
 enum RealmCoordinator {
 
-    public enum ListType: String {
-        case quickSearchList
-        case mainSearchList
-    }
-
-    static func DEBUG_defaultRealmPath() -> String {
-        return "Default realm path: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))"
-    }
+//    static func DEBUG_defaultRealmPath() -> String {
+//        return "Default realm path: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))"
+//    }
 
     // MARK: Write and update existing data in Realm
 
@@ -244,7 +244,7 @@ enum RealmCoordinator {
     
     // MARK: - Managing Lists
     
-    static func getBillsList(ofType type: ListType)->BillsList_ {
+    static func getBillsList(ofType type: RealmCoordinatorListType)->BillsList_ {
         do {
             let realm = try Realm()
             if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue) {
@@ -262,7 +262,7 @@ enum RealmCoordinator {
         }
     }
 
-    static func getBillsListItems(ofType type: ListType)->[Bill_] {
+    static func getBillsListItems(ofType type: RealmCoordinatorListType)->[Bill_] {
         do {
             let realm = try Realm()
             if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue)?.bills {
@@ -275,7 +275,7 @@ enum RealmCoordinator {
         }
     }
     
-    static func setBillsList(ofType type: ListType, toContain bills: [Bill_]?) {
+    static func setBillsList(ofType type: RealmCoordinatorListType, toContain bills: [Bill_]?) {
         do {
             let realm = try Realm()
             try realm.write {
