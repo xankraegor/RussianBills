@@ -11,6 +11,7 @@ import UIKit
 final class Dispatcher {
     // Singletone
     static let shared = Dispatcher()
+    private init() {}
 
     // Queues and groups
     let referenceDownloadDispatchGroup = DispatchGroup()
