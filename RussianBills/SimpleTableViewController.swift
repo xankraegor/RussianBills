@@ -17,6 +17,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
+    var realmNotificationToken: NotificationToken? = nil
 
     // MARK: - Life Cycle
 
@@ -25,6 +26,13 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         if objectsToDisplay == nil {
             dismiss(animated: true, completion: nil)
+        }
+        if let type = objectsToDisplay?.typeUsedForObjects, let results = try? Realm().objects(type) {
+            realmNotificationToken = results.observe { [weak self] (_)->Void in
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
         }
 
         searchController.searchResultsUpdater = self
@@ -76,6 +84,11 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
                 self?.updateTableWithNewData()
             }
         }
+    }
+
+
+    deinit {
+        realmNotificationToken?.invalidate()
     }
 
     // MARK: - Table view data source
