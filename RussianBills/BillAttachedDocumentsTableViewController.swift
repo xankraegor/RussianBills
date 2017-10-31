@@ -14,6 +14,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     var event: BillParserEvent?
     var billNumber: String?
     var previewItemUrlString: String? = nil
+    var downloadingAttachments = Set<String>()
 
 
     // MARK: - Life Cycle
@@ -52,7 +53,11 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         if UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: downloadLink) != nil {
             previewCellContent(withDownloadLink: downloadLink, billNr: billNr)
         } else {
-            downloadAttachment(forCell: cell as! AttachmentTableViewCell, billNr: billNr, downloadLink: downloadLink)
+            // Attachment is not being already downloaded
+            if !downloadingAttachments.contains(downloadLink) {
+                downloadingAttachments.insert(downloadLink)
+                downloadAttachment(forCell: cell as! AttachmentTableViewCell, billNr: billNr, downloadLink: downloadLink)
+            }
         }
     }
 
@@ -101,6 +106,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             }
             
             }, completion: { [weak self] in
+                self?.downloadingAttachments.remove(downloadLink)
                 DispatchQueue.main.async {
                     if let indexPath = self?.tableView.indexPath(for: cell) {
                         self?.setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)

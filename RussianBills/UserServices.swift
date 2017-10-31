@@ -202,7 +202,7 @@ enum UserServices {
 
             .validate()
 
-            .responseData(completionHandler: { (response) in
+            .responseData(queue: Dispatcher.shared.attachmentsDownloadQueue, completionHandler: { (response) in
                 if let error = response.result.error as? AFError {
                     switch error {
                     case .invalidURL(let url):
