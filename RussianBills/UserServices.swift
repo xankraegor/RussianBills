@@ -193,7 +193,6 @@ enum UserServices {
         Alamofire.download(downladLink, to: destinationAF)
 
             .downloadProgress(closure: { (progress) in
-                print("\(progress.fractionCompleted * 100)% downloaded")
                 // For UI update
                 DispatchQueue.main.async {
                     updateProgressStatus(progress.fractionCompleted)

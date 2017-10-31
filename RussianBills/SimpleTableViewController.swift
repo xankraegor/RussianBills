@@ -45,9 +45,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
         switch objectsToDisplay! {
         case .lawClasses:
             UserServices.downloadLawCalsses { [weak self] in
@@ -164,9 +162,11 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     // MARK: - Helper functions
 
     private func updateTableWithNewData() {
-        tableView.beginUpdates()
-        tableView.reloadData()
-        tableView.endUpdates()
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.reloadData()
+            self.tableView.endUpdates()
+        }
     }
 
     func searchBarIsEmpty() -> Bool {

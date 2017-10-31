@@ -63,7 +63,8 @@ enum Request {
 
     static func comittees(current: Bool? = nil, completion: @escaping ([Comittee_])->Void ) {
         if let reqestMessage = RequestRouter.committees(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var comittees: [Comittee_] = []
@@ -81,7 +82,8 @@ enum Request {
 
     static func lawClasses(completion: @escaping ([LawClass_])->Void) {
         if let reqestMessage = RequestRouter.classes.urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var lawClasses: [LawClass_] = []
@@ -99,7 +101,8 @@ enum Request {
 
     static func topics(completion: @escaping ([Topic_])->Void) {
         if let reqestMessage = RequestRouter.topics.urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var topics: [Topic_] = []
@@ -117,7 +120,8 @@ enum Request {
 
     static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_])->Void ) {
         if let reqestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var deputies: [Deputy_] = []
@@ -135,7 +139,8 @@ enum Request {
 
     static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_])->Void ) {
         if let reqestMessage = RequestRouter.federalSubject(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var subjects: [FederalSubject_] = []
@@ -154,7 +159,8 @@ enum Request {
 
     static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_])->Void ) {
         if let reqestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var subjects: [RegionalSubject_] = []
@@ -172,7 +178,8 @@ enum Request {
 
     static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->Void ) {
         if let reqestMessage = RequestRouter.instances(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+            { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var instances: [Instance_] = []
