@@ -50,31 +50,31 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     override func viewDidAppear(_ animated: Bool) {
         switch objectsToDisplay! {
         case .lawClasses:
-            UserServices.downloadLawCalsses { [weak self] in
+            UserServices.downloadAndSaveLawCalsses { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .topics:
-            UserServices.downloadTopics { [weak self] in
+            UserServices.downloadAndSaveTopics { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .committees:
-            UserServices.downloadComittees { [weak self] in
+            UserServices.downloadAndSaveComittees { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .federalSubjects:
-            UserServices.downloadFederalSubjects { [weak self] in
+            UserServices.downloadAndSaveFederalSubjects { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .regionalSubjects:
-            UserServices.downloadFederalSubjects { [weak self] in
+            UserServices.downloadAndSaveFederalSubjects { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .instances:
-            UserServices.downloadInstances { [weak self] in
+            UserServices.downloadAndSaveInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .deputees:
-            UserServices.downloadInstances() { [weak self] in
+            UserServices.downloadAndSaveInstances() { [weak self] in
                 self?.updateTableWithNewData()
             }
         }

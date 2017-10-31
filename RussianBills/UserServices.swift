@@ -15,14 +15,14 @@ enum UserServices {
 
     // MARK: - Download Reference Categories
 
-    static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
-        downloadComittees(forced: forced)
-        downloadLawCalsses(forced: forced)
-        downloadTopics(forced: forced)
-        downloadDeputies(forced: forced)
-        downloadFederalSubjects(forced: forced)
-        downloadRegionalSubjects(forced: forced)
-        downloadInstances(forced: forced)
+    static func downloadAndSaveAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
+        downloadAndSaveComittees(forced: forced)
+        downloadAndSaveLawCalsses(forced: forced)
+        downloadAndSaveTopics(forced: forced)
+        downloadAndSaveDeputies(forced: forced)
+        downloadAndSaveFederalSubjects(forced: forced)
+        downloadAndSaveRegionalSubjects(forced: forced)
+        downloadAndSaveInstances(forced: forced)
 
         Dispatcher.shared.referenceDownloadDispatchGroup.notify(queue: DispatchQueue.main) {
             if let compl = completion {
@@ -31,7 +31,7 @@ enum UserServices {
         }
     }
 
-    static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveComittees(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
                 return
@@ -46,7 +46,7 @@ enum UserServices {
         }
     }
 
-    static func downloadLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
                 return
@@ -61,7 +61,7 @@ enum UserServices {
         }
     }
 
-    static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveTopics(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
                 return
@@ -76,7 +76,7 @@ enum UserServices {
         }
     }
 
-    static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
                 return
@@ -91,7 +91,7 @@ enum UserServices {
         }
     }
 
-    static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
                 return
@@ -106,7 +106,7 @@ enum UserServices {
         }
     }
 
-    static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
                 return
@@ -121,7 +121,7 @@ enum UserServices {
         }
     }
 
-    static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadAndSaveInstances(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
                 return
@@ -138,10 +138,10 @@ enum UserServices {
     
     // MARK: - Bills
 
-    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
 
+    static func downloadAndSaveBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-
+            
             for res in result {
                 res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
                 res.parserContent = RealmCoordinator.getParserContentsOf(billNr: res.number)
