@@ -143,6 +143,17 @@ enum RealmCoordinator {
         }
     }
 
+    static func getBill(billNr: String)->Bill_? {
+        do {
+            let realm = try Realm()
+            return realm.object(ofType: Bill_.self, forPrimaryKey: billNr)
+        } catch let error {
+            fatalError("∆ Cannot reach the Realm to get parser a bill by its number: \(error.localizedDescription)")
+        }
+    }
+
+
+
     static func loadBills(matchingQuery query: BillSearchQuery, sortedBy sortParameter: String, sortDirection ascending: Bool) -> [Bill_] {
         do {
             let realm = try Realm()
