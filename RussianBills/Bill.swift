@@ -129,18 +129,23 @@ final class Bill_: Object, InitializableWithJson {
 
     func decodeOtherSubjects(_ json: JSON) {
         let subjects = json["subject"]["departments"].arrayValue
-
         for sub in subjects {
             let subId = sub["id"].intValue
 
             if let fedSub = RealmCoordinator.loadObject(FederalSubject_.self, byId: subId) {
-                RealmCoordinator.save(object: fedSub)
+                let realm = try? Realm()
+                try? realm?.write {
+                    realm?.add(fedSub, update: true)
+                }
                 federalSubjects.append(fedSub)
             } else if let regSub = RealmCoordinator.loadObject(RegionalSubject_.self, byId: subId) {
-                RealmCoordinator.save(object: regSub)
+                let realm = try? Realm()
+                try? realm?.write {
+                    realm?.add(regSub, update: true)
+                }
                 regionalSubjects.append(regSub)
             } else {
-                debugPrint("∆ Federal or regional subject named '\(sub)' is not found in Realm")
+                debugPrint("∆ Federal or regional subject could not be found in Realm and parser can't decide, whether the value posted hereafter is federal or reginal subject: \(sub)")
             }
         }
     }
@@ -229,8 +234,10 @@ final class Bill_: Object, InitializableWithJson {
             let stage = Stage_()
             stage.id = lastEventStageId
             stage.name = json["lastEvent"]["stage"]["name"].stringValue
-
-            RealmCoordinator.save(object: stage)
+            let realm = try? Realm()
+            try? realm?.write {
+                realm?.add(stage, update: true)
+            }
             lastEventStage = stage
         }
     }
@@ -244,7 +251,10 @@ final class Bill_: Object, InitializableWithJson {
             phase.id = lastEventPhaseId
             phase.name = json["lastEvent"]["phase"]["name"].stringValue
 
-            RealmCoordinator.save(object: phase)
+            let realm = try? Realm()
+            try? realm?.write {
+                realm?.add(phase, update: true)
+            }
             lastEventPhase = phase
         }
     }

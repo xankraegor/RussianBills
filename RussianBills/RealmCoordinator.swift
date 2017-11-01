@@ -38,17 +38,17 @@ enum RealmCoordinator {
 //        }
 //    }
 
-    static func save(object: Object) {
-
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(object, update: true)
-            }
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to save object: \(error.localizedDescription)")
-        }
-    }
+//    static func save(object: Object) {
+//
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                realm.add(object, update: true)
+//            }
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to save object: \(error.localizedDescription)")
+//        }
+//    }
 
     static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool, completion: (()->Void)? = nil) {
         do {
