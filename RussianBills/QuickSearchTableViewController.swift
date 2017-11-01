@@ -152,7 +152,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         }
         
         if let name = nameTextField.text {
-            if name.characters.count > 0 {
+            if name.count > 0 {
                 query.name = name
             }
         }

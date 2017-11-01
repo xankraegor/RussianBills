@@ -63,19 +63,6 @@ enum RealmCoordinator {
             fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
         }
     }
-
-//    static func getBillsListItems(ofType type: RealmCoordinatorListType)->[Bill_] {
-//        do {
-//            let realm = try Realm()
-//            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue)?.bills {
-//                return Array(list)
-//            } else {
-//                return []
-//            }
-//        } catch let error {
-//            fatalError("∆ Cannot get \(type.rawValue) bills list items: \(error)")
-//        }
-//    }
     
     static func setBillsList(ofType type: RealmCoordinatorListType, toContain bills: [Bill_]?) {
         do {
