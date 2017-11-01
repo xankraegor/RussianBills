@@ -13,6 +13,7 @@ import Alamofire
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
 
+
     // MARK: - Download Reference Categories
 
     static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
@@ -201,12 +202,12 @@ enum UserServices {
 
     // MARK: - Parsed content
 
-    static func setParserContent(ofBill bill: Bill_, to content: BillParserContent?) {
-        if let existingContent = content {
-            let serializedContent = existingContent.serialize()
-            RealmCoordinator.updateParserDataOf(bill: bill, withContent: serializedContent, completion: nil)
-        } else {
-            RealmCoordinator.updateParserDataOf(bill: bill, withContent: nil, completion: nil)
+    static func setParserContent(ofBillNr billNr: String, to content: BillParserContent?) {
+        let realm = try? Realm()
+        let newContent = content?.serialize()
+        let bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
+        try? realm?.write {
+            bill!.parserContent = newContent
         }
     }
 

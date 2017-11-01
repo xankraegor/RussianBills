@@ -37,7 +37,7 @@ final class BillCardTableViewController: UITableViewController {
     var parser: BillParser? {
         didSet {
             if let currentBill = bill, parser?.tree != nil {
-                UserServices.setParserContent(ofBill: currentBill, to: parser!.tree)
+                UserServices.setParserContent(ofBillNr: currentBill.number, to: parser!.tree)
             }
         }
     }
