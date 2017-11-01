@@ -22,21 +22,21 @@ enum RealmCoordinator {
 
     // MARK: Write and update existing data in Realm
 
-    static func save(collection: [Object]) {
-
-        do {
-            let realm = try Realm()
-            try realm.write {
-                for obj in collection {
-                    realm.add(obj, update: true)
-                }
-            }
-            UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
-
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
-        }
-    }
+//    static func save(collection: [Object]) {
+//
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                for obj in collection {
+//                    realm.add(obj, update: true)
+//                }
+//            }
+//            UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
+//
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
+//        }
+//    }
 
     static func save(object: Object) {
 
