@@ -124,15 +124,15 @@ enum RealmCoordinator {
 //        }
 //    }
 
-    static func loadObject<T: Object>(_ ofType: T.Type, byId id: Int) -> T? {
-        do {
-            let realm = try Realm()
-            let objs = realm.objects(T.self).filter("id == \(id)")
-            return objs.first
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-    }
+//    static func loadObject<T: Object>(_ ofType: T.Type, byId id: Int) -> T? {
+//        do {
+//            let realm = try Realm()
+//            let objs = realm.objects(T.self).filter("id == \(id)")
+//            return objs.first
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
+//        }
+//    }
 
 //    static func getBill(billNr: String)->Bill_? {
 //        do {

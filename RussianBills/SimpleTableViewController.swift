@@ -10,17 +10,17 @@ import UIKit
 import RealmSwift
 
 final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating {
-    let realm = try? Realm()
-    var objects: Results<Object>?
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
-    var filteredObjects: [Object]?
-    let searchController = UISearchController(searchResultsController: nil)
-    var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty()
-    }
-    var realmNotificationToken: NotificationToken? = nil
 
+    let realm = try? Realm()
+    var realmNotificationToken: NotificationToken? = nil
+    var objects: Results<Object>?
+
+    var filteredObjects: [Object]?
+    var isFiltering: Bool { return searchController.isActive && !searchBarIsEmpty() }
+
+    let searchController = UISearchController(searchResultsController: nil)
 
 
     // MARK: - Life Cycle
