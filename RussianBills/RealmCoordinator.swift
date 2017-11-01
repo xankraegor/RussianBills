@@ -182,14 +182,14 @@ enum RealmCoordinator {
 //        }
 //    }
 
-    static func getParserContentsOf(billNr: String)->Data? {
-        do {
-            let realm = try Realm()
-            return (realm.object(ofType: Bill_.self, forPrimaryKey: billNr))?.parserContent
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to get parser content of a bill: \(error.localizedDescription)")
-        }
-    }
+//    static func getParserContentsOf(billNr: String)->Data? {
+//        do {
+//            let realm = try Realm()
+//            return (realm.object(ofType: Bill_.self, forPrimaryKey: billNr))?.parserContent
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to get parser content of a bill: \(error.localizedDescription)")
+//        }
+//    }
 
 
     // MARK: - Count data in Realm

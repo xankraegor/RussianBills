@@ -186,7 +186,7 @@ enum UserServices {
 
             for res in result {
                 res.favorite = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.favorite ?? false
-                res.parserContent = RealmCoordinator.getParserContentsOf(billNr: res.number)
+                res.parserContent = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.parserContent
             }
 
             let realm = try? Realm()
