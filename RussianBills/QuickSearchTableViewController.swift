@@ -43,12 +43,10 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
-
-        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) {
-            realmNotificationToken = results.observe { [weak self] (_)->Void in
-                self?.tableView.reloadData()
-                self?.isLoading = false
-            }
+        
+        realmNotificationToken = searchResults?.observe { [weak self] (_)->Void in
+            self?.tableView.reloadData()
+            self?.isLoading = false
         }
     }
 
@@ -65,6 +63,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
