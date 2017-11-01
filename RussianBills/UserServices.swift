@@ -181,10 +181,11 @@ enum UserServices {
     // MARK: - Bills
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
+        let realm = try? Realm()
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
 
             for res in result {
-                res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
+                res.favorite = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.favorite ?? false
                 res.parserContent = RealmCoordinator.getParserContentsOf(billNr: res.number)
             }
 
