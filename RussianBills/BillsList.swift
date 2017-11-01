@@ -14,7 +14,12 @@ import RealmSwift
 final class BillsList_: Object {
     
     @objc dynamic var name = "notSet"
-    
+
+    convenience init(withName: RealmCoordinatorListType) {
+        self.init()
+        name = withName.rawValue
+    }
+
     let bills = List<Bill_>()
     
     override static func primaryKey() -> String {

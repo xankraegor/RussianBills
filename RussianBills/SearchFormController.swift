@@ -8,6 +8,7 @@
 
 import UIKit
 import Eureka
+import RealmSwift
 
 final class SearchFormController: FormViewController {
     
@@ -180,9 +181,12 @@ final class SearchFormController: FormViewController {
     func preprocessRequest(usingQuery: BillSearchQuery, afterSeconds: Double) {
         Dispatcher.shared.dispatchBillsPrefetching(afterSeconds: afterSeconds) { [weak self] in
             if let existingQuery = self?.query {
-                UserServices.downloadBills(withQuery: existingQuery)
-                { [weak self] (bills) in
-                    RealmCoordinator.setBillsList(ofType: .mainSearchList, toContain: bills)
+                UserServices.downloadBills(withQuery: existingQuery) {
+                    resultBills in
+                    let realm = try? Realm()
+                    let newList = BillsList_(withName: RealmCoordinatorListType.mainSearchList)
+                    newList.bills.append(objectsIn: resultBills)
+                    try? realm?.write {realm?.add(newList, update: true)}
                     self?.prefetchedBills = true
                 }
             } else {

@@ -33,19 +33,22 @@ final class SearchResultsTableViewController: UITableViewController {
 
         if !isPrefetched {
             UserServices.downloadBills(withQuery: query, completion: {
-                result in
-                RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.mainSearchList, toContain: result)
+                resultBills in
+                let realm = try? Realm()
+                let newList = BillsList_(withName: RealmCoordinatorListType.mainSearchList)
+                newList.bills.append(objectsIn: resultBills)
+                try? realm?.write {realm?.add(newList, update: true)}
             })
         }
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-
-        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) {
-            realmNotificationToken = results.observe { [weak self] (_)->Void in
-                self?.tableView.reloadData()
-                self?.isLoading = false
-            }
+        
+        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) ?? BillsList_(withName: .mainSearchList)
+        
+        realmNotificationToken = results.observe { [weak self] (_)->Void in
+            self?.tableView.reloadData()
+            self?.isLoading = false
         }
     }
 
@@ -82,11 +85,13 @@ final class SearchResultsTableViewController: UITableViewController {
         if let existingSearchResults = searchResults, indexPath.row > existingSearchResults.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
-            UserServices.downloadBills(withQuery: query, completion: {
-                result in
-                var bills = Array(existingSearchResults)
-                bills.append(contentsOf: result)
-                RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.mainSearchList, toContain: bills)
+            UserServices.downloadBills(withQuery: query, completion: { resultBills in
+                let realm = try? Realm()
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) ?? BillsList_(withName: .mainSearchList)
+                try? realm?.write {
+                    existingList.bills.append(objectsIn: resultBills)
+                    realm?.add(existingList, update: true)
+                }
             })
         }
     }

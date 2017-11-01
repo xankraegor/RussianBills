@@ -99,14 +99,17 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
-                result in
-                var bills = Array(existingSearchResults)
-                bills.append(contentsOf: result)
-                RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.quickSearchList, toContain: bills)
+                resultBills in
+                let realm = try? Realm()
+                let quickSearchList = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) ?? BillsList_(withName: RealmCoordinatorListType.quickSearchList)
+                    try? realm?.write {
+                         quickSearchList.bills.append(objectsIn: resultBills)
+                    }
             })
         }
     }
-    
+
+
     // MARK: - Text Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -117,16 +120,17 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - Actions
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-        
         refillQueryFromTextFields()
-        
         if query.hasAnyFilledFields() {
-            
             UserServices.downloadBills(withQuery: query, completion: {
-               result in
-                RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.quickSearchList, toContain: result)
+               resultBills in
+                let realm = try? Realm()
+                let list = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) ?? BillsList_(withName: .quickSearchList)
+                try? realm?.write {
+                    list.bills.removeAll()
+                    list.bills.append(objectsIn: resultBills)
+                }
             })
-            
             self.view.endEditing(true)
         }
     }
@@ -135,7 +139,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         number1TextField.text = ""
         number2TextField.text = ""
         nameTextField.text = ""
-        RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.quickSearchList, toContain: nil)
+        try? realm?.write {
+            realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue)?.bills.removeAll()
+        }
     }
 
     
