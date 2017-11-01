@@ -11,6 +11,7 @@ import Kanna
 import RealmSwift
 
 final class BillCardTableViewController: UITableViewController {
+    let realm = try? Realm()
     
     @IBOutlet weak var billTypeLabel: UILabel!
     @IBOutlet weak var billTitle: UILabel!
@@ -31,7 +32,8 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var moreDocsLabel: UILabel!
     @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
     @IBOutlet weak var moreDocsCell: UITableViewCell!
-    
+
+    var billNr: String?
     var bill: Bill_?
 
     var parser: BillParser? {
@@ -48,6 +50,10 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let billNumber = billNr else {
+            fatalError("∆ No bill number is being provided")
+        }
+        bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNumber)
         installRealmToken()
         tableView.delegate = self
     }

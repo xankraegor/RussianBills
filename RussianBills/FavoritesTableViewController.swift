@@ -72,7 +72,7 @@ final class FavoritesTableViewController: UITableViewController {
         if segue.identifier == "BillCardSegue" {
             if let path = tableView.indexPathForSelectedRow,
                 let dest = segue.destination as? BillCardTableViewController {
-                dest.bill = favoriteBills![path.row]
+                dest.billNr = favoriteBills![path.row].number
             }
         }
     }

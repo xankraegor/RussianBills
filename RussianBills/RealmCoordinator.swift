@@ -70,41 +70,41 @@ enum RealmCoordinator {
     // MARK: - Count data in Realm
 
 
-    static func countBills(matchingQuery: BillSearchQuery) -> Int {
-        do {
-            let realm = try Realm()
-            var objects = realm.objects(Bill_.self)
-            if let name = matchingQuery.name {
-                objects = objects.filter("name contains '\(name)'")
-            }
-            if let number = matchingQuery.number {
-                objects = objects.filter("number contains '\(number)'")
-            }
-            return objects.count
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to count bills matching query: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-    }
+//    static func countBills(matchingQuery: BillSearchQuery) -> Int {
+//        do {
+//            let realm = try Realm()
+//            var objects = realm.objects(Bill_.self)
+//            if let name = matchingQuery.name {
+//                objects = objects.filter("name contains '\(name)'")
+//            }
+//            if let number = matchingQuery.number {
+//                objects = objects.filter("number contains '\(number)'")
+//            }
+//            return objects.count
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to count bills matching query: Realm is not initialized by the Realm coordinator: \(error)")
+//        }
+//    }
 
     // MARK: - Managing Lists
     
-    static func getBillsList(ofType type: RealmCoordinatorListType)->BillsList_ {
-        do {
-            let realm = try Realm()
-            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue) {
-                return list
-            } else {
-                let newList = BillsList_()
-                newList.name = type.rawValue
-                try realm.write {
-                    realm.add(newList, update: true)
-                }
-                return newList
-            }
-        } catch let error {
-            fatalError("∆ Cannot get \(type.rawValue) bills list: \(error)")
-        }
-    }
+//    static func getBillsList(ofType type: RealmCoordinatorListType)->BillsList_ {
+//        do {
+//            let realm = try Realm()
+//            if let list = realm.object(ofType: BillsList_.self, forPrimaryKey: type.rawValue) {
+//                return list
+//            } else {
+//                let newList = BillsList_()
+//                newList.name = type.rawValue
+//                try realm.write {
+//                    realm.add(newList, update: true)
+//                }
+//                return newList
+//            }
+//        } catch let error {
+//            fatalError("∆ Cannot get \(type.rawValue) bills list: \(error)")
+//        }
+//    }
 
     static func getBillsListItems(ofType type: RealmCoordinatorListType)->[Bill_] {
         do {

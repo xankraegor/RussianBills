@@ -12,6 +12,7 @@ import RealmSwift
 final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     let realm = try? Realm()
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue)?.bills
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
@@ -43,11 +44,11 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
 
-        let results = RealmCoordinator.getBillsList(ofType: RealmCoordinatorListType.quickSearchList)
-
-        realmNotificationToken = results.observe { [weak self] (_)->Void in
-            self!.tableView.reloadData()
-            self!.isLoading = false
+        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) {
+            realmNotificationToken = results.observe { [weak self] (_)->Void in
+                self?.tableView.reloadData()
+                self?.isLoading = false
+            }
         }
     }
 
@@ -95,11 +96,11 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinatorListType.quickSearchList).bills.count - 15 && !isLoading {
+        if let results = searchResults, indexPath.row > results.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
-               result in
+                result in
                 var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
                 bills.append(contentsOf: result)
                 RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.quickSearchList, toContain: bills)

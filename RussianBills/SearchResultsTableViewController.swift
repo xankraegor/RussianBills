@@ -10,11 +10,12 @@ import UIKit
 import RealmSwift
 
 final class SearchResultsTableViewController: UITableViewController {
-
+    let realm = try? Realm()
     var query = BillSearchQuery()
     var isLoading: Bool = false
     var isPrefetched: Bool = false
     var realmNotificationToken: NotificationToken? = nil
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue)?.bills
 
 
     // MARK: - Life Cycle
@@ -40,10 +41,11 @@ final class SearchResultsTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
 
-        let results = RealmCoordinator.getBillsList(ofType: RealmCoordinatorListType.mainSearchList)
-        realmNotificationToken = results.observe { [weak self] (_)->Void in
-            self?.tableView.reloadData()
-            self?.isLoading = false
+        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) {
+            realmNotificationToken = results.observe { [weak self] (_)->Void in
+                self?.tableView.reloadData()
+                self?.isLoading = false
+            }
         }
     }
 
@@ -77,7 +79,7 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - TableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinatorListType.mainSearchList).bills.count - 15 && !isLoading {
+        if let results = searchResults, indexPath.row > results.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
@@ -93,9 +95,9 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let path = tableView.indexPathForSelectedRow,
+        if let path = tableView.indexPathForSelectedRow, let results = searchResults,
             let dest = segue.destination as? BillCardTableViewController {
-            dest.bill = RealmCoordinator.getBillsList(ofType: RealmCoordinatorListType.mainSearchList).bills[path.row]
+            dest.billNr = results[path.row].number
         }
     }
 
