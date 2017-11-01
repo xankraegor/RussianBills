@@ -15,7 +15,7 @@ final class BillsList_: Object {
     
     @objc dynamic var name = "notSet"
 
-    convenience init(withName: RealmCoordinatorListType) {
+    convenience init(withName: BillsListType) {
         self.init()
         name = withName.rawValue
     }

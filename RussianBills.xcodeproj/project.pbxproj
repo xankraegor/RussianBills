@@ -68,6 +68,7 @@
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
+		2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -148,6 +149,7 @@
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
+		2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillListType.swift; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */,
+				2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */,
 				2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */,
 				2AA4D1971F0C03D200EE2DA3 /* BillStatus.swift */,
 				2A98F16D1F0AF070004F5524 /* LawType.swift */,
@@ -686,6 +689,7 @@
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
 				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
+				2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */,
 				2AA6771E1F215321003CFD37 /* EventDescriptionTableViewCell.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,

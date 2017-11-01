@@ -15,7 +15,7 @@ final class SearchResultsTableViewController: UITableViewController {
     var isLoading: Bool = false
     var isPrefetched: Bool = false
     var realmNotificationToken: NotificationToken? = nil
-    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue)?.bills
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)?.bills
 
 
     // MARK: - Life Cycle
@@ -35,7 +35,7 @@ final class SearchResultsTableViewController: UITableViewController {
             UserServices.downloadBills(withQuery: query, completion: {
                 resultBills in
                 let realm = try? Realm()
-                let newList = BillsList_(withName: RealmCoordinatorListType.mainSearchList)
+                let newList = BillsList_(withName: BillsListType.mainSearch)
                 newList.bills.append(objectsIn: resultBills)
                 try? realm?.write {realm?.add(newList, update: true)}
             })
@@ -44,7 +44,7 @@ final class SearchResultsTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) ?? BillsList_(withName: .mainSearchList)
+        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch)
         
         realmNotificationToken = results.observe { [weak self] (_)->Void in
             self?.tableView.reloadData()
@@ -87,7 +87,7 @@ final class SearchResultsTableViewController: UITableViewController {
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: { resultBills in
                 let realm = try? Realm()
-                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.mainSearchList.rawValue) ?? BillsList_(withName: .mainSearchList)
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch)
                 try? realm?.write {
                     existingList.bills.append(objectsIn: resultBills)
                     realm?.add(existingList, update: true)

@@ -184,7 +184,7 @@ final class SearchFormController: FormViewController {
                 UserServices.downloadBills(withQuery: existingQuery) {
                     resultBills in
                     let realm = try? Realm()
-                    let newList = BillsList_(withName: RealmCoordinatorListType.mainSearchList)
+                    let newList = BillsList_(withName: BillsListType.mainSearch)
                     newList.bills.append(objectsIn: resultBills)
                     try? realm?.write {realm?.add(newList, update: true)}
                     self?.prefetchedBills = true

@@ -9,11 +9,6 @@
 import Foundation
 import RealmSwift
 
-public enum RealmCoordinatorListType: String {
-    case quickSearchList
-    case mainSearchList
-}
-
 enum RealmCoordinator {
 
     static func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {

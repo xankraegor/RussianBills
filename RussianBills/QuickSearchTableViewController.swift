@@ -12,7 +12,7 @@ import RealmSwift
 final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     let realm = try? Realm()
-    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue)?.bills
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
@@ -44,7 +44,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
 
-        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) {
+        if let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) {
             realmNotificationToken = results.observe { [weak self] (_)->Void in
                 self?.tableView.reloadData()
                 self?.isLoading = false
@@ -101,7 +101,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             UserServices.downloadBills(withQuery: query, completion: {
                 resultBills in
                 let realm = try? Realm()
-                let quickSearchList = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) ?? BillsList_(withName: RealmCoordinatorListType.quickSearchList)
+                let quickSearchList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: BillsListType.quickSearch)
                     try? realm?.write {
                          quickSearchList.bills.append(objectsIn: resultBills)
                     }
@@ -125,7 +125,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             UserServices.downloadBills(withQuery: query, completion: {
                resultBills in
                 let realm = try? Realm()
-                let list = realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue) ?? BillsList_(withName: .quickSearchList)
+                let list = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
                 try? realm?.write {
                     list.bills.removeAll()
                     list.bills.append(objectsIn: resultBills)
@@ -140,7 +140,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         number2TextField.text = ""
         nameTextField.text = ""
         try? realm?.write {
-            realm?.object(ofType: BillsList_.self, forPrimaryKey: RealmCoordinatorListType.quickSearchList.rawValue)?.bills.removeAll()
+            realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills.removeAll()
         }
     }
 
