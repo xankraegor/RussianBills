@@ -84,15 +84,6 @@ enum RealmCoordinator {
 
     // MARK: Load data from Realm
 
-    static func loadObjects<T: Object>(_ ofType: T.Type) -> Results<T>? {
-        do {
-            let realm = try Realm()
-            return realm.objects(T.self)
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-    }
-
     static func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {
         do {
             let realm = try Realm()
@@ -123,15 +114,15 @@ enum RealmCoordinator {
         }
     }
 
-    static func loadObject<T: Object>(_ ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
-        do {
-            let realm = try Realm()
-            let objs = realm.objects(T.self).sorted(byKeyPath: sortParameter, ascending: ascending)
-            return objs[byIndex]
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-    }
+//    static func loadObject<T: Object>(_ ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
+//        do {
+//            let realm = try Realm()
+//            let objs = realm.objects(T.self).sorted(byKeyPath: sortParameter, ascending: ascending)
+//            return objs[byIndex]
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
+//        }
+//    }
 
     static func loadObject<T: Object>(_ ofType: T.Type, byId id: Int) -> T? {
         do {
@@ -143,14 +134,14 @@ enum RealmCoordinator {
         }
     }
 
-    static func getBill(billNr: String)->Bill_? {
-        do {
-            let realm = try Realm()
-            return realm.object(ofType: Bill_.self, forPrimaryKey: billNr)
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to get parser a bill by its number: \(error.localizedDescription)")
-        }
-    }
+//    static func getBill(billNr: String)->Bill_? {
+//        do {
+//            let realm = try Realm()
+//            return realm.object(ofType: Bill_.self, forPrimaryKey: billNr)
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to get parser a bill by its number: \(error.localizedDescription)")
+//        }
+//    }
 
 
 
