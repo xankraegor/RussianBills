@@ -163,16 +163,15 @@ enum RealmCoordinator {
         }
     }
 
-    static func loadFavoriteBills() -> Results<Bill_> {
-        do {
-            let realm = try Realm()
-            let objs = realm.objects(Bill_.self)
-            return objs.filter("favorite == true")
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-
-    }
+//    static func loadFavoriteBills() -> Results<Bill_> {
+//        do {
+//            let realm = try Realm()
+//            let objs = realm.objects(Bill_.self).filter("favorite == true")
+//            return objs
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
+//        }
+//    }
     
     static func getFavoriteStatusOf(billNr: String)->Bool? {
         do {
