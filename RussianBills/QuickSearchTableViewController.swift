@@ -10,6 +10,8 @@ import UIKit
 import RealmSwift
 
 final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+
+    let realm = try? Realm()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
@@ -49,7 +51,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         }
     }
 
-
     override func viewDidDisappear(_ animated: Bool) {
         UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "", nr2: number2TextField.text ?? "")
     }
@@ -88,10 +89,14 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
-        RealmCoordinator.updateFavoriteStatusOf(bill: bills[indexPath.row], to: !bills[indexPath.row].favorite)
-        { [weak self] in
-            self?.setColorAndNumberForCell(at: indexPath)
+        let bill = bills[indexPath.row]
+
+        try? realm?.write {
+            bill.favorite = !bill.favorite
+            realm?.add(bill, update: true)
         }
+
+        setColorAndNumberForCell(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

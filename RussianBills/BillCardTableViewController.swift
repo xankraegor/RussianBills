@@ -143,7 +143,15 @@ final class BillCardTableViewController: UITableViewController {
         }))
 
         alert.addAction(UIAlertAction(title: (bill?.favorite)! ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
-            RealmCoordinator.updateFavoriteStatusOf(bill: (self?.bill!)!, to: !(self?.bill?.favorite)!)
+
+            let realm = try? Realm()
+            if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
+                try? realm?.write {
+                    updBill.favorite = !updBill.favorite
+                    realm?.add(updBill, update: true)
+                }
+            }
+
             self?.navigationItem.title = (self?.bill?.favorite)! ? "🎖\(self?.bill!.number ?? "")" : "📃\(self?.bill!.number ?? "")"
         }))
 

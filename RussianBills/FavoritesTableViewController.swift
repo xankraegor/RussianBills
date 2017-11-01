@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class FavoritesTableViewController: UITableViewController {
-
+    let realm = try? Realm()
+    
     // MARK: - Life cycle
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,15 +55,20 @@ final class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            RealmCoordinator.updateFavoriteStatusOf(bill: RealmCoordinator.loadFavoriteBills()[indexPath.row], to: false)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let currentFavoriteBill = RealmCoordinator.loadFavoriteBills()[indexPath.row]
 
-            if RealmCoordinator.loadFavoriteBills().count == 0 {
-                setupEmptyFavoriteViewTemplate ()
+            try? realm?.write {
+                currentFavoriteBill.favorite = false
+                realm?.add(currentFavoriteBill, update: true)
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+
+                if RealmCoordinator.loadFavoriteBills().count == 0 {
+                    setupEmptyFavoriteViewTemplate ()
+                }
             }
-        }    
+        }
     }
-
     
     // MARK: - Navigation
 

@@ -50,21 +50,21 @@ enum RealmCoordinator {
 //        }
 //    }
 
-    static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool, completion: (()->Void)? = nil) {
-        do {
-            let realm = try Realm()
-            let updBill = bill
-            try realm.write {
-                updBill.favorite = isFavourite
-                realm.add(updBill, update: true)
-            }
-            if completion != nil {
-                completion!()
-            }
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
-        }
-    }
+//    static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool, completion: (()->Void)? = nil) {
+//        do {
+//            let realm = try Realm()
+//            let updBill = bill
+//            try realm.write {
+//                updBill.favorite = isFavourite
+//                realm.add(updBill, update: true)
+//            }
+//            if completion != nil {
+//                completion!()
+//            }
+//        } catch let error {
+//            fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
+//        }
+//    }
 
     static func updateParserDataOf(bill: Bill_, withContent content: Data?, completion: (()->Void)? = nil) {
         do {
