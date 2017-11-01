@@ -68,7 +68,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
-            return RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList).count
+            return searchResults?.count ?? 0
         } else {
             return 0
         }
@@ -76,7 +76,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
-        let bill = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)[indexPath.row]
+        let bill = searchResults![indexPath.row]
         if bill.comments.characters.count > 0 {
             cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
@@ -89,19 +89,18 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
-        let bill = bills[indexPath.row]
+        let bill = searchResults![indexPath.row]
         try? realm?.write { bill.favorite = !bill.favorite }
         setColorAndNumberForCell(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let results = searchResults, indexPath.row > results.count - 15 && !isLoading {
+        if let existingSearchResults = searchResults, indexPath.row > existingSearchResults.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
                 result in
-                var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
+                var bills = Array(existingSearchResults)
                 bills.append(contentsOf: result)
                 RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.quickSearchList, toContain: bills)
             })
@@ -162,12 +161,11 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func setColorAndNumberForCell(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
-            let quickSearchBills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
-            if quickSearchBills[indexPath.row].favorite  {
-                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(quickSearchBills[indexPath.row].number)"
+            if searchResults![indexPath.row].favorite  {
+                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(searchResults![indexPath.row].number)"
                 cell.backgroundColor = favoriteAddedColor
             } else {
-                cell.billNumberLabel.text = "📃" + quickSearchBills[indexPath.row].number
+                cell.billNumberLabel.text = "📃" + searchResults![indexPath.row].number
                 cell.backgroundColor = notFavoriteColor
             }
         }

@@ -61,12 +61,12 @@ final class SearchResultsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.mainSearchList).count
+        return searchResults?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
-        let bill = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.mainSearchList)[indexPath.row]
+        let bill = searchResults![indexPath.row]
         if bill.comments.characters.count > 0 {
             cell.nameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
@@ -79,12 +79,12 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - TableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let results = searchResults, indexPath.row > results.count - 15 && !isLoading {
+        if let existingSearchResults = searchResults, indexPath.row > existingSearchResults.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
                 result in
-                var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.mainSearchList)
+                var bills = Array(existingSearchResults)
                 bills.append(contentsOf: result)
                 RealmCoordinator.setBillsList(ofType: RealmCoordinatorListType.mainSearchList, toContain: bills)
             })
