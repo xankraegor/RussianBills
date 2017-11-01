@@ -77,7 +77,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
         let bill = searchResults![indexPath.row]
-        if bill.comments.characters.count > 0 {
+        if bill.comments.count > 0 {
             cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
             cell.billNameLabel.text = bill.name

@@ -67,7 +67,7 @@ final class SearchResultsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
         let bill = searchResults![indexPath.row]
-        if bill.comments.characters.count > 0 {
+        if bill.comments.count > 0 {
             cell.nameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
             cell.nameLabel.text = bill.name
