@@ -16,72 +16,6 @@ public enum RealmCoordinatorListType: String {
 
 enum RealmCoordinator {
 
-//    static func DEBUG_defaultRealmPath() -> String {
-//        return "Default realm path: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))"
-//    }
-
-    // MARK: Write and update existing data in Realm
-
-//    static func save(collection: [Object]) {
-//
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                for obj in collection {
-//                    realm.add(obj, update: true)
-//                }
-//            }
-//            UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: collection)
-//
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to save objects: \(error.localizedDescription)")
-//        }
-//    }
-
-//    static func save(object: Object) {
-//
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                realm.add(object, update: true)
-//            }
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to save object: \(error.localizedDescription)")
-//        }
-//    }
-
-//    static func updateFavoriteStatusOf(bill: Bill_, to isFavourite: Bool, completion: (()->Void)? = nil) {
-//        do {
-//            let realm = try Realm()
-//            let updBill = bill
-//            try realm.write {
-//                updBill.favorite = isFavourite
-//                realm.add(updBill, update: true)
-//            }
-//            if completion != nil {
-//                completion!()
-//            }
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
-//        }
-//    }
-
-//    static func updateParserDataOf(bill: Bill_, withContent content: Data?, completion: (()->Void)? = nil) {
-//        do {
-//            let realm = try Realm()
-//            let updBill = bill
-//            try realm.write {
-//                updBill.parserContent = content
-//                realm.add(updBill, update: true)
-//            }
-//            if completion != nil {
-//                completion!()
-//            }
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to update favorite status for a bill: \(error.localizedDescription)")
-//        }
-//    }
-
     // MARK: Load data from Realm
 
     static func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {
@@ -114,37 +48,6 @@ enum RealmCoordinator {
         }
     }
 
-//    static func loadObject<T: Object>(_ ofType: T.Type, sortedBy sortParameter: String, ascending: Bool, byIndex: Int) -> T {
-//        do {
-//            let realm = try Realm()
-//            let objs = realm.objects(T.self).sorted(byKeyPath: sortParameter, ascending: ascending)
-//            return objs[byIndex]
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-//        }
-//    }
-
-//    static func loadObject<T: Object>(_ ofType: T.Type, byId id: Int) -> T? {
-//        do {
-//            let realm = try Realm()
-//            let objs = realm.objects(T.self).filter("id == \(id)")
-//            return objs.first
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-//        }
-//    }
-
-//    static func getBill(billNr: String)->Bill_? {
-//        do {
-//            let realm = try Realm()
-//            return realm.object(ofType: Bill_.self, forPrimaryKey: billNr)
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to get parser a bill by its number: \(error.localizedDescription)")
-//        }
-//    }
-
-
-
     static func loadBills(matchingQuery query: BillSearchQuery, sortedBy sortParameter: String, sortDirection ascending: Bool) -> [Bill_] {
         do {
             let realm = try Realm()
@@ -163,45 +66,9 @@ enum RealmCoordinator {
         }
     }
 
-//    static func loadFavoriteBills() -> Results<Bill_> {
-//        do {
-//            let realm = try Realm()
-//            let objs = realm.objects(Bill_.self).filter("favorite == true")
-//            return objs
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to load objects: Realm is not initialized by the Realm coordinator: \(error)")
-//        }
-//    }
-    
-//    static func getFavoriteStatusOf(billNr: String)->Bool? {
-//        do {
-//            let realm = try Realm()
-//            return (realm.object(ofType: Bill_.self, forPrimaryKey: billNr))?.favorite
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to get favorite status for a bill: \(error.localizedDescription)")
-//        }
-//    }
-
-//    static func getParserContentsOf(billNr: String)->Data? {
-//        do {
-//            let realm = try Realm()
-//            return (realm.object(ofType: Bill_.self, forPrimaryKey: billNr))?.parserContent
-//        } catch let error {
-//            fatalError("∆ Cannot reach the Realm to get parser content of a bill: \(error.localizedDescription)")
-//        }
-//    }
-
 
     // MARK: - Count data in Realm
 
-    static func countObjects(ofType type: Object.Type) -> Int {
-        do {
-            let realm = try Realm()
-            return realm.objects(type).count
-        } catch let error {
-            fatalError("∆ Cannot reach the Realm to count objects: Realm is not initialized by the Realm coordinator: \(error)")
-        }
-    }
 
     static func countBills(matchingQuery: BillSearchQuery) -> Int {
         do {
@@ -219,19 +86,6 @@ enum RealmCoordinator {
         }
     }
 
-    // MARK: - Delete data from realm
-
-    static func deleteEverything() {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.deleteAll()
-            }
-        } catch let error {
-            fatalError("∆ Cannot clear caches: \(error)")
-        }
-    }
-    
     // MARK: - Managing Lists
     
     static func getBillsList(ofType type: RealmCoordinatorListType)->BillsList_ {
