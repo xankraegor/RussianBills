@@ -56,16 +56,10 @@ final class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let currentFavoriteBill = RealmCoordinator.loadFavoriteBills()[indexPath.row]
-
-            try? realm?.write {
-                currentFavoriteBill.favorite = false
-                realm?.add(currentFavoriteBill, update: true)
-                
-                tableView.deleteRows(at: [indexPath], with: .fade)
-
-                if RealmCoordinator.loadFavoriteBills().count == 0 {
-                    setupEmptyFavoriteViewTemplate ()
-                }
+            try? realm?.write { currentFavoriteBill.favorite = false }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            if RealmCoordinator.loadFavoriteBills().count == 0 {
+                setupEmptyFavoriteViewTemplate ()
             }
         }
     }

@@ -90,12 +90,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinatorListType.quickSearchList)
         let bill = bills[indexPath.row]
-
-        try? realm?.write {
-            bill.favorite = !bill.favorite
-            realm?.add(bill, update: true)
-        }
-
+        try? realm?.write { bill.favorite = !bill.favorite }
         setColorAndNumberForCell(at: indexPath)
     }
     

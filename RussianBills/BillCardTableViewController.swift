@@ -148,7 +148,6 @@ final class BillCardTableViewController: UITableViewController {
             if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
                 try? realm?.write {
                     updBill.favorite = !updBill.favorite
-                    realm?.add(updBill, update: true)
                 }
             }
 
