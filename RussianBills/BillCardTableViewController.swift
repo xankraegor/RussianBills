@@ -11,6 +11,7 @@ import Kanna
 import RealmSwift
 
 final class BillCardTableViewController: UITableViewController {
+    let realm = try? Realm()
     
     @IBOutlet weak var billTypeLabel: UILabel!
     @IBOutlet weak var billTitle: UILabel!
@@ -31,13 +32,14 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var moreDocsLabel: UILabel!
     @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
     @IBOutlet weak var moreDocsCell: UITableViewCell!
-    
+
+    var billNr: String?
     var bill: Bill_?
 
     var parser: BillParser? {
         didSet {
             if let currentBill = bill, parser?.tree != nil {
-                UserServices.setParserContent(ofBill: currentBill, to: parser!.tree)
+                UserServices.setParserContent(ofBillNr: currentBill.number, to: parser!.tree)
             }
         }
     }
@@ -48,6 +50,10 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let billNumber = billNr else {
+            fatalError("∆ No bill number is being provided")
+        }
+        bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNumber)
         installRealmToken()
         tableView.delegate = self
     }
@@ -107,6 +113,9 @@ final class BillCardTableViewController: UITableViewController {
             stageLabel.text = bill.lastEventStage?.name
             phaseLabel.text = bill.lastEventPhase?.name
             decisionLabel.text = bill.generateFullSolutionDescription()
+            respCommitteeLabel.text = bill.comitteeResponsible?.name
+            profileComitteesLable.text = bill.generateProfileCommitteesDescription()
+            coexecCommitteeLabel.text = bill.generateCoexecitorCommitteesDescription()
         } else {
             fatalError("Bill is not being provided")
         }
@@ -140,7 +149,14 @@ final class BillCardTableViewController: UITableViewController {
         }))
 
         alert.addAction(UIAlertAction(title: (bill?.favorite)! ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
-            RealmCoordinator.updateFavoriteStatusOf(bill: (self?.bill!)!, to: !(self?.bill?.favorite)!)
+
+            let realm = try? Realm()
+            if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
+                try? realm?.write {
+                    updBill.favorite = !updBill.favorite
+                }
+            }
+
             self?.navigationItem.title = (self?.bill?.favorite)! ? "🎖\(self?.bill!.number ?? "")" : "📃\(self?.bill!.number ?? "")"
         }))
 

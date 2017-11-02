@@ -62,7 +62,7 @@ final class Bill_: Object, InitializableWithJson {
         decodeFactions(json)
         decodeDeputees(json)
         decodeOtherSubjects(json)
-        decodeResponsibleCommittees(json)
+        decodeResponsibleCommittee(json)
         decodeProfileCommittees(json)
         decodeCoexecutors(json)
         decodeStages(json)
@@ -77,26 +77,38 @@ final class Bill_: Object, InitializableWithJson {
     // Initialization functions
 
     func decodeFactions(_ json: JSON) {
+        let realm = try? Realm()
         let factions = json["subject"]["factions"].arrayValue
+        var parsedFactions = Set<Factions_>()
+
         for fac in factions {
             let facId = fac["id"].intValue
-            if let faction = RealmCoordinator.loadObject(Factions_.self, byId: facId) {
+            if let faction = realm?.object(ofType: Factions_.self, forPrimaryKey: facId) {
                 self.factions.append(faction)
             } else {
                 let faction = Factions_()
                 faction.id = facId
                 faction.name = fac["name"].stringValue
-                RealmCoordinator.save(object: faction)
+
+                parsedFactions.insert(faction)
                 self.factions.append(faction)
             }
         }
+
+        try? realm?.write {
+            realm?.add(parsedFactions, update: true)
+        }
+
     }
 
     func decodeDeputees(_ json: JSON) {
+        let realm = try? Realm()
         let deputies = json["subject"]["deputies"].arrayValue
+        var parsedDeputees = Set<Deputy_>()
+
         for dep in deputies {
             let depId = dep["id"].intValue
-            if let deputy = RealmCoordinator.loadObject(Deputy_.self, byId: depId) {
+            if let deputy = realm?.object(ofType: Deputy_.self, forPrimaryKey: depId) {
                 deputees.append(deputy)
             } else {
                 let deputy = Deputy_()
@@ -104,32 +116,44 @@ final class Bill_: Object, InitializableWithJson {
                 deputy.name = dep["name"].stringValue
                 deputy.isCurrent = dep["isCurrent"].boolValue
                 deputy.position = dep["position"].stringValue
-                RealmCoordinator.save(object: deputy)
+
+                parsedDeputees.insert(deputy)
                 deputees.append(deputy)
             }
+        }
+
+        try? realm?.write {
+            realm?.add(parsedDeputees, update: true)
         }
     }
 
     func decodeOtherSubjects(_ json: JSON) {
+        let realm = try? Realm()
         let subjects = json["subject"]["departments"].arrayValue
         for sub in subjects {
             let subId = sub["id"].intValue
 
-            if let fedSub = RealmCoordinator.loadObject(FederalSubject_.self, byId: subId) {
-                RealmCoordinator.save(object: fedSub)
+            if let fedSub = realm?.object(ofType: FederalSubject_.self, forPrimaryKey: subId) {
+                try? realm?.write {
+                    realm?.add(fedSub, update: true)
+                }
                 federalSubjects.append(fedSub)
-            } else if let regSub = RealmCoordinator.loadObject(RegionalSubject_.self, byId: subId) {
-                RealmCoordinator.save(object: regSub)
+            } else if let regSub = realm?.object(ofType: RegionalSubject_.self, forPrimaryKey: subId) {
+                try? realm?.write {
+                    realm?.add(regSub, update: true)
+                }
                 regionalSubjects.append(regSub)
             } else {
-                debugPrint("∆ Federal or regional subject named '\(sub)' is not found in Realm")
+                debugPrint("∆ Federal or regional subject could not be found in Realm and parser can't decide, whether the value posted hereafter is federal or reginal subject: \(sub)")
             }
         }
     }
 
-    func decodeResponsibleCommittees(_ json: JSON) {
+    func decodeResponsibleCommittee(_ json: JSON) {
         let comitteeId = json["committees"]["responsible"]["id"].intValue
-        if let committeeById = RealmCoordinator.loadObject(Comittee_.self, byId: comitteeId) {
+        let realm = try? Realm()
+
+        if let committeeById = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
             comitteeResponsible = committeeById
         } else {
             let committee = Comittee_()
@@ -138,17 +162,23 @@ final class Bill_: Object, InitializableWithJson {
             committee.isCurrent = json["committees"]["responsible"]["isCurrent"].boolValue
             committee.startDate = json["committees"]["responsible"]["startDate"].stringValue
             committee.stopDate = json["committees"]["responsible"]["stopDate"].stringValue
-            RealmCoordinator.save(object: committee)
+
+            try? realm?.write {
+                realm?.add(committee, update: true)
+            }
+
             comitteeResponsible = committee
         }
     }
 
     func decodeProfileCommittees(_ json: JSON) {
+        let realm = try? Realm()
         let profileComs = json["committees"]["profile"].arrayValue
+        var parsedCommitees = Set<Comittee_>()
 
         for com in profileComs {
             let comitteeId = com["id"].intValue
-            if let committeeById = RealmCoordinator.loadObject(Comittee_.self, byId: comitteeId) {
+            if let committeeById = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
                 comitteeProfile.append(committeeById)
             } else {
                 let committee = Comittee_()
@@ -158,18 +188,24 @@ final class Bill_: Object, InitializableWithJson {
                 committee.startDate = com["startDate"].stringValue
                 committee.stopDate = com["stopDate"].stringValue
 
-                RealmCoordinator.save(collection: [committee])
+                parsedCommitees.insert(committee)
                 comitteeProfile.append(committee)
             }
+        }
+
+        try? realm?.write {
+            realm?.add(parsedCommitees, update: true)
         }
     }
 
     func decodeCoexecutors(_ json: JSON) {
+        let realm = try? Realm()
         let coexecs = json["committees"]["soexecutor"].arrayValue
+        var parsedCommitees = Set<Comittee_>()
 
         for com in coexecs {
             let comitteeId = com["id"].intValue
-            if let committee = RealmCoordinator.loadObject(Comittee_.self, byId: comitteeId) {
+            if let committee = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
                 comitteeCoexecutor.append(committee)
             } else {
                 let committee = Comittee_()
@@ -179,36 +215,45 @@ final class Bill_: Object, InitializableWithJson {
                 committee.startDate = com["startDate"].stringValue
                 committee.stopDate = com["stopDate"].stringValue
 
-                RealmCoordinator.save(collection: [committee])
+                parsedCommitees.insert(committee)
                 comitteeCoexecutor.append(committee)
             }
+        }
+
+        try? realm?.write {
+            realm?.add(parsedCommitees, update: true)
         }
     }
 
     func decodeStages(_ json: JSON) {
+        let realm = try? Realm()
         let lastEventStageId = json["lastEvent"]["stage"]["id"].intValue
-        if let stage = RealmCoordinator.loadObject(Stage_.self, byId: lastEventStageId) {
+        if let stage = realm?.object(ofType: Stage_.self, forPrimaryKey: lastEventStageId) {
             lastEventStage = stage
         } else {
             let stage = Stage_()
             stage.id = lastEventStageId
             stage.name = json["lastEvent"]["stage"]["name"].stringValue
-
-            RealmCoordinator.save(object: stage)
+            try? realm?.write {
+                realm?.add(stage, update: true)
+            }
             lastEventStage = stage
         }
     }
 
     func decodePhases(_ json: JSON) {
+        let realm = try? Realm()
         let lastEventPhaseId = json["lastEvent"]["phase"]["id"].intValue
-        if let phase = RealmCoordinator.loadObject(Phase_.self, byId: lastEventPhaseId) {
+        if let phase = realm?.object(ofType: Phase_.self, forPrimaryKey: lastEventPhaseId) {
             lastEventPhase = phase
         } else {
             let phase = Phase_()
             phase.id = lastEventPhaseId
             phase.name = json["lastEvent"]["phase"]["name"].stringValue
 
-            RealmCoordinator.save(object: phase)
+            try? realm?.write {
+                realm?.add(phase, update: true)
+            }
             lastEventPhase = phase
         }
     }
@@ -237,6 +282,14 @@ final class Bill_: Object, InitializableWithJson {
         federalSubjects.forEach({output.append($0.name)})
         regionalSubjects.forEach({output.append($0.name)})
         return output.joined(separator: "; ")
+    }
+
+    func generateCoexecitorCommitteesDescription() -> String? {
+         return comitteeCoexecutor.map{$0.name}.joined(separator: "; ")
+    }
+
+    func generateProfileCommitteesDescription()->String? {
+        return comitteeProfile.map{$0.name}.joined(separator: "; ")
     }
 
     // MARK: = Additional Description

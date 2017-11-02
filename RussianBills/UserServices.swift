@@ -13,6 +13,7 @@ import Alamofire
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
 
+
     // MARK: - Download Reference Categories
 
     static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
@@ -31,6 +32,7 @@ enum UserServices {
         }
     }
 
+
     static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
@@ -38,7 +40,11 @@ enum UserServices {
             }
 
             Request.comittees(current: nil, completion: { (result: [Comittee_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    realm?.add(result, update: true)
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -53,7 +59,13 @@ enum UserServices {
             }
 
             Request.lawClasses { (result: [LawClass_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -68,7 +80,13 @@ enum UserServices {
             }
 
             Request.topics { (result: [Topic_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -83,7 +101,13 @@ enum UserServices {
             }
 
             Request.deputies { (result: [Deputy_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -98,7 +122,13 @@ enum UserServices {
             }
 
             Request.federalSubjects { (result: [FederalSubject_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -113,7 +143,13 @@ enum UserServices {
             }
 
             Request.regionalSubjects { (result: [RegionalSubject_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -128,7 +164,13 @@ enum UserServices {
             }
 
             Request.instances { (result: [Instance_]) in
-                RealmCoordinator.save(collection: result)
+                let realm = try? Realm()
+                try? realm?.write {
+                    for obj in result {
+                        realm?.add(obj, update: true)
+                    }
+                }
+                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -139,31 +181,31 @@ enum UserServices {
     // MARK: - Bills
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
-
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-
+            let realm = try? Realm()
             for res in result {
-                res.favorite = RealmCoordinator.getFavoriteStatusOf(billNr: res.number) ?? false
-                res.parserContent = RealmCoordinator.getParserContentsOf(billNr: res.number)
+                res.favorite = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.favorite ?? false
+                res.parserContent = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.parserContent
             }
-            
-            RealmCoordinator.save(collection: result)
-            
+
+            try? realm?.write {
+                realm?.add(result, update: true)
+            }
+
             if let compl = completion {
                 compl(result)
             }
-            
         })
     }
 
     // MARK: - Parsed content
 
-    static func setParserContent(ofBill bill: Bill_, to content: BillParserContent?) {
-        if let existingContent = content {
-            let serializedContent = existingContent.serialize()
-            RealmCoordinator.updateParserDataOf(bill: bill, withContent: serializedContent, completion: nil)
-        } else {
-            RealmCoordinator.updateParserDataOf(bill: bill, withContent: nil, completion: nil)
+    static func setParserContent(ofBillNr billNr: String, to content: BillParserContent?) {
+        let realm = try? Realm()
+        let newContent = content?.serialize()
+        let bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
+        try? realm?.write {
+            bill!.parserContent = newContent
         }
     }
 

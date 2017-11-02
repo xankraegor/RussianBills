@@ -37,7 +37,7 @@
 		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
-		2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */; };
+		2A8781FE1F0BC24000A0554F /* RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmExtension.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
 		2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */; };
@@ -68,6 +68,7 @@
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
+		2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -117,7 +118,7 @@
 		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		2A75E8FC1F2282F30008FD8F /* FilesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-FileNameAndExtension.swift"; sourceTree = "<group>"; };
-		2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
+		2A8781FD1F0BC24000A0554F /* RealmExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmExtension.swift; sourceTree = "<group>"; };
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
 		2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFunctionsProvider.swift; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
+		2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillListType.swift; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */,
 				2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */,
 				2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */,
+				2A8781FD1F0BC24000A0554F /* RealmExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -298,7 +301,6 @@
 			isa = PBXGroup;
 			children = (
 				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
-				2A8781FD1F0BC24000A0554F /* RealmCoordinator.swift */,
 				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
 				2A98F16C1F0AF029004F5524 /* Model */,
 				2AA4D19D1F0C121C00EE2DA3 /* Enums */,
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */,
+				2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */,
 				2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */,
 				2AA4D1971F0C03D200EE2DA3 /* BillStatus.swift */,
 				2A98F16D1F0AF070004F5524 /* LawType.swift */,
@@ -686,11 +689,12 @@
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
 				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
+				2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */,
 				2AA6771E1F215321003CFD37 /* EventDescriptionTableViewCell.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,
 				2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */,
 				2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */,
-				2A8781FE1F0BC24000A0554F /* RealmCoordinator.swift in Sources */,
+				2A8781FE1F0BC24000A0554F /* RealmExtension.swift in Sources */,
 				2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */,
 				2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */,
 				2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */,

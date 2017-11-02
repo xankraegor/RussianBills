@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class MainTableViewController: UITableViewController {
-
     
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Realm path: \(RealmCoordinator.DEBUG_defaultRealmPath())")
+        print("Default realm path: \(Realm.Configuration.defaultConfiguration.fileURL?.path ?? "missing")")
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
         }

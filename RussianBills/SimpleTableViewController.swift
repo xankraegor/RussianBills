@@ -12,26 +12,32 @@ import RealmSwift
 final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
-    var filteredObjects: [Object]?
-    let searchController = UISearchController(searchResultsController: nil)
-    var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty()
-    }
+
+    let realm = try? Realm()
     var realmNotificationToken: NotificationToken? = nil
+    var objects: Results<Object>?
+
+    var filteredObjects: [Object]?
+    var isFiltering: Bool { return searchController.isActive && !searchBarIsEmpty() }
+
+    let searchController = UISearchController(searchResultsController: nil)
+
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if objectsToDisplay == nil {
+        guard objectsToDisplay != nil else {
             dismiss(animated: true, completion: nil)
+            return
         }
-        if let type = objectsToDisplay?.typeUsedForObjects, let results = try? Realm().objects(type) {
-            realmNotificationToken = results.observe { [weak self] (_)->Void in
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+
+        objects = realm?.objects(objectsToDisplay!.typeUsedForObjects).sorted(byKeyPath: "name", ascending: true)
+        realmNotificationToken = objects!.observe {
+            [weak self] (_)->Void in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
             }
         }
 
@@ -101,7 +107,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         if isFiltering {
             return filteredObjects?.count ?? 0
         } else {
-            return RealmCoordinator.countObjects(ofType: objectsToDisplay!.typeUsedForObjects)
+            return objects?.count ?? 0
         }
     }
 
@@ -110,25 +116,25 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : RealmCoordinator.loadObject(LawClass_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
             cell.textLabel?.text = objct.name
             return cell
 
         case .topics:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Topic_: RealmCoordinator.loadObject(Topic_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! Topic_: objects![indexPath.row] as! Topic_
             cell.textLabel?.text = objct.name
             return cell
 
         case .instances:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Instance_ : RealmCoordinator.loadObject(Instance_.self, sortedBy: "id", ascending: false, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! Instance_ : objects![indexPath.row] as! Instance_
             cell.textLabel?.text = objct.name
             return cell
 
         case .federalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : RealmCoordinator.loadObject(FederalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -140,7 +146,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         case .regionalSubjects:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : RealmCoordinator.loadObject(RegionalSubject_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -152,7 +158,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         case .committees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Comittee_ : RealmCoordinator.loadObject(Comittee_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! Comittee_ : objects![indexPath.row] as! Comittee_
             cell.nameLabel.text = objct.name
             cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
             if objct.isCurrent {
@@ -164,7 +170,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             
         case .deputees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  RealmCoordinator.loadObject(Deputy_.self, sortedBy: "name", ascending: true, byIndex: indexPath.row)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = objct.name
             cell.detailTextLabel?.text = (objct.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + objct.position
             return cell
@@ -197,26 +203,26 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     internal func updateSearchResults(for searchController: UISearchController) {
         if let filterText = searchController.searchBar.text {
 
-            var objects: [Object] = []
+            var newFilterdObjects: [Object] = []
 
             switch self.objectsToDisplay! {
             case .committees:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
             case .deputees:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
             case .federalSubjects:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
             case .instances:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
             case .lawClasses:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
             case .regionalSubjects:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
             case .topics:
-                objects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
             }
 
-            self.filteredObjects = objects
+            self.filteredObjects = newFilterdObjects
             self.tableView.reloadData()
         }
     }

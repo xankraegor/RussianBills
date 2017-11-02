@@ -20,10 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var config = Realm.Configuration()
         config.fileURL = FilesManager.defaultRealmPath()
         Realm.Configuration.defaultConfiguration = config
-
-        // Override point for customization after application launch.
         dispatcher = Dispatcher.shared
         UserServices.downloadAllReferenceCategories()
+        
+        let realm = try! Realm()
+        let quickSearchList = BillsList_(withName: BillsListType.quickSearch)
+        let mainSearchList = BillsList_(withName: BillsListType.mainSearch)
+        try! realm.write {
+            realm.add(quickSearchList, update: true)
+            realm.add(mainSearchList, update: true)
+        }
+        
         return true
     }
 

@@ -10,6 +10,9 @@ import UIKit
 import RealmSwift
 
 final class QuickSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+
+    let realm = try? Realm()
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var number1TextField: UITextField!
@@ -27,14 +30,36 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-      debugPrint(RealmCoordinator.DEBUG_defaultRealmPath())
-        
+        super.viewDidLoad()        
         tableView.delegate = self
         tableView.dataSource = self
         number1TextField.delegate = self
         number2TextField.delegate = self
         nameTextField.delegate = self
+        
+        realmNotificationToken = searchResults?.observe {
+            [weak self] (changes: RealmCollectionChange) in
+            
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,15 +67,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
-
-        let results = RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList)
-
-        realmNotificationToken = results.observe { [weak self] (_)->Void in
-            self!.tableView.reloadData()
-            self!.isLoading = false
-        }
     }
-
 
     override func viewDidDisappear(_ animated: Bool) {
         UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "", nr2: number2TextField.text ?? "")
@@ -68,7 +85,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
-            return RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList).count
+            return searchResults?.count ?? 0
         } else {
             return 0
         }
@@ -76,8 +93,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
-        let bill = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)[indexPath.row]
-        if bill.comments.characters.count > 0 {
+        let bill = searchResults![indexPath.row]
+        if bill.comments.count > 0 {
             cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
             cell.billNameLabel.text = bill.name
@@ -89,26 +106,31 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
-        RealmCoordinator.updateFavoriteStatusOf(bill: bills[indexPath.row], to: !bills[indexPath.row].favorite)
-        { [weak self] in
-            self?.setColorAndNumberForCell(at: indexPath)
-        }
+        let bill = searchResults![indexPath.row]
+        try? realm?.write { bill.favorite = !bill.favorite }
+        setColorAndNumberForCell(at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row > RealmCoordinator.getBillsList(ofType: RealmCoordinator.ListType.quickSearchList).bills.count - 15 && !isLoading {
+        if let existingSearchResults = searchResults, indexPath.row > existingSearchResults.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
-               result in
-                var bills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
-                bills.append(contentsOf: result)
-                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: bills)
+                [weak self] resultBills in
+                let realm = try? Realm()
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                try? realm?.write {
+                    existingList.bills.append(objectsIn: resultBills)
+                    realm?.add(existingList, update: true)
+                }
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
             })
         }
     }
-    
+
+
     // MARK: - Text Field Delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -119,16 +141,17 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - Actions
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-        
         refillQueryFromTextFields()
-        
         if query.hasAnyFilledFields() {
-            
             UserServices.downloadBills(withQuery: query, completion: {
-               result in
-                RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: result)
+               resultBills in
+                let realm = try? Realm()
+                let list = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                try? realm?.write {
+                    list.bills.removeAll()
+                    list.bills.append(objectsIn: resultBills)
+                }
             })
-            
             self.view.endEditing(true)
         }
     }
@@ -137,7 +160,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         number1TextField.text = ""
         number2TextField.text = ""
         nameTextField.text = ""
-        RealmCoordinator.setBillsList(ofType: RealmCoordinator.ListType.quickSearchList, toContain: nil)
+        try? realm?.write {
+            realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills.removeAll()
+        }
     }
 
     
@@ -154,7 +179,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         }
         
         if let name = nameTextField.text {
-            if name.characters.count > 0 {
+            if name.count > 0 {
                 query.name = name
             }
         }
@@ -163,12 +188,11 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func setColorAndNumberForCell(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
-            let quickSearchBills = RealmCoordinator.getBillsListItems(ofType: RealmCoordinator.ListType.quickSearchList)
-            if quickSearchBills[indexPath.row].favorite  {
-                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(quickSearchBills[indexPath.row].number)"
+            if searchResults![indexPath.row].favorite  {
+                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(searchResults![indexPath.row].number)"
                 cell.backgroundColor = favoriteAddedColor
             } else {
-                cell.billNumberLabel.text = "📃" + quickSearchBills[indexPath.row].number
+                cell.billNumberLabel.text = "📃" + searchResults![indexPath.row].number
                 cell.backgroundColor = notFavoriteColor
             }
         }
