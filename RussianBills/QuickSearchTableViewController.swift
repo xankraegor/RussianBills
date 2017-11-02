@@ -36,6 +36,30 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         number1TextField.delegate = self
         number2TextField.delegate = self
         nameTextField.delegate = self
+        
+        realmNotificationToken = searchResults?.observe {
+            [weak self] (changes: RealmCollectionChange) in
+            
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,11 +67,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         loadSavedQuickSearchFields()
-        
-        realmNotificationToken = searchResults?.observe { [weak self] (_)->Void in
-            self?.tableView.reloadData()
-            self?.isLoading = false
-        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -63,8 +82,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if query.hasAnyFilledFields() {
@@ -99,12 +116,16 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
-                resultBills in
+                [weak self] resultBills in
                 let realm = try? Realm()
-                let quickSearchList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: BillsListType.quickSearch)
-                    try? realm?.write {
-                         quickSearchList.bills.append(objectsIn: resultBills)
-                    }
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                try? realm?.write {
+                    existingList.bills.append(objectsIn: resultBills)
+                    realm?.add(existingList, update: true)
+                }
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
             })
         }
     }

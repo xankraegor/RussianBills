@@ -207,19 +207,19 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
             switch self.objectsToDisplay! {
             case .committees:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
             case .deputees:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
             case .federalSubjects:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
             case .instances:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
             case .lawClasses:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
             case .regionalSubjects:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
             case .topics:
-                newFilterdObjects = Array(RealmCoordinator.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
             }
 
             self.filteredObjects = newFilterdObjects
