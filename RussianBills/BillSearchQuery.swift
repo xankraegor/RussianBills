@@ -87,7 +87,7 @@ struct BillSearchQuery {
         var output = ""
 
         func add(toText: inout String, text: String) {
-            if output.characters.count > 0 {
+            if output.count > 0 {
                 toText += " && " + text
             } else {
                 toText = text

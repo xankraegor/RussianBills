@@ -83,7 +83,7 @@ final class BillCardTableViewController: UITableViewController {
         case 0: // Header
             switch indexPath.row {
             case 2: // Bill Description
-                let count = bill?.comments.characters.count ?? 0
+                let count = bill?.comments.count ?? 0
                 return count > 0 ? UITableViewAutomaticDimension : 0
             case 3...5: // Flag colors
                 return 4

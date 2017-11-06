@@ -269,8 +269,8 @@ final class Bill_: Object, InitializableWithJson {
 
     func generateFullSolutionDescription() -> String {
         var output = lastEventSolutionDescription + "\n"
-        output += lastEventDocumentType.characters.count > 0 ? lastEventDocumentType + " " : ""
-        output += lastEventDocumentName.characters.count > 0 ? lastEventDocumentName + " " : ""
+        output += lastEventDocumentType.count > 0 ? lastEventDocumentType + " " : ""
+        output += lastEventDocumentName.count > 0 ? lastEventDocumentName + " " : ""
         output += lastEventDate.isoDateToReadableDate() ?? ""
         return output
     }
@@ -328,7 +328,7 @@ final class Bill_: Object, InitializableWithJson {
 
     private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
         let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
-        return textWithoutSpaces.characters.count > 0 ? source : replacementText
+        return textWithoutSpaces.count > 0 ? source : replacementText
     }
 
 }
