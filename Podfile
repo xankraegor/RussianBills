@@ -12,6 +12,8 @@ pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feat
 #pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Xcode9-Swift4'
 pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Xcode9-Swift3_2'
 pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
 
   target 'RussianBillsTests' do
     inherit! :search_paths
