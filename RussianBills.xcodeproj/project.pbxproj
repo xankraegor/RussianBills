@@ -64,6 +64,7 @@
 		2AB1596F1F15530600FF7BBD /* Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596E1F15530600FF7BBD /* Instances.swift */; };
 		2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
 		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
+		2AB5E5A31FB0F711005613FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
@@ -145,6 +146,7 @@
 		2AB1596E1F15530600FF7BBD /* Instances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instances.swift; sourceTree = "<group>"; };
 		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
 		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
+		2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
+				2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AAA81671F195A64005DF090 /* MainScenes */,
@@ -514,6 +517,7 @@
 				2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */,
 				2AA62DB91F8CE764000405F5 /* FavEmptyView.xib in Resources */,
 				2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */,
+				2AB5E5A31FB0F711005613FE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,7 +860,7 @@
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = antonalekseev.RussianBills;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -873,7 +877,7 @@
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = antonalekseev.RussianBills;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
