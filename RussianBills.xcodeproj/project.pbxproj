@@ -70,6 +70,9 @@
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
 		2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */; };
+		2AE76E1A1FB10D9800CE79AF /* AutorizationFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */; };
+		2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */; };
+		2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -152,6 +155,9 @@
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
 		2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillListType.swift; sourceTree = "<group>"; };
+		2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationFormController.swift; sourceTree = "<group>"; };
+		2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
+		2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBillsStruct.swift; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -305,6 +311,7 @@
 			children = (
 				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
 				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
+				2AE76E1F1FB1383900CE79AF /* FirebaseModel */,
 				2A98F16C1F0AF029004F5524 /* Model */,
 				2AA4D19D1F0C121C00EE2DA3 /* Enums */,
 			);
@@ -317,6 +324,7 @@
 				2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */,
 				2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */,
 				2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */,
+				2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */,
 				2AA4D1971F0C03D200EE2DA3 /* BillStatus.swift */,
 				2A98F16D1F0AF070004F5524 /* LawType.swift */,
 				2A8782031F0BE89A00A0554F /* DeputyPosition.swift */,
@@ -368,6 +376,7 @@
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
+				2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AD350D61FA51CB300EAC827 /* Attachments Scene */,
 				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
@@ -406,6 +415,14 @@
 				2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */,
 			);
 			name = "Attachments Scene";
+			sourceTree = "<group>";
+		};
+		2AE76E1F1FB1383900CE79AF /* FirebaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */,
+			);
+			name = FirebaseModel;
 			sourceTree = "<group>";
 		};
 		446ACAC816582A6953401F6D /* Pods */ = {
@@ -657,6 +674,7 @@
 			files = (
 				2A92D6611F99386B00B2DD4E /* Dispatcher.swift in Sources */,
 				2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */,
+				2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */,
 				2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */,
 				2AA4D19A1F0C04D200EE2DA3 /* FederalSubject.swift in Sources */,
 				2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */,
@@ -669,6 +687,7 @@
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
 				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
+				2AE76E1A1FB10D9800CE79AF /* AutorizationFormController.swift in Sources */,
 				2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */,
 				2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */,
 				2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */,
@@ -687,6 +706,7 @@
 				2AAE25A21F183C970053AD75 /* FavoritesTableViewCell.swift in Sources */,
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,
 				2A98F1761F0AFBEA004F5524 /* LawClasses.swift in Sources */,
+				2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */,
 				2AA677211F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift in Sources */,
 				2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */,
 				2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */,
