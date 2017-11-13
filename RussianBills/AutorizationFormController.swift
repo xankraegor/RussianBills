@@ -60,7 +60,10 @@ final class AuthFormController: FormViewController {
     // MARK: - Form contents
 
     func setupForm() {
-        form +++ Section()
+
+        form +++ Section("loginSection") { section in
+            section.header?.title = ""
+        }
             <<< LabelRow("authStatus"){ row in
                 row.title = authStatus.rawValue
                 row.cell.textLabel?.numberOfLines = 0
@@ -146,6 +149,34 @@ final class AuthFormController: FormViewController {
                     } else {
                         self?.performLogout()
                     }
+                })
+
+            +++ Section("signUpSection") { section in
+                section.header?.title = "Зарегистрироваться"
+            }
+            <<< EmailRow("emailRowSignup"){ row in
+                row.title = "Адрес"
+                row.placeholder = "test@test.com"
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleEmail())
+                row.validationOptions = .validatesOnChange
+                }
+
+            <<< PasswordRow("passwordRowSignUp"){ row in
+                row.title = "Использовать пароль"
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
+            }
+            <<< PasswordRow("confirmPasswordRowSignUp"){ row in
+                row.title = "Повторите пароль"
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
+            }
+
+            <<< ButtonRow("singupButtonRow") { row in
+                row.title = ""
+                }.onCellSelection({ [weak self] (cell, row) in
+                    print("Signup button pressed")
                 })
     }
 
