@@ -229,9 +229,12 @@ final class AuthFormController: FormViewController {
 
 
     // MARK: - TODO: Temporary
-    func updateFirebaseFavoriteRecords() {
-        let dbLink = Database .database().reference()
-        let favorites = FavoriteBills().toAnyObject
-        dbLink.child("favoriteBills").setValue(favorites)
+    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let dbLink = Database.database().reference()
+        debugPrint("User ID is: \(userId)")
+        let favorites = FavoriteBills().toDictionary
+        debugPrint(favorites)
+        dbLink.child(userId).updateChildValues(favorites)
     }
 }

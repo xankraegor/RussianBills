@@ -58,7 +58,10 @@ final class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let currentFavoriteBill = favoriteBills![indexPath.row]
-            try? realm?.write { currentFavoriteBill.favorite = false }
+            try? realm?.write {
+                currentFavoriteBill.favorite = false
+                currentFavoriteBill.favoriteUpdated = Date().timeIntervalSince1970
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {
                 setupEmptyFavoriteViewTemplate ()

@@ -22,6 +22,7 @@ final class Bill_: Object, InitializableWithJson {
     @objc dynamic var url: String = ""
     @objc dynamic var transcriptUrl: String = ""
     @objc dynamic var favorite: Bool = false
+    @objc dynamic var favoriteUpdated: Double = Date().timeIntervalSince1970
 
     let factions = List<Factions_>()
     let deputees = List<Deputy_>()

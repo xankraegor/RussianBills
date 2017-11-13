@@ -11,25 +11,38 @@ import RealmSwift
 
 struct FavoriteBills {
 
-    var bills: [String]
+    var billNumbers: [String] = []
+    var updateTimestamps: [Double] = []
 
-    var toAnyObject: Any {
-        return [
-            "bills" : bills
-        ]
+    var toDictionary: [String: Any] {
+        var values : [String : Double] = [:]
+        for (index, element) in billNumbers.enumerated() {
+            values[element] = updateTimestamps[index]
+        }
+
+        return [ "favoriteBills" : values ]
+        // ["favoriteBills": [ "123456-7" : 542542542542.23134 , "234467-7" : 542542542324.23134 ]]
     }
+
 
     // MARK: - Initialization
 
     init() {
         if let favoriteBills = try? Realm().objects(Bill_.self).filter("favorite == true") {
-            bills = Array(favoriteBills.map{$0.number}).sorted()
+            for bill in favoriteBills {
+                billNumbers.append(bill.number)
+                updateTimestamps.append(bill.favoriteUpdated)
+            }
         } else {
-            bills = []
+            billNumbers = []
+            updateTimestamps = []
         }
     }
 
-    init(withData data: [String]) {
-        bills = data
+    init(withValues data: [String : Double]) {
+        for item in data {
+            billNumbers.append(item.key)
+            updateTimestamps.append(item.value)
+        }
     }
 }
