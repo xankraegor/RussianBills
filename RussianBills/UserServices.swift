@@ -184,8 +184,11 @@ enum UserServices {
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
             let realm = try? Realm()
             for res in result {
-                res.favorite = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.favorite ?? false
-                res.parserContent = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number)?.parserContent
+                if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
+                    res.favorite = existingBill.favorite
+                    res.favoriteUpdated = existingBill.favoriteUpdated
+                    res.parserContent = existingBill.parserContent
+                }
             }
 
             try? realm?.write {
@@ -194,6 +197,20 @@ enum UserServices {
 
             if let compl = completion {
                 compl(result)
+            }
+        })
+    }
+
+    static func downloadNonExistingBillBySync(withNumber number: String, favoriteTimestamp: Double) {
+        let query = BillSearchQuery(withNumber: number)
+        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
+            if let bill = result.first {
+                let realm = try? Realm()
+                bill.favorite = true
+                bill.favoriteUpdated = favoriteTimestamp
+                try? realm?.write {
+                    realm?.add(bill, update: true)
+                }
             }
         })
     }
