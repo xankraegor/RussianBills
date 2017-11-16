@@ -11,13 +11,16 @@ import UIKit
 final class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel!
-
+    @IBOutlet weak var dataBaseSizeLabel: UILabel!
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell!
+    @IBOutlet weak var authStatusLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setSizeLabelText()
         tableView.delegate = self
+        setSizeLabelText()
+        setDBSizeLabelText()
+        authStatusLabel.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
     }
 
     // MARK: - Table View Delegate
@@ -29,7 +32,6 @@ final class SettingsTableViewController: UITableViewController {
             FilesManager.deleteAllAttachments()
             setSizeLabelText()
         }
-
     }
 
     // MARK: - Helper functions
@@ -38,7 +40,13 @@ final class SettingsTableViewController: UITableViewController {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path
         let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
         downloadedFilesSizeLabel.text = "Загруженные приложения к законопроектам занимают \(size)"
-        
+    }
+
+    func setDBSizeLabelText() {
+        let path = FilesManager.defaultRealmPath().absoluteString
+        print(path)
+        let size = FilesManager.sizeOfFile(atPath: path) ?? "0 байт"
+        dataBaseSizeLabel.text = "База данных законопроектов занимает \(size)"
     }
 
 

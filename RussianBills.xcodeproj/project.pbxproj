@@ -18,6 +18,7 @@
 		2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */; };
 		2A3A04031F992BB9007D4EFE /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */; };
 		2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */; };
+		2A3D42051FBA594C0034331E /* SynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D42041FBA594C0034331E /* SynchronizationManager.swift */; };
 		2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4ED0DE1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */; };
@@ -99,6 +100,7 @@
 		2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		2A3D42041FBA594C0034331E /* SynchronizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationManager.swift; sourceTree = "<group>"; };
 		2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchFieldsReporting.swift; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4ED0DD1F0D40D8008BF1B3 /* BillSearchQueryPageLimit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQueryPageLimit.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
+				2A3D42041FBA594C0034331E /* SynchronizationManager.swift */,
 				2AAA81671F195A64005DF090 /* MainScenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -378,8 +381,8 @@
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
-				2AD350D61FA51CB300EAC827 /* Attachments Scene */,
 				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
+				2AD350D61FA51CB300EAC827 /* Attachments Scene */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
 				2AA6771F1F215325003CFD37 /* BillDetails */,
 				2AD1E93A1F127AB100CA0D89 /* Favorites */,
@@ -672,6 +675,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A3D42051FBA594C0034331E /* SynchronizationManager.swift in Sources */,
 				2A92D6611F99386B00B2DD4E /* Dispatcher.swift in Sources */,
 				2A98F1741F0AFB3C004F5524 /* Topics.swift in Sources */,
 				2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */,
