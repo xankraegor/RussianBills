@@ -39,7 +39,6 @@ final class AuthFormController: FormViewController {
 
     func setupAuthHandle() {
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            print(auth)
             self?.handleAuthResponse(error: nil, user: user)
         }
     }
@@ -221,20 +220,10 @@ final class AuthFormController: FormViewController {
             passRow.hidden = true
             buttonRow.title = "Выйти"
 
-            updateFirebaseFavoriteRecords()
+            SyncMan.shared.updateFirebaseFavoriteRecords()
         }
 
         tableView.reloadData()
     }
-
-
-    // MARK: - TODO: Temporary
-    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        let dbLink = Database.database().reference()
-        debugPrint("User ID is: \(userId)")
-        let favorites = FavoriteBills().toDictionary
-        debugPrint(favorites)
-        dbLink.child(userId).updateChildValues(favorites)
-    }
+    
 }
