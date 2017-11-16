@@ -99,6 +99,7 @@ enum FilesManager {
         let  byteCountFormatter =  ByteCountFormatter()
         byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
         let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(fileSize))
+        print("File Size: \(fileSize)")
         return sizeToDisplay
     }
     
@@ -137,8 +138,12 @@ enum FilesManager {
             }
             let  byteCountFormatter =  ByteCountFormatter()
             byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
-            let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(folderSize))
-            return sizeToDisplay
+            if folderSize > 0 {
+                return byteCountFormatter.string(fromByteCount: Int64(folderSize))
+            } else {
+                return "0 байт"
+            }
+
         } else {
             return nil
         }
