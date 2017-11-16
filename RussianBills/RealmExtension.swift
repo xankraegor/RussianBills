@@ -11,16 +11,13 @@ import RealmSwift
 
 extension Realm {
 
-    static func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {
-        do {
-            let realm = try Realm()
+    func loadObjectsWithFilter <T>(ofType: T.Type, applyingFilter filterString: String? = nil) -> Results<T>? where T: Object, T: QuickSearchFieldsReporting {
             guard let existingFilterString = filterString, existingFilterString.count > 0 else {
-                return realm.objects(T.self)
+                return self.objects(T.self)
             }
             let predicates = T.searchFields.map{NSPredicate(format: "\($0) CONTAINS[cd] '\(existingFilterString)'")}
-            return realm.objects(T.self).filter(NSCompoundPredicate(orPredicateWithSubpredicates: predicates))
-        } catch let error {
-            fatalError("∆ Cannot load filtered objects by reason: \(error)")
-        }
+            return self.objects(T.self).filter(NSCompoundPredicate(orPredicateWithSubpredicates: predicates))
+
     }
+    
 }
