@@ -40,27 +40,36 @@ final class LegislativeSubjTableViewController: UITableViewController {
     func setMainLabels(forItem item: Object) {
         if let fedSubj = item as? FederalSubject_ {
             nameLabel.text = fedSubj.name
+            lookupForAddressWithName(name: fedSubj.name)
             typeLabel.text = "Федеральный орган власти"
-            var currentText = fedSubj.isCurrent ? "Действует c" : "Действовал c"
+            var currentText = fedSubj.isCurrent ? "Действует c " : "Действовал c "
             currentText.append(contentsOf: fedSubj.startDate)
             if !fedSubj.isCurrent {
-                currentText.append(contentsOf: " по \(fedSubj.startDate)")
+                currentText.append(contentsOf: " по \(fedSubj.stopDate.isoDateToReadableDate() ?? fedSubj.stopDate)")
             }
             isCurrentLabel.text = currentText
         } else if let regSubj = item as? RegionalSubject_ {
             nameLabel.text = regSubj.name
+            lookupForAddressWithName(name: regSubj.name)
             typeLabel.text = "Региональный орган власти"
-            var currentText = regSubj.isCurrent ? "Действует c" : "Действовал c"
-            currentText.append(contentsOf: regSubj.startDate)
+            var currentText = regSubj.isCurrent ? "Действует c " : "Действовал c "
+            currentText.append(contentsOf: regSubj.startDate.isoDateToReadableDate() ?? regSubj.startDate)
             if !regSubj.isCurrent {
-                currentText.append(contentsOf: " по \(regSubj.startDate)")
+                currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate() ?? regSubj.stopDate)")
             }
             isCurrentLabel.text = currentText
         } else if let deputy = item as? Deputy_ {
             nameLabel.text = deputy.name
+            lookupForAddressWithName(name: deputy.name)
             typeLabel.text = deputy.position
             isCurrentLabel.text = deputy.isCurrent ? "Полномочия действуют" : "Срок полномочий истёк"
         }
+    }
+
+    // MARK: - Location Services
+
+    func lookupForAddressWithName(name: String) {
+
     }
 
 }
