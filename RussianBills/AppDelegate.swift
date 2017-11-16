@@ -14,18 +14,17 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var dispatcher: Dispatcher?
+    var syncman: SyncMan?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        // Firebase
         FirebaseApp.configure()
 
+        // Realm
         var config = Realm.Configuration()
         config.fileURL = FilesManager.defaultRealmPath()
         Realm.Configuration.defaultConfiguration = config
-        dispatcher = Dispatcher.shared
-        UserServices.downloadAllReferenceCategories()
-        
         let realm = try! Realm()
         let quickSearchList = BillsList_(withName: BillsListType.quickSearch)
         let mainSearchList = BillsList_(withName: BillsListType.mainSearch)
@@ -33,7 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             realm.add(quickSearchList, update: true)
             realm.add(mainSearchList, update: true)
         }
-        
+
+        // Initializing sync manager
+        syncman = SyncMan.shared
+
+        // Other actions
+        UserServices.downloadAllReferenceCategories()
+
         return true
     }
 
