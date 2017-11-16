@@ -114,6 +114,41 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch objectsToDisplay! {
 
+        // Legislative initiative bodies
+        case .federalSubjects:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
+            cell.nameLabel.text = objct.name
+            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
+            cell.accessoryType = .disclosureIndicator
+            if objct.isCurrent {
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
+            } else {
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
+            }
+            return cell
+
+        case .regionalSubjects:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
+            cell.nameLabel.text = objct.name
+            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
+            cell.accessoryType = .disclosureIndicator
+            if objct.isCurrent {
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
+            } else {
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
+            }
+            return cell
+
+        case .deputees:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
+            let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
+            cell.textLabel?.text = objct.name
+            cell.detailTextLabel?.text = (objct.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + objct.position
+            cell.accessoryType = .disclosureIndicator
+            return cell
+
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
@@ -132,30 +167,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             cell.textLabel?.text = objct.name
             return cell
 
-        case .federalSubjects:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
-            cell.nameLabel.text = objct.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
-            if objct.isCurrent {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
-            } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
-            }
-            return cell
-
-        case .regionalSubjects:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
-            cell.nameLabel.text = objct.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
-            if objct.isCurrent {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
-            } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
-            }
-            return cell
-
         case .committees:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
             let objct = isFiltering ? filteredObjects![indexPath.row] as! Comittee_ : objects![indexPath.row] as! Comittee_
@@ -166,13 +177,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             } else {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
             }
-            return cell
-            
-        case .deputees:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
-            cell.textLabel?.text = objct.name
-            cell.detailTextLabel?.text = (objct.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + objct.position
             return cell
         }
 
@@ -225,6 +229,53 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             self.filteredObjects = newFilterdObjects
             self.tableView.reloadData()
         }
+    }
+
+    // MARK: - Navigation
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch objectsToDisplay! {
+        case .federalSubjects, .regionalSubjects, .deputees:
+            return true
+        default:
+            return false
+        }
+    }
+
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let dest = segue.destination as? LegislativeSubjTableViewController,
+            let selectedRow = tableView.indexPathForSelectedRow?.row, let obj = objects else {
+                return
+        }
+
+        guard let source = isFiltering ? filteredObjects : Array(obj) else {
+            return
+        }
+
+        switch objectsToDisplay! {
+        case .federalSubjects:
+            if let object = source[selectedRow] as? FederalSubject_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.federalSubject
+            }
+        case .regionalSubjects:
+            if let object = source[selectedRow] as? RegionalSubject_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.regionalSubject
+            }
+        case .deputees:
+            if let object = source[selectedRow] as? Deputy_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.deputy
+            }
+        default:
+            break
+        }
+
+
+
     }
 }
 
