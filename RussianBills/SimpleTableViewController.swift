@@ -41,16 +41,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             }
         }
 
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = false
-        } else {
-            tableView.tableHeaderView = searchController.searchBar
-        }
+        setupSearchController()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +140,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             cell.accessoryType = .disclosureIndicator
             return cell
 
+            // Other Reference categories
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
@@ -202,6 +194,20 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         return isEmpty
     }
 
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        definesPresentationContext = true
+
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+    }
+
     // MARK: - Search Controller Updating
 
     internal func updateSearchResults(for searchController: UISearchController) {
@@ -211,19 +217,19 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
             switch self.objectsToDisplay! {
             case .committees:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
             case .deputees:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
             case .federalSubjects:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
             case .instances:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
             case .lawClasses:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
             case .regionalSubjects:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
             case .topics:
-                newFilterdObjects = Array(Realm.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
+                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
             }
 
             self.filteredObjects = newFilterdObjects
@@ -241,8 +247,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             return false
         }
     }
-
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let dest = segue.destination as? LegislativeSubjTableViewController,
@@ -273,9 +277,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         default:
             break
         }
-
-
-
     }
 }
 
