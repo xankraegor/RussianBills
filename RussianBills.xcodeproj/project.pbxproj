@@ -71,6 +71,7 @@
 		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
 		2AB5E5A31FB0F711005613FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */; };
 		2ABABAEA1FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */; };
+		2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
@@ -162,6 +163,7 @@
 		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
 		2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegislativeSubjectTypeEnum.swift; sourceTree = "<group>"; };
+		2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRegSubjInfo.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			children = (
 				2A8424BC1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift */,
 				2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */,
+				2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */,
 			);
 			name = "Legislative Subjects Scene";
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
 				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
+				2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */,
 				2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */,
 				2AA6771E1F215321003CFD37 /* EventDescriptionTableViewCell.swift in Sources */,
 				2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */,

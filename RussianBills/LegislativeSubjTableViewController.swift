@@ -82,7 +82,7 @@ final class LegislativeSubjTableViewController: UITableViewController {
             case 6230800:    //Правительство РФ
                 address = "103274, Москва, Краснопресненская наб., 2"
             case 6230500:    //Президент РФ
-                address = "101000, Москва, Кремль, к. 1"
+                address = "101000, Москва, Старая Площадь, 6 стр. 1"
             case 6230600:    //Совет Федерации РФ
                 address = "103426, Москва, ул. Большая Дмитровка, 26"
             default:
@@ -99,6 +99,11 @@ final class LegislativeSubjTableViewController: UITableViewController {
                 currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate() ?? regSubj.stopDate)")
             }
             isCurrentLabel.text = currentText
+            if let data = regionalSubjectsData[regSubj.id], let addr = data["address"] {
+                address = addr
+            } else {
+                address = ""
+            }
 
         } else if let deputy = item as? Deputy_ {
             nameLabel.text = deputy.name
@@ -120,6 +125,13 @@ final class LegislativeSubjTableViewController: UITableViewController {
         LocationManager.instance.geocode(address: address) { [weak self] (placemark) in
             self?.locationForMap = placemark?.location
             self?.showOnMapLabel.isEnabled = self?.locationForMap != nil ? true : false
+
+            if let pm = placemark {
+                print("Name: \(pm.name ?? "")")
+                print("abbreviated country name: \(pm.isoCountryCode ?? "")")
+                print("country name: \(pm.country ?? "")")
+                print("postal code: \(pm.postalCode ?? "")")
+            }
         }
     }
 
