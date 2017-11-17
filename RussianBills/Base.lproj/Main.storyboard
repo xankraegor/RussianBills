@@ -1314,7 +1314,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Жириновский Владимир Вольфович" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9E0-Ga-doh">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Жириновский Владимир Вольфович" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9E0-Ga-doh">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1331,7 +1331,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Депутат Государственной Думы" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CO6-oo-iau">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Депутат Государственной Думы" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CO6-oo-iau">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1348,7 +1348,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Полномочия действуют" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eRZ-pS-4YA">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Полномочия действуют" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eRZ-pS-4YA">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1360,7 +1360,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Учреждение" id="SR1-l5-PSY">
+                            <tableViewSection headerTitle="Информация об учреждении" id="SR1-l5-PSY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="QeY-p9-bmb" style="IBUITableViewCellStyleDefault" id="N0b-3F-fgK">
                                         <rect key="frame" x="0.0" y="223" width="375" height="44"/>
@@ -1369,7 +1369,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Загрузка адреса" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QeY-p9-bmb">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Москва, Охотный ряд, д. 1" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QeY-p9-bmb">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1386,7 +1386,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Посмотреть на карте" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iaC-A1-Lgv">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Посмотреть на карте" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" id="iaC-A1-Lgv">
                                                     <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1396,7 +1396,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="1iZ-Fr-et9" kind="show" id="iOd-N0-QQ4"/>
+                                            <segue destination="1iZ-Fr-et9" kind="show" identifier="showOnMapSegue" id="iOd-N0-QQ4"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1408,10 +1408,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Субъект закинициативы" id="u6X-X3-Q8g"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addressLabel" destination="QeY-p9-bmb" id="cEf-t1-Cfb"/>
                         <outlet property="isCurrentLabel" destination="eRZ-pS-4YA" id="oim-ma-73o"/>
                         <outlet property="nameLabel" destination="9E0-Ga-doh" id="hkJ-Af-NhD"/>
+                        <outlet property="showOnMapLabel" destination="iaC-A1-Lgv" id="ojU-ze-M9P"/>
                         <outlet property="typeLabel" destination="CO6-oo-iau" id="bFr-u3-Nyv"/>
                     </connections>
                 </tableViewController>
@@ -1432,18 +1434,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nja-6x-jkx">
-                                <rect key="frame" x="0.0" y="34" width="375" height="633"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="nja-6x-jkx" firstAttribute="top" secondItem="gIx-27-ssF" secondAttribute="bottom" constant="-64" id="0PI-NK-Wkr"/>
                             <constraint firstItem="nja-6x-jkx" firstAttribute="leading" secondItem="uRn-8S-xU0" secondAttribute="leading" id="9U7-jR-5Px"/>
-                            <constraint firstItem="PhD-vt-bgx" firstAttribute="top" secondItem="nja-6x-jkx" secondAttribute="bottom" constant="-44" id="Nr5-4A-pr8"/>
+                            <constraint firstItem="nja-6x-jkx" firstAttribute="top" secondItem="gIx-27-ssF" secondAttribute="bottom" id="Eiw-5F-klc"/>
                             <constraint firstAttribute="trailing" secondItem="nja-6x-jkx" secondAttribute="trailing" id="P5M-fV-rCt"/>
+                            <constraint firstItem="PhD-vt-bgx" firstAttribute="top" secondItem="nja-6x-jkx" secondAttribute="bottom" id="zx3-d4-6Zb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Учреждение на карте" prompt="Госудасртвенная дума" id="IRV-NH-2jt"/>
+                    <navigationItem key="navigationItem" title="Учреждение на карте" id="IRV-NH-2jt"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="nja-6x-jkx" id="RdN-eR-kva"/>
                     </connections>
@@ -1571,8 +1574,10 @@
                             <outlet property="delegate" destination="iyB-xj-RN1" id="vTa-em-NAT"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="$UniversalTitle$" largeTitleDisplayMode="never" id="N4a-f0-1gH"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="B1Z-fK-baC" id="LPZ-tH-Nqu"/>
                     </connections>

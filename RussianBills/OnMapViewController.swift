@@ -13,6 +13,8 @@ class OnMapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    var locationToDisplay: CLLocation?
+    var nameToDisplay: String?
 
     // MARK: - Life cycle
 
@@ -20,17 +22,26 @@ class OnMapViewController: UIViewController {
         super.viewDidLoad()
         LocationManager.instance.delegate = self
         LocationManager.instance.startUpdatingLocation()
+
+        let latDelta:CLLocationDegrees = 0.01
+        let longDelta:CLLocationDegrees = 0.01
+        let theSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+        let pointLocation:CLLocationCoordinate2D = locationToDisplay!.coordinate
+
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(pointLocation, theSpan)
+        mapView.setRegion(region, animated: true)
+
+        let pinLocation : CLLocationCoordinate2D = locationToDisplay!.coordinate
+        let objectAnnotation = MKPointAnnotation()
+        objectAnnotation.coordinate = pinLocation
+        objectAnnotation.title = nameToDisplay
+        self.mapView.addAnnotation(objectAnnotation)
     }
 
     deinit {
         LocationManager.instance.stopUpdatingLocation()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation
