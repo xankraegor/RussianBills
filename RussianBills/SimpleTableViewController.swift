@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating {
+final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
@@ -18,7 +18,9 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     var objects: Results<Object>?
 
     var filteredObjects: [Object]?
-    var isFiltering: Bool { return searchController.isActive && !searchBarIsEmpty() }
+    var isFiltering: Bool {
+        return (searchController.isActive && !searchBarIsEmpty()) || searchController.searchBar.selectedScopeButtonIndex != 0
+    }
 
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -185,19 +187,24 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     }
 
     func searchBarIsEmpty() -> Bool {
-        let isEmpty = searchController.searchBar.text?.isEmpty ?? true
-
-        if isEmpty {
-            filteredObjects = nil
-        }
-
-        return isEmpty
+        return searchController.searchBar.text?.isEmpty ?? true
     }
 
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
-        
+        searchController.searchBar.searchBarStyle = .minimal
+
+        if objectsToDisplay?.typeUsedForObjects === FederalSubject_.self ||
+            objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
+            objectsToDisplay?.typeUsedForObjects === Deputy_.self
+            {
+            searchController.searchBar.scopeButtonTitles = ["Все", "Действующие", "Не действ."]
+//            searchController.searchBar.showsScopeBar = true
+            searchController.searchBar.sizeToFit()
+        }
+
         definesPresentationContext = true
 
         if #available(iOS 11.0, *) {
@@ -208,33 +215,52 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         }
     }
 
+    func updateSearchResults() {
+        let filterText = searchController.searchBar.text
+
+        var current: Bool? = nil
+        if searchController.searchBar.selectedScopeButtonIndex == 1 {
+            current = true
+        }
+
+        if searchController.searchBar.selectedScopeButtonIndex == 2 {
+            current = false
+        }
+
+        var newFilterdObjects: [Object] = []
+
+        switch self.objectsToDisplay! {
+        case .committees:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Comittee_.self, orString: filterText, andCurrent: current)!)
+        case .deputees:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current)!)
+        case .federalSubjects:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(FederalSubject_.self, orString: filterText, andCurrent: current)!)
+        case .instances:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Instance_.self, orString: filterText, andCurrent: current)!)
+        case .lawClasses:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(LawClass_.self, orString: filterText, andCurrent: current)!)
+        case .regionalSubjects:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(RegionalSubject_.self, orString: filterText, andCurrent: current)!)
+        case .topics:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Topic_.self, orString: filterText, andCurrent: current)!)
+        }
+
+        self.filteredObjects = newFilterdObjects
+        self.tableView.reloadData()
+    }
+
     // MARK: - Search Controller Updating
 
     internal func updateSearchResults(for searchController: UISearchController) {
-        if let filterText = searchController.searchBar.text {
+        updateSearchResults()
+    }
 
-            var newFilterdObjects: [Object] = []
+    // MARK: - Search Bar Delegate
 
-            switch self.objectsToDisplay! {
-            case .committees:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Comittee_.self, applyingFilter: filterText)!)
-            case .deputees:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Deputy_.self, applyingFilter: filterText)!)
-            case .federalSubjects:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: FederalSubject_.self, applyingFilter: filterText)!)
-            case .instances:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Instance_.self, applyingFilter: filterText)!)
-            case .lawClasses:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: LawClass_.self, applyingFilter: filterText)!)
-            case .regionalSubjects:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: RegionalSubject_.self, applyingFilter: filterText)!)
-            case .topics:
-                newFilterdObjects = Array(realm!.loadObjectsWithFilter(ofType: Topic_.self, applyingFilter: filterText)!)
-            }
-
-            self.filteredObjects = newFilterdObjects
-            self.tableView.reloadData()
-        }
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        searchController.searchBar.resignFirstResponder()
+        updateSearchResults()
     }
 
     // MARK: - Navigation

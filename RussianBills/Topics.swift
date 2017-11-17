@@ -28,4 +28,5 @@ final class Topic_: Object, InitializableWithJson, QuickSearchFieldsReporting {
     // MARK: - QuickSearchFieldsReporting
 
     static var searchFields = ["name"]
+    static var hasIsCurrent = false
 }

@@ -12,6 +12,7 @@ import SwiftyJSON
 
 /// Список депутатов Госдумы и членов Совета Федерации
 final class Deputy_: Object, InitializableWithJson, QuickSearchFieldsReporting {
+
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var position: String = ""
@@ -32,4 +33,5 @@ final class Deputy_: Object, InitializableWithJson, QuickSearchFieldsReporting {
     // MARK: - QuickSearchFieldsReporting
 
     static var searchFields = ["name", "position"]
+    static var hasIsCurrent = true
 }
