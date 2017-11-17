@@ -24,10 +24,12 @@ final class LocationManager: NSObject {
     lazy var locationManager: CLLocationManager =  {
         let lm = CLLocationManager()
         lm.delegate = self
-        lm.desiredAccuracy = kCLLocationAccuracyBest
+        lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         lm.requestWhenInUseAuthorization()
         return lm
     }()
+
+    let geocoder = CLGeocoder()
 
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
@@ -35,6 +37,33 @@ final class LocationManager: NSObject {
 
     func stopUpdatingLocation() {
         locationManager.stopUpdatingLocation()
+    }
+
+    func geocode(address: String, completion: @escaping (CLPlacemark?)->Void) {
+        let locale = Locale(identifier: "ru_RU")
+
+        let addressInRussia = "Россия, \(address)"
+        debugPrint(addressInRussia)
+
+        if #available(iOS 11.0, *) {
+            geocoder.geocodeAddressString(addressInRussia, in: nil, preferredLocale: locale) {
+                (places, _) in
+                if let place = places?.first {
+                    return completion(place)
+                } else {
+                    return completion(nil)
+                }
+            }
+        } else {
+            geocoder.geocodeAddressString(addressInRussia, in: nil) {
+                (places, _) in
+                if let place = places?.first {
+                    return completion(place)
+                } else {
+                    return completion(nil)
+                }
+            }
+        }
     }
 
 }
