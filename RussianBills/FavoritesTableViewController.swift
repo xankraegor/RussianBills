@@ -17,7 +17,7 @@ final class FavoritesTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        navigationController?.isToolbarHidden = false
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 184
         if favoriteBills!.count > 0 {

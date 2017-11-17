@@ -50,6 +50,7 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         guard let billNumber = billNr else {
             fatalError("∆ No bill number is being provided")
         }

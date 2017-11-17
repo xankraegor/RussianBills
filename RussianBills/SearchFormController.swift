@@ -25,6 +25,7 @@ final class SearchFormController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         form
             
             +++ Section("Основные данные")

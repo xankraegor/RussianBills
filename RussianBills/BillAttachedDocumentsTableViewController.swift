@@ -21,6 +21,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         doPreinstallation()
     }
 

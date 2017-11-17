@@ -30,7 +30,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         number1TextField.delegate = self

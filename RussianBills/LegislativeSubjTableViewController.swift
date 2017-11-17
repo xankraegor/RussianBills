@@ -19,7 +19,6 @@ final class LegislativeSubjTableViewController: UITableViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var isCurrentLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-
     @IBOutlet weak var showOnMapLabel: UILabel!
 
     var address: String = "" {
@@ -43,6 +42,8 @@ final class LegislativeSubjTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.isToolbarHidden = true
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 30
@@ -139,4 +140,5 @@ final class LegislativeSubjTableViewController: UITableViewController {
             dest.nameToDisplay = organizationName
         }
     }
+
 }

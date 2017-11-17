@@ -30,6 +30,8 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.isToolbarHidden = true
+
         guard objectsToDisplay != nil else {
             dismiss(animated: true, completion: nil)
             return

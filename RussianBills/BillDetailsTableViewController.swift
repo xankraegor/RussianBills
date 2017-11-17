@@ -21,6 +21,7 @@ final class BillDetailsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         installRealmToken()
     }
 

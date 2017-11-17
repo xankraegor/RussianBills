@@ -20,6 +20,7 @@ class OnMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         LocationManager.instance.delegate = self
         LocationManager.instance.startUpdatingLocation()
 

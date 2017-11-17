@@ -17,6 +17,7 @@ final class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         tableView.delegate = self
         setSizeLabelText()
         setDBSizeLabelText()

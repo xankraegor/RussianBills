@@ -22,6 +22,7 @@ final class AuthFormController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isToolbarHidden = true
         setupForm()
     }
 
