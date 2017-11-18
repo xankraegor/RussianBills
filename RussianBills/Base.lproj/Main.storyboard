@@ -1829,7 +1829,7 @@
         <!--Авторизация-->
         <scene sceneID="1CN-P6-yQm">
             <objects>
-                <viewController title="Авторизация" id="Zc5-U5-uJ4" sceneMemberID="viewController">
+                <viewController title="Авторизация" id="Zc5-U5-uJ4" customClass="AuthFormController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="65Z-ep-tDe"/>
                         <viewControllerLayoutGuide type="bottom" id="fNy-Kb-g5I"/>
