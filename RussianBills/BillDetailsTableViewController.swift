@@ -21,7 +21,6 @@ final class BillDetailsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
         installRealmToken()
     }
 
@@ -29,7 +28,7 @@ final class BillDetailsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-
+        navigationController?.isToolbarHidden = true
         if let navigationTitle = billNumber {
             self.navigationItem.title = "События 📃\(navigationTitle)"
         }

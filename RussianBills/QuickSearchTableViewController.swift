@@ -31,42 +31,21 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
+
         tableView.delegate = self
         tableView.dataSource = self
         number1TextField.delegate = self
         number2TextField.delegate = self
         nameTextField.delegate = self
         
-        realmNotificationToken = searchResults?.observe {
-            [weak self] (changes: RealmCollectionChange) in
-            
-            guard let tableView = self?.tableView else { return }
-            switch changes {
-            case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                tableView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                // Query results have changed, so apply them to the UITableView
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                     with: .automatic)
-                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                tableView.endUpdates()
-            case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
-            }
-        }
+        installRealmToken()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        navigationController?.isToolbarHidden = true
         loadSavedQuickSearchFields()
     }
 
@@ -171,7 +150,27 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
 
     
     // MARK: - Helper functions
-    
+
+    private func installRealmToken() {
+        realmNotificationToken = searchResults?.observe {
+            [weak self] (changes: RealmCollectionChange) in
+
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+
     private func refillQueryFromTextFields() {
         
         query = BillSearchQuery()

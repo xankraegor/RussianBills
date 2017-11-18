@@ -30,8 +30,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.isToolbarHidden = true
-
         guard objectsToDisplay != nil else {
             dismiss(animated: true, completion: nil)
             return
@@ -52,6 +50,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         super.viewWillAppear(animated)
         self.navigationItem.title = objectsToDisplay!.fullDescription
         self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
+        navigationController?.toolbar.isHidden = true
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
 

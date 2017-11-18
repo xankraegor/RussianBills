@@ -22,12 +22,11 @@ final class SearchResultsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.isToolbarHidden = true
         guard query.hasAnyFilledFields() else {
             fatalError("∆ Did not recieve a search query")
         }

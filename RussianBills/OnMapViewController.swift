@@ -20,7 +20,7 @@ class OnMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
+
         LocationManager.instance.delegate = self
         LocationManager.instance.startUpdatingLocation()
 
@@ -37,6 +37,11 @@ class OnMapViewController: UIViewController {
         objectAnnotation.coordinate = pinLocation
         objectAnnotation.title = nameToDisplay
         self.mapView.addAnnotation(objectAnnotation)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
     }
 
     deinit {

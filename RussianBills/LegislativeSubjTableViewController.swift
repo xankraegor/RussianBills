@@ -43,8 +43,6 @@ final class LegislativeSubjTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.isToolbarHidden = true
-
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 30
 
@@ -55,6 +53,11 @@ final class LegislativeSubjTableViewController: UITableViewController {
         if let item = subjectType.item(byId: id) {
             setMainLabels(forItem: item)
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
     }
 
 

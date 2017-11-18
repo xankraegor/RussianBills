@@ -22,13 +22,13 @@ final class AuthFormController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
         setupForm()
+        setupAuthHandle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupAuthHandle()
+        navigationController?.toolbar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
