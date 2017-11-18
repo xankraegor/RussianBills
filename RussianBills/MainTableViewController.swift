@@ -45,7 +45,9 @@ final class MainTableViewController: UITableViewController {
                 case "InstancesSegue":
                     (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.instances
                 case "DeputeesSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.deputees
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.dumaDeps
+                case "CouncilSegue":
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.councilMems
             default:
                 break
             }

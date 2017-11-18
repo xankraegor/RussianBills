@@ -15,7 +15,16 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     let realm = try? Realm()
     var realmNotificationToken: NotificationToken? = nil
-    var objects: Results<Object>?
+
+    lazy var objects: Results<Object>? = {
+        if objectsToDisplay == .dumaDeps {
+            return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'депутат'").sorted(byKeyPath: "name", ascending: true)
+        } else if objectsToDisplay == .councilMems {
+            return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'член'").sorted(byKeyPath: "name", ascending: true)
+        } else {
+            return realm?.objects(objectsToDisplay!.typeUsedForObjects).sorted(byKeyPath: "name", ascending: true)
+        }
+    }()
 
     var filteredObjects: [Object]?
     var isFiltering: Bool {
@@ -35,7 +44,6 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             return
         }
 
-        objects = realm?.objects(objectsToDisplay!.typeUsedForObjects).sorted(byKeyPath: "name", ascending: true)
         realmNotificationToken = objects!.observe {
             [weak self] (_)->Void in
             DispatchQueue.main.async {
@@ -48,8 +56,8 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = objectsToDisplay!.fullDescription
-        self.navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
+        navigationItem.title = objectsToDisplay!.fullDescription
+        navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
         navigationController?.toolbar.isHidden = true
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
@@ -79,7 +87,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             UserServices.downloadInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
-        case .deputees:
+        case .dumaDeps, .councilMems:
             UserServices.downloadInstances() { [weak self] in
                 self?.updateTableWithNewData()
             }
@@ -135,7 +143,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             }
             return cell
 
-        case .deputees:
+        case .dumaDeps, .councilMems:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
             let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = objct.name
@@ -233,8 +241,10 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         switch self.objectsToDisplay! {
         case .committees:
             newFilterdObjects = Array(realm!.loadFilteredObjects(Comittee_.self, orString: filterText, andCurrent: current)!)
-        case .deputees:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current)!)
+        case .dumaDeps:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeps: true)!)
+        case .councilMems:
+            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeps: false)!)
         case .federalSubjects:
             newFilterdObjects = Array(realm!.loadFilteredObjects(FederalSubject_.self, orString: filterText, andCurrent: current)!)
         case .instances:
@@ -268,7 +278,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch objectsToDisplay! {
-        case .federalSubjects, .regionalSubjects, .deputees:
+        case .federalSubjects, .regionalSubjects, .dumaDeps, .councilMems:
             return true
         default:
             return false
@@ -296,7 +306,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.regionalSubject
             }
-        case .deputees:
+        case .dumaDeps, .councilMems:
             if let object = source[selectedRow] as? Deputy_ {
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.deputy
