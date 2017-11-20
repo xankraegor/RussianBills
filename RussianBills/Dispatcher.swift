@@ -23,9 +23,11 @@ final class Dispatcher {
     let attachmentsDownloadQueue = DispatchQueue(label: "attachmentsDownloadQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
 
     let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .utility, attributes: DispatchQueue.Attributes.concurrent)
+    let favoritesUpdateDispatchGroup = DispatchGroup()
 
     let htmlParseQueue = DispatchQueue(label: "html-parse-queue", qos: .userInitiated)
     var prefetchBillsWorkItem: DispatchWorkItem?
+
 
     // Dispatcher Functions
 
