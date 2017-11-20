@@ -10,7 +10,16 @@ import UIKit
 import RealmSwift
 
 final class MainTableViewController: UITableViewController {
-    
+
+    @IBOutlet weak var updatedFavoriteBillsCountLabel: UILabel!
+
+    let realm = try? Realm()
+
+    lazy var favoriteBillsWithUnseenChangesCount = {
+        return (try? Realm().objects(Bill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
+    }()
+
+
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -19,11 +28,22 @@ final class MainTableViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
         }
+
+        updatedFavoriteBillsCountLabel.layer.cornerRadius = 10
+        updatedFavoriteBillsCountLabel.layer.masksToBounds = true
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
+        favoriteBillsWithUnseenChangesCount = (try? Realm().objects(Bill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
+        if favoriteBillsWithUnseenChangesCount > 0 {
+            updatedFavoriteBillsCountLabel.text = "  \(favoriteBillsWithUnseenChangesCount)  "
+            updatedFavoriteBillsCountLabel.isHidden = false
+        } else {
+            updatedFavoriteBillsCountLabel.isHidden = true
+        }
     }
 
 

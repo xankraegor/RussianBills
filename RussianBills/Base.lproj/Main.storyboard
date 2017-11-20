@@ -104,7 +104,7 @@
         <!--🇷🇺 Законопроекты-->
         <scene sceneID="ssA-En-DFa">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="EIW-S8-JWd" customClass="MainTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="EIW-S8-JWd" customClass="MainTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="static" style="grouped" rowHeight="45" sectionHeaderHeight="18" sectionFooterHeight="18" id="jqo-Yx-Hcy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,17 +148,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎖 Избранные законопроекты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-H1-I7E">
-                                                    <rect key="frame" x="20" y="15" width="339" height="15.5"/>
+                                                    <rect key="frame" x="20" y="15" width="308" height="16"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text=" 99 " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlB-Pv-Gh7">
+                                                    <rect key="frame" x="328" y="12" width="31" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="BCK-kh-XWd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="B6p-H1-I7E" firstAttribute="top" secondItem="ylE-Yc-WPk" secondAttribute="topMargin" constant="4" id="1lj-vZ-5PI"/>
-                                                <constraint firstItem="B6p-H1-I7E" firstAttribute="trailing" secondItem="ylE-Yc-WPk" secondAttribute="trailingMargin" id="CFW-SW-bqu"/>
+                                                <constraint firstItem="xlB-Pv-Gh7" firstAttribute="centerY" secondItem="ylE-Yc-WPk" secondAttribute="centerY" id="KOv-gT-Abx"/>
+                                                <constraint firstAttribute="trailing" secondItem="xlB-Pv-Gh7" secondAttribute="trailing" constant="16" id="S6p-5o-TAD"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="B6p-H1-I7E" secondAttribute="bottom" constant="3.5" id="bfe-lC-Mf5"/>
+                                                <constraint firstItem="xlB-Pv-Gh7" firstAttribute="leading" secondItem="B6p-H1-I7E" secondAttribute="trailing" id="cfi-1z-luV"/>
                                                 <constraint firstItem="B6p-H1-I7E" firstAttribute="leading" secondItem="ylE-Yc-WPk" secondAttribute="leading" constant="20" symbolic="YES" id="lvO-js-YRQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -397,11 +409,13 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="🇷🇺 Законопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="updatedFavoriteBillsCountLabel" destination="xlB-Pv-Gh7" id="hi5-DL-LMF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMx-R5-t0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1496" y="80"/>
+            <point key="canvasLocation" x="1495.2" y="79.610194902548727"/>
         </scene>
         <!--🎖Избранные-->
         <scene sceneID="n0u-nz-NCg">
@@ -427,8 +441,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-o9-qqk">
-                                            <rect key="frame" x="16" y="11" width="343" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-o9-qqk">
+                                            <rect key="frame" x="133" y="11" width="226" height="21"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="51U-Yb-ZPv"/>
@@ -437,18 +451,33 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Обновления " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h10-vb-5I5">
+                                            <rect key="frame" x="16" y="11" width="117" height="21"/>
+                                            <color key="backgroundColor" red="1" green="0.36362834690355206" blue="0.25536405446526522" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="A1r-WM-4AP"/>
+                                                <constraint firstAttribute="height" constant="21" id="Si3-7I-PV4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="AHI-S4-CF4" firstAttribute="leading" secondItem="9JO-C0-67Z" secondAttribute="leadingMargin" id="0JB-hh-5FD"/>
                                         <constraint firstItem="Ong-o9-qqk" firstAttribute="trailing" secondItem="9JO-C0-67Z" secondAttribute="trailingMargin" id="3eF-n8-ThU"/>
                                         <constraint firstItem="AHI-S4-CF4" firstAttribute="top" secondItem="Ong-o9-qqk" secondAttribute="bottom" id="8hV-f1-zb3"/>
-                                        <constraint firstItem="Ong-o9-qqk" firstAttribute="leading" secondItem="9JO-C0-67Z" secondAttribute="leadingMargin" id="apC-NW-PfN"/>
+                                        <constraint firstItem="h10-vb-5I5" firstAttribute="leading" secondItem="9JO-C0-67Z" secondAttribute="leadingMargin" id="HY8-3N-wbW"/>
+                                        <constraint firstItem="h10-vb-5I5" firstAttribute="top" secondItem="9JO-C0-67Z" secondAttribute="topMargin" id="JkB-2s-vyB"/>
+                                        <constraint firstItem="AHI-S4-CF4" firstAttribute="top" secondItem="h10-vb-5I5" secondAttribute="bottom" id="VWq-AO-6aO"/>
+                                        <constraint firstItem="Ong-o9-qqk" firstAttribute="leading" secondItem="h10-vb-5I5" secondAttribute="trailing" id="akE-FT-sMM"/>
                                         <constraint firstItem="AHI-S4-CF4" firstAttribute="bottom" secondItem="9JO-C0-67Z" secondAttribute="bottomMargin" id="bKf-Jy-d7i"/>
                                         <constraint firstItem="Ong-o9-qqk" firstAttribute="top" secondItem="9JO-C0-67Z" secondAttribute="topMargin" id="iEg-ce-Y6r"/>
                                         <constraint firstItem="AHI-S4-CF4" firstAttribute="trailing" secondItem="9JO-C0-67Z" secondAttribute="trailingMargin" id="ilC-I1-APg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="hasUpdatesLabel" destination="h10-vb-5I5" id="qLP-ca-s2b"/>
                                     <outlet property="nameLabel" destination="AHI-S4-CF4" id="Znf-8R-C9L"/>
                                     <outlet property="numberLabel" destination="Ong-o9-qqk" id="uxe-Uv-FqX"/>
                                     <segue destination="lxy-Bg-9id" kind="show" identifier="BillCardSegue" id="LwO-fy-era"/>
@@ -474,7 +503,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="paG-gG-Yyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2422" y="-783"/>
+            <point key="canvasLocation" x="2421.5999999999999" y="-783.05847076461771"/>
         </scene>
         <!--📃№ 123456-7-->
         <scene sceneID="T2K-qE-SeX">
@@ -1851,6 +1880,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="EE7-Yf-RIq"/>
         <segue reference="0xS-fK-VXV"/>
-        <segue reference="LwO-fy-era"/>
+        <segue reference="ECW-Zv-M8L"/>
     </inferredMetricsTieBreakers>
 </document>

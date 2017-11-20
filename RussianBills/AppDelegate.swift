@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Other actions
         UserServices.downloadAllReferenceCategories()
+        UserServices.updateFavoriteBills(forced: true)
 
         return true
     }

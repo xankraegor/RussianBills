@@ -11,4 +11,5 @@ import UIKit
 final class FavoritesTableViewCell: UITableViewCell {
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var hasUpdatesLabel: UILabel!
 }

@@ -34,7 +34,10 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var moreDocsCell: UITableViewCell!
 
     var billNr: String?
-    var bill: Bill_?
+
+    lazy var bill: Bill_? = {
+        return realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
+    }()
 
     var parser: BillParser? {
         didSet {
@@ -50,12 +53,13 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let billNumber = billNr else {
-            fatalError("∆ No bill number is being provided")
-        }
-        bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNumber)
         installRealmToken()
         tableView.delegate = self
+        if bill?.favoriteHasUnseenChanges ?? false {
+            try? realm?.write {
+                bill?.favoriteHasUnseenChanges = false
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

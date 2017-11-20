@@ -11,7 +11,20 @@ import RealmSwift
 
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
-    let favoriteBills = try? Realm().objects(Bill_.self).filter("favorite == true")
+
+    lazy var favoriteBills = {
+        return try? Realm().objects(Bill_.self).filter("favorite == true").sorted(by: { (first, second) -> Bool in
+
+            if first.favoriteHasUnseenChanges && !second.favoriteHasUnseenChanges {
+                return true
+            } else if !first.favoriteHasUnseenChanges && second.favoriteHasUnseenChanges {
+                return false
+            }
+
+            // In case both have same favoriteHasUnseenChanges
+            return second.number > first.number
+        })
+    }()
     
     // MARK: - Life cycle
 
@@ -23,12 +36,8 @@ final class FavoritesTableViewController: UITableViewController {
         if favoriteBills!.count > 0 {
             uninstallEmptyFavoriteViewTemplate()
         }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-
 
     // MARK: - Table view data source
 
@@ -39,7 +48,9 @@ final class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfRows = favoriteBills!.count
         if numberOfRows == 0 {
-            setupEmptyFavoriteViewTemplate ()
+            setupEmptyFavoriteViewTemplate()
+        } else {
+            uninstallEmptyFavoriteViewTemplate()
         }
         return numberOfRows
     }
@@ -48,6 +59,9 @@ final class FavoritesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
         cell.nameLabel?.text = favoriteBills![indexPath.row].name
         cell.numberLabel?.text = "📃" + favoriteBills![indexPath.row].number
+        cell.hasUpdatesLabel.isHidden = !favoriteBills![indexPath.row].favoriteHasUnseenChanges
+        cell.hasUpdatesLabel.layer.cornerRadius = 10
+        cell.hasUpdatesLabel.layer.masksToBounds = true
         return cell
     }
 
@@ -60,7 +74,7 @@ final class FavoritesTableViewController: UITableViewController {
             let currentFavoriteBill = favoriteBills![indexPath.row]
             try? realm?.write {
                 currentFavoriteBill.favorite = false
-                currentFavoriteBill.favoriteUpdated = Date().timeIntervalSince1970
+                currentFavoriteBill.favoriteUpdatedTimestamp = Date().timeIntervalSince1970
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {
@@ -68,6 +82,7 @@ final class FavoritesTableViewController: UITableViewController {
             }
         }
     }
+
     
     // MARK: - Navigation
 
@@ -79,8 +94,8 @@ final class FavoritesTableViewController: UITableViewController {
             }
         }
     }
- 
-    
+
+
     // MARK: - Additional Views
     
     func setupEmptyFavoriteViewTemplate () {
