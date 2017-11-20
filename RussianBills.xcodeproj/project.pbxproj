@@ -172,6 +172,7 @@
 		2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationFormController.swift; sourceTree = "<group>"; };
 		2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
 		2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBillsStruct.swift; sourceTree = "<group>"; };
+		2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RussianBills.entitlements; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -289,6 +290,7 @@
 		2A6315AD1F0AE1B400611BD8 /* RussianBills */ = {
 			isa = PBXGroup;
 			children = (
+				2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */,
 				2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */,
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
@@ -530,6 +532,9 @@
 								enabled = 1;
 							};
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -928,6 +933,7 @@
 			baseConfigurationReference = 4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RussianBills/RussianBills.entitlements;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -945,6 +951,7 @@
 			baseConfigurationReference = 0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RussianBills/RussianBills.entitlements;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
