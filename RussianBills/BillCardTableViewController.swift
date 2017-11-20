@@ -155,7 +155,7 @@ final class BillCardTableViewController: UITableViewController {
             if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
                 try? realm?.write {
                     updBill.favorite = !updBill.favorite
-                    updBill.favoriteUpdated = Date().timeIntervalSince1970
+                    updBill.favoriteUpdatedTimestamp = Date().timeIntervalSince1970
                 }
             }
 

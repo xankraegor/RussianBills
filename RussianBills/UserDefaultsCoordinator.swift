@@ -19,66 +19,84 @@ enum UserDefaultsCoordinator: String {
     case topics
     case instances
     case stage
+    case favorites
 
     /// 24 hrs in seconds
     static let referenceValuesUpdateTimeout: TimeInterval = 86400
+    /// 30 min in seconds
+    static let defaultBillsUpdateTimeout: TimeInterval = 1800
 
     // MARK: - Public methods
 
-    /// Checks, if reference values of selected self type were updated prior to (now - defaultReferenceValuesUpdateTimeout)
-    public func referenceValuesUpdateRequired() -> Bool {
-        let key = variableNameForUpdateTimeout()
-        guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
-            return true
-        }
+    /// Checks, if reference values of selected self type were updated prior to (now - referenceValuesUpdateTimeout)
+    public func updateRequired() -> Bool {
+        switch self {
 
-        let now = Date()
-        let updateNeeded = previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < now.timeIntervalSinceReferenceDate
-        return updateNeeded
+        case .favorites:
+            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: "favoriteUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
+                return true
+            }
+
+            let storedUpdateTimeout = UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")
+            let favoritesUpdateTimeout = storedUpdateTimeout == 0 ? UserDefaultsCoordinator.defaultBillsUpdateTimeout : storedUpdateTimeout
+            return previousUpdateTimestamp + favoritesUpdateTimeout < Date().timeIntervalSinceReferenceDate
+
+        default:
+            let key = variableNameForUpdateTimestamp()
+            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
+                return true
+            }
+
+            return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSinceReferenceDate
+        }
     }
 
-    public static func updateReferenceValuesTimestampUsingClassType(ofCollection: [Object]) {
+    public static func updateTimestampUsingClassType(ofCollection: [Object]) {
         guard ofCollection.count > 0 else {
             return
         }
 
+        if ofCollection.first is Bill_ {
+            UserDefaultsCoordinator.favorites.updateTimestamp()
+        }
+
         if ofCollection.first is FederalSubject_ {
-            UserDefaultsCoordinator.federalSubject.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.federalSubject.updateTimestamp()
             return
         }
 
         if ofCollection.first is RegionalSubject_ {
-            UserDefaultsCoordinator.regionalSubject.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.regionalSubject.updateTimestamp()
             return
         }
 
         if ofCollection.first is Comittee_ {
-            UserDefaultsCoordinator.committee.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.committee.updateTimestamp()
             return
         }
 
         if ofCollection.first is LawClass_ {
-            UserDefaultsCoordinator.lawClass.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.lawClass.updateTimestamp()
             return
         }
 
         if ofCollection.first is Deputy_ {
-            UserDefaultsCoordinator.deputy.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.deputy.updateTimestamp()
             return
         }
 
         if ofCollection.first is Topic_ {
-            UserDefaultsCoordinator.topics.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.topics.updateTimestamp()
             return
         }
 
         if ofCollection.first is Instance_ {
-            UserDefaultsCoordinator.instances.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.instances.updateTimestamp()
             return
         }
 
         if ofCollection.first is Stage_ {
-            UserDefaultsCoordinator.stage.updateReferanceValuesTimestamp()
+            UserDefaultsCoordinator.stage.updateTimestamp()
             return
         }
 
@@ -101,12 +119,12 @@ enum UserDefaultsCoordinator: String {
 
     /// Returns variable name in UserDefaults to hold last updated timestamp
     /// i.g. lawClassUpdateTimeout
-    private func variableNameForUpdateTimeout() -> String {
-        return self.rawValue + "UpdateTimeout"
+    private func variableNameForUpdateTimestamp() -> String {
+        return self.rawValue + "UpdateTimestamp"
     }
 
-    private func updateReferanceValuesTimestamp() {
-        let key = variableNameForUpdateTimeout()
+    private func updateTimestamp() {
+        let key = variableNameForUpdateTimestamp()
         UserDefaults.standard.set(Date().timeIntervalSinceReferenceDate, forKey: key)
     }
 

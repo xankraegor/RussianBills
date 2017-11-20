@@ -89,7 +89,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         let bill = searchResults![indexPath.row]
         try? realm?.write {
             bill.favorite = !bill.favorite
-            bill.favoriteUpdated = Date().timeIntervalSince1970
+            bill.favoriteUpdatedTimestamp = Date().timeIntervalSince1970
         }
         setColorAndNumberForCell(at: indexPath)
     }
@@ -186,7 +186,6 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
                 query.name = name
             }
         }
-        
     }
     
     func setColorAndNumberForCell(at indexPath: IndexPath) {

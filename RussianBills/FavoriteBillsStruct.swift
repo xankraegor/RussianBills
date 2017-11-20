@@ -31,7 +31,7 @@ struct FavoriteBills {
         if let favoriteBills = try? Realm().objects(Bill_.self).filter("favorite == true") {
             for bill in favoriteBills {
                 billNumbers.append(bill.number)
-                updateTimestamps.append(bill.favoriteUpdated)
+                updateTimestamps.append(bill.favoriteUpdatedTimestamp)
             }
         } else {
             billNumbers = []

@@ -62,20 +62,20 @@ final class SyncMan {
                 if let existingBill = self.realm?.object(ofType: Bill_.self, forPrimaryKey: billNumber) {
 
                     // need to update server record :
-                    if existingBill.favoriteUpdated > serverTimestamp {
+                    if existingBill.favoriteUpdatedTimestamp > serverTimestamp {
                         if existingBill.favorite {
                             // adding new favorite to the server
-                            self.dbLink.child(userId).child("favoriteBills").setValue([existingBill.number : existingBill.favoriteUpdated])
+                            self.dbLink.child(userId).child("favoriteBills").setValue([existingBill.number : existingBill.favoriteUpdatedTimestamp])
                         } else {
                             // removing a favorite from the server
                             self.dbLink.child(userId).child("favoriteBills").child(existingBill.number).removeValue()
                         }
 
                     // need to update local record :
-                    } else if existingBill.favoriteUpdated < serverTimestamp {
+                    } else if existingBill.favoriteUpdatedTimestamp < serverTimestamp {
                         try? self.realm?.write {
                             existingBill.favorite = true
-                            existingBill.favoriteUpdated = serverTimestamp
+                            existingBill.favoriteUpdatedTimestamp = serverTimestamp
                         }
                     }
 

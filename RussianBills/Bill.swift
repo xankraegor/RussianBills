@@ -21,8 +21,10 @@ final class Bill_: Object, InitializableWithJson {
     @objc dynamic var introductionDate: String = ""
     @objc dynamic var url: String = ""
     @objc dynamic var transcriptUrl: String = ""
+
     @objc dynamic var favorite: Bool = false
-    @objc dynamic var favoriteUpdated: Double = Date().timeIntervalSince1970
+    @objc dynamic var favoriteUpdatedTimestamp: Double = Date().timeIntervalSince1970
+    @objc dynamic var favoriteHasUnseenChanges: Bool = false
 
     let factions = List<Factions_>()
     let deputees = List<Deputy_>()
@@ -31,7 +33,6 @@ final class Bill_: Object, InitializableWithJson {
 
     @objc dynamic var lastEventStage: Stage_?
     @objc dynamic var lastEventPhase: Phase_?
-
     @objc dynamic var lastEventSolutionDescription: String = ""
     @objc dynamic var lastEventDate: String = ""
     @objc dynamic var lastEventDocumentName: String = ""
@@ -293,7 +294,26 @@ final class Bill_: Object, InitializableWithJson {
         return comitteeProfile.map{$0.name}.joined(separator: "; ")
     }
 
-    // MARK: = Additional Description
+    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
+        return textWithoutSpaces.count > 0 ? source : replacementText
+    }
+
+    public func generateHashForLastEvent()->Int {
+        let lastEventStageDescr = lastEventStage?.name ?? ""
+        let lastEventStageHash = lastEventStageDescr.hashValue
+        let lastEventPhaseDescr = lastEventPhase?.name ?? ""
+        let lastEventPhaseHash = lastEventPhaseDescr.hashValue
+        let lastEventSolutionDescriptionHash = lastEventSolutionDescription.hashValue
+        let lastEventDateHash = lastEventDate.hashValue
+        let lastEventDocumentNameHash = lastEventDocumentName.hashValue
+        let lastEventDocumentTypeHash = lastEventDocumentType.hashValue
+        let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)".hashValue
+        debugPrint("Combined hash value for \(self.number) is: \(combinedHash)" )
+        return combinedHash
+    }
+
+    // MARK: - Additional Description
 
     override var description: String {
         let repl = "отсутствует"
@@ -324,12 +344,6 @@ final class Bill_: Object, InitializableWithJson {
         }
 
         return output
-    }
-
-
-    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
-        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
-        return textWithoutSpaces.count > 0 ? source : replacementText
     }
 
 }

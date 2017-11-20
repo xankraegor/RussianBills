@@ -33,9 +33,10 @@ enum UserServices {
     }
 
 
+
     static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.committee.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
                 return
             }
 
@@ -44,7 +45,7 @@ enum UserServices {
                 try? realm?.write {
                     realm?.add(result, update: true)
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -54,7 +55,7 @@ enum UserServices {
 
     static func downloadLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.lawClass.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
                 return
             }
 
@@ -65,7 +66,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -75,7 +76,7 @@ enum UserServices {
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.topics.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.topics.updateRequired() else {
                 return
             }
 
@@ -86,7 +87,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -96,7 +97,7 @@ enum UserServices {
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.deputy.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.deputy.updateRequired() else {
                 return
             }
 
@@ -107,7 +108,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -117,7 +118,7 @@ enum UserServices {
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.federalSubject.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else {
                 return
             }
 
@@ -128,7 +129,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -138,7 +139,7 @@ enum UserServices {
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.regionalSubject.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else {
                 return
             }
 
@@ -149,7 +150,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -159,7 +160,7 @@ enum UserServices {
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.instances.referenceValuesUpdateRequired() else {
+            guard forced || UserDefaultsCoordinator.instances.updateRequired() else {
                 return
             }
 
@@ -170,7 +171,7 @@ enum UserServices {
                         realm?.add(obj, update: true)
                     }
                 }
-                UserDefaultsCoordinator.updateReferenceValuesTimestampUsingClassType(ofCollection: result)
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 if let compl = completion {
                     compl()
                 }
@@ -186,7 +187,7 @@ enum UserServices {
             for res in result {
                 if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
                     res.favorite = existingBill.favorite
-                    res.favoriteUpdated = existingBill.favoriteUpdated
+                    res.favoriteUpdatedTimestamp = existingBill.favoriteUpdatedTimestamp
                     res.parserContent = existingBill.parserContent
                 }
             }
