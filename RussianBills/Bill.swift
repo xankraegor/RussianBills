@@ -309,7 +309,6 @@ final class Bill_: Object, InitializableWithJson {
         let lastEventDocumentNameHash = lastEventDocumentName.hashValue
         let lastEventDocumentTypeHash = lastEventDocumentType.hashValue
         let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)".hashValue
-        debugPrint("Combined hash value for \(self.number) is: \(combinedHash)" )
         return combinedHash
     }
 

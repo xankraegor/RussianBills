@@ -59,6 +59,8 @@ final class BillCardTableViewController: UITableViewController {
             try? realm?.write {
                 bill?.favoriteHasUnseenChanges = false
             }
+            UIApplication.shared.applicationIconBadgeNumber -= 1
+            print("num: \(UIApplication.shared.applicationIconBadgeNumber)")
         }
     }
 

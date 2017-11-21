@@ -24,7 +24,7 @@ enum UserDefaultsCoordinator: String {
     /// 24 hrs in seconds
     static let referenceValuesUpdateTimeout: TimeInterval = 86400
     /// 30 min in seconds
-    static let defaultBillsUpdateTimeout: TimeInterval = 1800
+    static let defaultBillsUpdateTimeout: TimeInterval = 300
 
     // MARK: - Public methods
 
@@ -33,13 +33,11 @@ enum UserDefaultsCoordinator: String {
         switch self {
 
         case .favorites:
-            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: "favoriteUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
+            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: "favoritesUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
                 return true
             }
 
-            let storedUpdateTimeout = UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")
-            let favoritesUpdateTimeout = storedUpdateTimeout == 0 ? UserDefaultsCoordinator.defaultBillsUpdateTimeout : storedUpdateTimeout
-            return previousUpdateTimestamp + favoritesUpdateTimeout < Date().timeIntervalSinceReferenceDate
+            return previousUpdateTimestamp + UserDefaultsCoordinator.favoriteBillsUpdateTimeout() < Date().timeIntervalSince1970
 
         default:
             let key = variableNameForUpdateTimestamp()
@@ -47,7 +45,7 @@ enum UserDefaultsCoordinator: String {
                 return true
             }
 
-            return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSinceReferenceDate
+            return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSince1970
         }
     }
 
@@ -115,6 +113,12 @@ enum UserDefaultsCoordinator: String {
         return (name, nr1, nr2)
     }
 
+    public static func favoriteBillsUpdateTimeout()->Double {
+        let storedUpdateTimeout = UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")
+        let favoritesUpdateTimeout = storedUpdateTimeout == 0 ? UserDefaultsCoordinator.defaultBillsUpdateTimeout : storedUpdateTimeout
+        return favoritesUpdateTimeout
+    }
+
     // MARK: - Private methods
 
     /// Returns variable name in UserDefaults to hold last updated timestamp
@@ -125,7 +129,7 @@ enum UserDefaultsCoordinator: String {
 
     private func updateTimestamp() {
         let key = variableNameForUpdateTimestamp()
-        UserDefaults.standard.set(Date().timeIntervalSinceReferenceDate, forKey: key)
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: key)
     }
 
 }

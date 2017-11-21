@@ -14,6 +14,11 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var dataBaseSizeLabel: UILabel!
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell!
     @IBOutlet weak var authStatusLabel: UILabel!
+    @IBOutlet weak var updateBillsTimeoutSliter: UISlider!
+    @IBOutlet weak var sliderTimeLabel: UILabel!
+
+    private let sliderValues: [Double] = [30, 120, 300, 900, 3600] // TimeInterval in seconds
+    private let sliderValuesDescription: [String] = ["30 сек.", "2 мин.", "5 мин.", "15 мин.", "1 час"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +28,18 @@ final class SettingsTableViewController: UITableViewController {
         setDBSizeLabelText()
         authStatusLabel.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let index = sliderValues.index(of: UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")) {
+            updateBillsTimeoutSliter.value = Float(index) + 1
+            sliderTimeLabel.text = sliderValuesDescription[index]
+        } else {
+            updateBillsTimeoutSliter.value = 3
+            sliderTimeLabel.text = sliderValuesDescription[3]
+        }
+    }
+
 
     // MARK: - Table View Delegate
 
@@ -34,6 +51,16 @@ final class SettingsTableViewController: UITableViewController {
             setSizeLabelText()
         }
     }
+
+
+    // MARK: - Slider Changed
+
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        let sliderPosition = Int(updateBillsTimeoutSliter.value)
+        UserDefaults.standard.set(sliderValues[sliderPosition - 1], forKey: "favoriteUpdateTimeout")
+        sliderTimeLabel.text = sliderValuesDescription[sliderPosition - 1]
+    }
+
 
     // MARK: - Helper functions
 
@@ -49,7 +76,5 @@ final class SettingsTableViewController: UITableViewController {
         let size = FilesManager.sizeOfFile(atPath: path) ?? "0 байт"
         dataBaseSizeLabel.text = "База данных законопроектов занимает \(size)"
     }
-
-
 
 }

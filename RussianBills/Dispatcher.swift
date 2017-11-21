@@ -28,6 +28,8 @@ final class Dispatcher {
     let htmlParseQueue = DispatchQueue(label: "html-parse-queue", qos: .userInitiated)
     var prefetchBillsWorkItem: DispatchWorkItem?
 
+    var favoriteBillsUpdateTimer: DispatchSourceTimer?
+
 
     // Dispatcher Functions
 

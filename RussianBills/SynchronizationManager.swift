@@ -10,6 +10,7 @@ import Foundation
 import FirebaseDatabase
 import FirebaseAuth
 import RealmSwift
+import UserNotifications
 
 final class SyncMan {
     // Singletone
@@ -25,8 +26,9 @@ final class SyncMan {
 
     let realm = try? Realm()
     let favoriteBillsInRealm = try? Realm().objects(Bill_.self).filter("favorite == true")
-
     var favoritesRealmNotificationToken: NotificationToken? = nil
+
+    // MARK: - Initialization
 
     private init() {
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
@@ -37,10 +39,12 @@ final class SyncMan {
         setupFavoritesHangle()
     }
 
+    // MARK: - Firebase syncronization
+
     func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
         guard let userId = uid else { return }
         let favorites = FavoriteBills().toDictionary
-        debugPrint(favorites)
+//        debugPrint(favorites)
         dbLink.child(userId).updateChildValues(favorites)
     }
 
@@ -88,6 +92,18 @@ final class SyncMan {
             }
         })
     }
+
+
+    // MARK: - Updating favorite bills
+
+    var favoriteBillsUpdateTimer: DispatchSourceTimer?
+
+    var favoriteBillsLastUpdate: Date? {
+        let timestamp = UserDefaults.standard.double(forKey: "favoritesUpdateTimestamp")
+        return timestamp > 0 ? Date(timeIntervalSince1970: timestamp) : nil
+        // Set directly by UserServices.updateFavoriteBills function
+    }
+
 
 
 }

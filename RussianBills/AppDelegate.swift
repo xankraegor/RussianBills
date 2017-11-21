@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,12 +37,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initializing sync manager
         syncman = SyncMan.shared
 
+        // Enabling user notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+            DispatchQueue.main.async {
+                application.registerForRemoteNotifications()
+            }
+        }
+
         // Other actions
         UserServices.downloadAllReferenceCategories()
-        UserServices.updateFavoriteBills(forced: true)
+        UserServices.updateFavoriteBills(forced: true) {
+            updateCount in
+            NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": updateCount])
+            UIApplication.shared.applicationIconBadgeNumber = updateCount
+        }
 
         return true
     }
+
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -65,4 +79,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+        debugPrint("Вызов обновления избранных законопроектов в фоне")
+        let updated = SyncMan.shared.favoriteBillsLastUpdate
+        let timeout = UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
+        if updated != nil, abs(updated!.timeIntervalSinceNow) < timeout {
+            print("Фоновое обновление избранных законопроектов не требуется")
+            completionHandler(.noData)
+            return
+        }
+
+        Dispatcher.shared.favoriteBillsUpdateTimer
+            = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
+
+        Dispatcher.shared.favoriteBillsUpdateTimer?.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(Int(timeout) - 1), leeway: .seconds(1))
+
+        Dispatcher.shared.favoriteBillsUpdateTimer?.setEventHandler {
+            debugPrint("Фоновое обновление избранных законопроектов не выполенено в срок")
+            completionHandler(.failed)
+            return
+        }
+
+        Dispatcher.shared.favoriteBillsUpdateTimer?.resume()
+
+        Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
+        UserServices.updateFavoriteBills(forced: true) {
+            updateCount in
+            NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": updateCount])
+            UIApplication.shared.applicationIconBadgeNumber = updateCount
+        }
+        Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
+
+        Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: DispatchQueue.main) {
+            print ("Все данные загружены в фоне")
+            Dispatcher.shared.favoriteBillsUpdateTimer = nil
+            completionHandler(.newData)
+            return
+        }
+
+    }
 }

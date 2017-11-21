@@ -31,15 +31,29 @@ final class MainTableViewController: UITableViewController {
 
         updatedFavoriteBillsCountLabel.layer.cornerRadius = 10
         updatedFavoriteBillsCountLabel.layer.masksToBounds = true
-
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
         favoriteBillsWithUnseenChangesCount = (try? Realm().objects(Bill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
-        if favoriteBillsWithUnseenChangesCount > 0 {
-            updatedFavoriteBillsCountLabel.text = "  \(favoriteBillsWithUnseenChangesCount)  "
+        setFavoritesBadge(count: favoriteBillsWithUnseenChangesCount)
+    }
+
+    // MARK: - Notifications
+
+    @objc func methodOfReceivedNotification(notification: Notification){
+        if let dict = notification.userInfo as? [String: Int], let count = dict["count"] {
+            setFavoritesBadge(count: count)
+        }
+    }
+
+    // MARK: - Helper functions
+
+    func setFavoritesBadge(count: Int) {
+        if count > 0 {
+            updatedFavoriteBillsCountLabel.text = "  \(count)  "
             updatedFavoriteBillsCountLabel.isHidden = false
         } else {
             updatedFavoriteBillsCountLabel.isHidden = true
