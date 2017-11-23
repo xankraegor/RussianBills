@@ -407,8 +407,15 @@
                                 <segue destination="mLy-6O-xIp" kind="show" id="wff-Ty-8LP"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Dji-6k-dAK"/>
+                        <barButtonItem title="Sync" id="KQ8-gp-oOQ">
+                            <connections>
+                                <action selector="syncButtonPressed:" destination="EIW-S8-JWd" id="r24-Ba-G2T"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="🇷🇺 Законопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="updatedFavoriteBillsCountLabel" destination="xlB-Pv-Gh7" id="hi5-DL-LMF"/>
                     </connections>
@@ -1923,7 +1930,7 @@
         <image name="file_doc" width="410" height="410"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EE7-Yf-RIq"/>
+        <segue reference="wXA-hc-24i"/>
         <segue reference="0xS-fK-VXV"/>
         <segue reference="LwO-fy-era"/>
     </inferredMetricsTieBreakers>

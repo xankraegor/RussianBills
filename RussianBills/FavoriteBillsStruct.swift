@@ -12,12 +12,12 @@ import RealmSwift
 struct FavoriteBills {
 
     var billNumbers: [String] = []
-    var updateTimestamps: [Double] = []
+    var updateTimestamps: [Date] = []
 
     var toDictionary: [String: Any] {
         var values : [String : Double] = [:]
         for (index, element) in billNumbers.enumerated() {
-            values[element] = updateTimestamps[index]
+            values[element] = updateTimestamps[index].timeIntervalSince1970
         }
 
         return [ "favoriteBills" : values ]
@@ -42,7 +42,7 @@ struct FavoriteBills {
     init(withValues data: [String : Double]) {
         for item in data {
             billNumbers.append(item.key)
-            updateTimestamps.append(item.value)
+            updateTimestamps.append(Date(timeIntervalSince1970: item.value))
         }
     }
 }

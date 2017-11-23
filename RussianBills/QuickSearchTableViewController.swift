@@ -89,7 +89,7 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         let bill = searchResults![indexPath.row]
         try? realm?.write {
             bill.favorite = !bill.favorite
-            bill.favoriteUpdatedTimestamp = Date().timeIntervalSince1970
+            bill.favoriteUpdatedTimestamp = Date()
         }
         setColorAndNumberForCell(at: indexPath)
     }

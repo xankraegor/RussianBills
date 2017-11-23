@@ -221,7 +221,7 @@ final class AuthFormController: FormViewController {
             passRow.hidden = true
             buttonRow.title = "Выйти"
 
-            SyncMan.shared.updateFirebaseFavoriteRecords()
+//            SyncMan.shared.updateFirebaseFavoriteRecords()
         }
 
         tableView.reloadData()

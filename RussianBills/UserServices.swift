@@ -279,7 +279,7 @@ enum UserServices {
             if let bill = result.first {
                 let realm = try? Realm()
                 bill.favorite = true
-                bill.favoriteUpdatedTimestamp = favoriteTimestamp
+                bill.favoriteUpdatedTimestamp = Date(timeIntervalSince1970: favoriteTimestamp)
                 try? realm?.write {
                     realm?.add(bill, update: true)
                 }

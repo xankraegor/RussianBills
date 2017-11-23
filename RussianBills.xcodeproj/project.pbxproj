@@ -13,6 +13,7 @@
 		2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */; };
 		2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
+		2A23F0C01FC4A5DD00462428 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */; };
 		2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A290A281F96D2440056E990 /* SearchFormController.swift */; };
 		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
 		2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */; };
@@ -43,6 +44,7 @@
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
 		2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782031F0BE89A00A0554F /* DeputyPosition.swift */; };
 		2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */; };
+		2A8F318E1FC722C600E5E3FD /* BillSyncContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F318D1FC722C600E5E3FD /* BillSyncContainer.swift */; };
 		2A92D6611F99386B00B2DD4E /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A92D6601F99386B00B2DD4E /* Dispatcher.swift */; };
 		2A98F1691F0AEEFC004F5524 /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F1681F0AEEFC004F5524 /* RequestRouter.swift */; };
 		2A98F16B1F0AEFC1004F5524 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F16A1F0AEFC1004F5524 /* Bill.swift */; };
@@ -63,6 +65,8 @@
 		2AA751351FBDF55D00E2535E /* OnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA751341FBDF55D00E2535E /* OnMapViewController.swift */; };
 		2AA751391FBDFFE600E2535E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA751381FBDFFE600E2535E /* LocationManager.swift */; };
 		2AA7513B1FBE0B8C00E2535E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA7513A1FBE0B8C00E2535E /* MapKit.framework */; };
+		2AA9C36B1FC733B000169EB7 /* Bill+CKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA9C36A1FC733B000169EB7 /* Bill+CKRecord.swift */; };
+		2AA9C36D1FC738A900169EB7 /* BillSyncContainerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA9C36C1FC738A900169EB7 /* BillSyncContainerStorage.swift */; };
 		2AAA81651F19599E005DF090 /* BillCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */; };
 		2AAE25A21F183C970053AD75 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE25A11F183C970053AD75 /* FavoritesTableViewCell.swift */; };
 		2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1596C1F15526A00FF7BBD /* Stage.swift */; };
@@ -101,6 +105,7 @@
 		2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-CondenseWhitespaces.swift"; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
+		2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2A290A281F96D2440056E990 /* SearchFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormController.swift; sourceTree = "<group>"; };
 		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
 		2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +140,7 @@
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
 		2A8782031F0BE89A00A0554F /* DeputyPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeputyPosition.swift; sourceTree = "<group>"; };
 		2A8782051F0BECF400A0554F /* RequestFunctionsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFunctionsProvider.swift; sourceTree = "<group>"; };
+		2A8F318D1FC722C600E5E3FD /* BillSyncContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillSyncContainer.swift; sourceTree = "<group>"; };
 		2A92D6601F99386B00B2DD4E /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		2A98F1681F0AEEFC004F5524 /* RequestRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
 		2A98F16A1F0AEFC1004F5524 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
@@ -155,6 +161,8 @@
 		2AA751341FBDF55D00E2535E /* OnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnMapViewController.swift; sourceTree = "<group>"; };
 		2AA751381FBDFFE600E2535E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		2AA7513A1FBE0B8C00E2535E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2AA9C36A1FC733B000169EB7 /* Bill+CKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bill+CKRecord.swift"; sourceTree = "<group>"; };
+		2AA9C36C1FC738A900169EB7 /* BillSyncContainerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillSyncContainerStorage.swift; sourceTree = "<group>"; };
 		2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillCardTableViewController.swift; sourceTree = "<group>"; };
 		2AAE25A11F183C970053AD75 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		2AB1596C1F15526A00FF7BBD /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A23F0C01FC4A5DD00462428 /* CloudKit.framework in Frameworks */,
 				2AA7513B1FBE0B8C00E2535E /* MapKit.framework in Frameworks */,
 				2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */,
 			);
@@ -205,6 +214,7 @@
 		1586E7C1CF793B55B118E911 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */,
 				2AA7513A1FBE0B8C00E2535E /* MapKit.framework */,
 				DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */,
 				EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */,
@@ -295,7 +305,7 @@
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AA751381FBDFFE600E2535E /* LocationManager.swift */,
-				2A3D42041FBA594C0034331E /* SynchronizationManager.swift */,
+				2A8F318C1FC7220400E5E3FD /* Syncronization */,
 				2AAA81671F195A64005DF090 /* MainScenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
 				2A4ED0E11F0D9922008BF1B3 /* Extensions */,
@@ -313,6 +323,17 @@
 				2A6315C51F0AE1B400611BD8 /* Info.plist */,
 			);
 			path = RussianBillsTests;
+			sourceTree = "<group>";
+		};
+		2A8F318C1FC7220400E5E3FD /* Syncronization */ = {
+			isa = PBXGroup;
+			children = (
+				2A3D42041FBA594C0034331E /* SynchronizationManager.swift */,
+				2A8F318D1FC722C600E5E3FD /* BillSyncContainer.swift */,
+				2AA9C36A1FC733B000169EB7 /* Bill+CKRecord.swift */,
+				2AA9C36C1FC738A900169EB7 /* BillSyncContainerStorage.swift */,
+			);
+			name = Syncronization;
 			sourceTree = "<group>";
 		};
 		2A98F16C1F0AF029004F5524 /* Model */ = {
@@ -537,6 +558,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 						};
 					};
 					2A6315BE1F0AE1B400611BD8 = {
@@ -724,6 +748,7 @@
 				2AB159731F15633100FF7BBD /* UserDefaultsCoordinator.swift in Sources */,
 				2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */,
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
+				2AA9C36D1FC738A900169EB7 /* BillSyncContainerStorage.swift in Sources */,
 				2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */,
 				2AA6771C1F214EDD003CFD37 /* BillDetailsTableViewController.swift in Sources */,
 				2AA751351FBDF55D00E2535E /* OnMapViewController.swift in Sources */,
@@ -765,9 +790,11 @@
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
 				2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */,
 				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,
+				2AA9C36B1FC733B000169EB7 /* Bill+CKRecord.swift in Sources */,
 				2AAA81651F19599E005DF090 /* BillCardTableViewController.swift in Sources */,
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
+				2A8F318E1FC722C600E5E3FD /* BillSyncContainer.swift in Sources */,
 				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
 				2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */,
 				2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */,

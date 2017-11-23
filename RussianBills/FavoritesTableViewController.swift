@@ -74,7 +74,7 @@ final class FavoritesTableViewController: UITableViewController {
             let currentFavoriteBill = favoriteBills![indexPath.row]
             try? realm?.write {
                 currentFavoriteBill.favorite = false
-                currentFavoriteBill.favoriteUpdatedTimestamp = Date().timeIntervalSince1970
+                currentFavoriteBill.favoriteUpdatedTimestamp = Date()
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {

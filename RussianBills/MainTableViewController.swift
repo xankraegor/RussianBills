@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import CloudKit
 
 final class MainTableViewController: UITableViewController {
 
@@ -86,6 +87,13 @@ final class MainTableViewController: UITableViewController {
                 break
             }
         }
+    }
+
+    // MARK: - Debug
+
+
+    @IBAction func syncButtonPressed(_ sender: Any) {
+         SyncMan.shared.writeToIcloud()
     }
 
 }

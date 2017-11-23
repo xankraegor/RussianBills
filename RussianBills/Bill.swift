@@ -13,18 +13,22 @@ import SwiftyJSON
 
 final class Bill_: Object, InitializableWithJson {
 
-    @objc dynamic var id: Int = 0
-    @objc dynamic var lawType: LawType = LawType.federalLaw
+    // Sync stack
     @objc dynamic var number: String = ""
     @objc dynamic var name: String = ""
+    @objc dynamic var favorite: Bool = false
+    @objc dynamic var favoriteUpdatedTimestamp: Date = Date()
+    @objc dynamic var favoriteHasUnseenChanges: Bool = false
+    @objc dynamic var favoriteHasUnseenChangesTimestamp: Date = Date()
+    // Sync stack ending
+    @objc dynamic var markedForDownload: Bool = false
+
+    @objc dynamic var id: Int = 0
+    @objc dynamic var lawType: LawType = LawType.federalLaw
     @objc dynamic var comments: String = ""
     @objc dynamic var introductionDate: String = ""
     @objc dynamic var url: String = ""
     @objc dynamic var transcriptUrl: String = ""
-
-    @objc dynamic var favorite: Bool = false
-    @objc dynamic var favoriteUpdatedTimestamp: Double = Date().timeIntervalSince1970
-    @objc dynamic var favoriteHasUnseenChanges: Bool = false
 
     let factions = List<Factions_>()
     let deputees = List<Deputy_>()
@@ -44,7 +48,9 @@ final class Bill_: Object, InitializableWithJson {
 
     @objc dynamic var parserContent: Data?
 
-    convenience  init(withJson json: JSON, favoriteMark: Bool = false) {
+    // MARK: - Initialization
+
+    convenience init(withJson json: JSON, favoriteMark: Bool = false) {
         self.init(withJson: json)
         favorite = favoriteMark
     }
@@ -76,7 +82,7 @@ final class Bill_: Object, InitializableWithJson {
         return "number"
     }
 
-    // Initialization functions
+    // MARK : - Initialization helper functions
 
     func decodeFactions(_ json: JSON) {
         let realm = try? Realm()
@@ -345,4 +351,66 @@ final class Bill_: Object, InitializableWithJson {
         return output
     }
 
+}
+
+// MARK: - NSCopying
+
+extension Bill_ : NSCopying {
+
+    convenience init(copying: Bill_) {
+        self.init()
+
+        self.id = copying.id
+        self.lawType = copying.lawType
+        self.number = copying.number
+        self.name = copying.name
+        self.comments = copying.comments
+        self.introductionDate = copying.introductionDate
+        self.url = copying.url
+        self.transcriptUrl = copying.transcriptUrl
+
+        self.favorite = copying.favorite
+        self.favoriteUpdatedTimestamp = copying.favoriteHasUnseenChangesTimestamp
+        self.favoriteHasUnseenChanges = copying.favoriteHasUnseenChanges
+        self.favoriteHasUnseenChangesTimestamp = copying.favoriteHasUnseenChangesTimestamp
+
+        self.factions.append(objectsIn: copying.factions)
+        self.deputees.append(objectsIn: copying.deputees)
+        self.federalSubjects.append(objectsIn: copying.federalSubjects)
+        self.regionalSubjects.append(objectsIn: copying.regionalSubjects)
+
+        self.lastEventStage = copying.lastEventStage
+        self.lastEventPhase = copying.lastEventPhase
+        self.lastEventSolutionDescription = copying.lastEventSolutionDescription
+        self.lastEventDate = copying.lastEventDate
+        self.lastEventDocumentName = copying.lastEventDocumentName
+        self.lastEventDocumentType = copying.lastEventDocumentType
+
+        self.comitteeResponsible = copying.comitteeResponsible
+        self.comitteeProfile.append(objectsIn: copying.comitteeProfile)
+        self.comitteeCoexecutor.append(objectsIn: copying.comitteeCoexecutor)
+
+        self.parserContent = copying.parserContent
+    }
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        let newBill = Bill_(copying: self)
+        return newBill
+    }
+
+}
+
+// MARK: - Marked to download
+
+extension Bill_ {
+    convenience init(markedToDownloadWithNumber number: String, name: String, favorite: Bool, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
+        self.init()
+
+        self.number = number
+        self.name = name
+        self.favorite = favorite
+        self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
+        self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
+        self.markedForDownload = true
+    }
 }
