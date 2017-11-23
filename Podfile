@@ -14,6 +14,8 @@ pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Xco
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'RxSwift'
+pod 'RxRealm'
 
   target 'RussianBillsTests' do
     inherit! :search_paths

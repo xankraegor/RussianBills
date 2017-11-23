@@ -50,6 +50,10 @@ PODS:
   - Realm/Headers (3.0.1)
   - RealmSwift (3.0.1):
     - Realm (= 3.0.1)
+  - RxRealm (0.7.3):
+    - RealmSwift (~> 3.0)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -60,6 +64,8 @@ DEPENDENCIES:
   - Firebase/Database
   - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
   - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
+  - RxRealm
+  - RxSwift
   - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -106,8 +112,10 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Realm: ba6144c74f835f7497791f6599d63a7755377b83
   RealmSwift: a4fe49c4cca5015d8f8227d51ce4b58a4a65b432
+  RxRealm: 529f5bc5601f04fd2a5c9f9c9004bf018ff64b2d
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 91a284ed3578e0ecd9e3e06bb1653555ab32b352
+PODFILE CHECKSUM: 0e1744ae048de3a28fd3164548f7ceabc46c6f97
 
 COCOAPODS: 1.3.1
