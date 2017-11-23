@@ -184,11 +184,14 @@ enum UserServices {
             let realm = try? Realm()
             for res in result {
                 if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
+
                     res.favorite = existingBill.favorite
                     if (res.favorite && existingBill.generateHashForLastEvent() != res.generateHashForLastEvent()) || existingBill.favoriteHasUnseenChanges == true {
                         res.favoriteHasUnseenChanges = true
                     }
                     res.favoriteUpdatedTimestamp = existingBill.favoriteUpdatedTimestamp
+                    res.favoriteHasUnseenChanges = existingBill.favoriteHasUnseenChanges
+//                    res.favoriteHasUnseenChangesTimestamp = existingBill.favoriteHasUnseenChangesTimestamp
                     res.parserContent = existingBill.parserContent
                 }
             }
@@ -227,9 +230,12 @@ enum UserServices {
                     return
                 }
 
-                let existingBillParserContent = existingBill.parserContent
                 let existingBillFavoriteUpdatedTimestamp = existingBill.favoriteUpdatedTimestamp
                 let existingBillFavoriteHasUnseenChanges = existingBill.favoriteHasUnseenChanges
+//                let existingBillHasUnseenChangesTimestamp = existingBill.favoriteHasUnseenChangesTimestamp
+
+                let existingBillParserContent = existingBill.parserContent
+
 
                 let previousHashValue = existingBill.generateHashForLastEvent()
                 debugPrint("Previous hash value for \(existingBill.number) is: \(existingBill.generateHashForLastEvent())" )
@@ -250,8 +256,11 @@ enum UserServices {
                     }
 
                     downloadedBill.favorite = true
-                    downloadedBill.parserContent = existingBillParserContent
                     downloadedBill.favoriteUpdatedTimestamp = existingBillFavoriteUpdatedTimestamp
+                    downloadedBill.favoriteHasUnseenChanges = existingBillFavoriteHasUnseenChanges
+//                    downloadedBill.favoriteHasUnseenChangesTimestamp = existingBillHasUnseenChangesTimestamp
+                    downloadedBill.parserContent = existingBillParserContent
+
 
                     try? Realm().write {
                         try? Realm().add(downloadedBill, update: true)

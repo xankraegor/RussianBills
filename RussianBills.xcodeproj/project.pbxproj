@@ -84,6 +84,7 @@
 		2AE76E1A1FB10D9800CE79AF /* AutorizationFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */; };
 		2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */; };
 		2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */; };
+		2AF15C121FC75C230018991C /* ICloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -180,6 +181,7 @@
 		2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationFormController.swift; sourceTree = "<group>"; };
 		2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
 		2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBillsStruct.swift; sourceTree = "<group>"; };
+		2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncEngine.swift; sourceTree = "<group>"; };
 		2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RussianBills.entitlements; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
@@ -329,9 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				2A3D42041FBA594C0034331E /* SynchronizationManager.swift */,
-				2A8F318D1FC722C600E5E3FD /* BillSyncContainer.swift */,
-				2AA9C36A1FC733B000169EB7 /* Bill+CKRecord.swift */,
-				2AA9C36C1FC738A900169EB7 /* BillSyncContainerStorage.swift */,
+				2AF15C131FC75C300018991C /* iCloud */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -476,6 +476,17 @@
 				2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */,
 			);
 			name = FirebaseModel;
+			sourceTree = "<group>";
+		};
+		2AF15C131FC75C300018991C /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				2A8F318D1FC722C600E5E3FD /* BillSyncContainer.swift */,
+				2AA9C36A1FC733B000169EB7 /* Bill+CKRecord.swift */,
+				2AA9C36C1FC738A900169EB7 /* BillSyncContainerStorage.swift */,
+				2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */,
+			);
+			name = iCloud;
 			sourceTree = "<group>";
 		};
 		446ACAC816582A6953401F6D /* Pods */ = {
@@ -799,6 +810,7 @@
 				2AA471EF1F26B903006DF8B0 /* Factions.swift in Sources */,
 				2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */,
 				2A8F318E1FC722C600E5E3FD /* BillSyncContainer.swift in Sources */,
+				2AF15C121FC75C230018991C /* ICloudSyncEngine.swift in Sources */,
 				2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */,
 				2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */,
 				2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */,

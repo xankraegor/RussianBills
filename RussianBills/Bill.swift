@@ -17,10 +17,11 @@ final class Bill_: Object, InitializableWithJson {
     @objc dynamic var number: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var favorite: Bool = false
-    @objc dynamic var favoriteUpdatedTimestamp: Date = Date()
+    @objc dynamic var favoriteUpdatedTimestamp = Date.distantPast
     @objc dynamic var favoriteHasUnseenChanges: Bool = false
-    @objc dynamic var favoriteHasUnseenChangesTimestamp: Date = Date()
+//    @objc dynamic var favoriteHasUnseenChangesTimestamp = Date.distantPast
     // Sync stack ending
+    @objc dynamic var markedToBeRemovedFromFavorites: Bool = false
     @objc dynamic var markedForDownload: Bool = false
 
     @objc dynamic var id: Int = 0
@@ -370,9 +371,9 @@ extension Bill_ : NSCopying {
         self.transcriptUrl = copying.transcriptUrl
 
         self.favorite = copying.favorite
-        self.favoriteUpdatedTimestamp = copying.favoriteHasUnseenChangesTimestamp
+        self.favoriteUpdatedTimestamp = copying.favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = copying.favoriteHasUnseenChanges
-        self.favoriteHasUnseenChangesTimestamp = copying.favoriteHasUnseenChangesTimestamp
+//        self.favoriteHasUnseenChangesTimestamp = copying.favoriteHasUnseenChangesTimestamp
 
         self.factions.append(objectsIn: copying.factions)
         self.deputees.append(objectsIn: copying.deputees)
@@ -403,14 +404,14 @@ extension Bill_ : NSCopying {
 // MARK: - Marked to download
 
 extension Bill_ {
-    convenience init(markedToDownloadWithNumber number: String, name: String, favorite: Bool, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
+    convenience init(markedToDownloadWithNumber number: String, name: String, favorite: Bool, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool/*, favoriteHasUnseenChangesTimestamp: Date*/) {
         self.init()
 
         self.number = number
         self.name = name
         self.favorite = favorite
         self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
-        self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
+//        self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
         self.markedForDownload = true
     }
 }
