@@ -12,64 +12,65 @@ import RealmSwift
 public struct BillSyncContainer {
     public let number: String
     public let name: String
-    public var favorite: Bool
+    public let comments: String
     public var favoriteUpdatedTimestamp : Date
     public var favoriteHasUnseenChanges: Bool
-//    public var favoriteHasUnseenChangesTimestamp: Date
+    public var favoriteHasUnseenChangesTimestamp: Date
 
-    public init(withNumber number: String, name: String, favorite: Bool, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool/*, favoriteHasUnseenChangesTimestamp: Date*/) {
+    public init(withNumber number: String, name: String, comments: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
         self.number = number
         self.name = name
-        self.favorite = favorite
+        self.comments = comments
         self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
-//        self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
+        self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
     }
 }
 
 extension BillSyncContainer: Equatable {
     public static func ==(lhs: BillSyncContainer, rhs: BillSyncContainer) -> Bool {
         return lhs.number == rhs.number
-            && lhs.favorite == rhs.favorite
+            && lhs.name == rhs.name
+            && lhs.comments == rhs.comments
             && lhs.favoriteUpdatedTimestamp == rhs.favoriteUpdatedTimestamp
             && lhs.favoriteHasUnseenChanges == rhs.favoriteHasUnseenChanges
-//         && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
+         && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
     }
 }
 
 
-// MARK: - BillSyncContainer + Bill_
+// MARK: - BillSyncContainer + FavoriteBill_
 
 extension BillSyncContainer {
-    init(withBill bill: Bill_) {
+    init(withFavoriteBill bill: FavoriteBill_) {
         self.number = bill.number
         self.name = bill.name
-        self.favorite = bill.favorite
+        self.comments = bill.comments
         self.favoriteUpdatedTimestamp = bill.favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = bill.favoriteHasUnseenChanges
-//        self.favoriteHasUnseenChangesTimestamp = bill.favoriteHasUnseenChangesTimestamp
+        self.favoriteHasUnseenChangesTimestamp = bill.favoriteHasUnseenChangesTimestamp
     }
 
-    var bill: Bill_ {
-        // Bill is already downloaded
-        if let bill = try! Realm().object(ofType: Bill_.self, forPrimaryKey: self.number) {
-            let newBill = bill.copy() as! Bill_
-            newBill.favorite = self.favorite
-            newBill.favoriteUpdatedTimestamp = self.favoriteUpdatedTimestamp
-            newBill.favoriteHasUnseenChanges = self.favoriteHasUnseenChanges
-//            newBill.favoriteHasUnseenChangesTimestamp = self.favoriteHasUnseenChangesTimestamp
-            return newBill
-        } else { // Bill will be marked to download!
-            return Bill_(markedToDownloadWithNumber: self.number, name: self.name, favorite: self.favorite, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges/*, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp*/)
+    var favoriteBill: FavoriteBill_ {
+        let favoriteBill = FavoriteBill_()
+        favoriteBill.number = self.number
+        favoriteBill.comments = self.comments
+        favoriteBill.name = self.name
+        favoriteBill.favoriteHasUnseenChanges = self.favoriteHasUnseenChanges
+        favoriteBill.favoriteUpdatedTimestamp = self.favoriteUpdatedTimestamp
+        favoriteBill.favoriteHasUnseenChangesTimestamp = self.favoriteHasUnseenChangesTimestamp
+        if favoriteBill.bill == nil {
+            favoriteBill.markedForDownload = true
         }
+        return favoriteBill
     }
 }
 
-// MARK: - Bill_ + BillSyncContainer
+// MARK: - FavoriteBill_ + BillSyncContainer
 
-extension Bill_ {
+extension FavoriteBill_ {
     var billSyncContainer: BillSyncContainer {
-        let container = BillSyncContainer(withNumber: self.number, name: self.name, favorite: self.favorite, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges/*, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp*/)
+        let container = BillSyncContainer(withNumber: self.number, name: self.name, comments: self.comments, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp)
         return container
     }
 }

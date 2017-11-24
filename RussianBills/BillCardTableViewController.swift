@@ -39,6 +39,10 @@ final class BillCardTableViewController: UITableViewController {
         return realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
     }()
 
+    lazy var favoriteBill: FavoriteBill_? = {
+        return realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: billNr)
+    }()
+
     var parser: BillParser? {
         didSet {
             if let currentBill = bill, parser?.tree != nil {
@@ -55,9 +59,9 @@ final class BillCardTableViewController: UITableViewController {
         super.viewDidLoad()
         installRealmToken()
         tableView.delegate = self
-        if bill?.favoriteHasUnseenChanges ?? false {
+        if favoriteBill?.favoriteHasUnseenChanges ?? false {
             try? realm?.write {
-                bill?.favoriteHasUnseenChanges = false
+                favoriteBill?.favoriteHasUnseenChanges = false
             }
             UIApplication.shared.applicationIconBadgeNumber -= 1
             print("num: \(UIApplication.shared.applicationIconBadgeNumber)")
@@ -160,8 +164,12 @@ final class BillCardTableViewController: UITableViewController {
             let realm = try? Realm()
             if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
                 try? realm?.write {
-                    updBill.favorite = !updBill.favorite
-                    updBill.favoriteUpdatedTimestamp = Date()
+                    if let exisitingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
+                        realm?.delete(exisitingFavoriteBill)
+                    } else {
+                        let newFavoriteBill = FavoriteBill_(fromBill: updBill)
+                        realm?.add(newFavoriteBill, update: true)
+                    }
                 }
             }
 

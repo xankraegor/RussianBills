@@ -181,17 +181,11 @@ enum UserServices {
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
         Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
+
             let realm = try? Realm()
+
             for res in result {
                 if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
-
-                    res.favorite = existingBill.favorite
-                    if (res.favorite && existingBill.generateHashForLastEvent() != res.generateHashForLastEvent()) || existingBill.favoriteHasUnseenChanges == true {
-                        res.favoriteHasUnseenChanges = true
-                    }
-                    res.favoriteUpdatedTimestamp = existingBill.favoriteUpdatedTimestamp
-                    res.favoriteHasUnseenChanges = existingBill.favoriteHasUnseenChanges
-//                    res.favoriteHasUnseenChangesTimestamp = existingBill.favoriteHasUnseenChangesTimestamp
                     res.parserContent = existingBill.parserContent
                 }
             }
@@ -212,7 +206,7 @@ enum UserServices {
             return
         }
 
-        guard let favoriteBills = try? Realm().objects(Bill_.self).filter("favorite == true"), favoriteBills.count > 0 else {
+        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self), favoriteBills.count > 0 else {
             debugPrint("∆ UserServices can't instantiate Realm while updating favorite bills or favorite bills count equals zero")
             return
         }
@@ -221,46 +215,36 @@ enum UserServices {
 
         let queries: [BillSearchQuery] = favoriteBills.map{ BillSearchQuery(withNumber: $0.number) }
 
-        for query in queries {
+        for i in 0..<queries.count {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
             Dispatcher.shared.billsPrefetchDispatchQueue.async() {
 
-                guard let existingBill = try! Realm().objects(Bill_.self).filter("number = '\(query.number!)'").first else {
-                    debugPrint("∆ Bill record \(query.number!) missing in Realm while updating favorite bills")
+                guard let existingBill = try! Realm().objects(Bill_.self).filter("number = '\(queries[i].number!)'").first else {
+                    debugPrint("∆ Bill record \(queries[i].number!) missing in Realm while updating favorite bills")
                     return
                 }
 
-                let existingBillFavoriteUpdatedTimestamp = existingBill.favoriteUpdatedTimestamp
-                let existingBillFavoriteHasUnseenChanges = existingBill.favoriteHasUnseenChanges
-//                let existingBillHasUnseenChangesTimestamp = existingBill.favoriteHasUnseenChangesTimestamp
-
                 let existingBillParserContent = existingBill.parserContent
-
 
                 let previousHashValue = existingBill.generateHashForLastEvent()
                 debugPrint("Previous hash value for \(existingBill.number) is: \(existingBill.generateHashForLastEvent())" )
 
-                Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
+                Request.billSearch(forQuery: queries[i], completion: { (result: [Bill_]) in
 
                     guard let downloadedBill = result.first else {
-                        debugPrint("∆ No bills recieved when querying \(query.number!) while updating favorite bills")
+                        debugPrint("∆ No bills recieved when querying \(queries[i].number!) while updating favorite bills")
                         return
                     }
 
                     // Did last event changed since the last update?
                     debugPrint("New hash value for \(downloadedBill.number) is: \(downloadedBill.generateHashForLastEvent())" )
-                    if (downloadedBill.generateHashForLastEvent() != previousHashValue) || (existingBillFavoriteHasUnseenChanges) {
+                    if (downloadedBill.generateHashForLastEvent() != previousHashValue) || (favoriteBills[i].favoriteHasUnseenChanges) {
                         debugPrint("\(downloadedBill.number) has updates")
-                        downloadedBill.favoriteHasUnseenChanges = true
+                        favoriteBills[i].favoriteHasUnseenChanges = true
                         updatedCount += 1
                     }
 
-                    downloadedBill.favorite = true
-                    downloadedBill.favoriteUpdatedTimestamp = existingBillFavoriteUpdatedTimestamp
-                    downloadedBill.favoriteHasUnseenChanges = existingBillFavoriteHasUnseenChanges
-//                    downloadedBill.favoriteHasUnseenChangesTimestamp = existingBillHasUnseenChangesTimestamp
                     downloadedBill.parserContent = existingBillParserContent
-
 
                     try? Realm().write {
                         try? Realm().add(downloadedBill, update: true)
@@ -279,21 +263,6 @@ enum UserServices {
                 completion(updatedCount)
             }
         }
-    }
-
-
-    static func downloadNonExistingBillBySync(withNumber number: String, favoriteTimestamp: Double) {
-        let query = BillSearchQuery(withNumber: number)
-        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
-            if let bill = result.first {
-                let realm = try? Realm()
-                bill.favorite = true
-                bill.favoriteUpdatedTimestamp = Date(timeIntervalSince1970: favoriteTimestamp)
-                try? realm?.write {
-                    realm?.add(bill, update: true)
-                }
-            }
-        })
     }
 
     // MARK: - Parsed content

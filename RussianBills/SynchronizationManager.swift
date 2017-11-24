@@ -27,7 +27,7 @@ final class SyncMan {
     }
 
     let realm = try? Realm()
-    let favoriteBillsInRealm = try? Realm().objects(Bill_.self).filter("favorite == true")
+    let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
     var favoritesRealmNotificationToken: NotificationToken? = nil
 
     // MARK: - Initialization

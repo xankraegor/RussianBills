@@ -41,35 +41,28 @@ public final class BillSyncContainerStorage {
     }
 
     public var allBills: Observable<[BillSyncContainer]> {
-        let objects = self.realm.objects(Bill_.self)
-            .filter(NSPredicate(format: "favorite == true"))
-        //            .sorted(byKeyPath: "modifiedAt", ascending: false)
+        let objects = self.realm.objects(FavoriteBill_.self)
+            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
 
-        return Observable.collection(from: objects).map { realmBills in
+        return Observable.collection(from: objects).map {
+            realmBills in
             return realmBills.map({ $0.billSyncContainer })
         }
     }
 
     var mostRecentlyModifiedBillSyncContainer: BillSyncContainer? {
-        let realmBillsByFavoriteUpdatedTimestamp = realm.objects(Bill_.self)
+        let realmBillsByFavoriteUpdatedTimestamp = realm.objects(FavoriteBill_.self)
             .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
-        //        let realmBillsByHasUnseenChangesUpdatedTimestamp = realm.objects(Bill_.self)
-        //            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
-        //        let maxFavUpdTs = realmBillsByFavoriteUpdatedTimestamp.first?.favoriteUpdatedTimestamp ?? Date.distantPast
-        //        let maxHasUnsChTs = realmBillsByHasUnseenChangesUpdatedTimestamp.first?.favoriteHasUnseenChangesTimestamp ?? Date.distantPast
-        //        if maxFavUpdTs >= maxHasUnsChTs {
+
         return realmBillsByFavoriteUpdatedTimestamp.first?.billSyncContainer
-        //        } else {
-        //            return realmBillsByHasUnseenChangesUpdatedTimestamp.first?.billSyncContainer
-        //        }
     }
 
     public func store(billSyncContrainer: BillSyncContainer) throws {
-        try store(bill: billSyncContrainer.bill)
+        try store(favoriteBill: billSyncContrainer.favoriteBill)
     }
 
-    func store(bill: Bill_, notNotifying token: NotificationToken? = nil) throws {
-        try insertOrUpdate(object: bill, notNotifying: token) { oldBill, newBill in
+    func store(favoriteBill: FavoriteBill_, notNotifying token: NotificationToken? = nil) throws {
+        try insertOrUpdate(object: favoriteBill, notNotifying: token) { oldBill, newBill in
 
             guard newBill != oldBill else {
                 return false
@@ -120,20 +113,16 @@ public final class BillSyncContainerStorage {
     }
 
     public func removeFromFavorites(with number: String, hard reallyRemove: Bool = false) throws {
-        guard let bill = realm.object(ofType: Bill_.self, forPrimaryKey: number) else {
+        guard let favoriteBill = realm.object(ofType: FavoriteBill_.self, forPrimaryKey: number) else {
             throw StorageError.recordNotFound(number)
         }
 
         try realm.write {
             if reallyRemove {
-                bill.favorite = false
-                bill.favoriteUpdatedTimestamp = Date.distantPast
-                bill.favoriteHasUnseenChanges = false
-//                bill.favoriteHasUnseenChangesTimestamp = Date.distantPast
-                self.realm.add(bill, update: true)
+                self.realm.delete(favoriteBill)
             } else {
-                bill.markedToBeRemovedFromFavorites = true
-                self.realm.add(bill, update: true)
+                favoriteBill.markedToBeRemovedFromFavorites = true
+                realm.add(favoriteBill, update: true)
             }
         }
     }

@@ -85,6 +85,7 @@
 		2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */; };
 		2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */; };
 		2AF15C121FC75C230018991C /* ICloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */; };
+		2AF15C171FC77DE70018991C /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 /* End PBXBuildFile section */
@@ -182,6 +183,7 @@
 		2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
 		2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBillsStruct.swift; sourceTree = "<group>"; };
 		2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncEngine.swift; sourceTree = "<group>"; };
+		2AF15C161FC77DE70018991C /* FavoriteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBill.swift; sourceTree = "<group>"; };
 		2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RussianBills.entitlements; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				2A98F16A1F0AEFC1004F5524 /* Bill.swift */,
 				2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */,
 				2AA4D1991F0C04D200EE2DA3 /* FederalSubject.swift */,
+				2AF15C161FC77DE70018991C /* FavoriteBill.swift */,
 				2AA4D19B1F0C10CF00EE2DA3 /* RegionalSubject.swift */,
 				2A98F1711F0AF3B4004F5524 /* Comittee.swift */,
 				2A98F1751F0AFBEA004F5524 /* LawClasses.swift */,
@@ -788,6 +791,7 @@
 				2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */,
 				2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */,
 				2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */,
+				2AF15C171FC77DE70018991C /* FavoriteBill.swift in Sources */,
 				2AAE25A21F183C970053AD75 /* FavoritesTableViewCell.swift in Sources */,
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,
 				2A98F1761F0AFBEA004F5524 /* LawClasses.swift in Sources */,

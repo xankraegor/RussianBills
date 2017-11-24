@@ -88,8 +88,12 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bill = searchResults![indexPath.row]
         try? realm?.write {
-            bill.favorite = !bill.favorite
-            bill.favoriteUpdatedTimestamp = Date()
+            if let exisitingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: bill.number) {
+                realm?.delete(exisitingFavoriteBill)
+            } else {
+                let newFavoriteBill = FavoriteBill_(fromBill: bill)
+                realm?.add(newFavoriteBill, update: true)
+            }
         }
         setColorAndNumberForCell(at: indexPath)
     }

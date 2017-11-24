@@ -28,7 +28,7 @@ struct FavoriteBills {
     // MARK: - Initialization
 
     init() {
-        if let favoriteBills = try? Realm().objects(Bill_.self).filter("favorite == true") {
+        if let favoriteBills = try? Realm().objects(FavoriteBill_.self) {
             for bill in favoriteBills {
                 billNumbers.append(bill.number)
                 updateTimestamps.append(bill.favoriteUpdatedTimestamp)

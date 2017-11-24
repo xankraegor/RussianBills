@@ -30,7 +30,7 @@ enum Request {
                     let json = JSON(contents)
                     var bills: [Bill_] = []
                     for law in json["laws"] {
-                        let billToStore = Bill_(withJson: law.1, favoriteMark: false)
+                        let billToStore = Bill_(withJson: law.1)
                         bills.append(billToStore)
                     }
                     completion(bills)

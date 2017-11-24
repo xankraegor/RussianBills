@@ -12,19 +12,15 @@ import RealmSwift
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
 
-    lazy var favoriteBills = {
-        return try? Realm().objects(Bill_.self).filter("favorite == true").sorted(by: { (first, second) -> Bool in
-
-            if first.favoriteHasUnseenChanges && !second.favoriteHasUnseenChanges {
-                return true
-            } else if !first.favoriteHasUnseenChanges && second.favoriteHasUnseenChanges {
-                return false
-            }
-
-            // In case both have same favoriteHasUnseenChanges
-            return second.number > first.number
-        })
-    }()
+    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false").sorted(by: { (first, second) -> Bool in
+        if first.favoriteHasUnseenChanges && !second.favoriteHasUnseenChanges {
+            return true
+        } else if !first.favoriteHasUnseenChanges && second.favoriteHasUnseenChanges {
+            return false
+        }
+        // In case both have same favoriteHasUnseenChanges
+        return second.number > first.number
+    })
     
     // MARK: - Life cycle
 
@@ -73,8 +69,8 @@ final class FavoritesTableViewController: UITableViewController {
         if editingStyle == .delete {
             let currentFavoriteBill = favoriteBills![indexPath.row]
             try? realm?.write {
-                currentFavoriteBill.favorite = false
-                currentFavoriteBill.favoriteUpdatedTimestamp = Date()
+                currentFavoriteBill.markedToBeRemovedFromFavorites = true
+                realm?.add(currentFavoriteBill, update: true)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {

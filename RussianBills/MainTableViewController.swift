@@ -38,7 +38,7 @@ final class MainTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
-        favoriteBillsWithUnseenChangesCount = (try? Realm().objects(Bill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
+        favoriteBillsWithUnseenChangesCount = (try? Realm().objects(FavoriteBill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
         setFavoritesBadge(count: favoriteBillsWithUnseenChangesCount)
     }
 

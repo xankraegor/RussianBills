@@ -13,16 +13,8 @@ import SwiftyJSON
 
 final class Bill_: Object, InitializableWithJson {
 
-    // Sync stack
     @objc dynamic var number: String = ""
     @objc dynamic var name: String = ""
-    @objc dynamic var favorite: Bool = false
-    @objc dynamic var favoriteUpdatedTimestamp = Date.distantPast
-    @objc dynamic var favoriteHasUnseenChanges: Bool = false
-//    @objc dynamic var favoriteHasUnseenChangesTimestamp = Date.distantPast
-    // Sync stack ending
-    @objc dynamic var markedToBeRemovedFromFavorites: Bool = false
-    @objc dynamic var markedForDownload: Bool = false
 
     @objc dynamic var id: Int = 0
     @objc dynamic var lawType: LawType = LawType.federalLaw
@@ -49,14 +41,18 @@ final class Bill_: Object, InitializableWithJson {
 
     @objc dynamic var parserContent: Data?
 
-    // MARK: - Initialization
-
-    convenience init(withJson json: JSON, favoriteMark: Bool = false) {
-        self.init(withJson: json)
-        favorite = favoriteMark
+    /// Look up for a corresponding favoriteBill record
+    var favorite: Bool {
+        if try! Realm().object(ofType: FavoriteBill_.self, forPrimaryKey: number) != nil {
+            return true
+        } else {
+            return false
+        }
     }
 
-    internal convenience required init(withJson json: JSON) {
+    // MARK: - Initialization
+
+    convenience init(withJson json: JSON) {
         self.init()
         // Basic values
         id = json["id"].intValue
@@ -352,66 +348,4 @@ final class Bill_: Object, InitializableWithJson {
         return output
     }
 
-}
-
-// MARK: - NSCopying
-
-extension Bill_ : NSCopying {
-
-    convenience init(copying: Bill_) {
-        self.init()
-
-        self.id = copying.id
-        self.lawType = copying.lawType
-        self.number = copying.number
-        self.name = copying.name
-        self.comments = copying.comments
-        self.introductionDate = copying.introductionDate
-        self.url = copying.url
-        self.transcriptUrl = copying.transcriptUrl
-
-        self.favorite = copying.favorite
-        self.favoriteUpdatedTimestamp = copying.favoriteUpdatedTimestamp
-        self.favoriteHasUnseenChanges = copying.favoriteHasUnseenChanges
-//        self.favoriteHasUnseenChangesTimestamp = copying.favoriteHasUnseenChangesTimestamp
-
-        self.factions.append(objectsIn: copying.factions)
-        self.deputees.append(objectsIn: copying.deputees)
-        self.federalSubjects.append(objectsIn: copying.federalSubjects)
-        self.regionalSubjects.append(objectsIn: copying.regionalSubjects)
-
-        self.lastEventStage = copying.lastEventStage
-        self.lastEventPhase = copying.lastEventPhase
-        self.lastEventSolutionDescription = copying.lastEventSolutionDescription
-        self.lastEventDate = copying.lastEventDate
-        self.lastEventDocumentName = copying.lastEventDocumentName
-        self.lastEventDocumentType = copying.lastEventDocumentType
-
-        self.comitteeResponsible = copying.comitteeResponsible
-        self.comitteeProfile.append(objectsIn: copying.comitteeProfile)
-        self.comitteeCoexecutor.append(objectsIn: copying.comitteeCoexecutor)
-
-        self.parserContent = copying.parserContent
-    }
-
-    func copy(with zone: NSZone? = nil) -> Any {
-        let newBill = Bill_(copying: self)
-        return newBill
-    }
-
-}
-
-// MARK: - Marked to download
-
-extension Bill_ {
-    convenience init(markedToDownloadWithNumber number: String, name: String, favorite: Bool, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool/*, favoriteHasUnseenChangesTimestamp: Date*/) {
-        self.init()
-
-        self.number = number
-        self.name = name
-        self.favorite = favorite
-        self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
-//        self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
-        self.markedForDownload = true
-    }
 }

@@ -117,7 +117,7 @@ public final class IcloudSyncEngine: NSObject {
     private var notificationToken: NotificationToken?
 
     private func subscribeToLocalDatabaseChanges() {
-        let bills = storage.realm.objects(Bill_.self)
+        let bills = storage.realm.objects(FavoriteBill_.self)
 
         // Here we subscribe to changes in notes to push them to CloudKit
         notificationToken = bills.observe { [weak self] changes in
@@ -138,7 +138,7 @@ public final class IcloudSyncEngine: NSObject {
         }
     }
 
-    fileprivate func pushToCloudKit(billsToUpdate: [Bill_], billsToDelete: [Bill_]) {
+    fileprivate func pushToCloudKit(billsToUpdate: [FavoriteBill_], billsToDelete: [FavoriteBill_]) {
         guard billsToUpdate.count > 0 || billsToDelete.count > 0 else { return }
 
         slog("\(billsToUpdate.count) bill(s) to save, \(billsToDelete.count) bill(s) to delete")
@@ -324,13 +324,13 @@ public final class IcloudSyncEngine: NSObject {
     /// Sync a single bill to the local database
     private func processFetchedBill(_ cloudKitBill: CKRecord) {
         DispatchQueue.main.async {
-            guard let bill = Bill_.from(record: cloudKitBill) else {
+            guard let favoriteBill = FavoriteBill_.from(record: cloudKitBill) else {
                 slog("Error creating local bill from cloud bill \(cloudKitBill.recordID.recordName)")
                 return
             }
 
             do {
-                try self.storage.store(bill: bill, notNotifying: self.notificationToken)
+                try self.storage.store(favoriteBill: favoriteBill, notNotifying: self.notificationToken)
             } catch {
                 slog("Error saving local bill from cloud bill \(cloudKitBill.recordID.recordName): \(error)")
             }
