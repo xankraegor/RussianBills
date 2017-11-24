@@ -12,16 +12,8 @@ import RealmSwift
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
 
-    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false").sorted(by: { (first, second) -> Bool in
-        if first.favoriteHasUnseenChanges && !second.favoriteHasUnseenChanges {
-            return true
-        } else if !first.favoriteHasUnseenChanges && second.favoriteHasUnseenChanges {
-            return false
-        }
-        // In case both have same favoriteHasUnseenChanges
-        return second.number > first.number
-    })
-    
+    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false").sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+
     // MARK: - Life cycle
 
     override func viewWillAppear(_ animated: Bool) {
