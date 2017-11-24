@@ -236,17 +236,16 @@ enum UserServices {
                         return
                     }
 
-                    // Did last event changed since the last update?
                     debugPrint("New hash value for \(downloadedBill.number) is: \(downloadedBill.generateHashForLastEvent())" )
-                    if (downloadedBill.generateHashForLastEvent() != previousHashValue) || (favoriteBills[i].favoriteHasUnseenChanges) {
-                        debugPrint("\(downloadedBill.number) has updates")
-                        favoriteBills[i].favoriteHasUnseenChanges = true
-                        updatedCount += 1
-                    }
-
-                    downloadedBill.parserContent = existingBillParserContent
 
                     try? Realm().write {
+                        // Did last event changed since the last update?
+                        if (downloadedBill.generateHashForLastEvent() != previousHashValue) || (favoriteBills[i].favoriteHasUnseenChanges) {
+                            debugPrint("\(downloadedBill.number) has updates")
+                            favoriteBills[i].favoriteHasUnseenChanges = true
+                            updatedCount += 1
+                        }
+                        downloadedBill.parserContent = existingBillParserContent
                         try? Realm().add(downloadedBill, update: true)
                     }
 
