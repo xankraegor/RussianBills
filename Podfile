@@ -16,6 +16,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'RxSwift'
 pod 'RxRealm'
+pod 'RxCocoa'
 
   target 'RussianBillsTests' do
     inherit! :search_paths

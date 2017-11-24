@@ -23,6 +23,7 @@ extension Notification.Name {
 private func slog(_ format: String, _ args: CVarArg...) {
     guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
     NSLog("[SYNC] " + format, args)
+    debugPrint("[SYNC] " + format, args)
 }
 
 /// This class is responsible for observing changes to the local database and pushing them to CloudKit
