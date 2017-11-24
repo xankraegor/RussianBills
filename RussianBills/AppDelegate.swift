@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var syncman: SyncMan?
+    private var iCloudSyncEngine: IcloudSyncEngine!
+    private let storage = BillSyncContainerStorage()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -36,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Initializing sync manager
         syncman = SyncMan.shared
+
+        iCloudSyncEngine = IcloudSyncEngine(storage: storage)
 
         // Enabling user notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in

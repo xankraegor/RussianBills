@@ -13,7 +13,7 @@ import RxSwift
 import CloudKit
 
 extension CKContainer {
-    static let shared = CKContainer(identifier: "iCloud.com.xankraegor.russianBills")
+    public static let shared = CKContainer(identifier: "iCloud.com.xankraegor.russianBills")
 }
 
 extension Notification.Name {
@@ -31,7 +31,7 @@ public final class IcloudSyncEngine: NSObject {
 
     private struct Constants {
         static let previousChangeToken = "PreviousChangeToken"
-        static let billRecordType = "Bill"
+        static let billRecordType = "FavoriteBill"
     }
 
     /// The CloudKit container the sync engine is using
@@ -44,10 +44,10 @@ public final class IcloudSyncEngine: NSObject {
     private let storage: BillSyncContainerStorage
 
     /// Initializes the sync engine with a local storage
-    public init(storage: BillSyncContainerStorage, container: CKContainer?) {
+    public init(storage: BillSyncContainerStorage, container: CKContainer = .shared) {
         self.storage = storage
-        self.container = container ?? CKContainer.shared
-        self.privateDatabase = container!.privateCloudDatabase
+        self.container = container
+        self.privateDatabase = container.privateCloudDatabase
 
         super.init()
 
@@ -254,7 +254,7 @@ public final class IcloudSyncEngine: NSObject {
                 switch notification.queryNotificationReason {
                 case .recordDeleted:
                     do {
-                        try? self?.storage.removeFromFavorites(with: identifier.recordName, hard: true)
+                        try self?.storage.removeFromFavorites(with: identifier.recordName, hard: true)
                     } catch {
                         slog("Error deleting note from cloud instruction: \(error)")
                     }

@@ -128,7 +128,7 @@ public final class BillSyncContainerStorage {
     }
 
         func deletePreviouslyUnfavoritedBills(notNotifying token: NotificationToken? = nil) throws {
-            let objects = realm.objects(Bill_.self).filter("favorite = false")
+            let objects = realm.objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == true")
 
             let tokens: [NotificationToken]
             if let token = token {
