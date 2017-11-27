@@ -54,7 +54,7 @@ enum UserDefaultsCoordinator: String {
             return
         }
 
-        if ofCollection.first is Bill_ {
+        if ofCollection.first is FavoriteBill_ {
             UserDefaultsCoordinator.favorites.updateTimestamp()
         }
 

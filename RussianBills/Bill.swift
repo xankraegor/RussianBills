@@ -302,16 +302,17 @@ final class Bill_: Object, InitializableWithJson {
         return textWithoutSpaces.count > 0 ? source : replacementText
     }
 
-    public func generateHashForLastEvent()->Int {
+    public func generateHashForLastEvent()->String {
         let lastEventStageDescr = lastEventStage?.name ?? ""
         let lastEventStageHash = lastEventStageDescr.hashValue
         let lastEventPhaseDescr = lastEventPhase?.name ?? ""
         let lastEventPhaseHash = lastEventPhaseDescr.hashValue
         let lastEventSolutionDescriptionHash = lastEventSolutionDescription.hashValue
         let lastEventDateHash = lastEventDate.hashValue
+        print("∆∆ Bill \(number) last event date: \(lastEventDate) hash \(lastEventDateHash)")
         let lastEventDocumentNameHash = lastEventDocumentName.hashValue
         let lastEventDocumentTypeHash = lastEventDocumentType.hashValue
-        let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)".hashValue
+        let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)"
         return combinedHash
     }
 

@@ -16,9 +16,7 @@ final class MainTableViewController: UITableViewController {
 
     let realm = try? Realm()
 
-    lazy var favoriteBillsWithUnseenChangesCount = {
-        return (try? Realm().objects(Bill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
-    }()
+    let favoriteBillsWithUnseenChangesCount = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count
 
 
     // MARK: - Life cycle
@@ -38,8 +36,7 @@ final class MainTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
-        favoriteBillsWithUnseenChangesCount = (try? Realm().objects(FavoriteBill_.self).filter("favoriteHasUnseenChanges == true").count) ?? 0
-        setFavoritesBadge(count: favoriteBillsWithUnseenChangesCount)
+        setFavoritesBadge(count: favoriteBillsWithUnseenChangesCount ?? 0)
     }
 
     // MARK: - Notifications

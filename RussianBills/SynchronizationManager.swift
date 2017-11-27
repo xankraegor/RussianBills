@@ -106,6 +106,11 @@ final class SyncMan {
         // Set directly by UserServices.updateFavoriteBills function
     }
 
+    func appBadgeToUnseenChangedFavortieBills(_ usingCount: Int? = nil) {
+        let count = usingCount ?? favoriteBillsInRealm?.filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count ?? 0
+        UIApplication.shared.applicationIconBadgeNumber = count
+    }
+
     // MARK: - Lesson 5
 
     //    func setupIColud() {

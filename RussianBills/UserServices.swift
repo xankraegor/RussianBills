@@ -200,20 +200,18 @@ enum UserServices {
         })
     }
 
-    static func updateFavoriteBills(forced: Bool, completionWithUpdatedCount: ((Int)->Void)? = nil) {
+    static func updateFavoriteBills(forced: Bool, completeWithUpdatedCount: ((Int)->Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
             debugPrint("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or ")
             return
         }
 
-        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self), favoriteBills.count > 0 else {
+        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false"), favoriteBills.count > 0 else {
             debugPrint("∆ UserServices can't instantiate Realm while updating favorite bills or favorite bills count equals zero")
             return
         }
 
-        var updatedCount = 0
-
-        let queries: [BillSearchQuery] = favoriteBills.map{ BillSearchQuery(withNumber: $0.number) }
+        let queries: [BillSearchQuery] = favoriteBills.map{BillSearchQuery(withNumber: $0.number)}
 
         for i in 0..<queries.count {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
@@ -240,10 +238,9 @@ enum UserServices {
 
                     try? Realm().write {
                         // Did last event changed since the last update?
-                        if (downloadedBill.generateHashForLastEvent() != previousHashValue) || (favoriteBills[i].favoriteHasUnseenChanges) {
+                        if downloadedBill.generateHashForLastEvent() != previousHashValue {
                             debugPrint("\(downloadedBill.number) has updates")
                             favoriteBills[i].favoriteHasUnseenChanges = true
-                            updatedCount += 1
                         }
                         downloadedBill.parserContent = existingBillParserContent
                         try? Realm().add(downloadedBill, update: true)
@@ -258,8 +255,9 @@ enum UserServices {
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
             debugPrint("∆ updateFavoriteBills completion handler")
             UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
-            if let completion = completionWithUpdatedCount {
-                completion(updatedCount)
+            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count
+            if let completion = completeWithUpdatedCount {
+                completion(favoriteBillsWithUnseenChanges ?? 0)
             }
         }
     }
@@ -271,7 +269,7 @@ enum UserServices {
         let newContent = content?.serialize()
         let bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
         try? realm?.write {
-            bill!.parserContent = newContent
+            bill?.parserContent = newContent
         }
     }
 
