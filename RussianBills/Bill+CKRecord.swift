@@ -43,8 +43,8 @@ extension FavoriteBill_ {
 
     // Generates bill marked for download or using a perdownloaded one
     static func from(record: CKRecord) -> FavoriteBill_? {
-        guard  let number = record.recordID.recordName as? String,
-        let name = record[.name] as? String,
+        let number = record.recordID.recordName
+        guard let name = record[.name] as? String,
         let comments = record[.comments] as? String,
         let favoriteUpdatedTimestamp = record[.favoriteUpdatedTimestamp] as? Date,
         let favoriteHasUnseenChanges = record[.favoriteHasUnseenChanges] as? Int,
