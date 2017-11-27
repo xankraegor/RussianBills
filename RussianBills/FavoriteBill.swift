@@ -9,6 +9,12 @@
 import Foundation
 import RealmSwift
 
+enum FavoritesFilters: String {
+    case hasUnseenChanges = "favoriteHasUnseenChanges == true"
+    case notMarkedToBeRemoved = "markedToBeRemovedFromFavorites == false"
+    case both = "markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true"
+}
+
 final class FavoriteBill_: Object {
 
     @objc dynamic var number: String = ""

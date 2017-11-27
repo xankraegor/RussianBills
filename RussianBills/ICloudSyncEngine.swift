@@ -127,11 +127,11 @@ public final class IcloudSyncEngine: NSObject {
             switch changes {
             case .update(let collection, _, let insertions, let modifications):
                 // Figure out which notes should be saved and which notes should be deleted
-                let notesToSave = (insertions + modifications).map({ collection[$0] }).filter({ !$0.markedToBeRemovedFromFavorites })
-                let notesToDelete = modifications.map({ collection[$0] }).filter({ $0.markedToBeRemovedFromFavorites })
+                let favoriteBillsToSave = (insertions + modifications).map{collection[$0]}.filter{!$0.markedToBeRemovedFromFavorites}
+                let favoriteBillsToDelete = modifications.map{ collection[$0]}.filter{$0.markedToBeRemovedFromFavorites}
 
                 // Push changes to CloudKitx
-                welf.pushToCloudKit(billsToUpdate: notesToSave, billsToDelete: notesToDelete)
+                welf.pushToCloudKit(billsToUpdate: favoriteBillsToSave, billsToDelete: favoriteBillsToDelete)
             case .error(let error):
                 slog("Realm notification error: \(error)")
             default: break

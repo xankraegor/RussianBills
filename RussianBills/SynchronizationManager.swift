@@ -107,7 +107,7 @@ final class SyncMan {
     }
 
     func appBadgeToUnseenChangedFavortieBills(_ usingCount: Int? = nil) {
-        let count = usingCount ?? favoriteBillsInRealm?.filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count ?? 0
+        let count = usingCount ?? favoriteBillsInRealm?.filter(FavoritesFilters.both.rawValue).count ?? 0
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
@@ -188,7 +188,6 @@ final class SyncMan {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "FavoriteBill", predicate: predicate)
         let operation = CKQueryOperation(query: query)
-
 
         operation.recordFetchedBlock = { record in
             fetchedRecords.append(record)

@@ -12,7 +12,7 @@ import RealmSwift
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
 
-    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false").sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
 
     // MARK: - Life cycle
 

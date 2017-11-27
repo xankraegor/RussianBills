@@ -206,7 +206,7 @@ enum UserServices {
             return
         }
 
-        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false"), favoriteBills.count > 0 else {
+        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue), favoriteBills.count > 0 else {
             debugPrint("∆ UserServices can't instantiate Realm while updating favorite bills or favorite bills count equals zero")
             return
         }
@@ -255,7 +255,7 @@ enum UserServices {
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
             debugPrint("∆ updateFavoriteBills completion handler")
             UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
-            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count
+            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
             if let completion = completeWithUpdatedCount {
                 completion(favoriteBillsWithUnseenChanges ?? 0)
             }

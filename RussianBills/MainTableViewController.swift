@@ -16,7 +16,7 @@ final class MainTableViewController: UITableViewController {
 
     let realm = try? Realm()
 
-    let favoriteBillsWithUnseenChangesCount = try? Realm().objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == false AND favoriteHasUnseenChanges == true").count
+    let favoriteBillsWithUnseenChangesCount = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
 
 
     // MARK: - Life cycle
