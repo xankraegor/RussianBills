@@ -10,7 +10,7 @@ import Foundation
 
 extension RequestRouter {
 
-    /// Paremeters for bill search query
+    /// Parameters for bill search query
     internal static func generateBillRequestParameters(forQuery bill: BillSearchQuery) -> [String: Any] {
         var dict = Dictionary<String, Any>()
 
@@ -96,17 +96,17 @@ extension RequestRouter {
         }
 
         /// responsible_committee — идентификатор ответственного комитета
-        if let respComittee = bill.comitteeResponsible {
+        if let respComittee = bill.committeeResponsible {
             dict["responsible_committee"] = respComittee.id
         }
 
         /// soexecutor_committee — идентификатор комитета-соисполнителя
-        if let coexecCommittee = bill.comitteeCoexecutor {
+        if let coexecCommittee = bill.committeeCoexecutor {
             dict["soexecutor_committee"] = coexecCommittee.id
         }
 
         /// profile_committee — идентификатор профильного комитета
-        if let profileCommittee = bill.comitteeProfile {
+        if let profileCommittee = bill.committeeProfile {
             dict["profile_committee"] = profileCommittee.id
         }
 

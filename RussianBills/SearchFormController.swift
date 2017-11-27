@@ -32,7 +32,7 @@ final class SearchFormController: FormViewController {
             <<< PushRow<String>() {
                 $0.title = "Тип"
                 $0.selectorTitle = "Выберите тип законопроекта"
-                $0.options = ["Любой", LawType.federalLaw.description, LawType.federalConstitionalLaw.description, LawType.constitutionalAmendment.description]
+                $0.options = ["Любой", LawType.federalLaw.description, LawType.federalConstitutionalLaw.description, LawType.constitutionalAmendment.description]
                 $0.value = "Любой"    // initially selected
                 }.onChange { [weak self] row in
                     self?.setLawType(withStatus: row.value ?? "")
@@ -127,8 +127,8 @@ final class SearchFormController: FormViewController {
         switch type {
         case LawType.federalLaw.description:
             query.lawType = LawType.federalLaw
-        case LawType.federalConstitionalLaw.description:
-            query.lawType = LawType.federalConstitionalLaw
+        case LawType.federalConstitutionalLaw.description:
+            query.lawType = LawType.federalConstitutionalLaw
         case LawType.constitutionalAmendment.description:
             query.lawType = LawType.constitutionalAmendment
         default: // "Любой"

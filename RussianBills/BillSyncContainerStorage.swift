@@ -57,8 +57,8 @@ public final class BillSyncContainerStorage {
         return realmBillsByFavoriteUpdatedTimestamp.first?.billSyncContainer
     }
 
-    public func store(billSyncContrainer: BillSyncContainer) throws {
-        try store(favoriteBill: billSyncContrainer.favoriteBill)
+    public func store(billSyncContainer: BillSyncContainer) throws {
+        try store(favoriteBill: billSyncContainer.favoriteBill)
     }
 
     func store(favoriteBill: FavoriteBill_, notNotifying token: NotificationToken? = nil) throws {

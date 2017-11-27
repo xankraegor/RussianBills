@@ -9,7 +9,7 @@
 import UIKit
 
 final class Dispatcher {
-    // Singletone
+    // Singleton
     static let shared = Dispatcher()
     private init() {}
 
@@ -22,14 +22,13 @@ final class Dispatcher {
 
     let attachmentsDownloadQueue = DispatchQueue(label: "attachmentsDownloadQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
 
-    let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .utility, attributes: DispatchQueue.Attributes.concurrent)
     let favoritesUpdateDispatchGroup = DispatchGroup()
+    let billsPrefetchDispatchQueue = DispatchQueue(label: "billsPrefetchDispatchQueue", qos: .utility, attributes: DispatchQueue.Attributes.concurrent)
 
     let htmlParseQueue = DispatchQueue(label: "html-parse-queue", qos: .userInitiated)
     var prefetchBillsWorkItem: DispatchWorkItem?
 
     var favoriteBillsUpdateTimer: DispatchSourceTimer?
-
 
     // Dispatcher Functions
 

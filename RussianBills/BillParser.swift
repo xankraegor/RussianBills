@@ -41,8 +41,8 @@ final public class BillParser {
                 // Phase header located: div class="oz_event bh_etap bh_etap_not"
                 if let header = div.xpath("div[contains(@class, 'table_td')]").first {
 
-                    guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content  else {
-                        debugPrint("∆ BILL PARSER: Can't find event header. Event will not be dispalyed")
+                    guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content else {
+                        debugPrint("∆ BILL PARSER: Can't find event header. Event will not be displayed")
                         continue
                     }
 
@@ -57,7 +57,7 @@ final public class BillParser {
 
                     // Event content block div class="oz_event bh_etap with_datatime"
 
-                } else if let eventContentDateBlock = div.xpath("div[contains(@class, 'bh_etap_date')]").first  {
+                } else if let eventContentDateBlock = div.xpath("div[contains(@class, 'bh_etap_date')]").first {
 
                     // General Event Description
 
@@ -84,7 +84,7 @@ final public class BillParser {
 
                     if let otherEventContent = div.xpath("div[contains(@class, 'algstname')]/div[contains(@class, 'table_td')]//li").first {
 
-                        // Does it have attached resolutios?
+                        // Does it have attached resolutions?
                         if let detailedDescr = otherEventContent.xpath("span[contains(@class, 'pun_number pull-right')]").first {
 
                             // Attached resolution description
@@ -103,7 +103,7 @@ final public class BillParser {
                     let attachments = div.xpath("div[contains(@class, 'event_files')]/span/a")
                     for attachment in attachments {
                         if let attLink = attachment["href"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), let attName =
-                            attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
+                        attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
                             currentEvent?.attachments.append(attLink)
                             currentEvent?.attachmentsNames.append(attName)
                         }
@@ -113,7 +113,7 @@ final public class BillParser {
                     let hiddenAttBlock = div.xpath("div[contains(@class, 'event_files')]/div[contains(@class, 'event_files')]/span/a")
                     for attachment in hiddenAttBlock {
                         if let attLink = attachment["href"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), let attName =
-                            attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
+                        attachment.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
                             currentEvent?.attachments.append(attLink)
                             currentEvent?.attachmentsNames.append(attName)
                         }

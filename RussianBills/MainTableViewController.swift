@@ -65,7 +65,7 @@ final class MainTableViewController: UITableViewController {
                 (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.lawClasses
             case "TopicsSegue":
                 (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.topics
-                case "CommitteesSegue":
+                case "CommittiesSegue":
                     (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.committees
                 case "FederalSegue":
                     (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.federalSubjects
@@ -73,10 +73,10 @@ final class MainTableViewController: UITableViewController {
                     (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
                 case "InstancesSegue":
                     (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.instances
-                case "DeputeesSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.dumaDeps
+                case "DeputiesSegue":
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.dumaDeputees
                 case "CouncilSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.councilMems
+                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.councilMembers
             default:
                 break
             }

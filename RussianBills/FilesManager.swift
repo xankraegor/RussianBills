@@ -57,16 +57,16 @@ enum FilesManager {
     }
 
     static func pathForFile(containingInName namePart: String, inDirectory path: String)->String? {
-        let filesPathesList = filesInDirectory(atPath: path)
-        for i in 0..<filesPathesList.count {
-            if filesPathesList[i].fileName().contains(namePart) {
-                return URL(fileURLWithPath: path).appendingPathComponent(filesPathesList[i]).path
+        let filePathsList = filesInDirectory(atPath: path)
+        for i in 0..<filePathsList.count {
+            if filePathsList[i].fileName().contains(namePart) {
+                return URL(fileURLWithPath: path).appendingPathComponent(filePathsList[i]).path
             }
         }
         return nil
     }
 
-    static func createAndOrWriteToFileBillDescrition(text: String, name: String, atPath path: String) {
+    static func createAndOrWriteToFileBillDescription(text: String, name: String, atPath path: String) {
         let fullPath = URL(fileURLWithPath: path).appendingPathComponent(name).path
         let fileExists = FileManager.default.fileExists(atPath: fullPath)
 
@@ -161,7 +161,7 @@ enum FilesManager {
                 }
             }
         } else {
-            debugPrint("∆ deleteAllAttachments: can't recieve Documents directory contents")
+            debugPrint("∆ deleteAllAttachments: can't receive Documents directory contents")
         }
     }
     
@@ -174,7 +174,7 @@ enum FilesManager {
             if key.rangeOfCharacter(from: forbiddenCharactersSet) == nil {
                 return key
             } else {
-                debugPrint("∆ Wrong characters in string when exctracting unique name for document. Key is: \(key)")
+                debugPrint("∆ Wrong characters in string when extracting unique name for document. Key is: \(key)")
             }
         }
         return nil

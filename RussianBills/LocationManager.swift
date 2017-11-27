@@ -15,7 +15,7 @@ protocol LocationManagerDelegate: class {
 }
 
 final class LocationManager: NSObject {
-    // Singletone
+    // Singleton
     static let instance = LocationManager()
     private override init() {}
 

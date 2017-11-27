@@ -14,7 +14,7 @@ import UserNotifications
 import CloudKit
 
 final class SyncMan {
-    // Singletone
+    // Singleton
     static let shared = SyncMan()
 
     private var authHandle: AuthStateDidChangeListenerHandle?
@@ -38,10 +38,10 @@ final class SyncMan {
         }
 
 //        setupFavoritesRealmNotificationToken()
-//        setupFavoritesHangle()
+//        setupFavoritesHandle()
     }
 
-    // MARK: - Firebase syncronization
+    // MARK: - Firebase synchronization
 
 //    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
 //        guard let userId = uid else { return }
@@ -58,7 +58,7 @@ final class SyncMan {
 //        }
 //    }
 //
-//    func setupFavoritesHangle() {
+//    func setupFavoritesHandle() {
 //        guard let userId = uid else { return }
 //        let refHandle = firebaseDbLink.child(userId).child("favoriteBills").observe(DataEventType.value, with: { [weak self] (snapshot) in
 //            let favoriteBillsInFirebase = snapshot.value as? [String : Double] ?? [:]
@@ -106,54 +106,54 @@ final class SyncMan {
         // Set directly by UserServices.updateFavoriteBills function
     }
 
-    func appBadgeToUnseenChangedFavortieBills(_ usingCount: Int? = nil) {
+    func appBadgeToUnseenChangedFavoriteBills(_ usingCount: Int? = nil) {
         let count = usingCount ?? favoriteBillsInRealm?.filter(FavoritesFilters.both.rawValue).count ?? 0
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
     // MARK: - Lesson 5
 
-    //    func setupIColud() {
-    //
-    //        // Должна быть авторизация!
-    //
-    //
-    //        let publicDatabase = container.database(with: .public)
-    //        let privateDatabase = container.database(with: .private)
-    //
-    //        let catId = CKRecordID(recordName: "CatTree")
-    //        let cat = CKRecord(recordType: "Cat", recordID: catId)
-    //        cat["color"] = "Зеленая" as NSString
-    //        cat["masterName"] = "Пётр" as NSString
-    //
-    //        database.save(cat) {
-    //            (record, error) in
-    //            if let error = error {
-    //                // Insert error hangle
-    //                return
-    //            }
-    //            // Insert sucessfully saved record code
-    //        }
-    //
-    ////        let catId = CKREcord(recordName: "CatTree")
-    ////        database.fetch(withRecordID: catId) {
-    ////            cat, error init
-    ////            print(cat, error)
-    ////        }
-    //
-    //        let query = CKQuery(recordType: "Cats", predicate: NSPredicate(value: true))
-    //        let zoneId = CKRecordZoneID(zoneName: "_defaultZone", ownerNmae: "_043927439047320949302fr4324")
-    //
-    //        database.perform(query, inZoneWith: zoneID) {
-    //            cats, error in
-    //            for cat in cats! {
-    //                print(cat["color"])
-    //            }
-    //        }
-    //
-    //    }
+//        func setupICloud() {
+//
+//            // Должна быть авторизация!
+//
+//
+//            let publicDatabase = container.database(with: .public)
+//            let privateDatabase = container.database(with: .private)
+//
+//            let catId = CKRecordID(recordName: "CatTree")
+//            let cat = CKRecord(recordType: "Cat", recordID: catId)
+//            cat["color"] = "Зеленая" as NSString
+//            cat["masterName"] = "Пётр" as NSString
+//
+//            database.save(cat) {
+//                (record, error) in
+//                if let error = error {
+//                    // Insert error handle
+//                    return
+//                }
+//                // Insert sucessfully saved record code
+//            }
+//
+//    //        let catId = CKRecord(recordName: "CatTree")
+//    //        database.fetch(withRecordID: catId) {
+//    //            cat, error init
+//    //            print(cat, error)
+//    //        }
+//
+//            let query = CKQuery(recordType: "Cats", predicate: NSPredicate(value: true))
+//            let zoneId = CKRecordZoneID(zoneName: "_defaultZone", ownerNmae: "_043927439047320949302fr4324")
+//
+//            database.perform(query, inZoneWith: zoneID) {
+//                cats, error in
+//                for cat in cats! {
+//                    print(cat["color"])
+//                }
+//            }
+//
+//        }
 
-    // MARK: - iCloud Syncronization
+    // MARK: - iCloud Synchronization
 
     func isUserLoggedIntoIcloud(withResult: @escaping (Bool)->Void) {
         CKContainer.default().accountStatus(completionHandler: {(_ accountStatus: CKAccountStatus, _ error: Error?) -> Void in

@@ -1,5 +1,5 @@
 //
-//  Comittee.swift
+//  Committee.swift
 //  RussianBills
 //
 //  Created by Xan Kraegor on 04.07.2017.
@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список комитетов ГД РФ
-final class Comittee_: Object, InitializableWithJson, QuickSearchFieldsReporting {
+final class Committee_: Object, InitializableWithJson, QuickSearchFieldsReporting {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var isCurrent: Bool = false

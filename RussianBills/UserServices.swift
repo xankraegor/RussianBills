@@ -17,8 +17,8 @@ enum UserServices {
     // MARK: - Download Reference Categories
 
     static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
-        downloadComittees(forced: forced)
-        downloadLawCalsses(forced: forced)
+        downloadCommittees(forced: forced)
+        downloadLawClasses(forced: forced)
         downloadTopics(forced: forced)
         downloadDeputies(forced: forced)
         downloadFederalSubjects(forced: forced)
@@ -32,13 +32,13 @@ enum UserServices {
         }
     }
 
-    static func downloadComittees(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadCommittees(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
                 return
             }
 
-            Request.comittees(current: nil, completion: { (result: [Comittee_]) in
+            Request.committies(current: nil, completion: { (result: [Committee_]) in
                 let realm = try? Realm()
                 try? realm?.write {
                     realm?.add(result, update: true)
@@ -51,7 +51,7 @@ enum UserServices {
         }
     }
 
-    static func downloadLawCalsses(forced: Bool = false, completion: VoidToVoid = nil) {
+    static func downloadLawClasses(forced: Bool = false, completion: VoidToVoid = nil) {
         Dispatcher.shared.dispatchReferenceDownload {
             guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
                 return
@@ -190,7 +190,9 @@ enum UserServices {
                     res.parserContent = existingBill.parserContent
 
                     // Check if a favorite bill has changes
-                    if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: res.number), res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
+                    if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self,
+                            forPrimaryKey: res.number),
+                       res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
                         try? realm?.write {
                             existingFavoriteBillRecord.favoriteHasUnseenChanges = true
                         }
@@ -214,7 +216,8 @@ enum UserServices {
             return
         }
 
-        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue), favoriteBills.count > 0 else {
+        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
+                .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue), favoriteBills.count > 0 else {
             debugPrint("∆ UserServices can't instantiate Realm while updating favorite bills or favorite bills count equals zero")
             return
         }
@@ -225,7 +228,8 @@ enum UserServices {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
             Dispatcher.shared.billsPrefetchDispatchQueue.async() {
 
-                guard let existingBill = try! Realm().objects(Bill_.self).filter("number = '\(queries[i].number!)'").first else {
+                guard let existingBill = try! Realm().objects(Bill_.self)
+                        .filter("number = '\(queries[i].number!)'").first else {
                     debugPrint("∆ Bill record \(queries[i].number!) missing in Realm while updating favorite bills")
                     return
                 }
@@ -236,7 +240,7 @@ enum UserServices {
                 Request.billSearch(forQuery: queries[i], completion: { (result: [Bill_]) in
 
                     guard let downloadedBill = result.first else {
-                        debugPrint("∆ No bills recieved when querying \(queries[i].number!) while updating favorite bills")
+                        debugPrint("∆ No bills received when querying \(queries[i].number!) while updating favorite bills")
                         return
                     }
 
@@ -257,7 +261,8 @@ enum UserServices {
 
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
             UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
-            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
+            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self)
+                    .filter(FavoritesFilters.both.rawValue).count
             if let completion = completeWithUpdatedCount {
                 completion(favoriteBillsWithUnseenChanges ?? 0)
             }
@@ -278,27 +283,29 @@ enum UserServices {
     // MARK: - Attachments
 
     static func pathForDownloadAttachment(forBillNumber: String, withLink link: String)->String? {
-        let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
-        if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link), let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttacmentsDirectory) {
+        let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
+        if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link),
+           let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
             return path
         } else {
             return nil
         }
     }
 
-    static func downloadAttachment(forBillNumber billNumber: String, withLink downladLink: String, updateProgressStatus: @escaping (Double)->Void, completion: VoidToVoid) {
-        let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downladLink)
-        let billAttacmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
-        let temporaryFileName = String(downladLink.hashValue)
-        let temporaryFullPath = URL(fileURLWithPath: billAttacmentsDirectory).appendingPathComponent(temporaryFileName).path
+    static func downloadAttachment(forBillNumber billNumber: String, withLink downloadLink: String,
+                                   updateProgressStatus: @escaping (Double)->Void, completion: VoidToVoid) {
+        let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downloadLink)
+        let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
+        let temporaryFileName = String(downloadLink.hashValue)
+        let temporaryFullPath = URL(fileURLWithPath: billAttachmentsDirectory).appendingPathComponent(temporaryFileName).path
 
-        FilesManager.createDirectory(atPath: billAttacmentsDirectory)
+        FilesManager.createDirectory(atPath: billAttachmentsDirectory)
 
         let destinationAF: DownloadRequest.DownloadFileDestination = { _, _ in
             return (URL(fileURLWithPath: temporaryFullPath), [.removePreviousFile, .createIntermediateDirectories])
         }
 
-        Alamofire.download(downladLink, to: destinationAF)
+        Alamofire.download(downloadLink, to: destinationAF)
 
             .downloadProgress(closure: { (progress) in
                 // For UI update
@@ -344,7 +351,7 @@ enum UserServices {
                         let suggestedExtension = URL(fileURLWithPath: suggestedFullFileName).pathExtension
                         let fileNameWithoutExtension = URL(fileURLWithPath: suggestedFullFileName).deletingPathExtension()
                         let targetFileName = "\(fileNameWithoutExtension.lastPathComponent.removingPercentEncoding ?? "")_#\(fileId).\(suggestedExtension)"
-                        FilesManager.renameFile(named: temporaryFileName, atPath: billAttacmentsDirectory, newName: targetFileName)
+                        FilesManager.renameFile(named: temporaryFileName, atPath: billAttachmentsDirectory, newName: targetFileName)
                         if let comp = completion {
                             comp()
                         }

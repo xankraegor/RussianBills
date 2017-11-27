@@ -250,7 +250,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="iyB-xj-RN1" kind="show" identifier="DeputeesSegue" id="lBj-yx-6tQ"/>
+                                            <segue destination="iyB-xj-RN1" kind="show" identifier="DeputiesSegue" id="lBj-yx-6tQ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="hXb-4c-3Rl" userLabel="Deputees">
@@ -308,7 +308,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="iyB-xj-RN1" kind="show" identifier="CommitteesSegue" id="D6Q-eD-qC2"/>
+                                            <segue destination="iyB-xj-RN1" kind="show" identifier="CommittiesSegue" id="D6Q-eD-qC2"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="I" rowHeight="45" id="yQy-v6-ToR" userLabel="LawClasses">
@@ -972,14 +972,14 @@
                         <outlet property="coexecCommitteeLabel" destination="PAz-Gw-V5Q" id="J2S-B8-9gf"/>
                         <outlet property="decisionLabel" destination="P8P-XZ-Vi3" id="ApG-5e-lnf"/>
                         <outlet property="goToAllEventsCell" destination="6LO-x4-ovx" id="Dzl-ZX-63h"/>
-                        <outlet property="introductedByLabel" destination="vTr-LG-E0p" id="NFh-Ft-q1h"/>
-                        <outlet property="introductionDateLabel" destination="ZsO-jP-JJE" id="Wew-9m-MTx"/>
+                        <outlet property="introducedByLabel" destination="vTr-LG-E0p" id="VGR-49-ydv"/>
+                        <outlet property="introductionDateLabel" destination="ZsO-jP-JJE" id="1nh-VX-9DR"/>
                         <outlet property="moreDocsCell" destination="6LO-x4-ovx" id="wb2-Zj-pHg"/>
                         <outlet property="moreDocsIndicator" destination="7YZ-hf-8HC" id="MdS-uR-Vum"/>
                         <outlet property="moreDocsLabel" destination="G9r-uP-701" id="6wb-6D-QsU"/>
                         <outlet property="navigationItem" destination="BG1-9U-MPp" id="ePW-fP-Te4"/>
                         <outlet property="phaseLabel" destination="CIy-4l-GL1" id="S3V-mt-2J9"/>
-                        <outlet property="profileComitteesLable" destination="HJk-dy-12H" id="Iv0-FP-QJ8"/>
+                        <outlet property="profileComitteesLabel" destination="HJk-dy-12H" id="Iv0-FP-QJ8"/>
                         <outlet property="respCommitteeLabel" destination="kcH-BW-Wcr" id="9zR-JW-Wky"/>
                         <outlet property="stageLabel" destination="9Oh-r8-AIu" id="kza-Qz-Rn6"/>
                     </connections>
@@ -1553,7 +1553,7 @@
                                     <segue destination="HuN-bd-2jP" kind="show" id="a2n-kh-rhy"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComitteesCellId" rowHeight="94" id="IiQ-r3-N3S" customClass="NameStartEndTableViewCell" customModule="RussianBills" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommittiesCellId" rowHeight="94" id="IiQ-r3-N3S" customClass="NameStartEndTableViewCell" customModule="RussianBills" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="78" width="375" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IiQ-r3-N3S" id="T7w-aR-hbl">
@@ -1603,7 +1603,7 @@
                                     <segue destination="HuN-bd-2jP" kind="show" id="0xS-fK-VXV"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DeputeesCellId" textLabel="m0x-nD-iOI" detailTextLabel="25f-3F-rOM" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Hup-Vb-d60">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DeputiesCellId" textLabel="m0x-nD-iOI" detailTextLabel="25f-3F-rOM" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="Hup-Vb-d60">
                                 <rect key="frame" x="0.0" y="172" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hup-Vb-d60" id="umX-a2-dnr">
@@ -1900,7 +1900,7 @@
                         <outlet property="downloadedAttachmentsDeleteCell" destination="sBL-S5-Khe" id="cDK-5N-aEp"/>
                         <outlet property="downloadedFilesSizeLabel" destination="Lvn-m5-ezK" id="BLr-yG-NYB"/>
                         <outlet property="sliderTimeLabel" destination="3Tt-Wj-5Ul" id="jYl-Jv-Oki"/>
-                        <outlet property="updateBillsTimeoutSliter" destination="cTG-in-5lM" id="9Aw-kC-hb2"/>
+                        <outlet property="updateBillsTimeoutSlider" destination="cTG-in-5lM" id="9Aw-kC-hb2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkU-ld-MwH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1930,7 +1930,7 @@
         <image name="file_doc" width="410" height="410"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wXA-hc-24i"/>
+        <segue reference="lBj-yx-6tQ"/>
         <segue reference="0xS-fK-VXV"/>
         <segue reference="LwO-fy-era"/>
     </inferredMetricsTieBreakers>

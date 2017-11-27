@@ -13,14 +13,14 @@ import Foundation
 @objc enum LawType: Int, CustomStringConvertible {
 
     case federalLaw = 38
-    case federalConstitionalLaw = 39
+    case federalConstitutionalLaw = 39
     case constitutionalAmendment = 41
 
     var description: String {
         switch self {
         case .federalLaw:
             return "Федеральный закон"
-        case .federalConstitionalLaw:
+        case .federalConstitutionalLaw:
             return "Федеральный конституционный закон"
         case .constitutionalAmendment:
             return "Закон о поправках к Конституции РФ"

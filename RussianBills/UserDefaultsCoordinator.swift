@@ -68,7 +68,7 @@ enum UserDefaultsCoordinator: String {
             return
         }
 
-        if ofCollection.first is Comittee_ {
+        if ofCollection.first is Committee_ {
             UserDefaultsCoordinator.committee.updateTimestamp()
             return
         }

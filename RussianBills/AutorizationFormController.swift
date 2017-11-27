@@ -1,5 +1,5 @@
 //
-//  AutorizationFormController.swift
+//  AuthorizationFormController.swift
 //  RussianBills
 //
 //  Created by Xan Kraegor on 07.11.2017.
@@ -44,7 +44,7 @@ final class AuthFormController: FormViewController {
         }
     }
 
-    func performAuthoriztion() {
+    func performAuthorization() {
         if let email = enteredEmail, let pass = enteredPassword, let statusRow = self.form.rowBy(tag: "authStatus") as? LabelRow {
             statusRow.title = "Осуществляю вход..."
             Auth.auth().signIn(withEmail: email, password: pass, completion: { [weak self] (user, error) in
@@ -75,7 +75,7 @@ final class AuthFormController: FormViewController {
                 row.add(rule: RuleEmail())
                 row.validationOptions = .validatesOnChange
                 row.disabled = Condition.function([], { [weak self] (_) -> Bool in
-                    return self?.authStatus == .processing || self?.authStatus == .successfull
+                    return self?.authStatus == .processing || self?.authStatus == .successful
                 })
                 }.onChange { [weak self] row in
                     let charactersCount = row.value?.count ?? 0
@@ -107,7 +107,7 @@ final class AuthFormController: FormViewController {
                     return self?.authStatus == .processing
                 })
                 row.hidden = Condition.function([], { [weak self] (_) -> Bool in
-                    return self?.authStatus == .successfull
+                    return self?.authStatus == .successful
                 })
                 }.onChange { [weak self] row in
                     let charactersCount = row.value?.count ?? 0
@@ -122,7 +122,7 @@ final class AuthFormController: FormViewController {
                 row.disabled = Condition.function(["emailRow", "passwordRow"], { [weak self] (form) -> Bool in
 
                     switch self!.authStatus {
-                    case .successfull:
+                    case .successful:
                         return false
                     case .processing:
                         return true
@@ -138,14 +138,14 @@ final class AuthFormController: FormViewController {
                         return false
                     }
 
-                    let emailLenght = emailRow.value?.count ?? 0
+                    let emailLength = emailRow.value?.count ?? 0
                     let passwordLength = passwordRow.value?.count ?? 0
-                    return emailLenght < 1 || passwordLength < 1
+                    return emailLength < 1 || passwordLength < 1
                 })
                 row.title = "Войти"
                 }.onCellSelection({ [weak self] (cell, row) in
-                    if self?.authStatus != .successfull {
-                        self?.performAuthoriztion()
+                    if self?.authStatus != .successful {
+                        self?.performAuthorization()
                     } else {
                         self?.performLogout()
                     }
@@ -154,7 +154,7 @@ final class AuthFormController: FormViewController {
             +++ Section("signUpSection") { section in
                 section.header?.title = "Зарегистрироваться"
             }
-            <<< EmailRow("emailRowSignup"){ row in
+            <<< EmailRow("emailRowSignUp"){ row in
                 row.title = "Адрес"
                 row.placeholder = "test@test.com"
                 row.add(rule: RuleRequired())
@@ -173,10 +173,10 @@ final class AuthFormController: FormViewController {
                 row.validationOptions = .validatesOnChange
             }
 
-            <<< ButtonRow("singupButtonRow") { row in
+            <<< ButtonRow("singUpButtonRow") { row in
                 row.title = ""
                 }.onCellSelection({ [weak self] (cell, row) in
-                    print("Signup button pressed")
+                    print("SignUp button pressed")
                 })
     }
 
@@ -214,7 +214,7 @@ final class AuthFormController: FormViewController {
             buttonRow.title = "Войти"
 
         } else if let usr = user {
-            authStatus = .successfull
+            authStatus = .successful
             statusRow.title = "Успешно авторизован"
             emailRow.disabled = true
             emailRow.value = usr.email

@@ -33,9 +33,9 @@ struct BillSearchQuery {
     var federalSubject: FederalSubject_?
     var regionalSubject: RegionalSubject_?
     var deputy: Deputy_?
-    var comitteeResponsible: Comittee_?
-    var comitteeCoexecutor: Comittee_?
-    var comitteeProfile: Comittee_?
+    var committeeResponsible: Committee_?
+    var committeeCoexecutor: Committee_?
+    var committeeProfile: Committee_?
 
     /// ПАРАМЕТРЫ ПОИСКА ПО СОБЫТИЯМ
     /// По каждому из законопроектов в системе АИС «Законопроект» хранятся все события, произошедшие с ним. В запросе доступна фильтрация законопроектов по параметрам, связанными с событиями. Для активации поиска по данным параметрам обязательно указание режима поиска по событиям, за что отвечает параметр search_mode.

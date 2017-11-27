@@ -24,8 +24,8 @@ enum Request {
 
     // NOT Enqueued
     static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_])->Void ) {
-        if let reqestMessage = RequestRouter.search(bill: bill).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON { response in
+        if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
+            Alamofire.request(requestMessage).responseJSON { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var bills: [Bill_] = []
@@ -50,7 +50,7 @@ enum Request {
 
             if let resp = response.response,
                 resp.statusCode / 100 != 2 { // Not-normal response
-                debugPrint("∆ Parser [\(Date())] recieved HTTPURLResponse with status code: \(resp.statusCode)")
+                debugPrint("∆ Parser [\(Date())] received HTTPURLResponse with status code: \(resp.statusCode)")
             }
 
             if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
@@ -61,18 +61,18 @@ enum Request {
 
     // MARK: - Other request Functions
 
-    static func comittees(current: Bool? = nil, completion: @escaping ([Comittee_])->Void ) {
-        if let reqestMessage = RequestRouter.committees(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+    static func committies(current: Bool? = nil, completion: @escaping ([Committee_])->Void ) {
+        if let requestMessage = RequestRouter.committees(current: current).urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
-                    var comittees: [Comittee_] = []
+                    var committies: [Committee_] = []
                     for item in json {
-                        let comittee = Comittee_(withJson: item.1)
-                        comittees.append(comittee)
+                        let comittee = Committee_(withJson: item.1)
+                        committies.append(comittee)
                     }
-                    completion(comittees)
+                    completion(committies)
                 }
             }
         } else {
@@ -81,8 +81,8 @@ enum Request {
     }
 
     static func lawClasses(completion: @escaping ([LawClass_])->Void) {
-        if let reqestMessage = RequestRouter.classes.urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.classes.urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
@@ -100,8 +100,8 @@ enum Request {
     }
 
     static func topics(completion: @escaping ([Topic_])->Void) {
-        if let reqestMessage = RequestRouter.topics.urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.topics.urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
@@ -119,8 +119,8 @@ enum Request {
     }
 
     static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_])->Void ) {
-        if let reqestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
@@ -138,8 +138,8 @@ enum Request {
     }
 
     static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_])->Void ) {
-        if let reqestMessage = RequestRouter.federalSubject(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.federalSubject(current: current).urlRequest {
+            Alamofire.request(requestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
@@ -158,8 +158,8 @@ enum Request {
     }
 
     static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_])->Void ) {
-        if let reqestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
@@ -177,8 +177,8 @@ enum Request {
     }
 
     static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->Void ) {
-        if let reqestMessage = RequestRouter.instances(current: current).urlRequest {
-            Alamofire.request(reqestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
+        if let requestMessage = RequestRouter.instances(current: current).urlRequest {
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
             { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)

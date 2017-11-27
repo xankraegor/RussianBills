@@ -28,7 +28,7 @@ final class SearchResultsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
         guard query.hasAnyFilledFields() else {
-            fatalError("∆ Did not recieve a search query")
+            fatalError("∆ Did not receive a search query")
         }
 
         if !isPrefetched {
@@ -105,6 +105,5 @@ final class SearchResultsTableViewController: UITableViewController {
             dest.billNr = results[path.row].number
         }
     }
-
 
 }

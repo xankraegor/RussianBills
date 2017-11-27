@@ -1,5 +1,5 @@
 //
-//  CommiteeTableViewCell.swift
+//  CommitteeTableViewCell.swift
 //  RussianBills
 //
 //  Created by Xan Kraegor on 08.07.2017.

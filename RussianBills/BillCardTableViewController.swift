@@ -17,7 +17,7 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var billTitle: UILabel!
     @IBOutlet weak var billSubtitleLabel: UILabel!
     @IBOutlet weak var introductionDateLabel: UILabel!
-    @IBOutlet weak var introductedByLabel: UILabel!
+    @IBOutlet weak var introducedByLabel: UILabel!
     
     @IBOutlet weak var stageLabel: UILabel!
     @IBOutlet weak var phaseLabel: UILabel!
@@ -25,7 +25,7 @@ final class BillCardTableViewController: UITableViewController {
     
     @IBOutlet weak var respCommitteeLabel: UILabel!
     @IBOutlet weak var coexecCommitteeLabel: UILabel!
-    @IBOutlet weak var profileComitteesLable: UILabel!
+    @IBOutlet weak var profileComitteesLabel: UILabel!
     
     @IBOutlet weak var goToAllEventsCell: UITableViewCell!
 
@@ -120,12 +120,12 @@ final class BillCardTableViewController: UITableViewController {
             billTitle.text = bill.name
             billSubtitleLabel.text = bill.comments
             introductionDateLabel.text = bill.introductionDate
-            introductedByLabel.text = bill.generateSubjectsDescription()
+            introducedByLabel.text = bill.generateSubjectsDescription()
             stageLabel.text = bill.lastEventStage?.name
             phaseLabel.text = bill.lastEventPhase?.name
             decisionLabel.text = bill.generateFullSolutionDescription()
-            respCommitteeLabel.text = bill.comitteeResponsible?.name
-            profileComitteesLable.text = bill.generateProfileCommitteesDescription()
+            respCommitteeLabel.text = bill.committeeResponsible?.name
+            profileComitteesLabel.text = bill.generateProfileCommitteesDescription()
             coexecCommitteeLabel.text = bill.generateCoexecitorCommitteesDescription()
         } else {
             fatalError("Bill is not being provided")
@@ -152,7 +152,7 @@ final class BillCardTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { [weak self] (action) in
-            FilesManager.createAndOrWriteToFileBillDescrition(text: (self?.description)!, name: (self?.bill!.number)!, atPath: NSHomeDirectory())
+            FilesManager.createAndOrWriteToFileBillDescription(text: (self?.description)!, name: (self?.bill!.number)!, atPath: NSHomeDirectory())
         }))
 
         alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { (action) in
@@ -164,8 +164,8 @@ final class BillCardTableViewController: UITableViewController {
             let realm = try? Realm()
             if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
                 try? realm?.write {
-                    if let exisitingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
-                        realm?.delete(exisitingFavoriteBill)
+                    if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
+                        realm?.delete(existingFavoriteBill)
                     } else {
                         let newFavoriteBill = FavoriteBill_(fromBill: updBill)
                         realm?.add(newFavoriteBill, update: true)

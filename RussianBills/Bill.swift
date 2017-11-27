@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-
 final class Bill_: Object, InitializableWithJson {
 
     @objc dynamic var number: String = ""
@@ -23,8 +22,8 @@ final class Bill_: Object, InitializableWithJson {
     @objc dynamic var url: String = ""
     @objc dynamic var transcriptUrl: String = ""
 
-    let factions = List<Factions_>()
-    let deputees = List<Deputy_>()
+    let factions = List<Faction_>()
+    let deputies = List<Deputy_>()
     let federalSubjects = List<FederalSubject_>()
     let regionalSubjects = List<RegionalSubject_>()
 
@@ -35,9 +34,9 @@ final class Bill_: Object, InitializableWithJson {
     @objc dynamic var lastEventDocumentName: String = ""
     @objc dynamic var lastEventDocumentType: String = ""
 
-    @objc dynamic var comitteeResponsible: Comittee_?
-    let comitteeProfile = List<Comittee_>()
-    let comitteeCoexecutor = List<Comittee_>()
+    @objc dynamic var committeeResponsible: Committee_?
+    let committeeProfile = List<Committee_>()
+    let committeeCoexecutor = List<Committee_>()
 
     @objc dynamic var parserContent: Data?
 
@@ -84,14 +83,14 @@ final class Bill_: Object, InitializableWithJson {
     func decodeFactions(_ json: JSON) {
         let realm = try? Realm()
         let factions = json["subject"]["factions"].arrayValue
-        var parsedFactions = Set<Factions_>()
+        var parsedFactions = Set<Faction_>()
 
         for fac in factions {
             let facId = fac["id"].intValue
-            if let faction = realm?.object(ofType: Factions_.self, forPrimaryKey: facId) {
+            if let faction = realm?.object(ofType: Faction_.self, forPrimaryKey: facId) {
                 self.factions.append(faction)
             } else {
-                let faction = Factions_()
+                let faction = Faction_()
                 faction.id = facId
                 faction.name = fac["name"].stringValue
 
@@ -108,13 +107,13 @@ final class Bill_: Object, InitializableWithJson {
 
     func decodeDeputees(_ json: JSON) {
         let realm = try? Realm()
-        let deputies = json["subject"]["deputies"].arrayValue
+        let deputiesJson = json["subject"]["deputies"].arrayValue
         var parsedDeputees = Set<Deputy_>()
 
-        for dep in deputies {
+        for dep in deputiesJson {
             let depId = dep["id"].intValue
             if let deputy = realm?.object(ofType: Deputy_.self, forPrimaryKey: depId) {
-                deputees.append(deputy)
+                self.deputies.append(deputy)
             } else {
                 let deputy = Deputy_()
                 deputy.id = depId
@@ -123,7 +122,7 @@ final class Bill_: Object, InitializableWithJson {
                 deputy.position = dep["position"].stringValue
 
                 parsedDeputees.insert(deputy)
-                deputees.append(deputy)
+                self.deputies.append(deputy)
             }
         }
 
@@ -158,10 +157,10 @@ final class Bill_: Object, InitializableWithJson {
         let comitteeId = json["committees"]["responsible"]["id"].intValue
         let realm = try? Realm()
 
-        if let committeeById = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
-            comitteeResponsible = committeeById
+        if let committeeById = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+            committeeResponsible = committeeById
         } else {
-            let committee = Comittee_()
+            let committee = Committee_()
             committee.id = comitteeId
             committee.name = json["committees"]["responsible"]["name"].stringValue
             committee.isCurrent = json["committees"]["responsible"]["isCurrent"].boolValue
@@ -172,21 +171,21 @@ final class Bill_: Object, InitializableWithJson {
                 realm?.add(committee, update: true)
             }
 
-            comitteeResponsible = committee
+            committeeResponsible = committee
         }
     }
 
     func decodeProfileCommittees(_ json: JSON) {
         let realm = try? Realm()
         let profileComs = json["committees"]["profile"].arrayValue
-        var parsedCommitees = Set<Comittee_>()
+        var parsedCommitees = Set<Committee_>()
 
         for com in profileComs {
             let comitteeId = com["id"].intValue
-            if let committeeById = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
-                comitteeProfile.append(committeeById)
+            if let committeeById = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+                committeeProfile.append(committeeById)
             } else {
-                let committee = Comittee_()
+                let committee = Committee_()
                 committee.id = comitteeId
                 committee.name = com["name"].stringValue
                 committee.isCurrent = com["isCurrent"].boolValue
@@ -194,7 +193,7 @@ final class Bill_: Object, InitializableWithJson {
                 committee.stopDate = com["stopDate"].stringValue
 
                 parsedCommitees.insert(committee)
-                comitteeProfile.append(committee)
+                committeeProfile.append(committee)
             }
         }
 
@@ -206,14 +205,14 @@ final class Bill_: Object, InitializableWithJson {
     func decodeCoexecutors(_ json: JSON) {
         let realm = try? Realm()
         let coexecs = json["committees"]["soexecutor"].arrayValue
-        var parsedCommitees = Set<Comittee_>()
+        var parsedCommitees = Set<Committee_>()
 
         for com in coexecs {
             let comitteeId = com["id"].intValue
-            if let committee = realm?.object(ofType: Comittee_.self, forPrimaryKey: comitteeId) {
-                comitteeCoexecutor.append(committee)
+            if let committee = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+                committeeCoexecutor.append(committee)
             } else {
-                let committee = Comittee_()
+                let committee = Committee_()
                 committee.id = comitteeId
                 committee.name = com["name"].stringValue
                 committee.isCurrent = com["isCurrent"].boolValue
@@ -221,7 +220,7 @@ final class Bill_: Object, InitializableWithJson {
                 committee.stopDate = com["stopDate"].stringValue
 
                 parsedCommitees.insert(committee)
-                comitteeCoexecutor.append(committee)
+                committeeCoexecutor.append(committee)
             }
         }
 
@@ -283,18 +282,18 @@ final class Bill_: Object, InitializableWithJson {
     func generateSubjectsDescription() -> String? {
         var output: [String] = []
         factions.forEach({output.append($0.name)})
-        deputees.forEach({output.append("\($0.position) \($0.name)")})
+        deputies.forEach({output.append("\($0.position) \($0.name)")})
         federalSubjects.forEach({output.append($0.name)})
         regionalSubjects.forEach({output.append($0.name)})
         return output.joined(separator: "; ")
     }
 
     func generateCoexecitorCommitteesDescription() -> String? {
-         return comitteeCoexecutor.map{$0.name}.joined(separator: "; ")
+         return committeeCoexecutor.map{$0.name}.joined(separator: "; ")
     }
 
     func generateProfileCommitteesDescription()->String? {
-        return comitteeProfile.map{$0.name}.joined(separator: "; ")
+        return committeeProfile.map{$0.name}.joined(separator: "; ")
     }
 
     private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {

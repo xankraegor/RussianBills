@@ -11,5 +11,5 @@ import Foundation
 enum AuthStatus: String {
     case processing = "Осуществляется вход..."
     case denied = "Не авторизован"
-    case successfull = "Авторизация успешна"
+    case successful = "Авторизация успешна"
 }

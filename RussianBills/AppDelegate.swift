@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserServices.updateFavoriteBills(forced: true) {
             unseenFavoriteBillsCount in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
-            SyncMan.shared.appBadgeToUnseenChangedFavortieBills(unseenFavoriteBillsCount)
+            SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
 
         }
 
@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserServices.updateFavoriteBills(forced: true) {
             unseenFavoriteBillsCount in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
-            SyncMan.shared.appBadgeToUnseenChangedFavortieBills(unseenFavoriteBillsCount)
+            SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
         }
         Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
 

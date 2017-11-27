@@ -351,7 +351,7 @@ public final class IcloudSyncEngine: NSObject {
     /// Helper method to retry a CloudKit operation when its error suggests it
     private func retryCloudKitOperationIfPossible(with error: Error?, block: @escaping () -> ()) {
         guard let error = error as? CKError else {
-            slog("CloudKit can't interprete an error during retrying an operation")
+            slog("CloudKit can't interpret an error during retrying an operation")
             return
         }
 

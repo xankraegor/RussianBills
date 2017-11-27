@@ -90,8 +90,8 @@ enum RequestRouter: URLRequestConvertible {
             if let deputyPosition = position {
                 dict["position"] = deputyPosition.rawValue
             }
-            if let isDepuyCurrent = current {
-                dict["current"] = isDepuyCurrent ? "1" : "0"
+            if let isDeputyCurrent = current {
+                dict["current"] = isDeputyCurrent ? "1" : "0"
             }
         case let .federalSubject(current),
              let .regionalSubject(current),

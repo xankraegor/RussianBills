@@ -50,7 +50,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "", nr2: number2TextField.text ?? "")
+        UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "",
+                nr2: number2TextField.text ?? "")
     }
     
     deinit {
@@ -88,8 +89,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bill = searchResults![indexPath.row]
         try? realm?.write {
-            if let exisitingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: bill.number) {
-                realm?.delete(exisitingFavoriteBill)
+            if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: bill.number) {
+                realm?.delete(existingFavoriteBill)
             } else {
                 let newFavoriteBill = FavoriteBill_(fromBill: bill)
                 realm?.add(newFavoriteBill, update: true)
@@ -105,7 +106,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             UserServices.downloadBills(withQuery: query, completion: {
                 [weak self] resultBills in
                 let realm = try? Realm()
-                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                let existingList = realm?.object(ofType: BillsList_.self,
+                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
                 try? realm?.write {
                     existingList.bills.append(objectsIn: resultBills)
                     realm?.add(existingList, update: true)
@@ -133,7 +135,8 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             UserServices.downloadBills(withQuery: query, completion: {
                resultBills in
                 let realm = try? Realm()
-                let list = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                let list = realm?.object(ofType: BillsList_.self,
+                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
                 try? realm?.write {
                     list.bills.removeAll()
                     list.bills.append(objectsIn: resultBills)

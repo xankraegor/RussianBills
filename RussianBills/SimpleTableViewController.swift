@@ -17,9 +17,9 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     var realmNotificationToken: NotificationToken? = nil
 
     lazy var objects: Results<Object>? = {
-        if objectsToDisplay == .dumaDeps {
+        if objectsToDisplay == .dumaDeputees {
             return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'депутат'").sorted(byKeyPath: "name", ascending: true)
-        } else if objectsToDisplay == .councilMems {
+        } else if objectsToDisplay == .councilMembers {
             return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'член'").sorted(byKeyPath: "name", ascending: true)
         } else {
             return realm?.objects(objectsToDisplay!.typeUsedForObjects).sorted(byKeyPath: "name", ascending: true)
@@ -64,7 +64,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         switch objectsToDisplay! {
         case .lawClasses:
-            UserServices.downloadLawCalsses { [weak self] in
+            UserServices.downloadLawClasses { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .topics:
@@ -72,7 +72,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
                 self?.updateTableWithNewData()
             }
         case .committees:
-            UserServices.downloadComittees { [weak self] in
+            UserServices.downloadCommittees { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .federalSubjects:
@@ -87,7 +87,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             UserServices.downloadInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
-        case .dumaDeps, .councilMems:
+        case .dumaDeputees, .councilMembers:
             UserServices.downloadInstances() { [weak self] in
                 self?.updateTableWithNewData()
             }
@@ -118,67 +118,67 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
         // Legislative initiative bodies
         case .federalSubjects:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
-            cell.nameLabel.text = objct.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
+            let object = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
+            cell.nameLabel.text = object.name
+            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
             cell.accessoryType = .disclosureIndicator
-            if objct.isCurrent {
+            if object.isCurrent {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
 
         case .regionalSubjects:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
-            cell.nameLabel.text = objct.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
+            let object = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
+            cell.nameLabel.text = object.name
+            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
             cell.accessoryType = .disclosureIndicator
-            if objct.isCurrent {
+            if object.isCurrent {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
 
-        case .dumaDeps, .councilMems:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DeputeesCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
-            cell.textLabel?.text = objct.name
-            cell.detailTextLabel?.text = (objct.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + objct.position
+        case .dumaDeputees, .councilMembers:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DeputiesCellId", for: indexPath)
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
+            cell.textLabel?.text = object.name
+            cell.detailTextLabel?.text = (object.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + object.position
             cell.accessoryType = .disclosureIndicator
             return cell
 
             // Other Reference categories
         case .lawClasses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
-            cell.textLabel?.text = objct.name
+            let object = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
+            cell.textLabel?.text = object.name
             return cell
 
         case .topics:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Topic_: objects![indexPath.row] as! Topic_
-            cell.textLabel?.text = objct.name
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Topic_: objects![indexPath.row] as! Topic_
+            cell.textLabel?.text = object.name
             return cell
 
         case .instances:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Instance_ : objects![indexPath.row] as! Instance_
-            cell.textLabel?.text = objct.name
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Instance_ : objects![indexPath.row] as! Instance_
+            cell.textLabel?.text = object.name
             return cell
 
         case .committees:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ComitteesCellId", for: indexPath) as! NameStartEndTableViewCell
-            let objct = isFiltering ? filteredObjects![indexPath.row] as! Comittee_ : objects![indexPath.row] as! Comittee_
-            cell.nameLabel.text = objct.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: objct.startDate).description()
-            if objct.isCurrent {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Committee_ : objects![indexPath.row] as! Committee_
+            cell.nameLabel.text = object.name
+            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
+            if object.isCurrent {
                 cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: objct.stopDate).description()
+                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
         }
@@ -236,28 +236,28 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             current = false
         }
 
-        var newFilterdObjects: [Object] = []
+        var newFilteredObjects: [Object] = []
 
         switch self.objectsToDisplay! {
         case .committees:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Comittee_.self, orString: filterText, andCurrent: current)!)
-        case .dumaDeps:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeps: true)!)
-        case .councilMems:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeps: false)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(Committee_.self, orString: filterText, andCurrent: current)!)
+        case .dumaDeputees:
+            newFilteredObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeputies: true)!)
+        case .councilMembers:
+            newFilteredObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeputies: false)!)
         case .federalSubjects:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(FederalSubject_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(FederalSubject_.self, orString: filterText, andCurrent: current)!)
         case .instances:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Instance_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(Instance_.self, orString: filterText, andCurrent: current)!)
         case .lawClasses:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(LawClass_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(LawClass_.self, orString: filterText, andCurrent: current)!)
         case .regionalSubjects:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(RegionalSubject_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(RegionalSubject_.self, orString: filterText, andCurrent: current)!)
         case .topics:
-            newFilterdObjects = Array(realm!.loadFilteredObjects(Topic_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadFilteredObjects(Topic_.self, orString: filterText, andCurrent: current)!)
         }
 
-        self.filteredObjects = newFilterdObjects
+        self.filteredObjects = newFilteredObjects
         self.tableView.reloadData()
     }
 
@@ -278,7 +278,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch objectsToDisplay! {
-        case .federalSubjects, .regionalSubjects, .dumaDeps, .councilMems:
+        case .federalSubjects, .regionalSubjects, .dumaDeputees, .councilMembers:
             return true
         default:
             return false
@@ -306,7 +306,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.regionalSubject
             }
-        case .dumaDeps, .councilMems:
+        case .dumaDeputees, .councilMembers:
             if let object = source[selectedRow] as? Deputy_ {
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.deputy

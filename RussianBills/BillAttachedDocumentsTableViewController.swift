@@ -21,7 +21,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doPreinstallation()
+        prepareView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,7 +120,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         })
     }
     
-    func doPreinstallation() {
+    func prepareView() {
         guard event != nil else {
             fatalError("No event handed to the UITableViewController")
         }
