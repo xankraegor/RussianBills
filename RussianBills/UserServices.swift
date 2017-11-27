@@ -180,13 +180,21 @@ enum UserServices {
     // MARK: - Bills
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
-        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
 
+        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
             let realm = try? Realm()
 
             for res in result {
                 if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
+                    // Copy existing parser content
                     res.parserContent = existingBill.parserContent
+
+                    // Check if a favorite bill has changes
+                    if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: res.number), res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
+                        try? realm?.write {
+                            existingFavoriteBillRecord.favoriteHasUnseenChanges = true
+                        }
+                    }
                 }
             }
 
@@ -223,9 +231,7 @@ enum UserServices {
                 }
 
                 let existingBillParserContent = existingBill.parserContent
-
                 let previousHashValue = existingBill.generateHashForLastEvent()
-                debugPrint("Previous hash value for \(existingBill.number) is: \(existingBill.generateHashForLastEvent())" )
 
                 Request.billSearch(forQuery: queries[i], completion: { (result: [Bill_]) in
 
@@ -233,8 +239,6 @@ enum UserServices {
                         debugPrint("∆ No bills recieved when querying \(queries[i].number!) while updating favorite bills")
                         return
                     }
-
-                    debugPrint("New hash value for \(downloadedBill.number) is: \(downloadedBill.generateHashForLastEvent())" )
 
                     try? Realm().write {
                         // Did last event changed since the last update?
@@ -249,11 +253,9 @@ enum UserServices {
                     Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
                 })
             }
-
         }
 
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
-            debugPrint("∆ updateFavoriteBills completion handler")
             UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
             let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
             if let completion = completeWithUpdatedCount {
