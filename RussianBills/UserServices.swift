@@ -210,9 +210,9 @@ enum UserServices {
         })
     }
 
-    static func updateFavoriteBills(forced: Bool, completeWithUpdatedCount: ((Int)->Void)? = nil) {
+    static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int)->Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
-            debugPrint("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or ")
+            debugPrint("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
             return
         }
 
@@ -221,6 +221,8 @@ enum UserServices {
             debugPrint("∆ UserServices can't instantiate Realm while updating favorite bills or favorite bills count equals zero")
             return
         }
+
+        debugPrint("∆ UserServices info updating favorite bills, forced = \(forced)")
 
         let queries: [BillSearchQuery] = favoriteBills.map{BillSearchQuery(withNumber: $0.number)}
 

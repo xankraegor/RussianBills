@@ -17,6 +17,8 @@ final class SyncMan {
     // Singleton
     static let shared = SyncMan()
 
+    var foregroundFavoriteBillsUpdateTimer: Timer?
+
     private var authHandle: AuthStateDidChangeListenerHandle?
     let firebaseDbLink = Database.database().reference()
     let icloudDb = CKContainer.default().database(with: .private)
@@ -33,6 +35,8 @@ final class SyncMan {
     // MARK: - Initialization
 
     private init() {
+
+        setupForegroundUpdateTimer()
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             self?.uid = user?.uid
         }
@@ -95,6 +99,17 @@ final class SyncMan {
 //        })
 //    }
 
+    // MARK: - Foreground update timer
+
+    func setupForegroundUpdateTimer(fireNow: Bool = false) {
+        foregroundFavoriteBillsUpdateTimer = Timer.scheduledTimer(withTimeInterval: UserDefaultsCoordinator.favoriteBillsUpdateTimeout(), repeats: true, block: { (_) in
+            UserServices.updateFavoriteBills(forced: false)
+        })
+
+        if fireNow {
+            foregroundFavoriteBillsUpdateTimer?.fire()
+        }
+    }
 
     // MARK: - Updating favorite bills
 

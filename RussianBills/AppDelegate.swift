@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var syncman: SyncMan?
     private var iCloudSyncEngine: IcloudSyncEngine!
     private let storage = BillSyncContainerStorage()
+    private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -50,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Other actions
         UserServices.downloadAllReferenceCategories()
-        UserServices.updateFavoriteBills(forced: true) {
+        UserServices.updateFavoriteBills(forced: false) {
             unseenFavoriteBillsCount in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
             SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
@@ -60,24 +61,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-
+    func endBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskInvalid
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        SyncMan.shared.foregroundFavoriteBillsUpdateTimer?.invalidate()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+       backgroundTask = application.beginBackgroundTask(withName: "BackgroundFavoriteBillsUpdating", expirationHandler: {
+        [weak self] in
+        print("Did enter background")
+        UserServices.updateFavoriteBills(forced: false, completeWithUpdatedCount: {
+            [weak self] (unseenFavoriteBillsCount) in
+            NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
+            SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
+            self?.endBackgroundTask()
+        })
+       })
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        SyncMan.shared.setupForegroundUpdateTimer(fireNow: true)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -98,15 +109,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Dispatcher.shared.favoriteBillsUpdateTimer
             = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
 
-        Dispatcher.shared.favoriteBillsUpdateTimer?.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(Int(timeout) - 1), leeway: .seconds(1))
+        Dispatcher.shared.favoriteBillsUpdateTimer?.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(29), leeway: .seconds(1))
+        Dispatcher.shared.favoriteBillsUpdateTimer?.resume()
 
         Dispatcher.shared.favoriteBillsUpdateTimer?.setEventHandler {
             debugPrint("Фоновое обновление избранных законопроектов не выполенено в срок")
             completionHandler(.failed)
             return
         }
-
-        Dispatcher.shared.favoriteBillsUpdateTimer?.resume()
 
         Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
         UserServices.updateFavoriteBills(forced: true) {
