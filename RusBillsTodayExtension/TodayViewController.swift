@@ -11,7 +11,8 @@ import NotificationCenter
 import RealmSwift
 
 class TodayViewController: UIViewController, NCWidgetProviding {
-    @IBOutlet weak var updatesLabel: UILabel!
+
+    @IBOutlet weak var updatesButton: UIButton!
 
     lazy var realm: Realm? = {
         var config = Realm.Configuration()
@@ -32,6 +33,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         setupView()
     }
+
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         
@@ -60,7 +62,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         let outputSring = "Новых: \(updatedCount) из \(totalCount) \(updatedDateString)"
 
-        updatesLabel.text = outputSring
+        updatesButton.setTitle(outputSring, for: UIControlState.normal)
     }
+
+    @IBAction func updatesButtonPressed(_ sender: Any) {
+        let url = URL(string: "RussianBills://")!
+        extensionContext?.open(url, completionHandler: nil)
+    }
+
     
 }

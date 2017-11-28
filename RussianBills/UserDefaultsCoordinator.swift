@@ -64,19 +64,20 @@ enum UserDefaultsCoordinator: String {
         } else {
             return date
         }
-    }
+    } 
 
     public static func updateTimestampUsingClassType(ofCollection: [Object]) {
-        guard ofCollection.count > 0 else {
+        guard let element = ofCollection.first else {
             return
         }
 
-        if ofCollection.first is FavoriteBill_ {
+        if element is FavoriteBill_ {
             UserDefaultsCoordinator.favorites.updateTimestamp()
+            return
         }
 
         #if BASEPROJECT
-            switch ofCollection.first! {
+            switch element {
             case _ as FederalSubject_:
                 UserDefaultsCoordinator.federalSubject.updateTimestamp()
             case _ as RegionalSubject_ :
