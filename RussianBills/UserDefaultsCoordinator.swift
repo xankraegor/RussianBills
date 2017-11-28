@@ -76,47 +76,25 @@ enum UserDefaultsCoordinator: String {
         }
 
         #if BASEPROJECT
-
-        if ofCollection.first is FederalSubject_ {
-            UserDefaultsCoordinator.federalSubject.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is RegionalSubject_ {
-            UserDefaultsCoordinator.regionalSubject.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is Committee_ {
-            UserDefaultsCoordinator.committee.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is LawClass_ {
-            UserDefaultsCoordinator.lawClass.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is Deputy_ {
-            UserDefaultsCoordinator.deputy.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is Topic_ {
-            UserDefaultsCoordinator.topics.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is Instance_ {
-            UserDefaultsCoordinator.instances.updateTimestamp()
-            return
-        }
-
-        if ofCollection.first is Stage_ {
-            UserDefaultsCoordinator.stage.updateTimestamp()
-            return
-        }
-
+            switch ofCollection.first! {
+            case _ as FederalSubject_:
+                UserDefaultsCoordinator.federalSubject.updateTimestamp()
+            case _ as RegionalSubject_ :
+                UserDefaultsCoordinator.regionalSubject.updateTimestamp()
+            case _ as Committee_:
+                UserDefaultsCoordinator.committee.updateTimestamp()
+            case _ as LawClass_:
+                UserDefaultsCoordinator.lawClass.updateTimestamp()
+            case _ as Deputy_:
+                UserDefaultsCoordinator.deputy.updateTimestamp()
+            case _ as Topic_:
+                UserDefaultsCoordinator.topics.updateTimestamp()
+            case _ as Instance_:
+                UserDefaultsCoordinator.instances.updateTimestamp()
+            case _ as Stage_:
+                UserDefaultsCoordinator.stage.updateTimestamp()
+            default: break
+            }
         #endif
 
     }
