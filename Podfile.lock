@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.5.1)
-  - Eureka (3.0.0)
+  - Eureka (4.0.1)
   - Firebase/Auth (4.4.0):
     - Firebase/Core
     - FirebaseAuth (= 4.3.0)
@@ -60,7 +60,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `master`)
-  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `Xcode9-Swift3_2`)
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `master`)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -76,7 +76,7 @@ EXTERNAL SOURCES:
     :branch: master
     :git: https://github.com/Alamofire/Alamofire.git
   Eureka:
-    :branch: Xcode9-Swift3_2
+    :branch: master
     :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :branch: feature/v4.0.0
@@ -90,7 +90,7 @@ CHECKOUT OPTIONS:
     :commit: 6d9b4885fbd7837861c5216d2ae4a1131e599f30
     :git: https://github.com/Alamofire/Alamofire.git
   Eureka:
-    :commit: 05acfb04c24a480f1868e671d19b39e0f22fc265
+    :commit: 076eaaa27d1c90c68f01a6389cfcaa0359ea1a10
     :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :commit: 9091f84ed0e39b7fa8536da98a1812c3456bc4e3
@@ -101,7 +101,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 0224236301daac8c6578172706304b66b48236b5
-  Eureka: 5b9418d7bfdc21ca977d69d124a6409f3e9af2c7
+  Eureka: 3311299432b1e11fa4b40796654fc759caabcd93
   Firebase: 3e92884a63e8f76d107c43a67d2ab9071e1eda10
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseAuth: e0087d479709b20b9613b804704a928d6eafb052
@@ -120,6 +120,6 @@ SPEC CHECKSUMS:
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: a8bfc469b9824b289d12201c0569193f7e004452
+PODFILE CHECKSUM: e78db9014cbb1f9f6a10b0077db8f6fba5597762
 
 COCOAPODS: 1.3.1

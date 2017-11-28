@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Other actions
-        UserServices.downloadAllReferenceCategories()
+        UserServices.downloadAllReferenceCategories(forced: true)
         UserServices.updateFavoriteBills(forced: false) {
             unseenFavoriteBillsCount in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
