@@ -32,23 +32,24 @@ enum UserDefaultsCoordinator: String {
 
     /// Checks, if reference values of selected self type were updated prior to (now - referenceValuesUpdateTimeout)
     public func updateRequired() -> Bool {
-        switch self {
+        let key = variableNameForUpdateTimestamp()
 
-        case .favorites:
-            guard let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: "favoritesUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
-                return true
-            }
-
-            return previousUpdateTimestamp + UserDefaultsCoordinator.favoriteBillsUpdateTimeout() < Date().timeIntervalSince1970
-
-        default:
-            let key = variableNameForUpdateTimestamp()
-            guard let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
-                return true
-            }
-
-            return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSince1970
+        guard let updatedDate = updatedAt(),
+            let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
+            return true
         }
+
+        let timeout: TimeInterval
+        switch self {
+        case .favorites:
+            timeout =  UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
+        default:
+            timeout = UserDefaultsCoordinator.referenceValuesUpdateTimeout
+        }
+
+        let nextUpdateDate = Date(timeIntervalSince1970: previousUpdateTimestamp).addingTimeInterval(timeout)
+
+        return nextUpdateDate < updatedDate
     }
 
     public func updatedAt() -> Date? {
