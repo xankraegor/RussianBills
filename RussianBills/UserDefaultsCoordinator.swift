@@ -21,6 +21,8 @@ enum UserDefaultsCoordinator: String {
     case stage
     case favorites
 
+    static let suiteName = "group.com.xankraegor.russianBills"
+
     /// 24 hrs in seconds
     static let referenceValuesUpdateTimeout: TimeInterval = 86400
     /// 30 min in seconds
@@ -33,7 +35,7 @@ enum UserDefaultsCoordinator: String {
         switch self {
 
         case .favorites:
-            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: "favoritesUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
+            guard let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: "favoritesUpdateTimestamp") as Double?, previousUpdateTimestamp > 0 else {
                 return true
             }
 
@@ -41,11 +43,25 @@ enum UserDefaultsCoordinator: String {
 
         default:
             let key = variableNameForUpdateTimestamp()
-            guard let previousUpdateTimestamp = UserDefaults.standard.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
+            guard let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
                 return true
             }
 
             return previousUpdateTimestamp + UserDefaultsCoordinator.referenceValuesUpdateTimeout < Date().timeIntervalSince1970
+        }
+    }
+
+    public func updatedAt() -> Date? {
+        let key = variableNameForUpdateTimestamp()
+        guard let timestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double? else { return nil }
+
+        let date = Date(timeIntervalSince1970: timestamp)
+        let reference = Date(timeIntervalSinceReferenceDate: 0)
+
+        if date < reference {
+            return nil
+        } else {
+            return date
         }
     }
 
@@ -57,6 +73,8 @@ enum UserDefaultsCoordinator: String {
         if ofCollection.first is FavoriteBill_ {
             UserDefaultsCoordinator.favorites.updateTimestamp()
         }
+
+        #if BASEPROJECT
 
         if ofCollection.first is FederalSubject_ {
             UserDefaultsCoordinator.federalSubject.updateTimestamp()
@@ -98,23 +116,25 @@ enum UserDefaultsCoordinator: String {
             return
         }
 
+        #endif
+
     }
     
     public static func saveQuickSearchFields(name: String, nr1: String, nr2: String) {
-        UserDefaults.standard.set(name, forKey: "quickSearchSavedName")
-        UserDefaults.standard.set(nr1, forKey: "quickSearchSavedNr1")
-        UserDefaults.standard.set(nr2, forKey: "quickSearchSavedNr2")
+        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(name, forKey: "quickSearchSavedName")
+        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(nr1, forKey: "quickSearchSavedNr1")
+        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(nr2, forKey: "quickSearchSavedNr2")
     }
     
     public static func getQuickSearchFields()->(name: String?, nr1: String?, nr2: String?) {
-        let name = UserDefaults.standard.string(forKey: "quickSearchSavedName")
-        let nr1 = UserDefaults.standard.string(forKey: "quickSearchSavedNr1")
-        let nr2 = UserDefaults.standard.string(forKey: "quickSearchSavedNr2")
+        let name = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedName")
+        let nr1 = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedNr1")
+        let nr2 = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedNr2")
         return (name, nr1, nr2)
     }
 
     public static func favoriteBillsUpdateTimeout()->Double {
-        let storedUpdateTimeout = UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")
+        let storedUpdateTimeout = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: "favoriteUpdateTimeout")
         let favoritesUpdateTimeout = storedUpdateTimeout == 0 ? UserDefaultsCoordinator.defaultBillsUpdateTimeout : storedUpdateTimeout
         return favoritesUpdateTimeout
     }
@@ -129,7 +149,7 @@ enum UserDefaultsCoordinator: String {
 
     private func updateTimestamp() {
         let key = variableNameForUpdateTimestamp()
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: key)
+        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(Date().timeIntervalSince1970, forKey: key)
     }
 
 }

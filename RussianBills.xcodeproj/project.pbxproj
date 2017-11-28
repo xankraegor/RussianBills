@@ -30,6 +30,8 @@
 		2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBDF1F1039A0005C59AE /* UserServices.swift */; };
 		2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBE21F104576005C59AE /* NameStartEndTableViewCell.swift */; };
 		2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBE41F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift */; };
+		2A501ECE1FCCD1F500A68170 /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
+		2A501EDB1FCCDB6500A68170 /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */; };
 		2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */; };
 		2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B21F0AE1B400611BD8 /* Main.storyboard */; };
@@ -39,6 +41,7 @@
 		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
+		2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A8424BD1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8424BC1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmExtension.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
@@ -76,6 +79,10 @@
 		2AB5E5A31FB0F711005613FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */; };
 		2ABABAEA1FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */; };
 		2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */; };
+		2ACA10971FCCC9CD00869553 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ACA10961FCCC9CD00869553 /* NotificationCenter.framework */; };
+		2ACA109A1FCCC9CD00869553 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA10991FCCC9CD00869553 /* TodayViewController.swift */; };
+		2ACA109D1FCCC9CD00869553 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ACA109B1FCCC9CD00869553 /* MainInterface.storyboard */; };
+		2ACA10A11FCCC9CD00869553 /* RusBillsTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
@@ -88,6 +95,7 @@
 		2AF15C171FC77DE70018991C /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
+		377B91653648C736D7686B4C /* Pods_RusBillsTodayExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4278D93ECE49B74E0BC8E4 /* Pods_RusBillsTodayExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +106,28 @@
 			remoteGlobalIDString = 2A6315AA1F0AE1B400611BD8;
 			remoteInfo = RussianBills;
 		};
+		2ACA109F1FCCC9CD00869553 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A6315A31F0AE1B400611BD8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2ACA10941FCCC9CD00869553;
+			remoteInfo = RusBillsTodayExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2ACA10A51FCCC9CD00869553 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2ACA10A11FCCC9CD00869553 /* RusBillsTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +203,12 @@
 		2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegislativeSubjectTypeEnum.swift; sourceTree = "<group>"; };
 		2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRegSubjInfo.swift; sourceTree = "<group>"; };
+		2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RusBillsTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2ACA10961FCCC9CD00869553 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		2ACA10991FCCC9CD00869553 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		2ACA109C1FCCC9CD00869553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		2ACA109E1FCCC9CD00869553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ACA10A61FCCCA5200869553 /* RusBillsTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsTodayExtension.entitlements; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
@@ -186,9 +221,12 @@
 		2AF15C161FC77DE70018991C /* FavoriteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBill.swift; sourceTree = "<group>"; };
 		2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RussianBills.entitlements; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
+		2F9AE397B93A9FAEEDB5700A /* Pods-RusBillsTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RusBillsTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-RusBillsTodayExtension/Pods-RusBillsTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
+		5044CD6A0A6AA228BDA9B898 /* Pods-RusBillsTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RusBillsTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RusBillsTodayExtension/Pods-RusBillsTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BCBC56BC82CEA5AF364A1F54 /* Pods-RussianBillsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CD4278D93ECE49B74E0BC8E4 /* Pods_RusBillsTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RusBillsTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RussianBills.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RussianBillsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -212,6 +250,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2ACA10921FCCC9CD00869553 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ACA10971FCCC9CD00869553 /* NotificationCenter.framework in Frameworks */,
+				377B91653648C736D7686B4C /* Pods_RusBillsTodayExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -222,6 +269,8 @@
 				2AA7513A1FBE0B8C00E2535E /* MapKit.framework */,
 				DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */,
 				EE5348BD94C05A27EC7DDDF0 /* Pods_RussianBillsTests.framework */,
+				2ACA10961FCCC9CD00869553 /* NotificationCenter.framework */,
+				CD4278D93ECE49B74E0BC8E4 /* Pods_RusBillsTodayExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -285,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				2A6315AD1F0AE1B400611BD8 /* RussianBills */,
+				2ACA10981FCCC9CD00869553 /* RusBillsTodayExtension */,
 				2A6315C21F0AE1B400611BD8 /* RussianBillsTests */,
 				2A6315AC1F0AE1B400611BD8 /* Products */,
 				446ACAC816582A6953401F6D /* Pods */,
@@ -297,6 +347,7 @@
 			children = (
 				2A6315AB1F0AE1B400611BD8 /* RussianBills.app */,
 				2A6315BF1F0AE1B400611BD8 /* RussianBillsTests.xctest */,
+				2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,6 +505,17 @@
 			name = "Legislative Subjects Scene";
 			sourceTree = "<group>";
 		};
+		2ACA10981FCCC9CD00869553 /* RusBillsTodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				2ACA10A61FCCCA5200869553 /* RusBillsTodayExtension.entitlements */,
+				2ACA10991FCCC9CD00869553 /* TodayViewController.swift */,
+				2ACA109B1FCCC9CD00869553 /* MainInterface.storyboard */,
+				2ACA109E1FCCC9CD00869553 /* Info.plist */,
+			);
+			path = RusBillsTodayExtension;
+			sourceTree = "<group>";
+		};
 		2AD1E93A1F127AB100CA0D89 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +561,8 @@
 				0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */,
 				BCBC56BC82CEA5AF364A1F54 /* Pods-RussianBillsTests.debug.xcconfig */,
 				A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */,
+				5044CD6A0A6AA228BDA9B898 /* Pods-RusBillsTodayExtension.debug.xcconfig */,
+				2F9AE397B93A9FAEEDB5700A /* Pods-RusBillsTodayExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -516,10 +580,12 @@
 				2A6315A91F0AE1B400611BD8 /* Resources */,
 				651538C9435B5977F320B8E3 /* [CP] Embed Pods Frameworks */,
 				4DD5C543EE7339E99A78C95D /* [CP] Copy Pods Resources */,
+				2ACA10A51FCCC9CD00869553 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2ACA10A01FCCC9CD00869553 /* PBXTargetDependency */,
 			);
 			name = RussianBills;
 			productName = RussianBills;
@@ -547,13 +613,32 @@
 			productReference = 2A6315BF1F0AE1B400611BD8 /* RussianBillsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2ACA10941FCCC9CD00869553 /* RusBillsTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2ACA10A41FCCC9CD00869553 /* Build configuration list for PBXNativeTarget "RusBillsTodayExtension" */;
+			buildPhases = (
+				A7467BB79D1456BE149198C6 /* [CP] Check Pods Manifest.lock */,
+				2ACA10911FCCC9CD00869553 /* Sources */,
+				2ACA10921FCCC9CD00869553 /* Frameworks */,
+				2ACA10931FCCC9CD00869553 /* Resources */,
+				A298AC63FBBDA405ED255929 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RusBillsTodayExtension;
+			productName = RusBillsTodayExtension;
+			productReference = 2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2A6315A31F0AE1B400611BD8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Xan Kraegor";
 				TargetAttributes = {
@@ -563,6 +648,9 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -584,6 +672,16 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2A6315AA1F0AE1B400611BD8;
 					};
+					2ACA10941FCCC9CD00869553 = {
+						CreatedOnToolsVersion = 9.1;
+						DevelopmentTeam = L74ER2RZ64;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = 2A6315A61F0AE1B400611BD8 /* Build configuration list for PBXProject "RussianBills" */;
@@ -601,6 +699,7 @@
 			targets = (
 				2A6315AA1F0AE1B400611BD8 /* RussianBills */,
 				2A6315BE1F0AE1B400611BD8 /* RussianBillsTests */,
+				2ACA10941FCCC9CD00869553 /* RusBillsTodayExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -623,6 +722,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2ACA10931FCCC9CD00869553 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ACA109D1FCCC9CD00869553 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +844,39 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A298AC63FBBDA405ED255929 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RusBillsTodayExtension/Pods-RusBillsTodayExtension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7467BB79D1456BE149198C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RusBillsTodayExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D2F5A0E072C4CEE40CB56927 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -840,6 +980,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2ACA10911FCCC9CD00869553 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A501ECE1FCCD1F500A68170 /* UserDefaultsCoordinator.swift in Sources */,
+				2ACA109A1FCCC9CD00869553 /* TodayViewController.swift in Sources */,
+				2A501EDB1FCCDB6500A68170 /* FavoriteBill.swift in Sources */,
+				2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -847,6 +998,11 @@
 			isa = PBXTargetDependency;
 			target = 2A6315AA1F0AE1B400611BD8 /* RussianBills */;
 			targetProxy = 2A6315C01F0AE1B400611BD8 /* PBXContainerItemProxy */;
+		};
+		2ACA10A01FCCC9CD00869553 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2ACA10941FCCC9CD00869553 /* RusBillsTodayExtension */;
+			targetProxy = 2ACA109F1FCCC9CD00869553 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -865,6 +1021,14 @@
 				2A6315B81F0AE1B400611BD8 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2ACA109B1FCCC9CD00869553 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ACA109C1FCCC9CD00869553 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -981,14 +1145,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RussianBills/RussianBills.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG BASEPROJECT";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -999,14 +1166,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E6E209F35ACB58153B9E043 /* Pods-RussianBills.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RussianBills/RussianBills.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				INFOPLIST_FILE = RussianBills/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BASEPROJECT;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1047,6 +1217,50 @@
 			};
 			name = Release;
 		};
+		2ACA10A21FCCC9CD00869553 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5044CD6A0A6AA228BDA9B898 /* Pods-RusBillsTodayExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = RusBillsTodayExtension/RusBillsTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = RusBillsTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.RusBillsTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2ACA10A31FCCC9CD00869553 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F9AE397B93A9FAEEDB5700A /* Pods-RusBillsTodayExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = RusBillsTodayExtension/RusBillsTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = RusBillsTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.RusBillsTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1073,6 +1287,15 @@
 			buildConfigurations = (
 				2A6315CC1F0AE1B400611BD8 /* Debug */,
 				2A6315CD1F0AE1B400611BD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2ACA10A41FCCC9CD00869553 /* Build configuration list for PBXNativeTarget "RusBillsTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2ACA10A21FCCC9CD00869553 /* Debug */,
+				2ACA10A31FCCC9CD00869553 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

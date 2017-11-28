@@ -2,8 +2,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
-target 'RussianBills' do
+#==================================================================================================
 
+target 'RussianBills' do
 
 pod ‘Alamofire’, :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'master'
 pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
@@ -23,6 +24,16 @@ pod 'RxCocoa'
   end
 
 end
+
+#==================================================================================================
+
+target 'RusBillsTodayExtension' do
+
+pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
+
+end
+
+#==================================================================================================
 
 post_install do |installer|
     installer.aggregate_targets.each do |target|

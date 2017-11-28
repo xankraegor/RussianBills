@@ -12,13 +12,15 @@ enum FilesManager {
 
     // MARK: - Reference Paths
 
-    static func attachmentDir(forBillNumber number: String)->String {
-        return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
+    static func defaultRealmPath()->URL {
+        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UserDefaultsCoordinator.suiteName)!.appendingPathComponent("default.realm")
+        return path
     }
 
-    static func defaultRealmPath()->URL {
-        let path = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!.appendingPathComponent("default.realm")
-        return path
+    #if BASEPROJECT
+
+    static func attachmentDir(forBillNumber number: String)->String {
+        return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
     }
 
     // MARK: - Files
@@ -179,4 +181,6 @@ enum FilesManager {
         }
         return nil
     }
+
+    #endif
 }

@@ -27,6 +27,8 @@ final class FavoriteBill_: Object {
     @objc dynamic var markedToBeRemovedFromFavorites: Bool = false
     @objc dynamic var markedForDownload: Bool = false
 
+    #if BASEPROJECT
+
     var bill: Bill_? {
         if let bill = try? Realm().object(ofType: Bill_.self, forPrimaryKey: self.number), let tryBill = bill {
             return tryBill
@@ -35,9 +37,13 @@ final class FavoriteBill_: Object {
         }
     }
 
+    #endif
+
     override static func primaryKey() -> String {
         return "number"
     }
+
+    #if BASEPROJECT
 
     convenience init(fromBill bill: Bill_) {
         self.init()
@@ -56,8 +62,12 @@ final class FavoriteBill_: Object {
         self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
         self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
     }
+
+    #endif
     
 }
+
+#if BASEPROJECT
 
 extension FavoriteBill_: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
@@ -73,3 +83,5 @@ extension FavoriteBill_: NSCopying {
         return newFavoriteBill
     }
 }
+
+#endif
