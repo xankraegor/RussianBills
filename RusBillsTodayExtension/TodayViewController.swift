@@ -13,6 +13,7 @@ import RealmSwift
 class TodayViewController: UIViewController, NCWidgetProviding {
 
     @IBOutlet weak var updatesButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
 
     lazy var realm: Realm? = {
         var config = Realm.Configuration()
@@ -21,6 +22,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let realm = try? Realm()
         return realm
     }()
+
+    lazy var favoriteBillsFilteredAndSorted = realm?.objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
 
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -31,23 +34,32 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 30
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         setupView()
+    }
+
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .expanded {
+            preferredContentSize = maxSize // CGSize(width: 0.0, height: 300.0)
+            tableView.isHidden = false
+        } else {
+            preferredContentSize = maxSize
+            tableView.isHidden = true
+        }
     }
 
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        
         setupView()
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
         completionHandler(NCUpdateResult.newData)
     }
 
     func setupView() {
+        tableView.reloadData()
         let favoriteBills = realm?.objects(FavoriteBill_.self)
         let totalCount = favoriteBills?.filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).count ?? 0
         let updatedCount =  favoriteBills?.filter(FavoritesFilters.both.rawValue).count ?? 0
@@ -61,14 +73,31 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
 
         let outputSring = "Новых: \(updatedCount) из \(totalCount) \(updatedDateString)"
-
         updatesButton.setTitle(outputSring, for: UIControlState.normal)
     }
 
     @IBAction func updatesButtonPressed(_ sender: Any) {
-        let url = URL(string: "RussianBills://")!
+        let url = URL(string: "russianBills://favorites")!
         extensionContext?.open(url, completionHandler: nil)
     }
 
-    
+}
+
+extension TodayViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return favoriteBillsFilteredAndSorted!.count - 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActualFavoriteBillsCellId", for: indexPath)
+        cell.textLabel?.text = "№\(favoriteBillsFilteredAndSorted![indexPath.row].number) \(favoriteBillsFilteredAndSorted![indexPath.row].name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        cell.detailTextLabel?.text = "Обновлен -дата-время-"
+        return cell
+    }
+
+}
+
+extension TodayViewController: UITableViewDelegate {
+
 }
