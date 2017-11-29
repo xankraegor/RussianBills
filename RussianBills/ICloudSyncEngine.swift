@@ -120,7 +120,7 @@ public final class IcloudSyncEngine: NSObject {
     private func subscribeToLocalDatabaseChanges() {
         let bills = storage.realm.objects(FavoriteBill_.self)
 
-        // Here we subscribe to changes in notes to push them to CloudKit
+        // Here we subscribe to changes in bills to push them to CloudKit
         notificationToken = bills.observe { [weak self] changes in
             guard let welf = self else { return }
 

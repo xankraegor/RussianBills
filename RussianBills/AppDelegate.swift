@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initializing sync manager
         syncman = SyncMan.shared
 
+        // Initalizing iCloud sync engaine
+        UIApplication.shared.registerForRemoteNotifications()
         iCloudSyncEngine = IcloudSyncEngine(storage: storage)
 
         // Enabling user notifications
@@ -93,6 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NotificationCenter.default.post(name: .favoriteBillsDidChangeRemotely, object: nil, userInfo: userInfo)
     }
 
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
