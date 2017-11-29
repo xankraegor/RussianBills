@@ -132,6 +132,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler(.newData)
             return
         }
+    }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("∆∆ application(_ app: UIApplication, open url: \(url), options: \(options)")
+
+        if url.scheme == "russianbills" {
+            if let host = url.host {
+                print("∆ URL Host is: \(host)")
+                if host == "favorites" {
+                    let mainSB = UIStoryboard(name: "Main", bundle: nil)
+                    let mainVC = mainSB.instantiateViewController(withIdentifier: "MainSceneID") as! MainTableViewController
+                    let favoritesVC = mainSB.instantiateViewController(withIdentifier: "FavoritesSceneID")
+                    (self.window?.rootViewController as! UINavigationController).pushViewController(mainVC, animated: false)
+                    (self.window?.rootViewController as! UINavigationController).pushViewController(favoritesVC, animated: false)
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 }
