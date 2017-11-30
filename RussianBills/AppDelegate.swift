@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var config = Realm.Configuration()
         config.fileURL = FilesManager.defaultRealmPath()
         Realm.Configuration.defaultConfiguration = config
-        let realm = try! Realm()
+        let realm = try? Realm()
         let quickSearchList = BillsList_(withName: BillsListType.quickSearch, totalCount: 0)
         let mainSearchList = BillsList_(withName: BillsListType.mainSearch, totalCount: 0)
-        try! realm.write {
-            realm.add(quickSearchList, update: true)
-            realm.add(mainSearchList, update: true)
+        try? realm?.write {
+            realm?.add(quickSearchList, update: true)
+            realm?.add(mainSearchList, update: true)
         }
 
         // Initializing sync manager
