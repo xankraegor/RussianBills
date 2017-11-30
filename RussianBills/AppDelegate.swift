@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         config.fileURL = FilesManager.defaultRealmPath()
         Realm.Configuration.defaultConfiguration = config
         let realm = try! Realm()
-        let quickSearchList = BillsList_(withName: BillsListType.quickSearch)
-        let mainSearchList = BillsList_(withName: BillsListType.mainSearch)
+        let quickSearchList = BillsList_(withName: BillsListType.quickSearch, totalCount: 0)
+        let mainSearchList = BillsList_(withName: BillsListType.mainSearch, totalCount: 0)
         try! realm.write {
             realm.add(quickSearchList, update: true)
             realm.add(mainSearchList, update: true)

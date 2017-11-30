@@ -54,7 +54,8 @@ struct BillSearchQuery {
 
     /// ПРОЧИЕ ПАРАМЕТРЫ
     var pageNumber: UInt = 1
-    var pageLimit: BillSearchQueryPageLimit = .p20
+    // Используется всегда максимальное значение
+    let pageLimit: Int = 20
     var sortType: BillSearchQuerySortType = .last_event_date
     
     // MARK: - Initialization
@@ -82,26 +83,26 @@ struct BillSearchQuery {
         return count > 0
     }
 
-    func produceFilter() -> String? {
-        // TODO: Mirroring solution?
-        var output = ""
-
-        func add(toText: inout String, text: String) {
-            if output.count > 0 {
-                toText += " && " + text
-            } else {
-                toText = text
-            }
-        }
-
-        if name != nil {
-            add(toText: &output, text: "name contains '\(name!)'")
-        }
-        if number != nil {
-            add(toText: &output, text: "number == \(number!)")
-        }
-
-        return output
-    }
+//    func produceFilter() -> String? {
+//        // TODO: Mirroring solution?
+//        var output = ""
+//
+//        func add(toText: inout String, text: String) {
+//            if output.count > 0 {
+//                toText += " && " + text
+//            } else {
+//                toText = text
+//            }
+//        }
+//
+//        if name != nil {
+//            add(toText: &output, text: "name contains '\(name!)'")
+//        }
+//        if number != nil {
+//            add(toText: &output, text: "number == \(number!)")
+//        }
+//
+//        return output
+//    }
 
 }

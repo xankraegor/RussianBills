@@ -11,7 +11,7 @@ import Foundation
 extension RequestRouter {
 
     /// Parameters for bill search query
-    internal static func generateBillRequestParameters(forQuery bill: BillSearchQuery) -> [String: Any] {
+    internal static func generateBillRequestParameters(forQuery query: BillSearchQuery) -> [String: Any] {
         var dict = Dictionary<String, Any>()
 
         /// ПАРАМЕТРЫ С ЗАДАННЫМИ ЗНАЧЕНИЯМИ
@@ -20,7 +20,7 @@ extension RequestRouter {
         /// 38 — Федеральный закон
         /// 39 — Федеральный конституционный закон
         /// 41 — Закон о поправках к Конституции РФ
-        if let lawType = bill.lawType {
+        if let lawType = query.lawType {
             dict["law_type"] = lawType.rawValue
         }
 
@@ -35,34 +35,34 @@ extension RequestRouter {
         /// 8 — отклоненные (снятые) ГД
         /// 9 — отозванные или возвращенные СПЗИ
         /// 99 — рассмотрение которых завершено по прочим причинам
-        if let status = bill.status {
+        if let status = query.status {
             dict["status"] = status.rawValue
         }
 
         /// ПАРАМЕТРЫ С ПРОИЗВОЛЬНЫМИ ЗНАЧЕНИЯМИ
 
         /// name — название законопроекта
-        if let name = bill.name {
+        if let name = query.name {
             dict["name"] = name
         }
 
         /// number — номер законопроекта
-        if let number = bill.number {
+        if let number = query.number {
             dict["number"] = number
         }
 
         /// registration_start — минимальная дата регистрации законопроекта в формате ГГГГ-ММ-ДД
-        if let startDate = bill.registrationStart {
+        if let startDate = query.registrationStart {
             dict["registration_start"] = startDate
         }
 
         /// registration_end — максимальная дата регистрации законопроекта в формате ГГГГ-ММ-ДД
-        if let endDate = bill.registrationEnd {
+        if let endDate = query.registrationEnd {
             dict["registration_end"] = endDate
         }
 
         /// document_number — номер документа, связанного с законопроектом. Номер можно увидеть, например, в правой колонке на странице законопроекта в АСОЗД
-        if let docNr = bill.appendedDocumentNumber {
+        if let docNr = query.appendedDocumentNumber {
             dict["document_number"] = docNr
         }
 
@@ -71,42 +71,42 @@ extension RequestRouter {
         // TODO: Возможно несколько параметров!!!
 
         /// topic — идентификатор тематического блока
-        if let topic = bill.topic {
+        if let topic = query.topic {
             dict["topic"] = topic.id
         }
 
         /// class — идентификатор отрасли законодательства
-        if let lawClass = bill.lawClass {
+        if let lawClass = query.lawClass {
             dict["class"] = lawClass.id
         }
 
         /// federal_subject — идентификатор федерального органа власти — субъекта законодательной инициативы
-        if let fedSubj = bill.federalSubject {
+        if let fedSubj = query.federalSubject {
             dict["federal_subject"] = fedSubj.id
         }
 
         /// regional_subject — идентификатор регионального органа власти — субъекта законодательной инициативы
-        if let regSubj = bill.regionalSubject {
+        if let regSubj = query.regionalSubject {
             dict["regional_subject"] = regSubj.id
         }
 
         /// deputy — идентификатор депутата ГД или члена СФ — субъекта законодательной инициативы
-        if let deputy = bill.deputy {
+        if let deputy = query.deputy {
             dict["deputy"] = deputy.id
         }
 
         /// responsible_committee — идентификатор ответственного комитета
-        if let respComittee = bill.committeeResponsible {
+        if let respComittee = query.committeeResponsible {
             dict["responsible_committee"] = respComittee.id
         }
 
         /// soexecutor_committee — идентификатор комитета-соисполнителя
-        if let coexecCommittee = bill.committeeCoexecutor {
+        if let coexecCommittee = query.committeeCoexecutor {
             dict["soexecutor_committee"] = coexecCommittee.id
         }
 
         /// profile_committee — идентификатор профильного комитета
-        if let profileCommittee = bill.committeeProfile {
+        if let profileCommittee = query.committeeProfile {
             dict["profile_committee"] = profileCommittee.id
         }
 
@@ -128,9 +128,9 @@ extension RequestRouter {
         /// ПРОЧИЕ ПАРАМЕТРЫ
 
         /// page — номер запрашиваемой страницы результатов, по умолчанию равно 1
-        dict["page"] = bill.pageNumber
+        dict["page"] = query.pageNumber
         /// limit — количество результатов на странице, допустимые значения: 5, 10, 20 (по умолчанию)
-        dict["limit"] = bill.pageLimit
+        dict["limit"] = query.pageLimit
 
         /// sort — способ сортировки результатов, по умолчанию равно last_event_date, допустимые значения:
         /// name — по названию законопроекта
@@ -140,7 +140,7 @@ extension RequestRouter {
         /// last_event_date — по дате последнего события (по убыванию)
         /// last_event_date_asc — по дате последнего события (по возрастанию)
         /// responsible_committee — по ответственному комитету
-        dict["sort"] = bill.sortType.rawValue 
+        dict["sort"] = query.sortType.rawValue 
 
         return dict
     }
