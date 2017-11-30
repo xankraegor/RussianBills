@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_RussianBillsTestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_RussianBillsTestsVersionString[];
+FOUNDATION_EXPORT double Pods_RusBillsIMessageExtensionVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_RusBillsIMessageExtensionVersionString[];
 

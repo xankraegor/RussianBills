@@ -1,0 +1,6 @@
+framework module Pods_RusBillsIMessageExtension {
+  umbrella header "Pods-RusBillsIMessageExtension-umbrella.h"
+
+  export *
+  module * { export * }
+}

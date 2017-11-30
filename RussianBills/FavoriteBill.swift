@@ -27,8 +27,6 @@ final class FavoriteBill_: Object {
     @objc dynamic var markedToBeRemovedFromFavorites: Bool = false
     @objc dynamic var markedForDownload: Bool = false
 
-    #if BASEPROJECT
-
     var bill: Bill_? {
         if let bill = try? Realm().object(ofType: Bill_.self, forPrimaryKey: self.number), let tryBill = bill {
             return tryBill
@@ -36,8 +34,6 @@ final class FavoriteBill_: Object {
             return nil
         }
     }
-
-    #endif
 
     override static func primaryKey() -> String {
         return "number"

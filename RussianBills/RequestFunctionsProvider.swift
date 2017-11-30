@@ -26,6 +26,16 @@ enum Request {
     static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_])->Void ) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
             Alamofire.request(requestMessage).responseJSON { response in
+                if let error = response.error {
+                    debugPrint("∆ Request.billSearch returned an error: \(error.localizedDescription)")
+                    return
+                }
+
+                if let error = response.result.error {
+                    debugPrint("∆ Request.billSearch result returned an error: \(error.localizedDescription)")
+                    return
+                }
+
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var bills: [Bill_] = []

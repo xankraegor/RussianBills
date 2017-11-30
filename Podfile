@@ -14,13 +14,16 @@ target 'RussianBills' do
     pod 'RxSwift'
     pod 'RxRealm'
     pod 'RxCocoa'
-    target 'RussianBillsTests' do
-        inherit! :search_paths
-    end
 end
 #==================================================================================================
 target 'RusBillsTodayExtension' do
     pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
+    pod ‘SwiftyJSON’
+end
+#==================================================================================================
+target 'RusBillsIMessageExtension' do
+    pod ‘RealmSwift’, :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master'
+    pod ‘SwiftyJSON’
 end
 #==================================================================================================
 post_install do |installer|

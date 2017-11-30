@@ -66,7 +66,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         let updatedDate = UserDefaultsCoordinator.favorites.updatedAt()
         var updatedDateString: String
-        if let date = updatedDate {
+
+        if totalCount > 0, let date = updatedDate {
+            updatedDateString = "(обновл. \(dateFormatter.string(from: date)))"
+        } else if totalCount > 0, let date = favoriteBillsFilteredAndSorted?.sorted(by: [SortDescriptor(keyPath: "favoriteUpdatedTimestamp", ascending: false)]).first?.favoriteUpdatedTimestamp, date > Date.distantPast {
             updatedDateString = "(обновл. \(dateFormatter.string(from: date)))"
         } else {
             updatedDateString = "(не обновлялось)"
@@ -91,8 +94,11 @@ extension TodayViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActualFavoriteBillsCellId", for: indexPath)
-        cell.textLabel?.text = "№\(favoriteBillsFilteredAndSorted![indexPath.row].number) \(favoriteBillsFilteredAndSorted![indexPath.row].name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        cell.detailTextLabel?.text = "Обновлен -дата-время-"
+        let favoriteBill = favoriteBillsFilteredAndSorted![indexPath.row]
+        cell.textLabel?.text = "№\(favoriteBill.number) \(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if let bill = favoriteBill.bill {
+            cell.detailTextLabel?.text = "Обновлен \(bill.lastEventDate)"
+        }
         return cell
     }
 

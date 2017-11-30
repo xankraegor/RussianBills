@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Kanna
 
 struct BillParserPhase: Codable {
     var name: String

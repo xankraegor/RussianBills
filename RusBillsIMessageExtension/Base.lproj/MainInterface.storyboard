@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ObA-dk-sSI">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Messages View Controller-->
+        <scene sceneID="7MM-of-jgj">
+            <objects>
+                <viewController id="ObA-dk-sSI" customClass="MessagesViewController" customModule="RusBillsIMessageExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zMn-AG-sqS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите законопроект, информацией о котором хотите поделиться:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TY-RH-D6f">
+                                <rect key="frame" x="16" y="20" width="288" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ebo-7w-4p9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w0f-5s-4g4">
+                                <rect key="frame" x="8" y="68" width="304" height="452"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessagesTableViewCellId" rowHeight="173" id="5jl-QH-zqe" customClass="MessagesViewTableViewCell" customModule="RusBillsIMessageExtension" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="304" height="173"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5jl-QH-zqe" id="AZW-MM-BF4" customClass="MessagesViewTableViewCell" customModule="RusBillsIMessageExtension" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="304" height="172.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHP-XX-iEa">
+                                                    <rect key="frame" x="8" y="18.5" width="288" height="146"/>
+                                                    <string key="text">О внесении изменений в Кодекс Российской Федерации об административных правонарушениях (о сроках содержания в соответствующих специальных учреждениях иностранных граждан и лиц без гражданства, подлежащих принудительному выдворению за пределы Российской Федерации, и о порядке продления данных сроков, а также об особенностях исполнения и прекращения исполнения указанного административного наказания)</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Именен 15.11.2017 в 15:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xmM-P8-egf">
+                                                    <rect key="frame" x="8" y="4" width="207.5" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="№ 306915-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvo-7e-aY3">
+                                                    <rect key="frame" x="223.5" y="4" width="72.5" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="dvo-7e-aY3" secondAttribute="trailing" constant="8" id="1wv-xw-HFK"/>
+                                                <constraint firstItem="RHP-XX-iEa" firstAttribute="top" secondItem="xmM-P8-egf" secondAttribute="bottom" id="KsR-h9-4uu"/>
+                                                <constraint firstItem="dvo-7e-aY3" firstAttribute="leading" secondItem="xmM-P8-egf" secondAttribute="trailing" constant="8" id="M43-ny-Ffx"/>
+                                                <constraint firstItem="xmM-P8-egf" firstAttribute="top" secondItem="AZW-MM-BF4" secondAttribute="top" constant="4" id="P95-d5-jKN"/>
+                                                <constraint firstAttribute="bottom" secondItem="RHP-XX-iEa" secondAttribute="bottom" constant="8" id="S0t-BD-rRY"/>
+                                                <constraint firstAttribute="trailing" secondItem="RHP-XX-iEa" secondAttribute="trailing" constant="8" id="Tf0-yt-J7I"/>
+                                                <constraint firstItem="dvo-7e-aY3" firstAttribute="top" secondItem="AZW-MM-BF4" secondAttribute="top" constant="4" id="cBc-Ii-Esn"/>
+                                                <constraint firstItem="xmM-P8-egf" firstAttribute="leading" secondItem="AZW-MM-BF4" secondAttribute="leading" constant="8" id="dJy-SO-cOg"/>
+                                                <constraint firstItem="RHP-XX-iEa" firstAttribute="leading" secondItem="AZW-MM-BF4" secondAttribute="leading" constant="8" id="hdt-dE-sDv"/>
+                                                <constraint firstItem="dvo-7e-aY3" firstAttribute="leading" secondItem="xmM-P8-egf" secondAttribute="trailing" constant="8" id="tNI-Je-XC9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="RHP-XX-iEa" id="awW-Ka-FNI"/>
+                                            <outlet property="numberLabel" destination="dvo-7e-aY3" id="e2z-EZ-qrw"/>
+                                            <outlet property="updatedLabel" destination="xmM-P8-egf" id="jim-cQ-mAE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LDy-ih-0nr" firstAttribute="trailing" secondItem="w0f-5s-4g4" secondAttribute="trailing" constant="8" id="3H5-Qd-mnj"/>
+                            <constraint firstItem="LDy-ih-0nr" firstAttribute="trailing" secondItem="5TY-RH-D6f" secondAttribute="trailing" constant="16" id="6Mt-Ix-aYt"/>
+                            <constraint firstItem="LDy-ih-0nr" firstAttribute="bottom" secondItem="w0f-5s-4g4" secondAttribute="bottom" constant="8" id="atm-hU-jEO"/>
+                            <constraint firstItem="5TY-RH-D6f" firstAttribute="top" secondItem="LDy-ih-0nr" secondAttribute="top" id="cXV-HD-xLl"/>
+                            <constraint firstItem="w0f-5s-4g4" firstAttribute="leading" secondItem="LDy-ih-0nr" secondAttribute="leading" constant="8" id="mmr-Kp-6Iq"/>
+                            <constraint firstItem="w0f-5s-4g4" firstAttribute="top" secondItem="5TY-RH-D6f" secondAttribute="bottom" constant="8" id="vPm-xA-SuU"/>
+                            <constraint firstItem="5TY-RH-D6f" firstAttribute="leading" secondItem="LDy-ih-0nr" secondAttribute="leading" constant="16" id="xyH-dx-MCW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LDy-ih-0nr"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="528"/>
+                    <connections>
+                        <outlet property="tableView" destination="w0f-5s-4g4" id="FNq-qy-kav"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X47-rx-isc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="25.600000000000001" y="30.584707646176913"/>
+        </scene>
+    </scenes>
+</document>
