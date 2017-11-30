@@ -15,7 +15,7 @@ final class SearchResultsTableViewController: UITableViewController {
     var isLoading: Bool = false
     var isPrefetched: Bool = false
     var realmNotificationToken: NotificationToken? = nil
-    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)?.bills
+    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)
 
 
     // MARK: - Life Cycle
@@ -31,11 +31,13 @@ final class SearchResultsTableViewController: UITableViewController {
             fatalError("∆ Did not receive a search query")
         }
 
+        self.navigationItem.title = "Найдено: \(searchResults?.totalCount ?? 0)"
+
         if !isPrefetched {
             UserServices.downloadBills(withQuery: query, completion: {
-                resultBills in
+                resultBills, totalCount in
                 let realm = try? Realm()
-                let newList = BillsList_(withName: BillsListType.mainSearch)
+                let newList = BillsList_(withName: BillsListType.mainSearch, totalCount: totalCount)
                 newList.bills.append(objectsIn: resultBills)
                 try? realm?.write {realm?.add(newList, update: true)}
             })
@@ -44,9 +46,10 @@ final class SearchResultsTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch)
+        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch, totalCount: 0)
         
         realmNotificationToken = results.observe { [weak self] (_)->Void in
+            self?.navigationItem.title = "Найдено: \(self?.searchResults?.totalCount ?? 0)"
             self?.tableView.reloadData()
             self?.isLoading = false
         }
@@ -64,12 +67,12 @@ final class SearchResultsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults?.count ?? 0
+        return searchResults?.bills.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
-        let bill = searchResults![indexPath.row]
+        let bill = searchResults!.bills[indexPath.row]
         if bill.comments.count > 0 {
             cell.nameLabel.text = bill.name + " [" + bill.comments + "]"
         } else {
@@ -82,12 +85,12 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - TableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let existingSearchResults = searchResults, indexPath.row > existingSearchResults.count - 15 && !isLoading {
+        if let existingSearchResults = searchResults?.bills, indexPath.row > existingSearchResults.count - 15 && !isLoading {
             isLoading = true
             query.pageNumber += 1
-            UserServices.downloadBills(withQuery: query, completion: { resultBills in
+            UserServices.downloadBills(withQuery: query, completion: { resultBills, totalCount in
                 let realm = try? Realm()
-                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch)
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch, totalCount: totalCount)
                 try? realm?.write {
                     existingList.bills.append(objectsIn: resultBills)
                     realm?.add(existingList, update: true)
@@ -102,7 +105,7 @@ final class SearchResultsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let path = tableView.indexPathForSelectedRow, let results = searchResults,
             let dest = segue.destination as? BillCardTableViewController {
-            dest.billNr = results[path.row].number
+            dest.billNr = results.bills[path.row].number
         }
     }
 

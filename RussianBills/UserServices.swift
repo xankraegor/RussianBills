@@ -179,9 +179,9 @@ enum UserServices {
     
     // MARK: - Bills
 
-    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_]) -> Void)? = nil) {
+    static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_], Int) -> Void)? = nil) {
 
-        Request.billSearch(forQuery: query, completion: { (result: [Bill_]) in
+        Request.billSearch(forQuery: query, completion: { (result: [Bill_], totalCount: Int)  in
             let realm = try? Realm()
 
             for res in result {
@@ -205,7 +205,7 @@ enum UserServices {
             }
 
             if let compl = completion {
-                compl(result)
+                compl(result, totalCount)
             }
         })
     }
@@ -239,7 +239,7 @@ enum UserServices {
                 let existingBillParserContent = existingBill.parserContent
                 let previousHashValue = existingBill.generateHashForLastEvent()
 
-                Request.billSearch(forQuery: queries[i], completion: { (result: [Bill_]) in
+                Request.billSearch(forQuery: queries[i], completion: { (result: [Bill_], _) in
 
                     guard let downloadedBill = result.first else {
                         debugPrint("∆ No bills received when querying \(queries[i].number!) while updating favorite bills")

@@ -220,7 +220,7 @@ final class BillCardTableViewController: UITableViewController {
     func reloadCurrentBillData() {
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
-            UserServices.downloadBills(withQuery: searchQuery, completion: { (bills)->Void in
+            UserServices.downloadBills(withQuery: searchQuery, completion: { (bills, totalCount)->Void in
                 if bills.count > 0 {
                     self.bill = bills.first!
                     self.fetchExistingBillData()

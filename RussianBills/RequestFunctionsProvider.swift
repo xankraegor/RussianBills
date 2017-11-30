@@ -23,7 +23,7 @@ enum Request {
     // MARK: - Bill Search Request Function
 
     // NOT Enqueued
-    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_])->Void ) {
+    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int)->Void ) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
             Alamofire.request(requestMessage).responseJSON { response in
                 if let error = response.error {
@@ -38,12 +38,13 @@ enum Request {
 
                 if let contents = response.result.value {
                     let json = JSON(contents)
+                    let totalCount: Int = json["count"].intValue
                     var bills: [Bill_] = []
                     for law in json["laws"] {
                         let billToStore = Bill_(withJson: law.1)
                         bills.append(billToStore)
                     }
-                    completion(bills)
+                    completion(bills, totalCount)
                 }
             }
         } else {

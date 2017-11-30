@@ -14,10 +14,12 @@ import RealmSwift
 final class BillsList_: Object {
     
     @objc dynamic var name = "notSet"
+    @objc dynamic var totalCount = 0
 
-    convenience init(withName: BillsListType) {
+    convenience init(withName: BillsListType, totalCount: Int) {
         self.init()
         name = withName.rawValue
+        self.totalCount = totalCount
     }
 
     let bills = List<Bill_>()

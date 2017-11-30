@@ -104,10 +104,10 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: {
-                [weak self] resultBills in
+                [weak self] (resultBills, totalCount) in
                 let realm = try? Realm()
                 let existingList = realm?.object(ofType: BillsList_.self,
-                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch, totalCount: totalCount)
                 try? realm?.write {
                     existingList.bills.append(objectsIn: resultBills)
                     realm?.add(existingList, update: true)
@@ -132,16 +132,15 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         refillQueryFromTextFields()
         if query.hasAnyFilledFields() {
-            UserServices.downloadBills(withQuery: query, completion: {
-               resultBills in
+            UserServices.downloadBills(withQuery: query) { (resultBills, totalCount) in
                 let realm = try? Realm()
                 let list = realm?.object(ofType: BillsList_.self,
-                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch)
+                        forPrimaryKey: BillsListType.quickSearch.rawValue) ?? BillsList_(withName: .quickSearch, totalCount: totalCount)
                 try? realm?.write {
                     list.bills.removeAll()
                     list.bills.append(objectsIn: resultBills)
                 }
-            })
+            }
             self.view.endEditing(true)
         }
     }
