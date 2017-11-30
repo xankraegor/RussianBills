@@ -63,15 +63,17 @@ final class Bill_: Object, InitializableWithJson {
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
         // Compound values
-        decodeFactions(json)
-        decodeDeputees(json)
-        decodeOtherSubjects(json)
-        decodeResponsibleCommittee(json)
-        decodeProfileCommittees(json)
-        decodeCoexecutors(json)
-        decodeStages(json)
-        decodePhases(json)
-        decodeResolution(json)
+        if let realm = try? Realm() {
+            decodeFactions(json, realm: realm)
+            decodeDeputees(json, realm: realm)
+            decodeOtherSubjects(json, realm: realm)
+            decodeResponsibleCommittee(json, realm: realm)
+            decodeProfileCommittees(json, realm: realm)
+            decodeCoexecutors(json, realm: realm)
+            decodeStages(json, realm: realm)
+            decodePhases(json, realm: realm)
+            decodeResolution(json, realm: realm)
+        }
     }
 
     override static func primaryKey() -> String {
@@ -80,14 +82,13 @@ final class Bill_: Object, InitializableWithJson {
 
     // MARK : - Initialization helper functions
 
-    func decodeFactions(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeFactions(_ json: JSON, realm: Realm) {
         let factions = json["subject"]["factions"].arrayValue
         var parsedFactions = Set<Faction_>()
 
         for fac in factions {
             let facId = fac["id"].intValue
-            if let faction = realm?.object(ofType: Faction_.self, forPrimaryKey: facId) {
+            if let faction = realm.object(ofType: Faction_.self, forPrimaryKey: facId) {
                 self.factions.append(faction)
             } else {
                 let faction = Faction_()
@@ -99,20 +100,19 @@ final class Bill_: Object, InitializableWithJson {
             }
         }
 
-        try? realm?.write {
-            realm?.add(parsedFactions, update: true)
+        try? realm.write {
+            realm.add(parsedFactions, update: true)
         }
 
     }
 
-    func decodeDeputees(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeDeputees(_ json: JSON, realm: Realm) {
         let deputiesJson = json["subject"]["deputies"].arrayValue
         var parsedDeputees = Set<Deputy_>()
 
         for dep in deputiesJson {
             let depId = dep["id"].intValue
-            if let deputy = realm?.object(ofType: Deputy_.self, forPrimaryKey: depId) {
+            if let deputy = realm.object(ofType: Deputy_.self, forPrimaryKey: depId) {
                 self.deputies.append(deputy)
             } else {
                 let deputy = Deputy_()
@@ -126,25 +126,24 @@ final class Bill_: Object, InitializableWithJson {
             }
         }
 
-        try? realm?.write {
-            realm?.add(parsedDeputees, update: true)
+        try? realm.write {
+            realm.add(parsedDeputees, update: true)
         }
     }
 
-    func decodeOtherSubjects(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeOtherSubjects(_ json: JSON, realm: Realm) {
         let subjects = json["subject"]["departments"].arrayValue
         for sub in subjects {
             let subId = sub["id"].intValue
 
-            if let fedSub = realm?.object(ofType: FederalSubject_.self, forPrimaryKey: subId) {
-                try? realm?.write {
-                    realm?.add(fedSub, update: true)
+            if let fedSub = realm.object(ofType: FederalSubject_.self, forPrimaryKey: subId) {
+                try? realm.write {
+                    realm.add(fedSub, update: true)
                 }
                 federalSubjects.append(fedSub)
-            } else if let regSub = realm?.object(ofType: RegionalSubject_.self, forPrimaryKey: subId) {
-                try? realm?.write {
-                    realm?.add(regSub, update: true)
+            } else if let regSub = realm.object(ofType: RegionalSubject_.self, forPrimaryKey: subId) {
+                try? realm.write {
+                    realm.add(regSub, update: true)
                 }
                 regionalSubjects.append(regSub)
             } else {
@@ -153,11 +152,9 @@ final class Bill_: Object, InitializableWithJson {
         }
     }
 
-    func decodeResponsibleCommittee(_ json: JSON) {
+    func decodeResponsibleCommittee(_ json: JSON, realm: Realm) {
         let comitteeId = json["committees"]["responsible"]["id"].intValue
-        let realm = try? Realm()
-
-        if let committeeById = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+        if let committeeById = realm.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
             committeeResponsible = committeeById
         } else {
             let committee = Committee_()
@@ -167,22 +164,21 @@ final class Bill_: Object, InitializableWithJson {
             committee.startDate = json["committees"]["responsible"]["startDate"].stringValue
             committee.stopDate = json["committees"]["responsible"]["stopDate"].stringValue
 
-            try? realm?.write {
-                realm?.add(committee, update: true)
+            try? realm.write {
+                realm.add(committee, update: true)
             }
 
             committeeResponsible = committee
         }
     }
 
-    func decodeProfileCommittees(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeProfileCommittees(_ json: JSON, realm: Realm) {
         let profileComs = json["committees"]["profile"].arrayValue
         var parsedCommitees = Set<Committee_>()
 
         for com in profileComs {
             let comitteeId = com["id"].intValue
-            if let committeeById = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+            if let committeeById = realm.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
                 committeeProfile.append(committeeById)
             } else {
                 let committee = Committee_()
@@ -197,19 +193,18 @@ final class Bill_: Object, InitializableWithJson {
             }
         }
 
-        try? realm?.write {
-            realm?.add(parsedCommitees, update: true)
+        try? realm.write {
+            realm.add(parsedCommitees, update: true)
         }
     }
 
-    func decodeCoexecutors(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeCoexecutors(_ json: JSON, realm: Realm) {
         let coexecs = json["committees"]["soexecutor"].arrayValue
         var parsedCommitees = Set<Committee_>()
 
         for com in coexecs {
             let comitteeId = com["id"].intValue
-            if let committee = realm?.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
+            if let committee = realm.object(ofType: Committee_.self, forPrimaryKey: comitteeId) {
                 committeeCoexecutor.append(committee)
             } else {
                 let committee = Committee_()
@@ -224,45 +219,43 @@ final class Bill_: Object, InitializableWithJson {
             }
         }
 
-        try? realm?.write {
-            realm?.add(parsedCommitees, update: true)
+        try? realm.write {
+            realm.add(parsedCommitees, update: true)
         }
     }
 
-    func decodeStages(_ json: JSON) {
-        let realm = try? Realm()
+    func decodeStages(_ json: JSON, realm: Realm) {
         let lastEventStageId = json["lastEvent"]["stage"]["id"].intValue
-        if let stage = realm?.object(ofType: Stage_.self, forPrimaryKey: lastEventStageId) {
+        if let stage = realm.object(ofType: Stage_.self, forPrimaryKey: lastEventStageId) {
             lastEventStage = stage
         } else {
             let stage = Stage_()
             stage.id = lastEventStageId
             stage.name = json["lastEvent"]["stage"]["name"].stringValue
-            try? realm?.write {
-                realm?.add(stage, update: true)
+            try? realm.write {
+                realm.add(stage, update: true)
             }
             lastEventStage = stage
         }
     }
 
-    func decodePhases(_ json: JSON) {
-        let realm = try? Realm()
+    func decodePhases(_ json: JSON, realm: Realm) {
         let lastEventPhaseId = json["lastEvent"]["phase"]["id"].intValue
-        if let phase = realm?.object(ofType: Phase_.self, forPrimaryKey: lastEventPhaseId) {
+        if let phase = realm.object(ofType: Phase_.self, forPrimaryKey: lastEventPhaseId) {
             lastEventPhase = phase
         } else {
             let phase = Phase_()
             phase.id = lastEventPhaseId
             phase.name = json["lastEvent"]["phase"]["name"].stringValue
 
-            try? realm?.write {
-                realm?.add(phase, update: true)
+            try? realm.write {
+                realm.add(phase, update: true)
             }
             lastEventPhase = phase
         }
     }
 
-    func decodeResolution(_ json: JSON) {
+    func decodeResolution(_ json: JSON, realm: Realm) {
         lastEventSolutionDescription = json["lastEvent"]["solution"].stringValue
         lastEventDate = json["lastEvent"]["date"].stringValue
         lastEventDocumentName = json["lastEvent"]["document"]["name"].stringValue
