@@ -39,8 +39,6 @@ final class FavoriteBill_: Object {
         return "number"
     }
 
-    #if BASEPROJECT
-
     convenience init(fromBill bill: Bill_) {
         self.init()
         self.number = bill.number
@@ -59,11 +57,7 @@ final class FavoriteBill_: Object {
         self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
     }
 
-    #endif
-    
 }
-
-#if BASEPROJECT
 
 extension FavoriteBill_: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
@@ -79,5 +73,3 @@ extension FavoriteBill_: NSCopying {
         return newFavoriteBill
     }
 }
-
-#endif
