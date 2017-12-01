@@ -9,29 +9,31 @@
 import UIKit
 import Kanna
 import RealmSwift
+import SafariServices
 
 final class BillCardTableViewController: UITableViewController {
     let realm = try? Realm()
     
     @IBOutlet weak var billTypeLabel: UILabel!
     @IBOutlet weak var billTitle: UILabel!
-    @IBOutlet weak var billSubtitleLabel: UILabel!
+    @IBOutlet weak var billCommentsLabel: UILabel!
+
     @IBOutlet weak var introductionDateLabel: UILabel!
     @IBOutlet weak var introducedByLabel: UILabel!
     
-    @IBOutlet weak var stageLabel: UILabel!
-    @IBOutlet weak var phaseLabel: UILabel!
-    @IBOutlet weak var decisionLabel: UILabel!
-    
-    @IBOutlet weak var respCommitteeLabel: UILabel!
-    @IBOutlet weak var coexecCommitteeLabel: UILabel!
-    @IBOutlet weak var profileComitteesLabel: UILabel!
-    
-    @IBOutlet weak var goToAllEventsCell: UITableViewCell!
+    @IBOutlet weak var lastEventStageLabel: UILabel!
+    @IBOutlet weak var lastEventPhaseLabel: UILabel!
+    @IBOutlet weak var lastEventDecisionLabel: UILabel!
+    @IBOutlet weak var lastEventDateLabel: UILabel!
+    @IBOutlet weak var lastEventDocumentLabel: UILabel!
 
     @IBOutlet weak var moreDocsLabel: UILabel!
     @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
     @IBOutlet weak var moreDocsCell: UITableViewCell!
+
+    @IBOutlet weak var respCommitteeLabel: UILabel!
+    @IBOutlet weak var coexecCommitteeLabel: UILabel!
+    @IBOutlet weak var profileComitteesLabel: UILabel!
 
     var billNr: String?
 
@@ -118,15 +120,22 @@ final class BillCardTableViewController: UITableViewController {
             navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
             billTypeLabel.text = bill.lawType.description
             billTitle.text = bill.name
-            billSubtitleLabel.text = bill.comments
+            billCommentsLabel.text = bill.comments
+
             introductionDateLabel.text = bill.introductionDate
             introducedByLabel.text = bill.generateSubjectsDescription()
-            stageLabel.text = bill.lastEventStage?.name
-            phaseLabel.text = bill.lastEventPhase?.name
-            decisionLabel.text = bill.generateFullSolutionDescription()
-            respCommitteeLabel.text = bill.committeeResponsible?.name
+
+            lastEventStageLabel.text = bill.lastEventStage?.name
+            lastEventPhaseLabel.text = bill.lastEventPhase?.name
+            lastEventDecisionLabel.text = bill.generateSolutionDescription()
+            lastEventDateLabel.text = bill.generateLastEventDateDescription()
+            lastEventDocumentLabel.text = bill.generateLastEventDocumentDescription()
+
+            respCommitteeLabel.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
             profileComitteesLabel.text = bill.generateProfileCommitteesDescription()
             coexecCommitteeLabel.text = bill.generateCoexecitorCommitteesDescription()
+
+            tableView.reloadData()
         } else {
             fatalError("Bill is not being provided")
         }
@@ -155,8 +164,19 @@ final class BillCardTableViewController: UITableViewController {
             FilesManager.createAndOrWriteToFileBillDescription(text: (self?.description)!, name: (self?.bill!.number)!, atPath: NSHomeDirectory())
         }))
 
-        alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { (action) in
-            UIPasteboard.general.string = self.description
+        alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { [weak self] (action) in
+            UIPasteboard.general.string = self?.description
+        }))
+
+        alert.addAction(UIAlertAction(title: "Скопировать ссылку", style: .default, handler: {[weak self] (action) in
+            UIPasteboard.general.string = self?.bill?.url
+        }))
+
+        alert.addAction(UIAlertAction(title: "Открыть в браузере", style: .default, handler: {[weak self] (action) in
+            if let urlString = self?.bill?.url, let url = URL(string: urlString) {
+                let svc = SFSafariViewController(url: url)
+                self?.present(svc, animated: true, completion: nil)
+            }
         }))
 
         alert.addAction(UIAlertAction(title: (bill?.favorite)! ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in

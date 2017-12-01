@@ -42,7 +42,7 @@ final class Bill_: Object, InitializableWithJson {
 
     /// Look up for a corresponding favoriteBill record
     var favorite: Bool {
-        if try! Realm().object(ofType: FavoriteBill_.self, forPrimaryKey: number) != nil {
+        if let realm = try? Realm(), let fb = realm.object(ofType: FavoriteBill_.self, forPrimaryKey: number), !fb.markedToBeRemovedFromFavorites {
             return true
         } else {
             return false
@@ -264,12 +264,19 @@ final class Bill_: Object, InitializableWithJson {
 
     // MARK: - Helper functions
 
-    func generateFullSolutionDescription() -> String {
-        var output = lastEventSolutionDescription + "\n"
+    func generateSolutionDescription() -> String? {
+        return lastEventSolutionDescription.count > 0 ? lastEventSolutionDescription : nil
+    }
+
+    func generateLastEventDocumentDescription()->String {
+        var output = ""
         output += lastEventDocumentType.count > 0 ? lastEventDocumentType + " " : ""
         output += lastEventDocumentName.count > 0 ? lastEventDocumentName + " " : ""
-        output += lastEventDate.isoDateToReadableDate() ?? ""
-        return output
+        return output.count > 0 ? output : "Не указан"
+    }
+
+    func generateLastEventDateDescription()->String {
+        return lastEventDate.isoDateToReadableDate() ?? "Не указана"
     }
 
     func generateSubjectsDescription() -> String? {
@@ -281,11 +288,17 @@ final class Bill_: Object, InitializableWithJson {
         return output.joined(separator: "; ")
     }
 
-    func generateCoexecitorCommitteesDescription() -> String? {
+    func generateCoexecitorCommitteesDescription() -> String {
+        guard committeeCoexecutor.count > 0 else {
+            return "Не указаны"
+        }
          return committeeCoexecutor.map{$0.name}.joined(separator: "; ")
     }
 
-    func generateProfileCommitteesDescription()->String? {
+    func generateProfileCommitteesDescription()->String {
+        guard committeeProfile.count > 0 else {
+            return "Не указаны"
+        }
         return committeeProfile.map{$0.name}.joined(separator: "; ")
     }
 
@@ -328,13 +341,54 @@ final class Bill_: Object, InitializableWithJson {
                     output += "\n"
                     output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
                     output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
-                    output += String(repeating: " ", count: 10) + "Прикреплено документов: " + String(event.attachments.count) + "\n"
+                    output += String(repeating: " ", count: 10) + "Прикреплено документов: \(event.attachments.count)\n"
                 }
             }
         } else {
             output += "Текущая стадия рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventStage?.name ?? "") + "\n"
             output += "Текущая фаза рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventPhase?.name ?? "") + "\n"
-            output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: generateFullSolutionDescription()) + "\n"
+            output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: generateSolutionDescription() ?? "") + "\n"
+            output += "Дата: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDateDescription()) + "\n"
+            output += "Документ: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDocumentDescription()) + "\n"
+            output += "Ссылка на СОЗД: " + url
+        }
+
+        return output
+    }
+
+    var shortDescription: String {
+        var output = "Законопроект №\(number): \(lawType.description) «\(name)»"
+        if comments.count > 0 { output += "[\(comments)]" }
+        output += "\n\nСсылка на зконопроект: \(url)\n"
+
+        if introductionDate.count > 0 {
+            output += "\nКогда внесён: \(introductionDate)"
+        }
+        if let subjectsDescr = generateSubjectsDescription(), subjectsDescr.count > 0 {
+            output += "\nКем внесён: \(subjectsDescr)"
+        }
+
+        var textArr = Array<String>()
+
+        if let date = lastEventDate.isoDateToReadableDate() {
+            textArr.append(date + ": ")
+        }
+
+        if let phase = lastEventPhase?.name.trimmingCharacters(in: .whitespacesAndNewlines), phase.count > 0 {
+            textArr.append(phase + " — ")
+        }
+
+        if let stage = lastEventStage?.name.trimmingCharacters(in: .whitespacesAndNewlines), stage.count > 0 {
+            textArr.append(stage + " — ")
+        }
+
+        if let solution = generateSolutionDescription() {
+            textArr.append(solution)
+        }
+
+
+        if textArr.count > 0 {
+            output += "\n\(textArr.joined(separator: "\n"))"
         }
 
         return output

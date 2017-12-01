@@ -14,7 +14,6 @@ class MessagesViewController: MSMessagesAppViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
-
     lazy var realm: Realm? = {
         var config = Realm.Configuration()
         config.fileURL = FilesManager.defaultRealmPath()
@@ -73,15 +72,12 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     override func willTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
-        // Called before the extension transitions to a new presentation style.
 
-        // Use this method to prepare for the change in presentation style.
     }
-    
-    override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
-        // Called after the extension transitions to a new presentation style.
 
-        // Use this method to finalize any behaviors associated with the change in presentation style.
+    override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
+        guard favoriteBillsFilteredAndSorted?.count ?? 0 > 0 else { return }
+        tableView.reloadData()
     }
 
     // MARK: - Helper functions
@@ -89,8 +85,6 @@ class MessagesViewController: MSMessagesAppViewController {
     func setupTable() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 30
     }
 }
 
@@ -104,7 +98,24 @@ extension MessagesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesTableViewCellId", for: indexPath) as! MessagesViewTableViewCell
         let favoriteBill = favoriteBillsFilteredAndSorted![indexPath.row]
         cell.numberLabel.text = "№\(favoriteBill.number)"
-        cell.nameLabel.text = "\(favoriteBillsFilteredAndSorted![indexPath.row].name)[\(favoriteBill.comments)]".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if favoriteBill.comments.count > 0 {
+            cell.nameLabel.text = "\(favoriteBill.name) [\(favoriteBill.comments)]".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        } else {
+            cell.nameLabel.text = "\(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+
+        switch self.presentationStyle {
+        case .compact:
+            cell.nameLabel.numberOfLines = 2
+            cell.nameLabel.lineBreakMode = .byTruncatingTail
+        case .expanded:
+            cell.nameLabel.numberOfLines = 0
+            cell.nameLabel.lineBreakMode = .byWordWrapping
+        case .transcript:
+            cell.nameLabel.numberOfLines = 1
+            cell.nameLabel.lineBreakMode = .byTruncatingTail
+        }
+
         if let bill = favoriteBill.bill {
             cell.updatedLabel?.text = "Обновлен \(bill.lastEventDate)"
         }
@@ -114,5 +125,19 @@ extension MessagesViewController: UITableViewDataSource {
 }
 
 extension MessagesViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let bill = favoriteBillsFilteredAndSorted?[indexPath.row].bill {
+//            let layout = MSMessageTemplateLayout()
+//            layout.caption = "№\(bill.number) \(bill.name)"
+//            layout.subcaption = bill.description
+//            let message = MSMessage()
+//            message.layout = layout
+            activeConversation?.insertText(bill.shortDescription, completionHandler: { [weak self] _ in
+//                self?.requestPresentationStyle(.compact)
+                self?.dismiss()
+            })
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
 }
