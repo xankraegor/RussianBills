@@ -11,7 +11,7 @@ import MapKit
 
 class OnMapViewController: UIViewController {
 
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView?
 
     var locationToDisplay: CLLocation?
     var nameToDisplay: String?
@@ -24,19 +24,25 @@ class OnMapViewController: UIViewController {
         LocationManager.instance.delegate = self
         LocationManager.instance.startUpdatingLocation()
 
-        let latDelta:CLLocationDegrees = 0.01
-        let longDelta:CLLocationDegrees = 0.01
-        let theSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
-        let pointLocation:CLLocationCoordinate2D = locationToDisplay!.coordinate
+        let latDelta: CLLocationDegrees = 0.01
+        let longDelta: CLLocationDegrees = 0.01
+        let theSpan: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+        var pointLocation: CLLocationCoordinate2D {
+            if let loc = locationToDisplay {
+                return loc.coordinate
+            } else {
+                return CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            }
+        }
 
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(pointLocation, theSpan)
-        mapView.setRegion(region, animated: true)
+        let region: MKCoordinateRegion = MKCoordinateRegionMake(pointLocation, theSpan)
+        mapView?.setRegion(region, animated: true)
 
         let pinLocation : CLLocationCoordinate2D = locationToDisplay!.coordinate
         let objectAnnotation = MKPointAnnotation()
         objectAnnotation.coordinate = pinLocation
         objectAnnotation.title = nameToDisplay
-        self.mapView.addAnnotation(objectAnnotation)
+        self.mapView?.addAnnotation(objectAnnotation)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,8 +74,8 @@ extension OnMapViewController: LocationManagerDelegate {
 
         let currentRadius: CLLocationDistance = 1000
         let currentRegion = MKCoordinateRegionMakeWithDistance(coordinates, currentRadius * 2, currentRadius * 2)
-        mapView.setRegion(currentRegion, animated: false)
-        mapView.showsUserLocation = true
+        mapView?.setRegion(currentRegion, animated: false)
+        mapView?.showsUserLocation = true
     }
 
 }

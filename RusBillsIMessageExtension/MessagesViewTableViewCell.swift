@@ -10,8 +10,8 @@ import UIKit
 
 class MessagesViewTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var updatedLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel?
+    @IBOutlet weak var updatedLabel: UILabel?
+    @IBOutlet weak var nameLabel: UILabel?
 
 }

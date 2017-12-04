@@ -10,12 +10,12 @@ import UIKit
 
 final class SettingsTableViewController: UITableViewController {
 
-    @IBOutlet weak var downloadedFilesSizeLabel: UILabel!
-    @IBOutlet weak var dataBaseSizeLabel: UILabel!
-    @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell!
-    @IBOutlet weak var authStatusLabel: UILabel!
-    @IBOutlet weak var updateBillsTimeoutSlider: UISlider!
-    @IBOutlet weak var sliderTimeLabel: UILabel!
+    @IBOutlet weak var downloadedFilesSizeLabel: UILabel?
+    @IBOutlet weak var dataBaseSizeLabel: UILabel?
+    @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell?
+    @IBOutlet weak var authStatusLabel: UILabel?
+    @IBOutlet weak var updateBillsTimeoutSlider: UISlider?
+    @IBOutlet weak var sliderTimeLabel: UILabel?
 
     private let sliderValues: [Double] = [30, 120, 300, 900, 3600] // TimeInterval in seconds
     private let sliderValuesDescription: [String] = ["30 сек.", "2 мин.", "5 мин.", "15 мин.", "1 час"]
@@ -26,17 +26,17 @@ final class SettingsTableViewController: UITableViewController {
         tableView.delegate = self
         setSizeLabelText()
         setDBSizeLabelText()
-        authStatusLabel.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
+        authStatusLabel?.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let index = sliderValues.index(of: UserDefaults.standard.double(forKey: "favoriteUpdateTimeout")) {
-            updateBillsTimeoutSlider.value = Float(index) + 1
-            sliderTimeLabel.text = sliderValuesDescription[index]
+            updateBillsTimeoutSlider?.value = Float(index) + 1
+            sliderTimeLabel?.text = sliderValuesDescription[index]
         } else {
-            updateBillsTimeoutSlider.value = 3
-            sliderTimeLabel.text = sliderValuesDescription[3]
+            updateBillsTimeoutSlider?.value = 3
+            sliderTimeLabel?.text = sliderValuesDescription[3]
         }
     }
 
@@ -56,25 +56,29 @@ final class SettingsTableViewController: UITableViewController {
     // MARK: - Slider Changed
 
     @IBAction func sliderValueChanged(_ sender: Any) {
-        let sliderPosition = Int(updateBillsTimeoutSlider.value)
-        UserDefaults.standard.set(sliderValues[sliderPosition - 1], forKey: "favoriteUpdateTimeout")
-        sliderTimeLabel.text = sliderValuesDescription[sliderPosition - 1]
+        if let sliderValue = updateBillsTimeoutSlider?.value {
+            let sliderPosition = Int(sliderValue)
+            UserDefaults.standard.set(sliderValues[sliderPosition - 1], forKey: "favoriteUpdateTimeout")
+            sliderTimeLabel?.text = sliderValuesDescription[sliderPosition - 1]
+        }
+
     }
 
 
     // MARK: - Helper functions
 
     func setSizeLabelText () {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path
-        let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
-        downloadedFilesSizeLabel.text = "Загруженные приложения к законопроектам занимают \(size)"
+        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
+            let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
+            downloadedFilesSizeLabel?.text = "Загруженные приложения к законопроектам занимают \(size)"
+        }
     }
 
     func setDBSizeLabelText() {
         let path = FilesManager.defaultRealmPath().absoluteString
         print(path)
         let size = FilesManager.sizeOfFile(atPath: path) ?? "0 байт"
-        dataBaseSizeLabel.text = "База данных законопроектов занимает \(size)"
+        dataBaseSizeLabel?.text = "База данных законопроектов занимает \(size)"
     }
 
 }

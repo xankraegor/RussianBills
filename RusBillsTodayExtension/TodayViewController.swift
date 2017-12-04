@@ -12,8 +12,8 @@ import RealmSwift
 
 class TodayViewController: UIViewController, NCWidgetProviding {
 
-    @IBOutlet weak var updatesButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var updatesButton: UIButton?
+    @IBOutlet weak var tableView: UITableView?
 
     lazy var realm: Realm? = {
         var config = Realm.Configuration()
@@ -34,10 +34,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 30
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        tableView?.rowHeight = UITableViewAutomaticDimension
+        tableView?.estimatedRowHeight = 30
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         setupView()
     }
@@ -45,10 +45,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .expanded {
             preferredContentSize = maxSize // CGSize(width: 0.0, height: 300.0)
-            tableView.isHidden = false
+            tableView?.isHidden = false
         } else {
             preferredContentSize = maxSize
-            tableView.isHidden = true
+            tableView?.isHidden = true
         }
     }
 
@@ -59,7 +59,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     func setupView() {
-        tableView.reloadData()
+        tableView?.reloadData()
         let favoriteBills = realm?.objects(FavoriteBill_.self)
         let totalCount = favoriteBills?.filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).count ?? 0
         let updatedCount =  favoriteBills?.filter(FavoritesFilters.both.rawValue).count ?? 0
@@ -76,7 +76,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
 
         let outputSring = "Новых: \(updatedCount) из \(totalCount) \(updatedDateString)"
-        updatesButton.setTitle(outputSring, for: UIControlState.normal)
+        updatesButton?.setTitle(outputSring, for: UIControlState.normal)
     }
 
     @IBAction func updatesButtonPressed(_ sender: Any) {

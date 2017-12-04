@@ -55,16 +55,16 @@ final class BillDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventDescriptionCell", for: indexPath) as! EventDescriptionTableViewCell
-        cell.eventDateLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].date
-        cell.eventDocumentLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].docNr
-        cell.eventTextLabel.text = parserContent!.phases[indexPath.section].events[indexPath.row].name
+        cell.eventDateLabel?.text = parserContent!.phases[indexPath.section].events[indexPath.row].date
+        cell.eventDocumentLabel?.text = parserContent!.phases[indexPath.section].events[indexPath.row].docNr
+        cell.eventTextLabel?.text = parserContent!.phases[indexPath.section].events[indexPath.row].name
         let docsCount = parserContent?.phases[indexPath.section].events[indexPath.row].attachments.count ?? 0
         if docsCount > 0 {
-            cell.documentsAttachedLabel.text = "📘 Документы: \(docsCount)"
+            cell.documentsAttachedLabel?.text = "📘 Документы: \(docsCount)"
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .default
         } else {
-            cell.documentsAttachedLabel.text = ""
+            cell.documentsAttachedLabel?.text = ""
             cell.accessoryType = .none
             cell.selectionStyle = .none
         }

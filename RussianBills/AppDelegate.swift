@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var syncman: SyncMan?
-    private var iCloudSyncEngine: IcloudSyncEngine!
+    private var iCloudSyncEngine: IcloudSyncEngine?
     private let storage = BillSyncContainerStorage()
     private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         debugPrint("Вызов обновления избранных законопроектов в фоне")
         let updated = SyncMan.shared.favoriteBillsLastUpdate
         let timeout = UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
-        if updated != nil, abs(updated!.timeIntervalSinceNow) < timeout {
+        if let upd = updated, abs(upd.timeIntervalSinceNow) < timeout {
             print("Фоновое обновление избранных законопроектов не требуется")
             completionHandler(.noData)
             return
@@ -143,17 +143,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print("∆∆ application(_ app: UIApplication, open url: \(url), options: \(options)")
 
-        if url.scheme == "russianbills" {
-            if let host = url.host {
-                print("∆ URL Host is: \(host)")
-                if host == "favorites" {
-                    let mainSB = UIStoryboard(name: "Main", bundle: nil)
-                    let mainVC = mainSB.instantiateViewController(withIdentifier: "MainSceneID") as! MainTableViewController
-                    let favoritesVC = mainSB.instantiateViewController(withIdentifier: "FavoritesSceneID")
-                    (self.window?.rootViewController as! UINavigationController).pushViewController(mainVC, animated: false)
-                    (self.window?.rootViewController as! UINavigationController).pushViewController(favoritesVC, animated: false)
-                    return true
+        if url.scheme == "russianbills", let host = url.host {
+            if host == "favorites" {
+
+                let mainSB = UIStoryboard(name: "Main", bundle: nil)
+
+                guard let mainVC = mainSB.instantiateViewController(withIdentifier: "MainSceneID") as? MainTableViewController else {
+                    assertionFailure()
+                    return false
                 }
+
+                let favoritesVC = mainSB.instantiateViewController(withIdentifier: "FavoritesSceneID")
+                (self.window?.rootViewController as? UINavigationController)?.pushViewController(mainVC, animated: false)
+                (self.window?.rootViewController as? UINavigationController)?.pushViewController(favoritesVC, animated: false)
+
+                return true
             }
         }
 

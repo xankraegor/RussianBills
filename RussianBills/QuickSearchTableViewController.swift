@@ -14,10 +14,10 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     let realm = try? Realm()
     let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var number1TextField: UITextField!
-    @IBOutlet weak var number2TextField: UITextField!
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var number1TextField: UITextField?
+    @IBOutlet weak var number2TextField: UITextField?
+    @IBOutlet weak var nameTextField: UITextField?
 
     var query = BillSearchQuery()
     var isLoading = false
@@ -32,26 +32,25 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.delegate = self
-        tableView.dataSource = self
-        number1TextField.delegate = self
-        number2TextField.delegate = self
-        nameTextField.delegate = self
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        number1TextField?.delegate = self
+        number2TextField?.delegate = self
+        nameTextField?.delegate = self
         
         installRealmToken()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView?.rowHeight = UITableViewAutomaticDimension
+        tableView?.estimatedRowHeight = 100
         navigationController?.isToolbarHidden = true
         loadSavedQuickSearchFields()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField.text ?? "", nr1: number1TextField.text ?? "",
-                nr2: number2TextField.text ?? "")
+        UserDefaultsCoordinator.saveQuickSearchFields(name: nameTextField?.text ?? "", nr1: number1TextField?.text ?? "", nr2: number2TextField?.text ?? "")
     }
     
     deinit {
@@ -76,9 +75,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpressAddBillTableViewCell", for: indexPath) as! QuickSearchTableViewCell
         let bill = searchResults![indexPath.row]
         if bill.comments.count > 0 {
-            cell.billNameLabel.text = bill.name + " [" + bill.comments + "]"
+            cell.billNameLabel?.text = bill.name + " [" + bill.comments + "]"
         } else {
-            cell.billNameLabel.text = bill.name
+            cell.billNameLabel?.text = bill.name
         }
         setColorAndNumberForCell(at: indexPath)
         return cell
@@ -146,9 +145,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
 
     @IBAction func clearButtonPressed(_ sender: Any) {
-        number1TextField.text = ""
-        number2TextField.text = ""
-        nameTextField.text = ""
+        number1TextField?.text = ""
+        number2TextField?.text = ""
+        nameTextField?.text = ""
         try? realm?.write {
             realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.quickSearch.rawValue)?.bills.removeAll()
         }
@@ -181,13 +180,12 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
         
         query = BillSearchQuery()
         
-        if let num1 = Int(number1TextField.text!), let num2 = Int(number2TextField.text!) {
-            if num1 > 0 && num2 > 0 {
-                query.number = "\(num1)-\(num2)"
-            }
+        if let num1 = number1TextField?.text, let num2 = number2TextField?.text,
+            let int1 = Int(num1), let int2 = Int(num2), int1 > 0 && int2 > 0 {
+            query.number = "\(int1)-\(int2)"
         }
         
-        if let name = nameTextField.text {
+        if let name = nameTextField?.text {
             if name.count > 0 {
                 query.name = name
             }
@@ -195,12 +193,12 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     }
     
     func setColorAndNumberForCell(at indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
+        if let cell = tableView?.cellForRow(at: indexPath) as? QuickSearchTableViewCell {
             if searchResults![indexPath.row].favorite  {
-                cell.billNumberLabel.text = "🎖Добавлен в избранное: 📃\(searchResults![indexPath.row].number)"
+                cell.billNumberLabel?.text = "🎖Добавлен в избранное: 📃\(searchResults![indexPath.row].number)"
                 cell.backgroundColor = favoriteAddedColor
             } else {
-                cell.billNumberLabel.text = "📃" + searchResults![indexPath.row].number
+                cell.billNumberLabel?.text = "📃" + searchResults![indexPath.row].number
                 cell.backgroundColor = notFavoriteColor
             }
         }
@@ -208,9 +206,9 @@ final class QuickSearchTableViewController: UIViewController, UITableViewDelegat
     
     func loadSavedQuickSearchFields() {
         let savedTextFields = UserDefaultsCoordinator.getQuickSearchFields()
-        self.nameTextField.text = savedTextFields.name
-        self.number1TextField.text = savedTextFields.nr1
-        self.number2TextField.text = savedTextFields.nr2
+        self.nameTextField?.text = savedTextFields.name
+        self.number1TextField?.text = savedTextFields.nr1
+        self.number2TextField?.text = savedTextFields.nr2
     }
     
 }

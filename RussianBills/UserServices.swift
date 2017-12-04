@@ -212,13 +212,13 @@ enum UserServices {
 
     static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int)->Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
-            debugPrint("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
+            assertionFailure("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
             return
         }
 
         guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
                 .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
-            debugPrint("∆ UserServices can not instantiate Realm while updating favorite bills")
+            assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
             return
         }
 
@@ -226,39 +226,39 @@ enum UserServices {
             return
         }
 
-        debugPrint("∆ UserServices info updating favorite bills, forced = \(forced)")
-
-        let queries: [BillSearchQuery] = favoriteBills.map{BillSearchQuery(withNumber: $0.number)}
+        let queries: [BillSearchQuery] = favoriteBills.map{ BillSearchQuery(withNumber: $0.number) }
 
         for i in 0..<queries.count {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
             Dispatcher.shared.billsPrefetchDispatchQueue.async() {
 
-                guard let existingBill = try! Realm().objects(Bill_.self)
-                        .filter("number = '\(queries[i].number!)'").first else {
-                    debugPrint("∆ Bill record \(queries[i].number!) missing in Realm while updating favorite bills")
-                    return
+                guard let number = queries[i].number,
+                    let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
+                    let existingBill = bill else {
+                        assertionFailure("∆ Bill record by number \(queries[i].number ?? "nil") missing in Realm while updating favorite bills")
+                        return
                 }
 
                 let existingBillParserContent = existingBill.parserContent
                 let previousHashValue = existingBill.generateHashForLastEvent()
 
                 Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _) in
-
-                    if let downloadedBill = result.first {
-                        try? Realm().write {
-                            // Did last event changed since the last update?
-                            if downloadedBill.generateHashForLastEvent() != previousHashValue {
-                                debugPrint("\(downloadedBill.number) has updates")
-                                favoriteBills[i].favoriteHasUnseenChanges = true
-                            }
-                            downloadedBill.parserContent = existingBillParserContent
-                            try? Realm().add(downloadedBill, update: true)
-                            Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
-                        }
-                    } else {
-                        debugPrint("∆ Bill not received after querying \(queries[i].number!) while updating favorite bills")
+                    
+                    guard let downloadedBill = result.first else {
+                        assertionFailure("∆ Bill not received after querying by number \(queries[i].number ?? "nil") while updating favorite bills")
+                        return
                     }
+
+                    try? Realm().write {
+                        // Did last event changed since the last update?
+                        if downloadedBill.generateHashForLastEvent() != previousHashValue {
+                            favoriteBills[i].favoriteHasUnseenChanges = true
+                        }
+                        downloadedBill.parserContent = existingBillParserContent
+                        try? Realm().add(downloadedBill, update: true)
+                        Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
+                    }
+
                 }
             }
         }

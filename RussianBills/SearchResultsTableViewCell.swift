@@ -9,6 +9,6 @@
 import UIKit
 
 final class SearchResultsTableViewCell: UITableViewCell {
-    @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel?
+    @IBOutlet weak var nameLabel: UILabel?
 }

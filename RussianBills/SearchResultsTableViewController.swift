@@ -74,11 +74,11 @@ final class SearchResultsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
         let bill = searchResults!.bills[indexPath.row]
         if bill.comments.count > 0 {
-            cell.nameLabel.text = bill.name + " [" + bill.comments + "]"
+            cell.nameLabel?.text = bill.name + " [" + bill.comments + "]"
         } else {
-            cell.nameLabel.text = bill.name
+            cell.nameLabel?.text = bill.name
         }
-        cell.numberLabel.text = bill.number
+        cell.numberLabel?.text = bill.number
         return cell
     }
 

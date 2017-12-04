@@ -15,19 +15,19 @@ final class LegislativeSubjTableViewController: UITableViewController {
     var subjectType: LegislativeSubjectType? = nil
     var id: Int? = nil
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var isCurrentLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var showOnMapLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel?
+    @IBOutlet weak var typeLabel: UILabel?
+    @IBOutlet weak var isCurrentLabel: UILabel?
+    @IBOutlet weak var addressLabel: UILabel?
+    @IBOutlet weak var showOnMapLabel: UILabel?
 
     var address: String = "" {
         didSet {
             if address.count > 0 {
                 lookupForCoordinates(withAddress: address)
-                addressLabel.text = address
+                addressLabel?.text = address
             } else {
-                addressLabel.text = "Адрес отсутствует"
+                addressLabel?.text = "Адрес отсутствует"
             }
         }
     }
@@ -65,15 +65,15 @@ final class LegislativeSubjTableViewController: UITableViewController {
 
     func setMainLabels(forItem item: Object) {
         if let fedSubj = item as? FederalSubject_ {
-            nameLabel.text = fedSubj.name
+            nameLabel?.text = fedSubj.name
             organizationName = fedSubj.name
-            typeLabel.text = "Федеральный орган власти"
+            typeLabel?.text = "Федеральный орган власти"
             var currentText = fedSubj.isCurrent ? "Действует c " : "Действовал c "
             currentText.append(contentsOf: fedSubj.startDate)
             if !fedSubj.isCurrent {
                 currentText.append(contentsOf: " по \(fedSubj.stopDate.isoDateToReadableDate() ?? fedSubj.stopDate)")
             }
-            isCurrentLabel.text = currentText
+            isCurrentLabel?.text = currentText
 
             switch fedSubj.id {
             case 6231000:    //Верховный Суд РФ
@@ -93,15 +93,15 @@ final class LegislativeSubjTableViewController: UITableViewController {
             }
 
         } else if let regSubj = item as? RegionalSubject_ {
-            nameLabel.text = regSubj.name
+            nameLabel?.text = regSubj.name
              organizationName = regSubj.name
-            typeLabel.text = "Региональный орган власти"
+            typeLabel?.text = "Региональный орган власти"
             var currentText = regSubj.isCurrent ? "Действует c " : "Действовал c "
             currentText.append(contentsOf: regSubj.startDate.isoDateToReadableDate() ?? regSubj.startDate)
             if !regSubj.isCurrent {
                 currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate() ?? regSubj.stopDate)")
             }
-            isCurrentLabel.text = currentText
+            isCurrentLabel?.text = currentText
             if let data = regionalSubjectsData[regSubj.id], let addr = data["address"] {
                 address = addr
             } else {
@@ -109,9 +109,9 @@ final class LegislativeSubjTableViewController: UITableViewController {
             }
 
         } else if let deputy = item as? Deputy_ {
-            nameLabel.text = deputy.name
-            typeLabel.text = deputy.position
-            isCurrentLabel.text = deputy.isCurrent ? "Полномочия действуют" : "Срок полномочий истёк"
+            nameLabel?.text = deputy.name
+            typeLabel?.text = deputy.position
+            isCurrentLabel?.text = deputy.isCurrent ? "Полномочия действуют" : "Срок полномочий истёк"
             if deputy.position.lowercased().contains("депутат") {
                 address = "103265, Москва, ул. Охотный ряд, 1"
                 organizationName = "Государственная Дума РФ"
@@ -127,7 +127,7 @@ final class LegislativeSubjTableViewController: UITableViewController {
     func lookupForCoordinates(withAddress address: String) {
         LocationManager.instance.geocode(address: address) { [weak self] (placemark) in
             self?.locationForMap = placemark?.location
-            self?.showOnMapLabel.isEnabled = self?.locationForMap != nil ? true : false
+            self?.showOnMapLabel?.isEnabled = self?.locationForMap != nil ? true : false
 
             if let pm = placemark {
                 print("Name: \(pm.name ?? "")")
@@ -145,15 +145,18 @@ final class LegislativeSubjTableViewController: UITableViewController {
             return self.locationForMap != nil
         }
 
-        return true
+        return false
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showOnMapSegue" {
-            let dest = segue.destination as! OnMapViewController
-            dest.locationToDisplay = self.locationForMap!
+        if segue.identifier == "showOnMapSegue",
+            let dest = segue.destination as? OnMapViewController {
+            dest.locationToDisplay = self.locationForMap
             dest.nameToDisplay = organizationName
+            return
         }
+
+        assertionFailure("Wrong segue id or cannot cast destination controller as a desired class")
     }
 
 }

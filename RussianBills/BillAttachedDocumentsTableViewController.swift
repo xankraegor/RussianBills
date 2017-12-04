@@ -32,19 +32,15 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return event!.attachments.count
+        return event?.attachments.count ?? 0
     }
 
     // MARK: - Table View Delegate
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AttachedDocumentCellId", for: indexPath) as! AttachmentTableViewCell
-        cell.billTitle.text = event!.attachmentsNames[indexPath.row]
+        cell.billTitle?.text = event?.attachmentsNames[indexPath.row] ?? ""
         setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
         return cell
     }
@@ -55,7 +51,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             return
         }
 
-        if UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: downloadLink) != nil {
+        if UserServices.pathForDownloadAttachment(forBillNumber: billNr, withLink: downloadLink) != nil {
             previewCellContent(withDownloadLink: downloadLink, billNr: billNr)
         } else {
             // Attachment is not being already downloaded
@@ -67,16 +63,27 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let billNr = billNumber else {
+            assertionFailure("Can't unwrap optional property billNumber")
+            return
+        }
+
         if editingStyle == .delete {
             if let key = FilesManager.extractUniqueDocumentNameFrom(urlString: (event?.attachments[indexPath.row]) ?? "") {
-                UserServices.deleteAttachment(usingKey: key, forBillNr: billNumber!)
+                UserServices.deleteAttachment(usingKey: key, forBillNr: billNr)
                 tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
             }
         }
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!) != nil
+        guard let billNr = billNumber,
+            let downloadUrl = event?.attachments[indexPath.row] else {
+            assertionFailure("Can't unwrap optional property billNumber")
+            return false
+        }
+
+        return UserServices.pathForDownloadAttachment(forBillNumber: billNr, withLink: downloadUrl) != nil
     }
 
     
@@ -134,25 +141,28 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
     }
     
     func setCellDownloadImageAndLabel(cell: AttachmentTableViewCell, atIndexPath indexPath: IndexPath) {
-        if let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: billNumber!, withLink: (event?.attachments[indexPath.row])!) {
-            cell.infoLabel.text = "Документ загружен (\(FilesManager.sizeOfFile(atPath: existingPath) ?? ""))"
+        if let number = billNumber,
+            let link = event?.attachments[indexPath.row],
+            let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: number, withLink: link) {
+
+            cell.infoLabel?.text = "Документ загружен (\(FilesManager.sizeOfFile(atPath: existingPath) ?? ""))"
             switch URL(fileURLWithPath: existingPath).pathExtension.lowercased() {
             case "doc", "docx":
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_doc")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_doc")
             case "xls", "xlsx":
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_xls")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_xls")
             case "pdf":
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_pdf")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_pdf")
             case "ppt", "pptx":
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_ppt")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_ppt")
             case "rtf":
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_rtf")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_rtf")
             default:
-                cell.docTypeImage.image = #imageLiteral(resourceName: "file_unknown")
+                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_unknown")
             }
         } else {
-            cell.docTypeImage.image = #imageLiteral(resourceName: "file_download")
-            cell.infoLabel.text = "Документ не загружен"
+            cell.docTypeImage?.image = #imageLiteral(resourceName: "file_download")
+            cell.infoLabel?.text = "Документ не загружен"
         }
     }
 

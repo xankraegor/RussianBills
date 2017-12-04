@@ -14,26 +14,26 @@ import SafariServices
 final class BillCardTableViewController: UITableViewController {
     let realm = try? Realm()
     
-    @IBOutlet weak var billTypeLabel: UILabel!
-    @IBOutlet weak var billTitle: UILabel!
-    @IBOutlet weak var billCommentsLabel: UILabel!
+    @IBOutlet weak var billTypeLabel: UILabel?
+    @IBOutlet weak var billTitle: UILabel?
+    @IBOutlet weak var billCommentsLabel: UILabel?
 
-    @IBOutlet weak var introductionDateLabel: UILabel!
-    @IBOutlet weak var introducedByLabel: UILabel!
+    @IBOutlet weak var introductionDateLabel: UILabel?
+    @IBOutlet weak var introducedByLabel: UILabel?
     
-    @IBOutlet weak var lastEventStageLabel: UILabel!
-    @IBOutlet weak var lastEventPhaseLabel: UILabel!
-    @IBOutlet weak var lastEventDecisionLabel: UILabel!
-    @IBOutlet weak var lastEventDateLabel: UILabel!
-    @IBOutlet weak var lastEventDocumentLabel: UILabel!
+    @IBOutlet weak var lastEventStageLabel: UILabel?
+    @IBOutlet weak var lastEventPhaseLabel: UILabel?
+    @IBOutlet weak var lastEventDecisionLabel: UILabel?
+    @IBOutlet weak var lastEventDateLabel: UILabel?
+    @IBOutlet weak var lastEventDocumentLabel: UILabel?
 
-    @IBOutlet weak var moreDocsLabel: UILabel!
-    @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var moreDocsCell: UITableViewCell!
+    @IBOutlet weak var moreDocsLabel: UILabel?
+    @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView?
+    @IBOutlet weak var moreDocsCell: UITableViewCell?
 
-    @IBOutlet weak var respCommitteeLabel: UILabel!
-    @IBOutlet weak var coexecCommitteeLabel: UILabel!
-    @IBOutlet weak var profileComitteesLabel: UILabel!
+    @IBOutlet weak var respCommitteeLabel: UILabel?
+    @IBOutlet weak var coexecCommitteeLabel: UILabel?
+    @IBOutlet weak var profileComitteesLabel: UILabel?
 
     var billNr: String?
 
@@ -47,8 +47,8 @@ final class BillCardTableViewController: UITableViewController {
 
     var parser: BillParser? {
         didSet {
-            if let currentBill = bill, parser?.tree != nil {
-                UserServices.setParserContent(ofBillNr: currentBill.number, to: parser!.tree)
+            if let currentBill = bill, let tree = parser?.tree {
+                UserServices.setParserContent(ofBillNr: currentBill.number, to: tree)
             }
         }
     }
@@ -59,6 +59,7 @@ final class BillCardTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         installRealmToken()
         tableView.delegate = self
         if favoriteBill?.favoriteHasUnseenChanges ?? false {
@@ -118,22 +119,22 @@ final class BillCardTableViewController: UITableViewController {
     func fetchExistingBillData() {
         if let bill = bill {
             navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
-            billTypeLabel.text = bill.lawType.description
-            billTitle.text = bill.name
-            billCommentsLabel.text = bill.comments
+            billTypeLabel?.text = bill.lawType.description
+            billTitle?.text = bill.name
+            billCommentsLabel?.text = bill.comments
 
-            introductionDateLabel.text = bill.introductionDate
-            introducedByLabel.text = bill.generateSubjectsDescription()
+            introductionDateLabel?.text = bill.introductionDate
+            introducedByLabel?.text = bill.generateSubjectsDescription()
 
-            lastEventStageLabel.text = bill.lastEventStage?.name
-            lastEventPhaseLabel.text = bill.lastEventPhase?.name
-            lastEventDecisionLabel.text = bill.generateSolutionDescription()
-            lastEventDateLabel.text = bill.generateLastEventDateDescription()
-            lastEventDocumentLabel.text = bill.generateLastEventDocumentDescription()
+            lastEventStageLabel?.text = bill.lastEventStage?.name
+            lastEventPhaseLabel?.text = bill.lastEventPhase?.name
+            lastEventDecisionLabel?.text = bill.generateSolutionDescription()
+            lastEventDateLabel?.text = bill.generateLastEventDateDescription()
+            lastEventDocumentLabel?.text = bill.generateLastEventDocumentDescription()
 
-            respCommitteeLabel.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
-            profileComitteesLabel.text = bill.generateProfileCommitteesDescription()
-            coexecCommitteeLabel.text = bill.generateCoexecitorCommitteesDescription()
+            respCommitteeLabel?.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
+            profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
+            coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
 
             tableView.reloadData()
         } else {
@@ -146,9 +147,9 @@ final class BillCardTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "BillDetailsSegue" {
-            if let dest = segue.destination as? BillDetailsTableViewController, let content = bill?.parserContent {
+            if let dest = segue.destination as? BillDetailsTableViewController, let content = bill?.parserContent, let number = bill?.number {
                 dest.parserContent = BillParserContent.deserialize(data: content)
-                dest.billNumber = "\(bill!.number)"
+                dest.billNumber = number
                 dest.bill = bill
             }
         }
@@ -161,7 +162,13 @@ final class BillCardTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { [weak self] (action) in
-            FilesManager.createAndOrWriteToFileBillDescription(text: (self?.description)!, name: (self?.bill!.number)!, atPath: NSHomeDirectory())
+
+            if let description = self?.description, let number = self?.bill?.number {
+                FilesManager.createAndOrWriteToFileBillDescription(text: description, name: number, atPath: NSHomeDirectory())
+            } else {
+                assertionFailure("Can't generate bill description or/and get bill number to save them to a file")
+            }
+
         }))
 
         alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { [weak self] (action) in
@@ -179,22 +186,28 @@ final class BillCardTableViewController: UITableViewController {
             }
         }))
 
-        alert.addAction(UIAlertAction(title: (bill?.favorite)! ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
+        if let fav = bill?.favorite, let number = bill?.number {
+            alert.addAction(UIAlertAction(title: fav ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
 
-            let realm = try? Realm()
-            if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
-                try? realm?.write {
-                    if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
-                        realm?.delete(existingFavoriteBill)
-                    } else {
-                        let newFavoriteBill = FavoriteBill_(fromBill: updBill)
-                        realm?.add(newFavoriteBill, update: true)
+                let realm = try? Realm()
+                if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
+                    try? realm?.write {
+                        if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
+                            try? realm?.write {
+                                existingFavoriteBill.markedToBeRemovedFromFavorites = true
+                            }
+                        } else {
+                            let newFavoriteBill = FavoriteBill_(fromBill: updBill)
+                            realm?.add(newFavoriteBill, update: true)
+                        }
                     }
                 }
-            }
 
-            self?.navigationItem.title = (self?.bill?.favorite)! ? "🎖\(self?.bill!.number ?? "")" : "📃\(self?.bill!.number ?? "")"
-        }))
+                self?.navigationItem.title = fav ? "🎖\(number)" : "📃\(number)"
+            }))
+        } else {
+            assertionFailure("Can't unwrap optional bill to add action in share menu")
+        }
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
@@ -217,11 +230,11 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     func activateMoreInfoCell() {
-        moreDocsLabel.text = "Все события и документы"
-        moreDocsLabel.textColor = moreDocsLabel.tintColor
-        moreDocsIndicator.stopAnimating()
-        moreDocsCell.accessoryType = .disclosureIndicator
-        moreDocsCell.isUserInteractionEnabled = true
+        moreDocsLabel?.text = "Все события и документы"
+        moreDocsLabel?.textColor = moreDocsLabel?.tintColor
+        moreDocsIndicator?.stopAnimating()
+        moreDocsCell?.accessoryType = .disclosureIndicator
+        moreDocsCell?.isUserInteractionEnabled = true
     }
 
     func beginStagesParsing() {
@@ -240,10 +253,11 @@ final class BillCardTableViewController: UITableViewController {
     func reloadCurrentBillData() {
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
-            UserServices.downloadBills(withQuery: searchQuery, completion: { (bills, totalCount)->Void in
-                if bills.count > 0 {
-                    self.bill = bills.first!
-                    self.fetchExistingBillData()
+            UserServices.downloadBills(withQuery: searchQuery, completion: {
+                [weak self] (bills, totalCount)->Void in
+                if let firstBill = bills.first {
+                    self?.bill = firstBill
+                    self?.fetchExistingBillData()
                 }
             })
         }

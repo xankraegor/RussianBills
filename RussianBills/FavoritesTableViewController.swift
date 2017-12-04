@@ -47,9 +47,9 @@ final class FavoritesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
         cell.nameLabel?.text = favoriteBills![indexPath.row].name
         cell.numberLabel?.text = "📃" + favoriteBills![indexPath.row].number
-        cell.hasUpdatesLabel.isHidden = !favoriteBills![indexPath.row].favoriteHasUnseenChanges
-        cell.hasUpdatesLabel.layer.cornerRadius = 10
-        cell.hasUpdatesLabel.layer.masksToBounds = true
+        cell.hasUpdatesLabel?.isHidden = !favoriteBills![indexPath.row].favoriteHasUnseenChanges
+        cell.hasUpdatesLabel?.layer.cornerRadius = 10
+        cell.hasUpdatesLabel?.layer.masksToBounds = true
         return cell
     }
 

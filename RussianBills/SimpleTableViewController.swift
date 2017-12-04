@@ -114,36 +114,36 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch objectsToDisplay! {
+        switch objectsToDisplay {
 
         // Legislative initiative bodies
-        case .federalSubjects:
+        case .federalSubjects?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
             let object = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
-            cell.nameLabel.text = object.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
+            cell.nameLabel?.text = object.name
+            cell.beginDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
             cell.accessoryType = .disclosureIndicator
             if object.isCurrent {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
 
-        case .regionalSubjects:
+        case .regionalSubjects?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
             let object = isFiltering ? filteredObjects![indexPath.row] as! RegionalSubject_ : objects![indexPath.row] as! RegionalSubject_
-            cell.nameLabel.text = object.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
+            cell.nameLabel?.text = object.name
+            cell.beginDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
             cell.accessoryType = .disclosureIndicator
             if object.isCurrent {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
 
-        case .dumaDeputees, .councilMembers:
+        case .dumaDeputees?, .councilMembers?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputiesCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = object.name
@@ -152,35 +152,37 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             return cell
 
             // Other Reference categories
-        case .lawClasses:
+        case .lawClasses?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
             cell.textLabel?.text = object.name
             return cell
 
-        case .topics:
+        case .topics?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! Topic_: objects![indexPath.row] as! Topic_
             cell.textLabel?.text = object.name
             return cell
 
-        case .instances:
+        case .instances?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! Instance_ : objects![indexPath.row] as! Instance_
             cell.textLabel?.text = object.name
             return cell
 
-        case .committees:
+        case .committees?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
             let object = isFiltering ? filteredObjects![indexPath.row] as! Committee_ : objects![indexPath.row] as! Committee_
-            cell.nameLabel.text = object.name
-            cell.beginDateLabel.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
+            cell.nameLabel?.text = object.name
+            cell.beginDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.startDate(isoDate: object.startDate).description()
             if object.isCurrent {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.noEndDate().description()
             } else {
-                cell.endDateLabel.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
+                cell.endDateLabel?.text = NameStartEndTableViewCellDateTextGenerator.endDate(isoDate: object.stopDate).description()
             }
             return cell
+        case .none:
+            fatalError("Objects to display not provided")
         }
 
     }

@@ -33,7 +33,11 @@ final class AuthFormController: FormViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle!)
+        if let handle = authHandle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        } else {
+            assertionFailure("Optional firebase auth handle can not be unwrapped")
+        }
     }
 
     // MARK: - Authorization routine
@@ -121,16 +125,17 @@ final class AuthFormController: FormViewController {
             <<< ButtonRow("loginButtonRow") { row in
                 row.disabled = Condition.function(["emailRow", "passwordRow"], { [weak self] (form) -> Bool in
 
-                    switch self!.authStatus {
-                    case .successful:
+                    switch self?.authStatus {
+                    case .successful?:
                         return false
-                    case .processing:
+                    case .processing?:
                         return true
-                    case .denied:
+                    case .denied?, .none:
                         break
                     }
 
-                    guard let emailRow = form.rowBy(tag: "emailRow") as? EmailRow, let passwordRow = form.rowBy(tag: "passwordRow") as? PasswordRow else {
+                    guard let emailRow = form.rowBy(tag: "emailRow") as? EmailRow,
+                        let passwordRow = form.rowBy(tag: "passwordRow") as? PasswordRow else {
                         return false
                     }
 
@@ -182,44 +187,44 @@ final class AuthFormController: FormViewController {
 
     func handleAuthResponse(error: Error?, user: User?) {
 
-        let statusRow = self.form.rowBy(tag: "authStatus") as! LabelRow
-        let emailRow = self.form.rowBy(tag: "emailRow") as! EmailRow
-        let passRow = self.form.rowBy(tag: "passwordRow") as! PasswordRow
-        let buttonRow = self.form.rowBy(tag: "loginButtonRow") as! ButtonRow
+        let statusRow = form.rowBy(tag: "authStatus") as? LabelRow
+        let emailRow = form.rowBy(tag: "emailRow") as? EmailRow
+        let passRow = form.rowBy(tag: "passwordRow") as? PasswordRow
+        let buttonRow = form.rowBy(tag: "loginButtonRow") as? ButtonRow
 
         if let err = error as? AuthErrorCode {
             authStatus = .denied
             switch err {
             case .userDisabled:
-                statusRow.title = "Учётная запись заблокирована"
+                statusRow?.title = "Учётная запись заблокирована"
             case .operationNotAllowed:
-                statusRow.title = "Учётная запись не подтверждена"
+                statusRow?.title = "Учётная запись не подтверждена"
             case .invalidEmail:
-                statusRow.title = "Неправильный адрес электронной почты"
+                statusRow?.title = "Неправильный адрес электронной почты"
             case .wrongPassword:
-                statusRow.title = "Неправильный пароль"
+                statusRow?.title = "Неправильный пароль"
             case .userNotFound:
-                statusRow.title = "Пользователь не найден"
+                statusRow?.title = "Пользователь не найден"
             case .networkError:
-                statusRow.title = "Сетевое соединение недоступно"
+                statusRow?.title = "Сетевое соединение недоступно"
             case .keychainError:
-                statusRow.title = "Ошибка при обращении к связке ключей iOS: \(error?.localizedDescription ?? "детальное описание отсутствует")"
+                statusRow?.title = "Ошибка при обращении к связке ключей iOS: \(error?.localizedDescription ?? "детальное описание отсутствует")"
             case .internalError:
-                statusRow.title = "Внутренняя ошибка сервиса"
+                statusRow?.title = "Внутренняя ошибка сервиса"
             default:
-                statusRow.title = "Ошибка: \(err.rawValue)"
+                statusRow?.title = "Ошибка: \(err.rawValue)"
             }
-            emailRow.disabled = false
-            passRow.hidden = false
-            buttonRow.title = "Войти"
+            emailRow?.disabled = false
+            passRow?.hidden = false
+            buttonRow?.title = "Войти"
 
         } else if let usr = user {
             authStatus = .successful
-            statusRow.title = "Успешно авторизован"
-            emailRow.disabled = true
-            emailRow.value = usr.email
-            passRow.hidden = true
-            buttonRow.title = "Выйти"
+            statusRow?.title = "Успешно авторизован"
+            emailRow?.disabled = true
+            emailRow?.value = usr.email
+            passRow?.hidden = true
+            buttonRow?.title = "Выйти"
 
 //            SyncMan.shared.updateFirebaseFavoriteRecords()
         }

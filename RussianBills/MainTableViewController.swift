@@ -12,7 +12,7 @@ import CloudKit
 
 final class MainTableViewController: UITableViewController {
 
-    @IBOutlet weak var updatedFavoriteBillsCountLabel: UILabel!
+    @IBOutlet weak var updatedFavoriteBillsCountLabel: UILabel?
 
 
     // MARK: - Life cycle
@@ -24,8 +24,8 @@ final class MainTableViewController: UITableViewController {
             self.navigationController?.navigationBar.prefersLargeTitles = true
         }
 
-        updatedFavoriteBillsCountLabel.layer.cornerRadius = 10
-        updatedFavoriteBillsCountLabel.layer.masksToBounds = true
+        updatedFavoriteBillsCountLabel?.layer.cornerRadius = 10
+        updatedFavoriteBillsCountLabel?.layer.masksToBounds = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil)
     }
 
@@ -48,10 +48,10 @@ final class MainTableViewController: UITableViewController {
 
     func setFavoritesBadge(count: Int) {
         if count > 0 {
-            updatedFavoriteBillsCountLabel.text = "  \(count)  "
-            updatedFavoriteBillsCountLabel.isHidden = false
+            updatedFavoriteBillsCountLabel?.text = "  \(count)  "
+            updatedFavoriteBillsCountLabel?.isHidden = false
         } else {
-            updatedFavoriteBillsCountLabel.isHidden = true
+            updatedFavoriteBillsCountLabel?.isHidden = true
         }
     }
 
