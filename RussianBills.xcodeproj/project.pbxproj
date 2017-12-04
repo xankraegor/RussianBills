@@ -28,6 +28,14 @@
 		2A3C164F1FCF6A3300371B1B /* MessagesViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */; };
 		2A3D42051FBA594C0034331E /* SynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D42041FBA594C0034331E /* SynchronizationManager.swift */; };
 		2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */; };
+		2A4A2BA71FD5E43A00E08F3F /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */; };
+		2A4A2BA91FD5E43A00E08F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */; };
+		2A4A2BB01FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A4A2BB51FD5E43A00E08F3F /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */; };
+		2A4A2BB71FD5E43A00E08F3F /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */; };
+		2A4A2BB91FD5E43A00E08F3F /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */; };
+		2A4A2BBB1FD5E43A00E08F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */; };
+		2A4A2BC01FD5E43A00E08F3F /* RusBillsWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2A4A2BA31FD5E43A00E08F3F /* RusBillsWatchApp.app */; };
 		2A4ED0DC1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */; };
 		2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD01F0EBB93005C59AE /* Keys.plist */; };
 		2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */; };
@@ -147,6 +155,20 @@
 			remoteGlobalIDString = 2A3C163A1FCF636900371B1B;
 			remoteInfo = RusBillsIMessageExtension;
 		};
+		2A4A2BB11FD5E43A00E08F3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A6315A31F0AE1B400611BD8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A4A2BAE1FD5E43A00E08F3F;
+			remoteInfo = "RusBillsWatchApp Extension";
+		};
+		2A4A2BBE1FD5E43A00E08F3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A6315A31F0AE1B400611BD8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A4A2BA21FD5E43A00E08F3F;
+			remoteInfo = RusBillsWatchApp;
+		};
 		2ACA109F1FCCC9CD00869553 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A6315A31F0AE1B400611BD8 /* Project object */;
@@ -157,6 +179,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2A4A2BC61FD5E43A00E08F3F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2A4A2BB01FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A4A2BC81FD5E43A00E08F3F /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				2A4A2BC01FD5E43A00E08F3F /* RusBillsWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2ACA10A51FCCC9CD00869553 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,6 +239,17 @@
 		2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewTableViewCell.swift; sourceTree = "<group>"; };
 		2A3D42041FBA594C0034331E /* SynchronizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationManager.swift; sourceTree = "<group>"; };
 		2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchFieldsReporting.swift; sourceTree = "<group>"; };
+		2A4A2BA31FD5E43A00E08F3F /* RusBillsWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RusBillsWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A4A2BA61FD5E43A00E08F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2A4A2BAA1FD5E43A00E08F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RusBillsWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2A4A2BBC1FD5E43A00E08F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A4A2BBD1FD5E43A00E08F3F /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		2A4ED0DB1F0D3F22008BF1B3 /* BillSearchQuerySortType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuerySortType.swift; sourceTree = "<group>"; };
 		2A4FDBD01F0EBB93005C59AE /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		2A4FDBD41F0EEC77005C59AE /* SimpleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +345,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2A4A2BAC1FD5E43A00E08F3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2A6315A81F0AE1B400611BD8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,6 +422,29 @@
 			path = RusBillsIMessageExtension;
 			sourceTree = "<group>";
 		};
+		2A4A2BA41FD5E43A00E08F3F /* RusBillsWatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */,
+				2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */,
+				2A4A2BAA1FD5E43A00E08F3F /* Info.plist */,
+			);
+			path = RusBillsWatchApp;
+			sourceTree = "<group>";
+		};
+		2A4A2BB31FD5E43A00E08F3F /* RusBillsWatchApp Extension */ = {
+			isa = PBXGroup;
+			children = (
+				2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */,
+				2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */,
+				2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */,
+				2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */,
+				2A4A2BBC1FD5E43A00E08F3F /* Info.plist */,
+				2A4A2BBD1FD5E43A00E08F3F /* PushNotificationPayload.apns */,
+			);
+			path = "RusBillsWatchApp Extension";
+			sourceTree = "<group>";
+		};
 		2A4ED0E11F0D9922008BF1B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +486,8 @@
 				2A6315AD1F0AE1B400611BD8 /* RussianBills */,
 				2ACA10981FCCC9CD00869553 /* RusBillsTodayExtension */,
 				2A3C163E1FCF636900371B1B /* RusBillsIMessageExtension */,
+				2A4A2BA41FD5E43A00E08F3F /* RusBillsWatchApp */,
+				2A4A2BB31FD5E43A00E08F3F /* RusBillsWatchApp Extension */,
 				2A6315AC1F0AE1B400611BD8 /* Products */,
 				446ACAC816582A6953401F6D /* Pods */,
 				1586E7C1CF793B55B118E911 /* Frameworks */,
@@ -413,6 +500,8 @@
 				2A6315AB1F0AE1B400611BD8 /* RussianBills.app */,
 				2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */,
 				2A3C163B1FCF636900371B1B /* RusBillsIMessageExtension.appex */,
+				2A4A2BA31FD5E43A00E08F3F /* RusBillsWatchApp.app */,
+				2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -646,6 +735,40 @@
 			productReference = 2A3C163B1FCF636900371B1B /* RusBillsIMessageExtension.appex */;
 			productType = "com.apple.product-type.app-extension.messages";
 		};
+		2A4A2BA21FD5E43A00E08F3F /* RusBillsWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A4A2BC71FD5E43A00E08F3F /* Build configuration list for PBXNativeTarget "RusBillsWatchApp" */;
+			buildPhases = (
+				2A4A2BA11FD5E43A00E08F3F /* Resources */,
+				2A4A2BC61FD5E43A00E08F3F /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2A4A2BB21FD5E43A00E08F3F /* PBXTargetDependency */,
+			);
+			name = RusBillsWatchApp;
+			productName = RusBillsWatchApp;
+			productReference = 2A4A2BA31FD5E43A00E08F3F /* RusBillsWatchApp.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		2A4A2BAE1FD5E43A00E08F3F /* RusBillsWatchApp Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A4A2BC51FD5E43A00E08F3F /* Build configuration list for PBXNativeTarget "RusBillsWatchApp Extension" */;
+			buildPhases = (
+				2A4A2BAB1FD5E43A00E08F3F /* Sources */,
+				2A4A2BAC1FD5E43A00E08F3F /* Frameworks */,
+				2A4A2BAD1FD5E43A00E08F3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RusBillsWatchApp Extension";
+			productName = "RusBillsWatchApp Extension";
+			productReference = 2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		2A6315AA1F0AE1B400611BD8 /* RussianBills */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A6315C81F0AE1B400611BD8 /* Build configuration list for PBXNativeTarget "RussianBills" */;
@@ -657,12 +780,14 @@
 				651538C9435B5977F320B8E3 /* [CP] Embed Pods Frameworks */,
 				4DD5C543EE7339E99A78C95D /* [CP] Copy Pods Resources */,
 				2ACA10A51FCCC9CD00869553 /* Embed App Extensions */,
+				2A4A2BC81FD5E43A00E08F3F /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2ACA10A01FCCC9CD00869553 /* PBXTargetDependency */,
 				2A3C16481FCF636900371B1B /* PBXTargetDependency */,
+				2A4A2BBF1FD5E43A00E08F3F /* PBXTargetDependency */,
 			);
 			name = RussianBills;
 			productName = RussianBills;
@@ -706,6 +831,14 @@
 								enabled = 1;
 							};
 						};
+					};
+					2A4A2BA21FD5E43A00E08F3F = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					2A4A2BAE1FD5E43A00E08F3F = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
 					};
 					2A6315AA1F0AE1B400611BD8 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -758,6 +891,8 @@
 				2A6315AA1F0AE1B400611BD8 /* RussianBills */,
 				2ACA10941FCCC9CD00869553 /* RusBillsTodayExtension */,
 				2A3C163A1FCF636900371B1B /* RusBillsIMessageExtension */,
+				2A4A2BA21FD5E43A00E08F3F /* RusBillsWatchApp */,
+				2A4A2BAE1FD5E43A00E08F3F /* RusBillsWatchApp Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -769,6 +904,23 @@
 			files = (
 				2A3C16451FCF636900371B1B /* Assets.xcassets in Resources */,
 				2A3C16431FCF636900371B1B /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A4A2BA11FD5E43A00E08F3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4A2BA91FD5E43A00E08F3F /* Assets.xcassets in Resources */,
+				2A4A2BA71FD5E43A00E08F3F /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A4A2BAD1FD5E43A00E08F3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4A2BBB1FD5E43A00E08F3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,6 +1121,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2A4A2BAB1FD5E43A00E08F3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A4A2BB91FD5E43A00E08F3F /* NotificationController.swift in Sources */,
+				2A4A2BB71FD5E43A00E08F3F /* ExtensionDelegate.swift in Sources */,
+				2A4A2BB51FD5E43A00E08F3F /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2A6315A71F0AE1B400611BD8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1081,6 +1243,16 @@
 			target = 2A3C163A1FCF636900371B1B /* RusBillsIMessageExtension */;
 			targetProxy = 2A3C16471FCF636900371B1B /* PBXContainerItemProxy */;
 		};
+		2A4A2BB21FD5E43A00E08F3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A4A2BAE1FD5E43A00E08F3F /* RusBillsWatchApp Extension */;
+			targetProxy = 2A4A2BB11FD5E43A00E08F3F /* PBXContainerItemProxy */;
+		};
+		2A4A2BBF1FD5E43A00E08F3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A4A2BA21FD5E43A00E08F3F /* RusBillsWatchApp */;
+			targetProxy = 2A4A2BBE1FD5E43A00E08F3F /* PBXContainerItemProxy */;
+		};
 		2ACA10A01FCCC9CD00869553 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2ACA10941FCCC9CD00869553 /* RusBillsTodayExtension */;
@@ -1095,6 +1267,14 @@
 				2A3C16421FCF636900371B1B /* Base */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A4A2BA61FD5E43A00E08F3F /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		2A6315B21F0AE1B400611BD8 /* Main.storyboard */ = {
@@ -1167,6 +1347,94 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2A4A2BC11FD5E43A00E08F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = RusBillsWatchApp_Extension;
+				INFOPLIST_FILE = RusBillsWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Debug;
+		};
+		2A4A2BC21FD5E43A00E08F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = RusBillsWatchApp_Extension;
+				INFOPLIST_FILE = RusBillsWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Release;
+		};
+		2A4A2BC31FD5E43A00E08F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "RusBillsWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+			};
+			name = Debug;
+		};
+		2A4A2BC41FD5E43A00E08F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L74ER2RZ64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "RusBillsWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xankraegor.russianBills.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.1;
 			};
 			name = Release;
 		};
@@ -1371,6 +1639,24 @@
 			buildConfigurations = (
 				2A3C164A1FCF636900371B1B /* Debug */,
 				2A3C164B1FCF636900371B1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A4A2BC51FD5E43A00E08F3F /* Build configuration list for PBXNativeTarget "RusBillsWatchApp Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A4A2BC31FD5E43A00E08F3F /* Debug */,
+				2A4A2BC41FD5E43A00E08F3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A4A2BC71FD5E43A00E08F3F /* Build configuration list for PBXNativeTarget "RusBillsWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A4A2BC11FD5E43A00E08F3F /* Debug */,
+				2A4A2BC21FD5E43A00E08F3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

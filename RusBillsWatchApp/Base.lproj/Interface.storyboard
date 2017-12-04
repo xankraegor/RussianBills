@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13529" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13507"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="RusBillsWatchApp" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="LT5-g9-Khx">
+                            <items>
+                                <tableRow id="xhc-Bk-89S">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="A2I-9i-Yr8">
+                                        <items>
+                                            <label width="1" height="317" alignment="left" textAlignment="left" baselineAdjustment="alignCenters" numberOfLines="0" minimumScaleFactor="0.5" id="1Vh-cq-Teb">
+                                                <string key="text">123456-7 О внесении изменений в федеральный закон "О федеральном бюджете Российской Федерации на 2017 год и плановый период 2018 и 2019 годов"</string>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <segue destination="brm-WX-BFt" kind="push" id="mJt-om-BDp"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="214" y="147"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="4jB-Qk-aKv">
+            <objects>
+                <controller id="brm-WX-BFt"/>
+            </objects>
+            <point key="canvasLocation" x="490" y="147"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label height="101" alignment="left" text="Появились изменения в избранных законопроектах" numberOfLines="0" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="RusBillsWatchApp" customModuleProvider="target">
+                    <items>
+                        <label alignment="left" text="Законопроект №12345 обновлен" numberOfLines="0" id="wch-RL-0Mo"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
