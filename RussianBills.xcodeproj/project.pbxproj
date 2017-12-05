@@ -13,12 +13,20 @@
 		2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */; };
 		2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
 		2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
+		2A2129341FD633AE000BD70B /* LawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A98F16D1F0AF070004F5524 /* LawType.swift */; };
+		2A2129351FD63420000BD70B /* String-IsoDateToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */; };
+		2A2129361FD63425000BD70B /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
+		2A2129371FD6343B000BD70B /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
+		2A2129381FD63440000BD70B /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
+		2A2129391FD63444000BD70B /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
+		2A21293B1FD63D06000BD70B /* WatchSessionManagerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21293A1FD63D06000BD70B /* WatchSessionManagerIOS.swift */; };
 		2A23F0C01FC4A5DD00462428 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */; };
 		2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A290A281F96D2440056E990 /* SearchFormController.swift */; };
 		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
 		2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */; };
 		2A3A04031F992BB9007D4EFE /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */; };
 		2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */; };
+		2A3ACCF01FD619C40037E6E7 /* DetailsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3ACCEF1FD619C40037E6E7 /* DetailsInterfaceController.swift */; };
 		2A3C163D1FCF636900371B1B /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3C163C1FCF636900371B1B /* Messages.framework */; };
 		2A3C16401FCF636900371B1B /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C163F1FCF636900371B1B /* MessagesViewController.swift */; };
 		2A3C16431FCF636900371B1B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A3C16411FCF636900371B1B /* MainInterface.storyboard */; };
@@ -31,7 +39,6 @@
 		2A4A2BA71FD5E43A00E08F3F /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */; };
 		2A4A2BA91FD5E43A00E08F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */; };
 		2A4A2BB01FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2A4A2BB51FD5E43A00E08F3F /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */; };
 		2A4A2BB71FD5E43A00E08F3F /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */; };
 		2A4A2BB91FD5E43A00E08F3F /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */; };
 		2A4A2BBB1FD5E43A00E08F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */; };
@@ -55,6 +62,7 @@
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
 		2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
+		2A80F70A1FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F7091FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift */; };
 		2A8424BD1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8424BC1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift */; };
 		2A8781FE1F0BC24000A0554F /* RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8781FD1F0BC24000A0554F /* RealmExtension.swift */; };
 		2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8782011F0BE4A400A0554F /* Deputy.swift */; };
@@ -132,6 +140,9 @@
 		2ACA109A1FCCC9CD00869553 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA10991FCCC9CD00869553 /* TodayViewController.swift */; };
 		2ACA109D1FCCC9CD00869553 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ACA109B1FCCC9CD00869553 /* MainInterface.storyboard */; };
 		2ACA10A11FCCC9CD00869553 /* RusBillsTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2ACA455C1FD70C7800C309EF /* DetailedInterfaceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */; };
+		2ACA45611FD75A7A00C309EF /* MainInterfaceRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2129301FD63084000BD70B /* MainInterfaceRowController.swift */; };
+		2ACA45621FD75A8F00C309EF /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB41FD5E43A00E08F3F /* MainInterfaceController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
@@ -142,6 +153,8 @@
 		2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */; };
 		2AF15C121FC75C230018991C /* ICloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */; };
 		2AF15C171FC77DE70018991C /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
+		2AFEECCF1FD6FA1800F63966 /* BillWatchOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEECCE1FD6FA1800F63966 /* BillWatchOS.swift */; };
+		2AFEECD01FD6FB6C00F63966 /* BillWatchOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEECCE1FD6FA1800F63966 /* BillWatchOS.swift */; };
 		2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2DC8A0204CA7DD91F0587FA5 /* Pods_RussianBills.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB991CB5D23CC7D2D205F21 /* Pods_RussianBills.framework */; };
 		377B91653648C736D7686B4C /* Pods_RusBillsTodayExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4278D93ECE49B74E0BC8E4 /* Pods_RusBillsTodayExtension.framework */; };
@@ -224,12 +237,15 @@
 		2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-CondenseWhitespaces.swift"; sourceTree = "<group>"; };
 		2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-IsoDateToReadableDate.swift"; sourceTree = "<group>"; };
+		2A2129301FD63084000BD70B /* MainInterfaceRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceRowController.swift; sourceTree = "<group>"; };
+		2A21293A1FD63D06000BD70B /* WatchSessionManagerIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManagerIOS.swift; sourceTree = "<group>"; };
 		2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2A290A281F96D2440056E990 /* SearchFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormController.swift; sourceTree = "<group>"; };
 		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
 		2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		2A3ACCEF1FD619C40037E6E7 /* DetailsInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsInterfaceController.swift; sourceTree = "<group>"; };
 		2A3C163B1FCF636900371B1B /* RusBillsIMessageExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RusBillsIMessageExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A3C163C1FCF636900371B1B /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		2A3C163F1FCF636900371B1B /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +260,7 @@
 		2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A4A2BAA1FD5E43A00E08F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A4A2BAF1FD5E43A00E08F3F /* RusBillsWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RusBillsWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		2A4A2BB41FD5E43A00E08F3F /* MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceController.swift; sourceTree = "<group>"; };
 		2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -268,6 +284,9 @@
 		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		2A75E8FC1F2282F30008FD8F /* FilesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-FileNameAndExtension.swift"; sourceTree = "<group>"; };
+		2A80C5A81FD607CD00E2D5EF /* RusBillsWatchApp Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RusBillsWatchApp Extension.entitlements"; sourceTree = "<group>"; };
+		2A80C5A91FD607D900E2D5EF /* RusBillsWatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsWatchApp.entitlements; sourceTree = "<group>"; };
+		2A80F7091FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManagerWOS.swift; sourceTree = "<group>"; };
 		2A8424BC1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegislativeSubjTableViewController.swift; sourceTree = "<group>"; };
 		2A8781FD1F0BC24000A0554F /* RealmExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmExtension.swift; sourceTree = "<group>"; };
 		2A8782011F0BE4A400A0554F /* Deputy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deputy.swift; sourceTree = "<group>"; };
@@ -311,6 +330,7 @@
 		2ACA109C1FCCC9CD00869553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2ACA109E1FCCC9CD00869553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ACA10A61FCCCA5200869553 /* RusBillsTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsTodayExtension.entitlements; sourceTree = "<group>"; };
+		2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceRow.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
@@ -323,10 +343,12 @@
 		2AF15C161FC77DE70018991C /* FavoriteBill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBill.swift; sourceTree = "<group>"; };
 		2AF231B01FC34FD800EDBB23 /* RussianBills.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RussianBills.entitlements; sourceTree = "<group>"; };
 		2AF254861FD070DE00F48DEA /* RusBillsIMessageExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsIMessageExtension.entitlements; sourceTree = "<group>"; };
+		2AFEECCE1FD6FA1800F63966 /* BillWatchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillWatchOS.swift; sourceTree = "<group>"; };
 		2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateToIsoStringExtension.swift; sourceTree = "<group>"; };
 		2F9AE397B93A9FAEEDB5700A /* Pods-RusBillsTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RusBillsTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-RusBillsTodayExtension/Pods-RusBillsTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4A93CF53FD74C6B76B44F2F7 /* Pods-RussianBills.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBills.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills.debug.xcconfig"; sourceTree = "<group>"; };
 		5044CD6A0A6AA228BDA9B898 /* Pods-RusBillsTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RusBillsTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RusBillsTodayExtension/Pods-RusBillsTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		5B334A594796AE3C88515ABD /* Pods_RusBillsWatchApp_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RusBillsWatchApp_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A30249DAB1228218AE2F7FF5 /* Pods-RussianBillsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB032B3DE8710142F281149C /* Pods_RusBillsIMessageExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RusBillsIMessageExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCBC56BC82CEA5AF364A1F54 /* Pods-RussianBillsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RussianBillsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RussianBillsTests/Pods-RussianBillsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -371,6 +393,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4B5D06BBB3DA117915BF5F42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -385,6 +414,7 @@
 				CD4278D93ECE49B74E0BC8E4 /* Pods_RusBillsTodayExtension.framework */,
 				2A3C163C1FCF636900371B1B /* Messages.framework */,
 				AB032B3DE8710142F281149C /* Pods_RusBillsIMessageExtension.framework */,
+				5B334A594796AE3C88515ABD /* Pods_RusBillsWatchApp_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -425,6 +455,7 @@
 		2A4A2BA41FD5E43A00E08F3F /* RusBillsWatchApp */ = {
 			isa = PBXGroup;
 			children = (
+				2A80C5A91FD607D900E2D5EF /* RusBillsWatchApp.entitlements */,
 				2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */,
 				2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */,
 				2A4A2BAA1FD5E43A00E08F3F /* Info.plist */,
@@ -435,7 +466,11 @@
 		2A4A2BB31FD5E43A00E08F3F /* RusBillsWatchApp Extension */ = {
 			isa = PBXGroup;
 			children = (
-				2A4A2BB41FD5E43A00E08F3F /* InterfaceController.swift */,
+				2A80C5A81FD607CD00E2D5EF /* RusBillsWatchApp Extension.entitlements */,
+				2A80F7091FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift */,
+				2AFEECCE1FD6FA1800F63966 /* BillWatchOS.swift */,
+				2ACA455D1FD7558600C309EF /* MainInterface */,
+				2ACA455E1FD7559400C309EF /* DetailedInterface */,
 				2A4A2BB61FD5E43A00E08F3F /* ExtensionDelegate.swift */,
 				2A4A2BB81FD5E43A00E08F3F /* NotificationController.swift */,
 				2A4A2BBA1FD5E43A00E08F3F /* Assets.xcassets */,
@@ -514,6 +549,7 @@
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AA751381FBDFFE600E2535E /* LocationManager.swift */,
+				2A21293A1FD63D06000BD70B /* WatchSessionManagerIOS.swift */,
 				2A8F318C1FC7220400E5E3FD /* Syncronization */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
@@ -660,6 +696,24 @@
 			path = RusBillsTodayExtension;
 			sourceTree = "<group>";
 		};
+		2ACA455D1FD7558600C309EF /* MainInterface */ = {
+			isa = PBXGroup;
+			children = (
+				2A4A2BB41FD5E43A00E08F3F /* MainInterfaceController.swift */,
+				2A2129301FD63084000BD70B /* MainInterfaceRowController.swift */,
+			);
+			path = MainInterface;
+			sourceTree = "<group>";
+		};
+		2ACA455E1FD7559400C309EF /* DetailedInterface */ = {
+			isa = PBXGroup;
+			children = (
+				2A3ACCEF1FD619C40037E6E7 /* DetailsInterfaceController.swift */,
+				2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */,
+			);
+			path = DetailedInterface;
+			sourceTree = "<group>";
+		};
 		2AD1E93A1F127AB100CA0D89 /* FavoriteBills */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +795,7 @@
 			buildPhases = (
 				2A4A2BA11FD5E43A00E08F3F /* Resources */,
 				2A4A2BC61FD5E43A00E08F3F /* Embed App Extensions */,
+				4B5D06BBB3DA117915BF5F42 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -835,10 +890,26 @@
 					2A4A2BA21FD5E43A00E08F3F = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					2A4A2BAE1FD5E43A00E08F3F = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes.watchos.extension = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2A6315AA1F0AE1B400611BD8 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1125,9 +1196,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A3ACCF01FD619C40037E6E7 /* DetailsInterfaceController.swift in Sources */,
+				2A2129361FD63425000BD70B /* DateToIsoStringExtension.swift in Sources */,
+				2A80F70A1FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift in Sources */,
+				2AFEECCF1FD6FA1800F63966 /* BillWatchOS.swift in Sources */,
 				2A4A2BB91FD5E43A00E08F3F /* NotificationController.swift in Sources */,
+				2A2129341FD633AE000BD70B /* LawType.swift in Sources */,
+				2A2129351FD63420000BD70B /* String-IsoDateToReadableDate.swift in Sources */,
+				2ACA455C1FD70C7800C309EF /* DetailedInterfaceRow.swift in Sources */,
+				2ACA45611FD75A7A00C309EF /* MainInterfaceRowController.swift in Sources */,
+				2A2129371FD6343B000BD70B /* BillParserContent.swift in Sources */,
+				2A2129381FD63440000BD70B /* BillParserPhase.swift in Sources */,
 				2A4A2BB71FD5E43A00E08F3F /* ExtensionDelegate.swift in Sources */,
-				2A4A2BB51FD5E43A00E08F3F /* InterfaceController.swift in Sources */,
+				2ACA45621FD75A8F00C309EF /* MainInterfaceController.swift in Sources */,
+				2A2129391FD63444000BD70B /* BillParserEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,9 +1251,11 @@
 				2AA4D19C1F0C10CF00EE2DA3 /* RegionalSubject.swift in Sources */,
 				2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */,
 				2AF15C171FC77DE70018991C /* FavoriteBill.swift in Sources */,
+				2A21293B1FD63D06000BD70B /* WatchSessionManagerIOS.swift in Sources */,
 				2AAE25A21F183C970053AD75 /* FavoritesTableViewCell.swift in Sources */,
 				2AA4D1981F0C03D200EE2DA3 /* BillStatus.swift in Sources */,
 				2A98F1761F0AFBEA004F5524 /* LawClass.swift in Sources */,
+				2AFEECD01FD6FB6C00F63966 /* BillWatchOS.swift in Sources */,
 				2AA751391FBDFFE600E2535E /* LocationManager.swift in Sources */,
 				2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */,
 				2AA677211F216F30003CFD37 /* BillAttachedDocumentsTableViewController.swift in Sources */,
@@ -1308,6 +1392,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24876389E0CA5981EB91D5F1 /* Pods-RusBillsIMessageExtension.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -1331,6 +1416,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10421A67171084FD6CFDD2FD /* Pods-RusBillsIMessageExtension.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -1357,6 +1443,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = RusBillsWatchApp/RusBillsWatchApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
@@ -1369,7 +1456,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -1380,6 +1467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = RusBillsWatchApp/RusBillsWatchApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
@@ -1392,7 +1480,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -1402,6 +1490,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "RusBillsWatchApp Extension/RusBillsWatchApp Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1413,7 +1502,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -1423,6 +1512,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "RusBillsWatchApp Extension/RusBillsWatchApp Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L74ER2RZ64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1434,13 +1524,14 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.1;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
 		2A6315C61F0AE1B400611BD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1498,6 +1589,7 @@
 		2A6315C71F0AE1B400611BD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1591,6 +1683,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5044CD6A0A6AA228BDA9B898 /* Pods-RusBillsTodayExtension.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = RusBillsTodayExtension/RusBillsTodayExtension.entitlements;
@@ -1613,6 +1706,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F9AE397B93A9FAEEDB5700A /* Pods-RusBillsTodayExtension.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = RusBillsTodayExtension/RusBillsTodayExtension.entitlements;

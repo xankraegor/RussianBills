@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 protocol QuickSearchFieldsReporting: class {
     // Returns names of Object's string type variables

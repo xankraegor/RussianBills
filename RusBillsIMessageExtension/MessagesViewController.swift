@@ -91,7 +91,7 @@ class MessagesViewController: MSMessagesAppViewController {
 extension MessagesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteBillsFilteredAndSorted!.count - 1
+        return favoriteBillsFilteredAndSorted!.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -51,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        // Initializing Watch Session
+        WatchSessionManager.sharedManager.startSession()
+
+
         // Other actions
         UserServices.downloadAllReferenceCategories(forced: true)
         UserServices.updateFavoriteBills(forced: false) {
