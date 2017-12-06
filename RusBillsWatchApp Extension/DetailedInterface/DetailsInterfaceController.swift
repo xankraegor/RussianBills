@@ -30,9 +30,6 @@ class DetailsInterfaceController: WKInterfaceController {
 
     func setupFields() {
         if let bill = bill {
-            print("bill.lastEventPhase: \(bill.lastEventPhase)")
-            print("bill.lastEventStage: \(bill.lastEventStage)")
-            print("bill.lastEventDecision: \(bill.lastEventFullDecision)")
 
             numberLabel.setText("№ \(bill.number)")
             if bill.comments.count > 0 {

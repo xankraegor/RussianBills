@@ -42,7 +42,6 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         session?.delegate = self
         session?.activate()
         setupRealmHandle()
-        sendContextToWatch()
     }
 
     func setupRealmHandle() {
@@ -51,14 +50,36 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         }
     }
 
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        if session.isReachable {
+            sendMessageToWatch()
+        }
+    }
+
     func sendContextToWatch() {
         guard let favs = self.favoriteBills else { return }
         var bills: [[String: String]] = [[:]]
-        for bill in favs {
-            let wb = FavoriteBillForWatchOS(withFavoriteBill: bill).dictionary()
-            bills.append(wb)
+        DispatchQueue.main.async {
+            for bill in favs {
+                let wb = FavoriteBillForWatchOS(withFavoriteBill: bill).dictionary()
+                bills.append(wb)
+            }
+
+            try? self.updateApplicationContext(applicationContext: ["favoriteBills": bills])
         }
-        try? self.updateApplicationContext(applicationContext: ["favoriteBills": bills])
+    }
+
+    func sendMessageToWatch() {
+        guard let favs = self.favoriteBills else { return }
+        var bills: [[String: String]] = [[:]]
+        DispatchQueue.main.async {
+            for bill in favs {
+                let wb = FavoriteBillForWatchOS(withFavoriteBill: bill).dictionary()
+                bills.append(wb)
+            }
+
+            self.sendMessage(message: ["favoriteBills": bills])
+        }
     }
 
     /**
@@ -68,7 +89,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
 
     }
-    
+
     /**
      * Called when the session can no longer be used to modify or add any new transfers and,
      * all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur.
@@ -97,7 +118,6 @@ extension WatchSessionManager {
         if let session = validSession {
             do {
                 try session.updateApplicationContext(applicationContext)
-                print("WatchSessionManager[iOS]: sent context \(applicationContext)")
             } catch let error {
                 throw error
             }
@@ -182,19 +202,7 @@ extension WatchSessionManager {
 
     // Receiver
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        // WatchSessionManager.shared.sendMessage(message: ["watchNeedsToFetchData" : "watchNeedsToFetchData"])
-        print("∆ session:didReceiveMessage: \(message):")
-        if let msg = message as? [String: String], msg["watchNeedsToFetchData"] == "watchNeedsToFetchData" {
-            func sendContextToWatch() {
-                guard let favs = self.favoriteBills else { return }
-                var bills: [[String: String]] = [[:]]
-                for bill in favs {
-                    let wb = FavoriteBillForWatchOS(withFavoriteBill: bill).dictionary()
-                    bills.append(wb)
-                }
-                try? self.updateApplicationContext(applicationContext: ["favoriteBills": bills])
-            }
-        }
+
     }
 
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {

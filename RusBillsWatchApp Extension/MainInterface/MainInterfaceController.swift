@@ -13,7 +13,7 @@ class MainInterfaceController: WKInterfaceController {
 
     @IBOutlet var table: WKInterfaceTable!
 
-    var favoriteBills: [FavoriteBillForWatchOS] = [] {
+    var favoriteBills: [FavoriteBillForWatchOS]? = nil {
         didSet {
             DispatchQueue.main.async {
                 self.setupTable()
@@ -30,7 +30,7 @@ class MainInterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         setupTable()
 
-        notifCenter.addObserver(forName: Notification.Name(rawValue: "didReceiveApplicationContextNotification"), object: nil, queue: OperationQueue.main) {
+        notifCenter.addObserver(forName: Notification.Name(rawValue: "watchReceivedUpdatedData"), object: nil, queue: OperationQueue.main) {
             [weak self] (notification) in
             if let favs = notification.userInfo as? [String: [FavoriteBillForWatchOS]], let values = favs["favoriteBills"] {
                 DispatchQueue.main.async {
@@ -40,13 +40,13 @@ class MainInterfaceController: WKInterfaceController {
                 assertionFailure("∆ Can't unwrap notification.userInfo as? [String: [FavoriteBillForWatchOS]]")
             }
         }
+
+        if favoriteBills == nil {
+            favoriteBills = WatchSessionManager.shared.favoriteBills
+        }
     }
     
     override func willActivate() {
-        WatchSessionManager.shared.sendMessage(message: ["watchNeedsToFetchData" : "watchNeedsToFetchData"], replyHandler: nil) { [weak self] (error) in
-            print(error)
-            print(error.localizedDescription)
-        }
         super.willActivate()
     }
     
@@ -57,16 +57,16 @@ class MainInterfaceController: WKInterfaceController {
     // MARK: - Table
 
     func setupTable() {
-        table?.setNumberOfRows(favoriteBills.count, withRowType: "mainInterfaceRowController")
+        table?.setNumberOfRows(favoriteBills?.count ?? 0, withRowType: "mainInterfaceRowController")
 
-        for index in 0..<favoriteBills.count {
+        for index in 0..<(favoriteBills?.count ?? 0) {
             guard let controller = table.rowController(at: index) as? MainInterfaceRowController else { continue }
-            controller.nameLabel.setText("\(favoriteBills[index].number) \(favoriteBills[index].name)")
+            controller.nameLabel.setText("\(favoriteBills?[index].number ?? "") \(favoriteBills?[index].name ?? "")")
         }
     }
 
     override func contextForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> Any? {
-        return favoriteBills[rowIndex]
+        return favoriteBills?[rowIndex] ?? 0
     }
 
 }

@@ -36,9 +36,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
      * If session state is WCSessionActivationStateNotActivated there will be an error with more details.
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if activationState  == .activated {
-            sendMessage(message: ["watchNeedsToFetchData" : "watchNeedsToFetchData"], replyHandler: nil)
-        }
+        
     }
 
 }
@@ -63,7 +61,6 @@ extension WatchSessionManager {
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         DispatchQueue.main.async() {
             let payload = applicationContext["favoriteBills"] as! [[String: String]]
-            print("Received payload from app context: \(payload)")
             var favBills : [FavoriteBillForWatchOS] = []
             for favoriteBillDictionary in payload {
                 if let fb = FavoriteBillForWatchOS(withDictionary: favoriteBillDictionary) {
@@ -73,7 +70,8 @@ extension WatchSessionManager {
                     continue
                 }
             }
-            let notificationWithContext = Notification(name: Notification.Name(rawValue: "didReceiveApplicationContextNotification"), object: nil, userInfo: ["favoriteBills": favBills])
+            
+            let notificationWithContext = Notification(name: Notification.Name(rawValue: "watchReceivedUpdatedData"), object: nil, userInfo: ["favoriteBills": favBills])
             self.notifCenter.post(notificationWithContext)
         }
     }
@@ -147,10 +145,21 @@ extension WatchSessionManager {
 
     // Receiver
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        // handle receiving message
-        // DispatchQueue.main.async() {
-        // make sure to put on the main queue to update UI!
-        // }
+        DispatchQueue.main.async() {
+            let payload = message["favoriteBills"] as! [[String: String]]
+            var favBills : [FavoriteBillForWatchOS] = []
+            for favoriteBillDictionary in payload {
+                if let fb = FavoriteBillForWatchOS(withDictionary: favoriteBillDictionary) {
+
+                    favBills.append(fb)
+                } else {
+                    continue
+                }
+            }
+
+            let notificationWithContext = Notification(name: Notification.Name(rawValue: "watchReceivedUpdatedData"), object: nil, userInfo: ["favoriteBills": favBills])
+            self.notifCenter.post(notificationWithContext)
+        }
     }
 
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {

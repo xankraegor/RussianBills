@@ -8,10 +8,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
     </dependencies>
     <scenes>
-        <!--Main Interface Controller-->
+        <!--Избранные-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="RusBillsWatchApp_Extension">
+                <controller title="Избранные" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="RusBillsWatchApp_Extension">
                     <items>
                         <table alignment="left" id="LT5-g9-Khx">
                             <items>
@@ -40,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="214" y="147"/>
         </scene>
-        <!--detailsInterfaceController-->
+        <!--Законопроект-->
         <scene sceneID="4jB-Qk-aKv">
             <objects>
-                <controller identifier="detailsInterfaceController" alwaysBounce="YES" id="brm-WX-BFt" customClass="DetailsInterfaceController" customModule="RusBillsWatchApp" customModuleProvider="target">
+                <controller identifier="detailsInterfaceController" title="Законопроект" alwaysBounce="YES" id="brm-WX-BFt" customClass="DetailsInterfaceController" customModule="RusBillsWatchApp" customModuleProvider="target">
                     <items>
                         <group alignment="left" layout="vertical" spacing="2" id="FQr-9S-hYL">
                             <items>
@@ -86,7 +86,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="490" y="453"/>
+            <point key="canvasLocation" x="518" y="257"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -113,7 +113,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="1042"/>
+            <point key="canvasLocation" x="518" y="643"/>
         </scene>
     </scenes>
 </document>
