@@ -9,41 +9,57 @@
 import WatchKit
 
 class DetailsInterfaceController: WKInterfaceController {
-    
-    @IBOutlet var table: WKInterfaceTable!
 
     var bill: FavoriteBillForWatchOS?
+
+    @IBOutlet var numberLabel: WKInterfaceLabel!
+    @IBOutlet var nameAndCommentLabel: WKInterfaceLabel!
+    @IBOutlet var lastEventLabel: WKInterfaceLabel!
+
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
 
         if let context = context as? FavoriteBillForWatchOS {
             bill = context
-            setupTable()
+            setupFields()
         }
     }
 
     // MARK: - Table
 
-    func setupTable() {
+    func setupFields() {
         if let bill = bill {
-            table?.setNumberOfRows(7, withRowType: "WatchDetailsTableId")
-            let cell0 = table?.rowController(at: 0) as? DetailedInterfaceRowController
-            cell0?.nameLabel?.setText(bill.number)
-            let cell1 = table?.rowController(at: 1) as? DetailedInterfaceRowController
-            cell1?.nameLabel?.setText(bill.name)
-            let cell2 = table?.rowController(at: 2) as? DetailedInterfaceRowController
-            cell2?.nameLabel?.setText(bill.comments)
-            let cell3 = table?.rowController(at: 3) as? DetailedInterfaceRowController
-            cell3?.nameLabel?.setText(bill.lastEventDate)
-            let cell4 = table?.rowController(at: 4) as? DetailedInterfaceRowController
-            cell4?.nameLabel?.setText(bill.lastEventStage)
-            let cell5 = table?.rowController(at: 5) as? DetailedInterfaceRowController
-            cell5?.nameLabel?.setText(bill.lastEventPhase)
-            let cell6 = table?.rowController(at: 6) as? DetailedInterfaceRowController
-            cell6?.nameLabel?.setText(bill.lastEventFullDecision)
-        } else {
-            table?.setNumberOfRows(0, withRowType: "WatchDetailsTableId")
+            print("bill.lastEventPhase: \(bill.lastEventPhase)")
+            print("bill.lastEventStage: \(bill.lastEventStage)")
+            print("bill.lastEventDecision: \(bill.lastEventFullDecision)")
+
+            numberLabel.setText("№ \(bill.number)")
+            if bill.comments.count > 0 {
+                nameAndCommentLabel.setText("\(bill.name) [\(bill.comments)]")
+            } else {
+                nameAndCommentLabel.setText("\(bill.name)")
+            }
+
+            var lastEventText = ""
+
+            if bill.lastEventDate.count > 0 {
+                lastEventText.append("Дата: \(bill.lastEventDate)")
+            }
+
+            if bill.lastEventStage.count > 0, bill.lastEventPhase.count > 0 {
+                lastEventText.append("\n\n\(bill.lastEventStage) — \(bill.lastEventPhase)")
+            } else if bill.lastEventStage.count > 0 {
+                lastEventText.append("\n\n\(bill.lastEventStage)")
+            } else if bill.lastEventPhase.count > 0 {
+                lastEventText.append("\n\n\(bill.lastEventPhase)")
+            }
+
+            if bill.lastEventFullDecision.count > 0 {
+                lastEventText.append("\n\nРешение: \(bill.lastEventFullDecision)")
+            }
+
+            lastEventLabel.setText(lastEventText)
         }
     }
     

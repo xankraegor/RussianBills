@@ -57,7 +57,6 @@ class MainInterfaceController: WKInterfaceController {
     // MARK: - Table
 
     func setupTable() {
-        print("\n∆ MainInterfaceController[WatchOS]:updateTable() :: with count \(favoriteBills.count)")
         table?.setNumberOfRows(favoriteBills.count, withRowType: "mainInterfaceRowController")
 
         for index in 0..<favoriteBills.count {

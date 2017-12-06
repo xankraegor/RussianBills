@@ -7,11 +7,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="ArialHB.ttc">
-            <string>ArialHebrew</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Main Interface Controller-->
         <scene sceneID="aou-V4-d1y">
@@ -25,10 +20,10 @@
                                         <items>
                                             <label alignment="left" textAlignment="left" baselineAdjustment="alignCenters" numberOfLines="0" id="1Vh-cq-Teb">
                                                 <string key="text">123456-7 О внесении изменений в федеральный закон "О федеральном бюджете Российской Федерации на 2017 год и плановый период 2018 и 2019 годов"</string>
-                                                <fontDescription key="font" name="ArialHebrew" family="Arial Hebrew" pointSize="11"/>
+                                                <fontDescription key="font" type="system" pointSize="11"/>
                                             </label>
                                         </items>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </group>
                                     <connections>
                                         <outlet property="nameLabel" destination="1Vh-cq-Teb" id="B68-L6-DPi"/>
@@ -48,29 +43,50 @@
         <!--detailsInterfaceController-->
         <scene sceneID="4jB-Qk-aKv">
             <objects>
-                <controller identifier="detailsInterfaceController" id="brm-WX-BFt" customClass="DetailsInterfaceController" customModule="RusBillsWatchApp" customModuleProvider="target">
+                <controller identifier="detailsInterfaceController" alwaysBounce="YES" id="brm-WX-BFt" customClass="DetailsInterfaceController" customModule="RusBillsWatchApp" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="S4o-kR-sfj">
+                        <group alignment="left" layout="vertical" spacing="2" id="FQr-9S-hYL">
                             <items>
-                                <tableRow identifier="WatchDetailsTableId" selectable="NO" id="rzg-ks-db5" customClass="DetailedInterfaceRowController" customModule="RusBillsWatchApp_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="scf-Ho-UO4">
-                                        <items>
-                                            <label width="1" height="1" alignment="left" text="Label" textAlignment="left" numberOfLines="0" id="pzV-va-h5d"/>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="nameLabel" destination="pzV-va-h5d" id="gVF-Fi-9Cg"/>
-                                    </connections>
-                                </tableRow>
+                                <label width="1" alignment="left" text="№ 1234567-8" textAlignment="center" id="oRi-3X-8fQ">
+                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                                <label width="1" alignment="left" textAlignment="center" numberOfLines="0" id="eMS-b6-civ">
+                                    <string key="text">О внесении изменений в федеральный закон Российской Федерации "О федеральном бюджете на 2018 год и плановый период 2019-2020 годов</string>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                                <separator alignment="left" id="v3E-Sf-veg">
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </separator>
+                                <separator alignment="left" id="86n-bP-LM2"/>
+                                <separator alignment="left" id="Pfv-Mb-CDa">
+                                    <color key="color" red="0.039215686270000001" green="0.37647058820000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </separator>
+                                <separator alignment="left" id="Jgr-xc-a0i">
+                                    <color key="color" red="1" green="0.36362834690000001" blue="0.25536405449999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </separator>
+                                <label width="1" alignment="left" text="Последнее событие" minimumScaleFactor="0.69999999999999996" id="XWT-9u-4xx">
+                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </label>
+                                <label width="1" alignment="left" numberOfLines="0" id="Ad4-d6-U3C">
+                                    <string key="text">Дата: 12.10.2017
+
+Рассмотрение законопроекта в ГД РФ — Рассмотрение законопроекта во втором чтении
+
+Решение: принять законопроект во втором чтении</string>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
                             </items>
-                        </table>
+                        </group>
                     </items>
                     <connections>
-                        <outlet property="table" destination="S4o-kR-sfj" id="X2T-Os-vPu"/>
+                        <outlet property="lastEventLabel" destination="Ad4-d6-U3C" id="GuH-36-ior"/>
+                        <outlet property="nameAndCommentLabel" destination="eMS-b6-civ" id="PfS-BB-dhw"/>
+                        <outlet property="numberLabel" destination="oRi-3X-8fQ" id="XXE-30-Iwz"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="490" y="147"/>
+            <point key="canvasLocation" x="490" y="453"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -97,7 +113,7 @@
                     </items>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="468" y="643"/>
+            <point key="canvasLocation" x="220" y="1042"/>
         </scene>
     </scenes>
 </document>

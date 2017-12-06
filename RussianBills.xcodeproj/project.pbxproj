@@ -140,7 +140,6 @@
 		2ACA109A1FCCC9CD00869553 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA10991FCCC9CD00869553 /* TodayViewController.swift */; };
 		2ACA109D1FCCC9CD00869553 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ACA109B1FCCC9CD00869553 /* MainInterface.storyboard */; };
 		2ACA10A11FCCC9CD00869553 /* RusBillsTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2ACA10951FCCC9CD00869553 /* RusBillsTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2ACA455C1FD70C7800C309EF /* DetailedInterfaceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */; };
 		2ACA45611FD75A7A00C309EF /* MainInterfaceRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2129301FD63084000BD70B /* MainInterfaceRowController.swift */; };
 		2ACA45621FD75A8F00C309EF /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB41FD5E43A00E08F3F /* MainInterfaceController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
@@ -330,7 +329,6 @@
 		2ACA109C1FCCC9CD00869553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2ACA109E1FCCC9CD00869553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ACA10A61FCCCA5200869553 /* RusBillsTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsTodayExtension.entitlements; sourceTree = "<group>"; };
-		2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInterfaceRow.swift; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
@@ -709,7 +707,6 @@
 			isa = PBXGroup;
 			children = (
 				2A3ACCEF1FD619C40037E6E7 /* DetailsInterfaceController.swift */,
-				2ACA455B1FD70C7800C309EF /* DetailedInterfaceRow.swift */,
 			);
 			path = DetailedInterface;
 			sourceTree = "<group>";
@@ -1203,7 +1200,6 @@
 				2A4A2BB91FD5E43A00E08F3F /* NotificationController.swift in Sources */,
 				2A2129341FD633AE000BD70B /* LawType.swift in Sources */,
 				2A2129351FD63420000BD70B /* String-IsoDateToReadableDate.swift in Sources */,
-				2ACA455C1FD70C7800C309EF /* DetailedInterfaceRow.swift in Sources */,
 				2ACA45611FD75A7A00C309EF /* MainInterfaceRowController.swift in Sources */,
 				2A2129371FD6343B000BD70B /* BillParserContent.swift in Sources */,
 				2A2129381FD63440000BD70B /* BillParserPhase.swift in Sources */,
