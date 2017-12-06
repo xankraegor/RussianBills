@@ -7,6 +7,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="ArialHB.ttc">
+            <string>ArialHebrew</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main Interface Controller-->
         <scene sceneID="aou-V4-d1y">
@@ -16,12 +21,14 @@
                         <table alignment="left" id="LT5-g9-Khx">
                             <items>
                                 <tableRow identifier="mainInterfaceRowController" id="xhc-Bk-89S" customClass="MainInterfaceRowController" customModule="RusBillsWatchApp_Extension">
-                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="A2I-9i-Yr8">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="A2I-9i-Yr8">
                                         <items>
-                                            <label width="1" height="317" alignment="left" textAlignment="left" baselineAdjustment="alignCenters" numberOfLines="0" minimumScaleFactor="0.5" id="1Vh-cq-Teb">
+                                            <label alignment="left" textAlignment="left" baselineAdjustment="alignCenters" numberOfLines="0" id="1Vh-cq-Teb">
                                                 <string key="text">123456-7 О внесении изменений в федеральный закон "О федеральном бюджете Российской Федерации на 2017 год и плановый период 2018 и 2019 годов"</string>
+                                                <fontDescription key="font" name="ArialHebrew" family="Arial Hebrew" pointSize="11"/>
                                             </label>
                                         </items>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </group>
                                     <connections>
                                         <outlet property="nameLabel" destination="1Vh-cq-Teb" id="B68-L6-DPi"/>

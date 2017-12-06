@@ -549,7 +549,6 @@
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AA751381FBDFFE600E2535E /* LocationManager.swift */,
-				2A21293A1FD63D06000BD70B /* WatchSessionManagerIOS.swift */,
 				2A8F318C1FC7220400E5E3FD /* Syncronization */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,
@@ -565,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				2A3D42041FBA594C0034331E /* SynchronizationManager.swift */,
+				2A21293A1FD63D06000BD70B /* WatchSessionManagerIOS.swift */,
 				2AF15C131FC75C300018991C /* iCloud */,
 			);
 			name = Syncronization;

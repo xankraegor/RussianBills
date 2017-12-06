@@ -8,28 +8,19 @@
 //  Copyright © 2017 XanKraegor. All rights reserved.
 //
 
-import WatchKit
 import WatchConnectivity
+import WatchKit
 
 class WatchSessionManager: NSObject, WCSessionDelegate {
 
-    static let sharedManager = WatchSessionManager()
-    fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
-    fileprivate var validSession: WCSession? {
-        // paired - the user has to have their device paired to the watch
-        // watchAppInstalled - the user must have your watch app installed
-
-        // Note: if the device is paired, but your watch app is not installed
-        // consider prompting the user to install it for a better experience
-        #if os(iOS)
-            if let s = session, s.isWatchAppInstalled && s.isPaired {
-                return s
-            }
-            return nil
-        #else
-            return session
-        #endif
+    public var favoriteBills: [FavoriteBillForWatchOS] {
+        return favoriteBills_
     }
+    private var favoriteBills_: [FavoriteBillForWatchOS] = []
+
+    static let shared = WatchSessionManager()
+    fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
+    fileprivate let notifCenter = NotificationCenter.default
 
     private override init() {
         super.init()
@@ -45,28 +36,11 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
      * If session state is WCSessionActivationStateNotActivated there will be an error with more details.
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-
+        if activationState  == .activated {
+            sendMessage(message: ["watchNeedsToFetchData" : "watchNeedsToFetchData"], replyHandler: nil)
+        }
     }
 
-    #if os(iOS)
-
-    /**
-     * Called when the session can no longer be used to modify or add any new transfers and,
-     * all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur.
-     * This will happen when the selected watch is being changed.
-     */
-    func sessionDidBecomeInactive(_ session: WCSession) {
-
-    }
-    /**
-     * Called when all delegate callbacks for the previously selected watch has occurred.
-     * The session can be re-activated for the now selected watch using activateSession.
-     */
-    func sessionDidDeactivate(_ session: WCSession) {
-
-    }
-
-    #endif
 }
 
 // MARK: Application Context
@@ -75,8 +49,8 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 extension WatchSessionManager {
 
     // Sender
-    func updateApplicationContext(applicationContext: [String : AnyObject]) throws {
-        if let session = validSession {
+    func updateApplicationContext(applicationContext: [String : Any]) throws {
+        if let session = session {
             do {
                 try session.updateApplicationContext(applicationContext)
             } catch let error {
@@ -86,10 +60,21 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        // handle receiving application context
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         DispatchQueue.main.async() {
-            // make sure to put on the main queue to update UI!
+            let payload = applicationContext["favoriteBills"] as! [[String: String]]
+            print("Received payload from app context: \(payload)")
+            var favBills : [FavoriteBillForWatchOS] = []
+            for favoriteBillDictionary in payload {
+                if let fb = FavoriteBillForWatchOS(withDictionary: favoriteBillDictionary) {
+                    
+                    favBills.append(fb)
+                } else {
+                    continue
+                }
+            }
+            let notificationWithContext = Notification(name: Notification.Name(rawValue: "didReceiveApplicationContextNotification"), object: nil, userInfo: ["favoriteBills": favBills])
+            self.notifCenter.post(notificationWithContext)
         }
     }
 }
@@ -100,44 +85,43 @@ extension WatchSessionManager {
 extension WatchSessionManager {
 
     // Sender
-    func transferUserInfo(userInfo: [String : AnyObject]) -> WCSessionUserInfoTransfer? {
-        return validSession?.transferUserInfo(userInfo)
+    func transferUserInfo(userInfo: [String : Any]) -> WCSessionUserInfoTransfer? {
+        return session?.transferUserInfo(userInfo)
     }
 
-    func session(session: WCSession, didFinishUserInfoTransfer userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+    func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
         // implement this on the sender if you need to confirm that
         // the user info did in fact transfer
     }
 
     // Receiver
-    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         // handle receiving user info
-        DispatchQueue.main.async() {
+        //        DispatchQueue.main.async() {
             // make sure to put on the main queue to update UI!
-        }
+        //        }
     }
-
 }
 
 // MARK: Transfer File
 extension WatchSessionManager {
 
     // Sender
-    func transferFile(file: NSURL, metadata: [String : AnyObject]) -> WCSessionFileTransfer? {
-        return validSession?.transferFile(file as URL, metadata: metadata)
+    func transferFile(file: NSURL, metadata: [String : Any]) -> WCSessionFileTransfer? {
+        return session?.transferFile(file as URL, metadata: metadata)
     }
 
-    func session(session: WCSession, didFinishFileTransfer fileTransfer: WCSessionFileTransfer, error: Error?) {
+    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
         // handle filed transfer completion
     }
 
-    // Receiver
-    func session(session: WCSession, didReceiveFile file: WCSessionFile) {
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
         // handle receiving file
-        DispatchQueue.main.async() {
+        // DispatchQueue.main.async() {
             // make sure to put on the main queue to update UI!
-        }
+        // }
     }
+
 }
 
 
@@ -146,14 +130,14 @@ extension WatchSessionManager {
 
     // Live messaging! App has to be reachable
     private var validReachableSession: WCSession? {
-        if let session = validSession, session.isReachable {
+        if let session = session, session.isReachable {
             return session
         }
         return nil
     }
 
     // Sender
-    func sendMessage(message: [String : AnyObject], replyHandler: (([String : Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+    func sendMessage(message: [String : Any], replyHandler: (([String : Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         validReachableSession?.sendMessage(message, replyHandler: replyHandler, errorHandler: errorHandler)
     }
 
@@ -162,18 +146,18 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         // handle receiving message
-        DispatchQueue.main.async() {
-            // make sure to put on the main queue to update UI!
-        }
+        // DispatchQueue.main.async() {
+        // make sure to put on the main queue to update UI!
+        // }
     }
 
-    func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         // handle receiving message data
-        DispatchQueue.main.async() {
-            // make sure to put on the main queue to update UI!
-        }
+        // DispatchQueue.main.async() {
+        // make sure to put on the main queue to update UI!
+        // }
     }
 }
 

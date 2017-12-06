@@ -35,20 +35,35 @@ public final class FavoriteBillForWatchOS {
         self.lastEventFullDecision = fav.bill?.generateSolutionDescription() ?? ""
     }
 
-    #else
+    #endif
 
-    init(withNumber: String, name: String, comments: String, lastEventDate: String, lastEventStage: String,
-         lastEventPhase: String, lastEventFullDescription: String) {
-        self.number = withNumber
-        self.name = name
-        self.comments = comments
-
-        self.lastEventDate = lastEventDate
-        self.lastEventStage = lastEventStage
-        self.lastEventPhase = lastEventPhase
-        self.lastEventFullDecision = lastEventFullDescription
+    init?(withDictionary dict: [String: String]) {
+        guard let existingNumber = dict["number"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+            let existingName = dict["name"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+            existingName.count > 0, existingNumber.count > 0 else { return nil }
+        self.number = existingNumber
+        self.name = existingName
+        self.comments = dict["comments"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+        self.lastEventDate = dict["lastEventDate"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+        self.lastEventStage = dict["lastEventStage"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+        self.lastEventPhase = dict["lastEventPhase"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+        self.lastEventFullDecision = dict["lastEventFullDecision"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
     }
 
-    #endif
+    func dictionary()->Dictionary<String, String> {
+        return [
+            "number" : self.number,
+            "name" : self.name,
+            "comments" : self.comments,
+            "lastEventDate" : self.lastEventDate,
+            "lastEventStage" : self.lastEventStage,
+            "lastEventPhase" : self.lastEventPhase,
+            "lastEventFullDecision" : self.lastEventFullDecision
+        ]
+    }
+
+
+
+
 
 }

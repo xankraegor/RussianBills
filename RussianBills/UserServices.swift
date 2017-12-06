@@ -212,7 +212,9 @@ enum UserServices {
 
     static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int)->Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
-            assertionFailure("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
+            if forced {
+                assertionFailure("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
+            }
             return
         }
 
