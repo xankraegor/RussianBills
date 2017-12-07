@@ -195,6 +195,8 @@ enum UserServices {
                        res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
                         try? realm?.write {
                             existingFavoriteBillRecord.favoriteHasUnseenChanges = true
+                            // Change bill updated timestamp accordingly
+                            existingBill.updated = Date()
                         }
                     }
                 }
@@ -255,6 +257,8 @@ enum UserServices {
                         // Did last event changed since the last update?
                         if downloadedBill.generateHashForLastEvent() != previousHashValue {
                             favoriteBills[i].favoriteHasUnseenChanges = true
+                            // Change bill updated timestamp accordingly
+                            downloadedBill.updated = Date()
                         }
                         downloadedBill.parserContent = existingBillParserContent
                         try? Realm().add(downloadedBill, update: true)

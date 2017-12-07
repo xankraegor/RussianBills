@@ -13,6 +13,7 @@ import RealmSwift
 import UserNotifications
 import CloudKit
 
+/// Main Synchronization Class
 final class SyncMan {
     // Singleton
     static let shared = SyncMan()
@@ -31,6 +32,9 @@ final class SyncMan {
     let realm = try? Realm()
     let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
     var favoritesRealmNotificationToken: NotificationToken? = nil
+
+    var iCloudSyncEngine: IcloudSyncEngine? = nil
+    var iCloudStorage: BillSyncContainerStorage? = nil
 
     // MARK: - Initialization
 

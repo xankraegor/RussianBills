@@ -15,9 +15,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var syncman: SyncMan?
-    private var iCloudSyncEngine: IcloudSyncEngine?
-    private let storage = BillSyncContainerStorage()
+    private var syncman: SyncMan?
     private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -37,12 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             realm?.add(mainSearchList, update: true)
         }
 
-        // Initializing sync manager
+        // Initializing Synchronization manager
         syncman = SyncMan.shared
 
         // Initalizing iCloud sync engaine
         UIApplication.shared.registerForRemoteNotifications()
-        iCloudSyncEngine = IcloudSyncEngine(storage: storage)
+        syncman?.iCloudStorage = BillSyncContainerStorage()
+        if let storage = syncman?.iCloudStorage {
+            syncman?.iCloudSyncEngine = IcloudSyncEngine(storage: storage)
+        }
 
         // Enabling user notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
@@ -145,7 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("∆∆ application(_ app: UIApplication, open url: \(url), options: \(options)")
+        print("∆ application(_ app: UIApplication, open url: \(url), options: \(options)")
 
         if url.scheme == "russianbills", let host = url.host {
             if host == "favorites" {

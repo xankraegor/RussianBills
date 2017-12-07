@@ -113,6 +113,14 @@ final class BillCardTableViewController: UITableViewController {
         return 20
     }
 
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1 { // Last Events Section
+            let updated = bill?.updated ?? Date.distantPast
+            return "Обновлено \(updated.toReadableString())"
+        }
+        return nil
+    }
+
 
     // MARK: - Helper functions
 
@@ -131,6 +139,7 @@ final class BillCardTableViewController: UITableViewController {
             lastEventDecisionLabel?.text = bill.generateSolutionDescription()
             lastEventDateLabel?.text = bill.generateLastEventDateDescription()
             lastEventDocumentLabel?.text = bill.generateLastEventDocumentDescription()
+            
 
             respCommitteeLabel?.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
             profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
@@ -196,14 +205,18 @@ final class BillCardTableViewController: UITableViewController {
                             try? realm?.write {
                                 existingFavoriteBill.markedToBeRemovedFromFavorites = true
                             }
+                            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.billSyncContainer)
                         } else {
                             let newFavoriteBill = FavoriteBill_(fromBill: updBill)
                             realm?.add(newFavoriteBill, update: true)
+                            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.billSyncContainer)
                         }
                     }
                 }
 
                 self?.navigationItem.title = fav ? "🎖\(number)" : "📃\(number)"
+
+
             }))
         } else {
             assertionFailure("Can't unwrap optional bill to add action in share menu")

@@ -87,7 +87,7 @@ final class MainTableViewController: UITableViewController {
 
 
     @IBAction func syncButtonPressed(_ sender: Any) {
-         SyncMan.shared.writeToIcloud()
+
     }
 
 }

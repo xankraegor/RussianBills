@@ -64,10 +64,14 @@ final class FavoritesTableViewController: UITableViewController {
                 currentFavoriteBill.markedToBeRemovedFromFavorites = true
                 realm?.add(currentFavoriteBill, update: true)
             }
+
+            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: currentFavoriteBill.billSyncContainer)
+
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {
                 setupEmptyFavoriteViewTemplate ()
             }
+
         }
     }
 

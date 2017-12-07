@@ -39,6 +39,7 @@ final class Bill_: Object, InitializableWithJson {
     let committeeCoexecutor = List<Committee_>()
 
     @objc dynamic var parserContent: Data?
+    @objc dynamic var updated: Date?
 
     /// Look up for a corresponding favoriteBill record
     var favorite: Bool {
@@ -74,6 +75,7 @@ final class Bill_: Object, InitializableWithJson {
             decodePhases(json, realm: realm)
             decodeResolution(json, realm: realm)
         }
+        updated = Date()
     }
 
     override static func primaryKey() -> String {

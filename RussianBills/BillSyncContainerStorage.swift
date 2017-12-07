@@ -127,19 +127,19 @@ public final class BillSyncContainerStorage {
         }
     }
 
-        func deletePreviouslyUnfavoritedBills(notNotifying token: NotificationToken? = nil) throws {
-            let objects = realm.objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == true")
+    func deletePreviouslyUnfavoritedBills(notNotifying token: NotificationToken? = nil) throws {
+        let objects = realm.objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == true")
 
-            let tokens: [NotificationToken]
-            if let token = token {
-                tokens = [token]
-            } else {
-                tokens = []
-            }
-
-            realm.beginWrite()
-            objects.forEach({ realm.delete($0) })
-            try realm.commitWrite(withoutNotifying: tokens)
+        let tokens: [NotificationToken]
+        if let token = token {
+            tokens = [token]
+        } else {
+            tokens = []
         }
+
+        realm.beginWrite()
+        objects.forEach({ realm.delete($0) })
+        try realm.commitWrite(withoutNotifying: tokens)
+    }
 
 }

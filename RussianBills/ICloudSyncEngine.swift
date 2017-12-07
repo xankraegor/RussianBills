@@ -8,8 +8,8 @@
 
 import Foundation
 import RealmSwift
-import RxRealm
-import RxSwift
+//import RxRealm
+//import RxSwift
 import CloudKit
 
 extension CKContainer {
@@ -21,7 +21,7 @@ extension Notification.Name {
 }
 
 private func slog(_ format: String, _ args: CVarArg...) {
-    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
+//    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
     NSLog("[SYNC] " + format, args)
     debugPrint("[SYNC] " + format, args)
 }
@@ -112,7 +112,6 @@ public final class IcloudSyncEngine: NSObject {
         privateDatabase.add(operation)
     }
 
-    private let disposeBag = DisposeBag()
 
     /// Realm collection notification token
     private var notificationToken: NotificationToken?
@@ -360,7 +359,7 @@ public final class IcloudSyncEngine: NSObject {
             return
         }
 
-        slog("CloudKit operation error, retrying after \(retryAfter) seconds...")
+        slog("CloudKit operation error \(error.localizedDescription), retrying after \(retryAfter) seconds...")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + retryAfter.doubleValue) {
             block()
