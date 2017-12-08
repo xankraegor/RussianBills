@@ -12,7 +12,11 @@ import RealmSwift
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
 
-    let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+    var favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+
+    // Observe push notifications
+        var changesObserver: NSObjectProtocol? = nil
+
 
     // MARK: - Life cycle
 
@@ -25,6 +29,24 @@ final class FavoritesTableViewController: UITableViewController {
             uninstallEmptyFavoriteViewTemplate()
         }
         tableView.reloadData()
+
+
+        changesObserver = NotificationCenter.default.addObserver(forName: .remotePushChangesFeteched, object: nil, queue: OperationQueue.main) {
+            [weak self] note in
+            DispatchQueue.main.async {
+                self?.favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+                self?.tableView.reloadData()
+                if self?.favoriteBills?.count ?? 0 > 0 {
+                    self?.uninstallEmptyFavoriteViewTemplate()
+                } else {
+                    self?.setupEmptyFavoriteViewTemplate()
+                }
+            }
+        }
+    }
+
+    deinit {
+        changesObserver = nil
     }
 
     // MARK: - Table view data source

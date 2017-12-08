@@ -18,6 +18,7 @@ extension CKContainer {
 
 extension Notification.Name {
     public static let favoriteBillsDidChangeRemotely = Notification.Name(rawValue: "FavoriteBillsDidChangeRemotely")
+    public static let remotePushChangesFeteched = Notification.Name(rawValue: "RemotePushChangesFeteched")
 }
 
 private func slog(_ format: String, _ args: CVarArg...) {
@@ -129,7 +130,7 @@ public final class IcloudSyncEngine: NSObject {
                 let favoriteBillsToSave = (insertions + modifications).map{collection[$0]}.filter{!$0.markedToBeRemovedFromFavorites}
                 let favoriteBillsToDelete = modifications.map{ collection[$0]}.filter{$0.markedToBeRemovedFromFavorites}
 
-                // Push changes to CloudKitx
+                // Push changes to CloudKit
                 welf.pushToCloudKit(billsToUpdate: favoriteBillsToSave, billsToDelete: favoriteBillsToDelete)
             case .error(let error):
                 slog("Realm notification error: \(error)")
@@ -331,6 +332,7 @@ public final class IcloudSyncEngine: NSObject {
 
             do {
                 try self.storage.store(favoriteBill: favoriteBill, notNotifying: self.notificationToken)
+                NotificationCenter.default.post(name: .remotePushChangesFeteched, object: nil, userInfo: nil)
             } catch {
                 slog("Error saving local bill from cloud bill \(cloudKitBill.recordID.recordName): \(error)")
             }

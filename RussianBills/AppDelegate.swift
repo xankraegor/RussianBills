@@ -80,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
        backgroundTask = application.beginBackgroundTask(withName: "BackgroundFavoriteBillsUpdating", expirationHandler: {
         [weak self] in
-        print("Did enter background")
         UserServices.updateFavoriteBills(forced: false, completeWithUpdatedCount: {
             [weak self] (unseenFavoriteBillsCount) in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
@@ -104,15 +103,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationCenter.default.post(name: .favoriteBillsDidChangeRemotely, object: nil, userInfo: userInfo)
+        completionHandler(.newData)
     }
 
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-
-        debugPrint("Вызов обновления избранных законопроектов в фоне")
         let updated = SyncMan.shared.favoriteBillsLastUpdate
         let timeout = UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
         if let upd = updated, abs(upd.timeIntervalSinceNow) < timeout {
-            print("Фоновое обновление избранных законопроектов не требуется")
             completionHandler(.noData)
             return
         }
@@ -124,7 +121,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Dispatcher.shared.favoriteBillsUpdateTimer?.resume()
 
         Dispatcher.shared.favoriteBillsUpdateTimer?.setEventHandler {
-            debugPrint("Фоновое обновление избранных законопроектов не выполенено в срок")
             completionHandler(.failed)
             return
         }
@@ -138,7 +134,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
 
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: DispatchQueue.main) {
-            print ("Все данные загружены в фоне")
             Dispatcher.shared.favoriteBillsUpdateTimer = nil
             completionHandler(.newData)
             return
@@ -161,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let favoritesVC = mainSB.instantiateViewController(withIdentifier: "FavoritesSceneID")
                 (self.window?.rootViewController as? UINavigationController)?.pushViewController(mainVC, animated: false)
                 (self.window?.rootViewController as? UINavigationController)?.pushViewController(favoritesVC, animated: false)
-
+                window?.makeKeyAndVisible()
                 return true
             }
         }
