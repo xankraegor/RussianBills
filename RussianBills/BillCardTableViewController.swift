@@ -124,7 +124,7 @@ final class BillCardTableViewController: UITableViewController {
 
     // MARK: - Helper functions
 
-    func fetchExistingBillData() {
+    func fetchExistingBillData(withBill: Bill_? = nil) {
         if let bill = bill {
             navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
             billTypeLabel?.text = bill.lawType.description
@@ -146,6 +146,45 @@ final class BillCardTableViewController: UITableViewController {
             coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
 
             tableView.reloadData()
+        } else if let favbill = favoriteBill {
+            navigationItem.title = "🎖\(favbill.number)"
+            billTitle?.text = favbill.name
+            billCommentsLabel?.text = favbill.comments
+
+            introductionDateLabel?.text = " … "
+            introducedByLabel?.text = " … "
+
+            lastEventStageLabel?.text = " … "
+            lastEventPhaseLabel?.text = " … "
+            lastEventDecisionLabel?.text = " … "
+            lastEventDateLabel?.text = " … "
+            lastEventDocumentLabel?.text = " … "
+
+            UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: favbill.number), completion: { [weak self] (bills, _) in
+                DispatchQueue.main.async {
+                    guard let bill = bills.first else { return }
+                    self?.navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
+                    self?.billTypeLabel?.text = bill.lawType.description
+                    self?.billTitle?.text = bill.name
+                    self?.billCommentsLabel?.text = bill.comments
+
+                    self?.introductionDateLabel?.text = bill.introductionDate
+                    self?.introducedByLabel?.text = bill.generateSubjectsDescription()
+
+                    self?.lastEventStageLabel?.text = bill.lastEventStage?.name
+                    self?.lastEventPhaseLabel?.text = bill.lastEventPhase?.name
+                    self?.lastEventDecisionLabel?.text = bill.generateSolutionDescription()
+                    self?.lastEventDateLabel?.text = bill.generateLastEventDateDescription()
+                    self?.lastEventDocumentLabel?.text = bill.generateLastEventDocumentDescription()
+
+
+                    self?.respCommitteeLabel?.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
+                    self?.profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
+                    self?.coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
+
+                    self?.tableView.reloadData()
+                }
+            })
         } else {
             fatalError("Bill is not being provided")
         }
