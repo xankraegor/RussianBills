@@ -12,13 +12,23 @@ import RealmSwift
 final class FavoritesTableViewController: UITableViewController {
     let realm = try? Realm()
 
-    var favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+    lazy var favoriteBills: Results<FavoriteBill_>? = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
 
-    // Observe push notifications
-        var changesObserver: NSObjectProtocol? = nil
+    fileprivate var filterString = ""
+
+    var changesObserver: NSObjectProtocol? = nil
+    var realmNotificationToken: NotificationToken? = nil
+    let searchController = UISearchController(searchResultsController: nil)
 
 
     // MARK: - Life cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupPushChangesObserver()
+        setupRealmNotificationToken()
+        setupSearchController()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,8 +39,59 @@ final class FavoritesTableViewController: UITableViewController {
             uninstallEmptyFavoriteViewTemplate()
         }
         tableView.reloadData()
+    }
+
+    deinit {
+        changesObserver = nil
+        realmNotificationToken?.invalidate()
+    }
 
 
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "BillCardSegue" {
+            if let path = tableView.indexPathForSelectedRow,
+                let dest = segue.destination as? BillCardTableViewController {
+                dest.billNr = favoriteBills![path.row].number
+            }
+        }
+    }
+
+
+    // MARK: - Additional Views
+    
+    func setupEmptyFavoriteViewTemplate () {
+        if filterString.count == 0 {
+            tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
+            tableView.separatorStyle = .none
+        }
+    }
+
+    func uninstallEmptyFavoriteViewTemplate () {
+        tableView.backgroundView = nil
+        tableView.separatorStyle = .singleLine
+    }
+
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.searchBarStyle = .minimal
+
+        definesPresentationContext = true
+
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+    }
+
+
+    // MARK: - Observation
+
+    func setupPushChangesObserver() {
         changesObserver = NotificationCenter.default.addObserver(forName: .remotePushChangesFeteched, object: nil, queue: OperationQueue.main) {
             [weak self] note in
             DispatchQueue.main.async {
@@ -45,11 +106,21 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
 
-    deinit {
-        changesObserver = nil
+    func setupRealmNotificationToken() {
+        realmNotificationToken = favoriteBills?.observe {
+            [weak self] (_)->Void in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
 
-    // MARK: - Table view data source
+}
+
+
+// MARK: - Table view data source
+
+extension FavoritesTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -64,6 +135,13 @@ final class FavoritesTableViewController: UITableViewController {
         }
         return numberOfRows
     }
+
+}
+
+
+// MARK: - Table view delegate
+
+extension FavoritesTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
@@ -93,33 +171,38 @@ final class FavoritesTableViewController: UITableViewController {
             if favoriteBills!.count == 0 {
                 setupEmptyFavoriteViewTemplate ()
             }
-
         }
-    }
-
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "BillCardSegue" {
-            if let path = tableView.indexPathForSelectedRow,
-                let dest = segue.destination as? BillCardTableViewController {
-                dest.billNr = favoriteBills![path.row].number
-            }
-        }
-    }
-
-
-    // MARK: - Additional Views
-    
-    func setupEmptyFavoriteViewTemplate () {
-        tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
-        tableView.separatorStyle = .none
-    }
-
-    func uninstallEmptyFavoriteViewTemplate () {
-        tableView.backgroundView = nil
-        tableView.separatorStyle = .singleLine
     }
 
 }
+
+// MARK: - UISearchResultsUpdating
+
+extension FavoritesTableViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+
+        filterString = searchController.searchBar.text ?? ""
+
+        if filterString.count > 0 {
+            favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"]).filter("name CONTAINS[cd] '\(filterString)' OR comments CONTAINS[cd] '\(filterString)'")
+        } else {
+            favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+        }
+
+        tableView.reloadData()
+    }
+
+}
+
+//extension FavoritesTableViewController: UISearchBarDelegate {
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        filterString = searchController.searchBar.text ?? ""
+//    }
+//
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        filterString = ""
+//    }
+//}
+
