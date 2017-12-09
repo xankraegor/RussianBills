@@ -80,7 +80,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
 
     @IBAction func updatesButtonPressed(_ sender: Any) {
-        let url = URL(string: "russianBills://favorites")!
+        let url = URL(string: "rusBills://favorites")!
         extensionContext?.open(url, completionHandler: nil)
     }
 
@@ -95,7 +95,7 @@ extension TodayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActualFavoriteBillsCellId", for: indexPath)
         let favoriteBill = favoriteBillsFilteredAndSorted![indexPath.row]
-        cell.textLabel?.text = "№\(favoriteBill.number) \(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        cell.textLabel?.text = "№ \(favoriteBill.number) \(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if let bill = favoriteBill.bill {
             cell.detailTextLabel?.text = "Обновлен \(bill.lastEventDate)"
         }
@@ -105,5 +105,13 @@ extension TodayViewController: UITableViewDataSource {
 }
 
 extension TodayViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let number = favoriteBillsFilteredAndSorted?[indexPath.row].number,
+            number.count > 0 else { return }
+        let url = URL(string: "rusBills://favorites")!.appendingPathComponent(number)
+       
+        extensionContext?.open(url, completionHandler: nil)
+    }
 
 }

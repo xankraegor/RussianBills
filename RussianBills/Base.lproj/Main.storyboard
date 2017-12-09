@@ -515,7 +515,7 @@
         <!--📃№ 123456-7-->
         <scene sceneID="T2K-qE-SeX">
             <objects>
-                <tableViewController id="lxy-Bg-9id" customClass="BillCardTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BillCardTableViewControllerId" id="lxy-Bg-9id" customClass="BillCardTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="42" sectionHeaderHeight="18" sectionFooterHeight="18" id="P0P-el-739">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -141,17 +141,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme == "russianBills", let host = url.host {
-            if host == "favorites" {
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let navigationController = mainStoryboard.instantiateInitialViewController() as! UINavigationController
-                let favoritesVC = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesSceneID")
-                navigationController.pushViewController(favoritesVC, animated: false)
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                self.window?.rootViewController = navigationController
-                self.window?.makeKeyAndVisible()
-                return true
+
+        if url.scheme == "rusBills", let host = url.host, host == "favorites" {
+
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+            // Open favorites scene
+            let navigationController = mainStoryboard.instantiateInitialViewController() as! UINavigationController
+            let favoritesVC = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesSceneID")
+            navigationController.pushViewController(favoritesVC, animated: false)
+
+            // Open bill card scene
+            if url.pathComponents[1].count > 0 {
+                let billVC = mainStoryboard.instantiateViewController(withIdentifier: "BillCardTableViewControllerId") as! BillCardTableViewController
+                billVC.billNr = url.pathComponents[1]
+                navigationController.pushViewController(billVC, animated: false)
             }
+
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = navigationController
+            self.window?.makeKeyAndVisible()
+            return true
+
         }
 
         return false

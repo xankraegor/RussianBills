@@ -27,7 +27,7 @@
 			<string>com.xankraegor.russianBills</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>russianBills</string>
+				<string>rusBills</string>
 			</array>
 		</dict>
 	</array>
