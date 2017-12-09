@@ -141,22 +141,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("∆ application(_ app: UIApplication, open url: \(url), options: \(options)")
-
-        if url.scheme == "russianbills", let host = url.host {
+        if url.scheme == "russianBills", let host = url.host {
             if host == "favorites" {
-
-                let mainSB = UIStoryboard(name: "Main", bundle: nil)
-
-                guard let mainVC = mainSB.instantiateViewController(withIdentifier: "MainSceneID") as? MainTableViewController else {
-                    assertionFailure()
-                    return false
-                }
-
-                let favoritesVC = mainSB.instantiateViewController(withIdentifier: "FavoritesSceneID")
-                (self.window?.rootViewController as? UINavigationController)?.pushViewController(mainVC, animated: false)
-                (self.window?.rootViewController as? UINavigationController)?.pushViewController(favoritesVC, animated: false)
-                window?.makeKeyAndVisible()
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let navigationController = mainStoryboard.instantiateInitialViewController() as! UINavigationController
+                let favoritesVC = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesSceneID")
+                navigationController.pushViewController(favoritesVC, animated: false)
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                self.window?.rootViewController = navigationController
+                self.window?.makeKeyAndVisible()
                 return true
             }
         }
