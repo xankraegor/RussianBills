@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-final class SimpleTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+final class SimpleTableViewController: UITableViewController {
 
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
@@ -27,8 +27,10 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     }()
 
     var filteredObjects: [Object]?
+
     var isFiltering: Bool {
-        return (searchController.isActive && !searchBarIsEmpty()) || searchController.searchBar.selectedScopeButtonIndex != 0
+        let searchBarIsEmpty = searchController.searchBar.text?.isEmpty ?? true
+        return (searchController.isActive && !searchBarIsEmpty) || searchController.searchBar.selectedScopeButtonIndex != 0
     }
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -40,17 +42,12 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         super.viewDidLoad()
 
         guard objectsToDisplay != nil else {
+            assertionFailure("∆ 'objectsToDispay' property of a SimpleTableViewController instance is nil")
             dismiss(animated: true, completion: nil)
             return
         }
 
-        realmNotificationToken = objects!.observe {
-            [weak self] (_)->Void in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-
+        setupRealmNotificationToken()
         setupSearchController()
     }
 
@@ -99,7 +96,79 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         realmNotificationToken?.invalidate()
     }
 
-    // MARK: - Table view data source
+
+    // MARK: - Helper functions
+
+    private func updateTableWithNewData() {
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.reloadData()
+            self.tableView.endUpdates()
+        }
+    }
+
+
+
+
+    // MARK: - Observation
+
+    func setupRealmNotificationToken() {
+        realmNotificationToken = objects?.observe {
+            [weak self] (_)->Void in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
+
+
+    // MARK: - Navigation
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        switch objectsToDisplay! {
+        case .federalSubjects, .regionalSubjects, .dumaDeputees, .councilMembers:
+            return true
+        default:
+            return false
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let dest = segue.destination as? LegislativeSubjTableViewController,
+            let selectedRow = tableView.indexPathForSelectedRow?.row, let obj = objects else {
+                return
+        }
+
+        guard let source = isFiltering ? filteredObjects : Array(obj) else {
+            return
+        }
+
+        switch objectsToDisplay! {
+        case .federalSubjects:
+            if let object = source[selectedRow] as? FederalSubject_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.federalSubject
+            }
+        case .regionalSubjects:
+            if let object = source[selectedRow] as? RegionalSubject_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.regionalSubject
+            }
+        case .dumaDeputees, .councilMembers:
+            if let object = source[selectedRow] as? Deputy_ {
+                dest.id = object.id
+                dest.subjectType = LegislativeSubjectType.deputy
+            }
+        default:
+            break
+        }
+    }
+}
+
+
+// MARK: - Table View Data Source
+
+extension SimpleTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -151,7 +220,7 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
             cell.accessoryType = .disclosureIndicator
             return cell
 
-            // Other Reference categories
+        // Other Reference categories
         case .lawClasses?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
@@ -184,22 +253,37 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         case .none:
             fatalError("Objects to display not provided")
         }
-
     }
 
-    // MARK: - Helper functions
+}
 
-    private func updateTableWithNewData() {
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.reloadData()
-            self.tableView.endUpdates()
-        }
+
+// MARK: - UISearchResultsUpdating
+
+extension SimpleTableViewController: UISearchResultsUpdating {
+
+    internal func updateSearchResults(for searchController: UISearchController) {
+        updateSearchResults()
     }
 
-    func searchBarIsEmpty() -> Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
+}
+
+
+// MARK: - UISearchBarDelegate
+
+extension SimpleTableViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        searchController.searchBar.resignFirstResponder()
+        updateSearchResults()
     }
+
+}
+
+
+// MARK: - Other search bar methods
+
+extension SimpleTableViewController {
 
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
@@ -210,9 +294,8 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
         if objectsToDisplay?.typeUsedForObjects === FederalSubject_.self ||
             objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
             objectsToDisplay?.typeUsedForObjects === Deputy_.self
-            {
+        {
             searchController.searchBar.scopeButtonTitles = ["Все", "Действующие", "Не действ."]
-//            searchController.searchBar.showsScopeBar = true
             searchController.searchBar.sizeToFit()
         }
 
@@ -229,93 +312,42 @@ final class SimpleTableViewController: UITableViewController, UISearchResultsUpd
     func updateSearchResults() {
         let filterText = searchController.searchBar.text
 
-        var current: Bool? = nil
-        if searchController.searchBar.selectedScopeButtonIndex == 1 {
-            current = true
-        }
+        let current: Bool? = {
+            switch searchController.searchBar.selectedScopeButtonIndex {
+            case 1:
+                return true
+            case 2:
+                return false
+            default:
+                return nil
+            }
+        }()
 
-        if searchController.searchBar.selectedScopeButtonIndex == 2 {
-            current = false
-        }
 
         var newFilteredObjects: [Object] = []
 
         switch self.objectsToDisplay! {
         case .committees:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(Committee_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(Committee_.self, fiteredBy: filterText, andAreCurrent: current)!)
         case .dumaDeputees:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeputies: true)!)
+            newFilteredObjects = Array(realm!.loadObjects(Deputy_.self, fiteredBy: filterText, andAreCurrent: current, dumaDeputies: true)!)
         case .councilMembers:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(Deputy_.self, orString: filterText, andCurrent: current, dumaDeputies: false)!)
+            newFilteredObjects = Array(realm!.loadObjects(Deputy_.self, fiteredBy: filterText, andAreCurrent: current, dumaDeputies: false)!)
         case .federalSubjects:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(FederalSubject_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(FederalSubject_.self, fiteredBy: filterText, andAreCurrent: current)!)
         case .instances:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(Instance_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(Instance_.self, fiteredBy: filterText, andAreCurrent: current)!)
         case .lawClasses:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(LawClass_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(LawClass_.self, fiteredBy: filterText, andAreCurrent: current)!)
         case .regionalSubjects:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(RegionalSubject_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(RegionalSubject_.self, fiteredBy: filterText, andAreCurrent: current)!)
         case .topics:
-            newFilteredObjects = Array(realm!.loadFilteredObjects(Topic_.self, orString: filterText, andCurrent: current)!)
+            newFilteredObjects = Array(realm!.loadObjects(Topic_.self, fiteredBy: filterText, andAreCurrent: current)!)
         }
 
         self.filteredObjects = newFilteredObjects
         self.tableView.reloadData()
     }
 
-    // MARK: - Search Controller Updating
-
-    internal func updateSearchResults(for searchController: UISearchController) {
-        updateSearchResults()
-    }
-
-    // MARK: - Search Bar Delegate
-
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        searchController.searchBar.resignFirstResponder()
-        updateSearchResults()
-    }
-
-    // MARK: - Navigation
-
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        switch objectsToDisplay! {
-        case .federalSubjects, .regionalSubjects, .dumaDeputees, .councilMembers:
-            return true
-        default:
-            return false
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let dest = segue.destination as? LegislativeSubjTableViewController,
-            let selectedRow = tableView.indexPathForSelectedRow?.row, let obj = objects else {
-                return
-        }
-
-        guard let source = isFiltering ? filteredObjects : Array(obj) else {
-            return
-        }
-
-        switch objectsToDisplay! {
-        case .federalSubjects:
-            if let object = source[selectedRow] as? FederalSubject_ {
-                dest.id = object.id
-                dest.subjectType = LegislativeSubjectType.federalSubject
-            }
-        case .regionalSubjects:
-            if let object = source[selectedRow] as? RegionalSubject_ {
-                dest.id = object.id
-                dest.subjectType = LegislativeSubjectType.regionalSubject
-            }
-        case .dumaDeputees, .councilMembers:
-            if let object = source[selectedRow] as? Deputy_ {
-                dest.id = object.id
-                dest.subjectType = LegislativeSubjectType.deputy
-            }
-        default:
-            break
-        }
-    }
 }
 
