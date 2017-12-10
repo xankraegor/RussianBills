@@ -55,19 +55,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="218.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-x6-87v">
-                                            <rect key="frame" x="16" y="11" width="343" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="№ 225656-7" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-x6-87v">
+                                            <rect key="frame" x="187.5" y="11" width="171.5" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
-                                            <rect key="frame" x="8" y="39.5" width="359" height="171"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
+                                            <rect key="frame" x="8" y="36.5" width="359" height="174"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">О внесении изменений в Бюджетный кодекс Российской Федерации и признании утратившими силу отдельных положений Федерального закона "О внесении изменений в Бюджетный кодекс Российской Федерации в части регулирования бюджетного процесса и приведении в соответствие с бюджетным законодательством Российской Федерации отдельных законодательных актов Российской Федерации"</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В избранном 🎖" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwY-Y5-hV5">
+                                            <rect key="frame" x="8" y="11" width="171.5" height="18"/>
+                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.80988261421319796" green="0.5112381795438925" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -75,13 +82,18 @@
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="tAc-x6-87v" secondAttribute="bottom" constant="8" id="CMa-3e-v0r"/>
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="8" id="HEV-Vt-fhL"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="trailing" secondItem="KXM-RZ-pom" secondAttribute="trailingMargin" id="Rmr-c4-kgw"/>
-                                        <constraint firstItem="tAc-x6-87v" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leadingMargin" id="ZSs-yy-hN7"/>
+                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="top" constant="11" id="g5M-FZ-92d"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="topMargin" id="gxw-ld-NMa"/>
+                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="8" id="iH2-Ol-GRC"/>
+                                        <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="PwY-Y5-hV5" secondAttribute="bottom" constant="7.5" id="jvu-Cb-rKI"/>
                                         <constraint firstAttribute="bottom" secondItem="Rac-lJ-aLw" secondAttribute="bottom" constant="8" id="oUQ-Uj-NU0"/>
+                                        <constraint firstItem="tAc-x6-87v" firstAttribute="width" secondItem="PwY-Y5-hV5" secondAttribute="width" id="pQ4-j8-BTv"/>
+                                        <constraint firstItem="tAc-x6-87v" firstAttribute="leading" secondItem="PwY-Y5-hV5" secondAttribute="trailing" constant="8" id="vn5-EG-Lcr"/>
                                         <constraint firstAttribute="trailing" secondItem="Rac-lJ-aLw" secondAttribute="trailing" constant="8" id="vuQ-zb-GHN"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="isFavoriteLabel" destination="PwY-Y5-hV5" id="ckH-y6-jCj"/>
                                     <outlet property="nameLabel" destination="Rac-lJ-aLw" id="JUi-G1-Iah"/>
                                     <outlet property="numberLabel" destination="tAc-x6-87v" id="MdF-Cl-mRE"/>
                                     <segue destination="lxy-Bg-9id" kind="show" identifier="BillSearchReusltSegueId" id="ECW-Zv-M8L"/>
@@ -99,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoK-Nr-qo4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3177" y="80"/>
+            <point key="canvasLocation" x="3176.8000000000002" y="79.610194902548727"/>
         </scene>
         <!--🇷🇺 Законопроекты-->
         <scene sceneID="ssA-En-DFa">

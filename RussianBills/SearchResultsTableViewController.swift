@@ -17,7 +17,7 @@ final class SearchResultsTableViewController: UITableViewController {
     var realmNotificationToken: NotificationToken? = nil
     let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)
 
-
+    
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -78,7 +78,15 @@ final class SearchResultsTableViewController: UITableViewController {
         } else {
             cell.nameLabel?.text = bill.name
         }
-        cell.numberLabel?.text = bill.number
+        
+        if bill.favorite {
+            cell.isFavoriteLabel?.text = "В избранном 🎖"
+        } else {
+            cell.isFavoriteLabel?.text = " "
+        }
+
+        cell.numberLabel?.text = " №" + bill.number
+
         return cell
     }
 
