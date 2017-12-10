@@ -27,8 +27,8 @@ final class SearchResultsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
-        guard query.hasAnyFilledFields() else {
-            fatalError("∆ Did not receive a search query")
+        if !query.hasAnyFilledFields() {
+            query = BillSearchQuery(withRegistrationEndDate: Date())
         }
 
         self.navigationItem.title = "Найдено: \(searchResults?.totalCount ?? 0)"
