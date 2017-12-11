@@ -12,11 +12,8 @@ import RealmSwift
 
 final class SearchFormController: FormViewController {
     
-    @IBOutlet weak var startButton: UIBarButtonItem?
-    
     var query = BillSearchQuery() {
         didSet {
-            startButton?.isEnabled = query.hasAnyFilledFields()
             preprocessRequest(usingQuery: query, afterSeconds: 0.5)
         }
     }
@@ -165,7 +162,6 @@ final class SearchFormController: FormViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        startButton?.isEnabled = query.hasAnyFilledFields()
         navigationController?.isToolbarHidden = true
     }
 

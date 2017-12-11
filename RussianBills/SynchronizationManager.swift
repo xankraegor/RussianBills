@@ -130,47 +130,6 @@ final class SyncMan {
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
-    // MARK: - Lesson 5
-
-//        func setupICloud() {
-//
-//            // Должна быть авторизация!
-//
-//
-//            let publicDatabase = container.database(with: .public)
-//            let privateDatabase = container.database(with: .private)
-//
-//            let catId = CKRecordID(recordName: "CatTree")
-//            let cat = CKRecord(recordType: "Cat", recordID: catId)
-//            cat["color"] = "Зеленая" as NSString
-//            cat["masterName"] = "Пётр" as NSString
-//
-//            database.save(cat) {
-//                (record, error) in
-//                if let error = error {
-//                    // Insert error handle
-//                    return
-//                }
-//                // Insert sucessfully saved record code
-//            }
-//
-//    //        let catId = CKRecord(recordName: "CatTree")
-//    //        database.fetch(withRecordID: catId) {
-//    //            cat, error init
-//    //            print(cat, error)
-//    //        }
-//
-//            let query = CKQuery(recordType: "Cats", predicate: NSPredicate(value: true))
-//            let zoneId = CKRecordZoneID(zoneName: "_defaultZone", ownerNmae: "_043927439047320949302fr4324")
-//
-//            database.perform(query, inZoneWith: zoneID) {
-//                cats, error in
-//                for cat in cats! {
-//                    print(cat["color"])
-//                }
-//            }
-//
-//        }
 
     // MARK: - iCloud Synchronization
 
