@@ -32,7 +32,7 @@ enum FilesManager {
         do {
             try emptyContent.write(toFile: fullPath, atomically: true, encoding: .utf8)
         } catch let error {
-            debugPrint("∆ Error when creating an empty file in folder \(fullPath): \(error.localizedDescription)")
+            assertionFailure("∆ Error when creating an empty file in folder \(fullPath): \(error.localizedDescription)")
         }
     }
     
@@ -40,7 +40,7 @@ enum FilesManager {
         do {
             try string.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
         } catch let error {
-            debugPrint("∆ Error when creating an empty file: \(error.localizedDescription)")
+            assertionFailure("∆ Error when creating an empty file: \(error.localizedDescription)")
         }
     }
 
@@ -50,10 +50,10 @@ enum FilesManager {
             do {
                 try FileManager.default.removeItem(atPath: filePath)
             } catch let error {
-                print("∆ Error deleting file: \(error.localizedDescription)")
+                assertionFailure("∆ Error deleting file: \(error.localizedDescription)")
             }
         } else {
-            debugPrint("∆ Cannot generate path to delete a file")
+            assertionFailure("∆ Cannot generate path to delete a file")
         }
 
     }
@@ -81,7 +81,7 @@ enum FilesManager {
     static func renameFile(named: String, atPath: String, newName: String) {
         let existingFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(named)
         guard FileManager.default.fileExists(atPath: existingFullPath.path) else {
-            debugPrint("∆ Cannot move a file, because it does not exist at path \(existingFullPath.path)")
+            assertionFailure("∆ Cannot move a file, because it does not exist at path \(existingFullPath.path)")
             return
         }
         let newFullPath = URL(fileURLWithPath: atPath).appendingPathComponent(newName)
@@ -90,7 +90,7 @@ enum FilesManager {
             try FileManager.default.moveItem(atPath: existingFullPath.path, toPath: newFullPath.path)
         }
         catch let error {
-            debugPrint("∆ Cannot move the file: \(error)")
+            assertionFailure("∆ Cannot move the file: \(error)")
         }
     }
     
@@ -101,7 +101,6 @@ enum FilesManager {
         let  byteCountFormatter =  ByteCountFormatter()
         byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
         let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(fileSize))
-        print("File Size: \(fileSize)")
         return sizeToDisplay
     }
     
@@ -116,7 +115,7 @@ enum FilesManager {
         do {
             try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            debugPrint("∆ Error when creating a new directory with FileManager.default.createDirectory(atPath: absolutePath, withIntermediateDirectories: true, attributes: nil):: \(error.localizedDescription) at path \(path)")
+            assertionFailure("∆ Error when creating a new directory with FileManager.default.createDirectory(atPath: absolutePath, withIntermediateDirectories: true, attributes: nil):: \(error.localizedDescription) at path \(path)")
         }
     }
 
@@ -125,7 +124,7 @@ enum FilesManager {
         do {
             fileList = try FileManager.default.contentsOfDirectory(atPath: path)
         } catch let error {
-            debugPrint("∆ Can't examine contents at path \(path):: \(error.localizedDescription)")
+            assertionFailure("∆ Can't examine contents at path \(path):: \(error.localizedDescription)")
         }
         return fileList
     }
@@ -159,11 +158,11 @@ enum FilesManager {
                 do {
                     try FileManager.default.removeItem(atPath: fullPath)
                 } catch let error {
-                    debugPrint("∆ deleteAllAttachments: \(error.localizedDescription)")
+                    assertionFailure("∆ deleteAllAttachments: \(error.localizedDescription)")
                 }
             }
         } else {
-            debugPrint("∆ deleteAllAttachments: can't receive Documents directory contents")
+            assertionFailure("∆ deleteAllAttachments: can't receive Documents directory contents")
         }
     }
     
@@ -176,7 +175,7 @@ enum FilesManager {
             if key.rangeOfCharacter(from: forbiddenCharactersSet) == nil {
                 return key
             } else {
-                debugPrint("∆ Wrong characters in string when extracting unique name for document. Key is: \(key)")
+                assertionFailure("∆ Wrong characters in string when extracting unique name for document. Key is: \(key)")
             }
         }
         return nil

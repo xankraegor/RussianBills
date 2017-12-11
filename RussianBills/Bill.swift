@@ -151,7 +151,7 @@ final class Bill_: Object, InitializableWithJson {
                 }
                 regionalSubjects.append(regSub)
             } else {
-                debugPrint("∆ Federal or regional subject could not be found in Realm and parser can't decide, whether the value posted hereafter is federal or reginal subject: \(sub)")
+                assertionFailure("∆ A subject with right of legistlative initiative not found in Realm; the parser can't decide, whether the value posted hereafter is a federal or a reginal subject: \(sub)")
             }
         }
     }

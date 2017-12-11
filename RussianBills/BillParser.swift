@@ -21,7 +21,7 @@ final public class BillParser {
         let phases = html.xpath("//div[contains(@class, 'child_etaps arrh_div')]")
 
         guard phases.count > 0 else {
-            debugPrint("∆ BILL PARSER: Can't find any phases")
+            assertionFailure("∆ BILL PARSER: Can't find any phases")
             return nil
         }
 
@@ -32,7 +32,7 @@ final public class BillParser {
 
             let divs = phase.xpath("div")
             guard divs.count > 0 else {
-                debugPrint("∆ BILL PARSER: Can't find any events in a phase")
+                assertionFailure("∆ BILL PARSER: Can't find any events in a phase")
                 continue
             }
 
@@ -42,7 +42,7 @@ final public class BillParser {
                 if let header = div.xpath("div[contains(@class, 'table_td')]").first {
 
                     guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content else {
-                        debugPrint("∆ BILL PARSER: Can't find event header. Event will not be displayed")
+                        assertionFailure("∆ BILL PARSER: Can't find event header. Event will not be displayed")
                         continue
                     }
 

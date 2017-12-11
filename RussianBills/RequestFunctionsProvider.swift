@@ -48,7 +48,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about regional subjects")
+            assertionFailure("Cannot generate a request about regional subjects")
         }
     }
 
@@ -87,7 +87,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about committees")
+            assertionFailure("Cannot generate a request about committees")
         }
     }
 
@@ -106,7 +106,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about law classes")
+            assertionFailure("Cannot generate a request about law classes")
         }
     }
 
@@ -125,7 +125,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about topics")
+            assertionFailure("Cannot generate a request about topics")
         }
     }
 
@@ -144,7 +144,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about deputies")
+            assertionFailure("Cannot generate a request about deputies")
         }
     }
 
@@ -164,7 +164,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about federal subjects")
+            assertionFailure("Cannot generate a request about federal subjects")
         }
     }
 
@@ -183,7 +183,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about regional subjects")
+            assertionFailure("Cannot generate a request about regional subjects")
         }
     }
 
@@ -202,7 +202,7 @@ enum Request {
                 }
             }
         } else {
-            debugPrint("Cannot generate a request about instances")
+            assertionFailure("Cannot generate a request about instances")
         }
     }
     

@@ -22,7 +22,7 @@ extension Notification.Name {
 }
 
 private func slog(_ format: String, _ args: CVarArg...) {
-//    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
+    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
     NSLog("[SYNC] " + format, args)
     debugPrint("[SYNC] " + format, args)
 }

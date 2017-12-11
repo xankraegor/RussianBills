@@ -83,8 +83,8 @@ final class MainTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Debug
 
+    // MARK: - Debug
 
     @IBAction func syncButtonPressed(_ sender: Any) {
 

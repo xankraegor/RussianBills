@@ -43,7 +43,6 @@ final class LocationManager: NSObject {
         let locale = Locale(identifier: "ru_RU")
 
         let addressInRussia = "Россия, \(address)"
-        debugPrint(addressInRussia)
 
         if #available(iOS 11.0, *) {
             geocoder.geocodeAddressString(addressInRussia, in: nil, preferredLocale: locale) {

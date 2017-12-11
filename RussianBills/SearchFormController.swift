@@ -72,7 +72,7 @@ final class SearchFormController: FormViewController {
                         if let existingDate = dateRow?.value {
                             self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                             } else {
-                            debugPrint("∆ Something went wrong with accessing begin date from the search form")
+                            assertionFailure("∆ Something went wrong with accessing begin date from the search form")
                         }
                     } else {
                         // Nullify the date
@@ -101,7 +101,7 @@ final class SearchFormController: FormViewController {
                         if let existingDate = dateRow?.value {
                             self?.query.registrationEnd = Date.ISOStringFromDate(date: existingDate)
                         } else {
-                            debugPrint("∆ Something went wrong with accessing end date from the search form")
+                            assertionFailure("∆ Something went wrong with accessing end date from the search form")
                         }
                     } else {
                         // Nullify the date
@@ -191,7 +191,7 @@ final class SearchFormController: FormViewController {
                     self?.prefetchedBills = true
                 }
             } else {
-                debugPrint("∆ preprocessRequest: existingQuery missing")
+                assertionFailure("∆ preprocessRequest: existingQuery missing")
             }
         }
     }

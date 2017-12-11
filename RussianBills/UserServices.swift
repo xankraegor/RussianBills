@@ -375,7 +375,7 @@ enum UserServices {
         if let filePath = FilesManager.pathForFile(containingInName: key, inDirectory: attachmentsDir) {
             FilesManager.deleteFile(atPath: filePath)
         } else {
-            debugPrint("∆ UserServices.deleteAttachment cannot generate filePath to delete the file. The file may be already deleted or moved")
+            assertionFailure("∆ UserServices.deleteAttachment cannot generate filePath to delete the file. The file may be already deleted or moved")
         }
     }
 
