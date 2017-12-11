@@ -54,15 +54,17 @@ final class Bill_: Object, InitializableWithJson {
 
     convenience init(withJson json: JSON) {
         self.init()
+
         // Basic values
         id = json["id"].intValue
         lawType = LawType(rawValue: json["type"]["id"].intValue)!
-        name = json["name"].stringValue
-        comments = json["comments"].stringValue
+        name = json["name"].stringValue.prettify()
+        comments = json["comments"].stringValue.prettify()
         number = json["number"].stringValue
         introductionDate = json["introductionDate"].stringValue
         url = json["url"].stringValue
         transcriptUrl = json["transcriptUrl"].stringValue
+
         // Compound values
         if let realm = try? Realm() {
             decodeFactions(json, realm: realm)
@@ -258,7 +260,7 @@ final class Bill_: Object, InitializableWithJson {
     }
 
     func decodeResolution(_ json: JSON, realm: Realm) {
-        lastEventSolutionDescription = json["lastEvent"]["solution"].stringValue
+        lastEventSolutionDescription = json["lastEvent"]["solution"].stringValue.prettify()
         lastEventDate = json["lastEvent"]["date"].stringValue
         lastEventDocumentName = json["lastEvent"]["document"]["name"].stringValue
         lastEventDocumentType = json["lastEvent"]["document"]["type"].stringValue

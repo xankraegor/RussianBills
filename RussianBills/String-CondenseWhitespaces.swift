@@ -9,8 +9,19 @@
 import Foundation
 
 extension String {
-    func condenseWhitespace() -> String {
-        let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
-        return components.filter { !$0.isEmpty }.joined(separator: " ")
+
+    func prettify() -> String {
+        let output = self
+            .components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+            .replacingOccurrences(of: " \"", with: " «")
+            .replacingOccurrences(of: "\"", with: "»")
+        if output.first == "»" {
+            return "«" + output.dropFirst()
+        } else {
+            return output
+        }
     }
+
 }

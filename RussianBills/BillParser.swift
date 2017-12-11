@@ -48,12 +48,12 @@ final public class BillParser {
 
                     // Saving existing events and phase if any:
 
-                    if phaseStorage != nil {
-                        tree.phases.append(phaseStorage!)
+                    if let phaseStr = phaseStorage {
+                        tree.phases.append(phaseStr)
                     }
 
                     // Reinitializing storage
-                    phaseStorage = BillParserPhase(withName: headerName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+                    phaseStorage = BillParserPhase(withName: headerName.prettify())
 
                     // Event content block div class="oz_event bh_etap with_datatime"
 
@@ -65,7 +65,7 @@ final public class BillParser {
                         continue
                     }
 
-                    let trimmedName = eventName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).condenseWhitespace()
+                    let trimmedName = eventName.prettify()
 
                     // Reinitializing current event
                     currentEvent = BillParserEvent(withName: trimmedName, date: nil)
@@ -88,7 +88,7 @@ final public class BillParser {
                         if let detailedDescr = otherEventContent.xpath("span[contains(@class, 'pun_number pull-right')]").first {
 
                             // Attached resolution description
-                            let resolutionDesc = detailedDescr.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? "(указание отсутствует)"
+                            let resolutionDesc = detailedDescr.text?.prettify() ?? "(указание отсутствует)"
                             currentEvent?.attachmentsNames.append("Решение, см. " + resolutionDesc)
 
                             // Attached resolution link
@@ -124,8 +124,8 @@ final public class BillParser {
             }
         }
 
-        if phaseStorage != nil {
-            tree.phases.append(phaseStorage!)
+        if let phaseStr = phaseStorage {
+            tree.phases.append(phaseStr)
             phaseStorage = nil
         }
     }

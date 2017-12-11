@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		155D0E907B9A4769690B9F9F /* Pods_RusBillsIMessageExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB032B3DE8710142F281149C /* Pods_RusBillsIMessageExtension.framework */; };
+		2A029EA11FDE1DC90095A2CC /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
+		2A029EA21FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
+		2A029EA31FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */; };
 		2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C11F1E8C3A006C011F /* BillParser.swift */; };
 		2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C51C21F1E8C3A006C011F /* BillParserEvent.swift */; };
 		2A0DAA271FA11536007CC82A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */; };
@@ -1172,6 +1175,7 @@
 			files = (
 				2AB1F58B1FCF76B000BC6ED7 /* FederalSubject.swift in Sources */,
 				2AB1F58E1FCF76B000BC6ED7 /* LawClass.swift in Sources */,
+				2A029EA31FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */,
 				2AB1F58D1FCF76B000BC6ED7 /* Committee.swift in Sources */,
 				2AB1F5901FCF76B000BC6ED7 /* Faction.swift in Sources */,
 				2AB1F59C1FCF772600BC6ED7 /* BillParserEvent.swift in Sources */,
@@ -1207,6 +1211,7 @@
 				2A2129341FD633AE000BD70B /* LawType.swift in Sources */,
 				2A2129351FD63420000BD70B /* String-IsoDateToReadableDate.swift in Sources */,
 				2ACA45611FD75A7A00C309EF /* MainInterfaceRowController.swift in Sources */,
+				2A029EA11FDE1DC90095A2CC /* String-CondenseWhitespaces.swift in Sources */,
 				2A2129371FD6343B000BD70B /* BillParserContent.swift in Sources */,
 				2A2129381FD63440000BD70B /* BillParserPhase.swift in Sources */,
 				2A4A2BB71FD5E43A00E08F3F /* ExtensionDelegate.swift in Sources */,
@@ -1314,6 +1319,7 @@
 				2AB1F59B1FCF772500BC6ED7 /* BillParserEvent.swift in Sources */,
 				2AB1F58A1FCF76AF00BC6ED7 /* Phase.swift in Sources */,
 				2A501EDB1FCCDB6500A68170 /* FavoriteBill.swift in Sources */,
+				2A029EA21FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */,
 				2AB1F5871FCF76AF00BC6ED7 /* Deputy.swift in Sources */,
 				2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */,
 				2AB1F5951FCF76E700BC6ED7 /* QuickSearchFieldsReporting.swift in Sources */,
