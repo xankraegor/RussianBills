@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -56,14 +57,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="№ 225656-7" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-x6-87v">
-                                            <rect key="frame" x="187.5" y="11" width="171.5" height="18"/>
+                                            <rect key="frame" x="191.5" y="11" width="163.5" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
-                                            <rect key="frame" x="8" y="36.5" width="359" height="174"/>
+                                            <rect key="frame" x="20" y="36.5" width="347" height="174"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">О внесении изменений в Бюджетный кодекс Российской Федерации и признании утратившими силу отдельных положений Федерального закона "О внесении изменений в Бюджетный кодекс Российской Федерации в части регулирования бюджетного процесса и приведении в соответствие с бюджетным законодательством Российской Федерации отдельных законодательных актов Российской Федерации"</string>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -71,7 +72,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В избранном 🎖" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwY-Y5-hV5">
-                                            <rect key="frame" x="8" y="11" width="171.5" height="18"/>
+                                            <rect key="frame" x="20" y="11" width="163.5" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="0.80988261421319796" green="0.5112381795438925" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,12 +80,13 @@
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="tAc-x6-87v" firstAttribute="height" secondItem="PwY-Y5-hV5" secondAttribute="height" id="1vM-gq-dGi"/>
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="tAc-x6-87v" secondAttribute="bottom" constant="8" id="CMa-3e-v0r"/>
-                                        <constraint firstItem="Rac-lJ-aLw" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="8" id="HEV-Vt-fhL"/>
-                                        <constraint firstItem="tAc-x6-87v" firstAttribute="trailing" secondItem="KXM-RZ-pom" secondAttribute="trailingMargin" id="Rmr-c4-kgw"/>
+                                        <constraint firstItem="Rac-lJ-aLw" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="20" symbolic="YES" id="HEV-Vt-fhL"/>
+                                        <constraint firstAttribute="right" secondItem="tAc-x6-87v" secondAttribute="right" constant="20" symbolic="YES" id="Rmr-c4-kgw"/>
                                         <constraint firstItem="PwY-Y5-hV5" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="top" constant="11" id="g5M-FZ-92d"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="topMargin" id="gxw-ld-NMa"/>
-                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="8" id="iH2-Ol-GRC"/>
+                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="20" symbolic="YES" id="iH2-Ol-GRC"/>
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="PwY-Y5-hV5" secondAttribute="bottom" constant="7.5" id="jvu-Cb-rKI"/>
                                         <constraint firstAttribute="bottom" secondItem="Rac-lJ-aLw" secondAttribute="bottom" constant="8" id="oUQ-Uj-NU0"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="width" secondItem="PwY-Y5-hV5" secondAttribute="width" id="pQ4-j8-BTv"/>
@@ -134,7 +136,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🔍 Поиск законопроектов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARW-PB-m5T">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -162,7 +164,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎖 Избранные законопроекты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-H1-I7E">
                                                     <rect key="frame" x="20" y="15" width="308" height="16"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -205,7 +207,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -227,7 +229,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -248,7 +250,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👔 Депутаты Государственной Думы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMM-aZ-lgU">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -275,7 +277,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="💼 Члены Совета Федерации" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOo-bO-Njn">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -306,7 +308,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏢 Комитеты ГД РФ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQ8-3j-csy">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -333,7 +335,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏗 Отрасли законодательства" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKW-B0-Psk">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -360,7 +362,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📚 Тематические блоки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpc-IO-gHx">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -387,7 +389,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚖️ Инстанции рассмотрения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dby-L2-Kee">
                                                     <rect key="frame" x="20" y="12" width="355" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -422,7 +424,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Dji-6k-dAK"/>
                         <barButtonItem title="Sync" id="KQ8-gp-oOQ">
                             <connections>
-                                <action selector="syncButtonPressed:" destination="EIW-S8-JWd" id="r24-Ba-G2T"/>
+                                <action selector="syncButtonPressed:" destination="EIW-S8-JWd" id="Il1-dy-MBS"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -546,7 +548,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="343" height="34"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -668,7 +670,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Шелищ Петр Борисович (Депутат ГД)" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTr-LG-E0p">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="42"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -693,28 +695,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8o-rL-TJm">
-                                                    <rect key="frame" x="146" y="109" width="0.0" height="0.0"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Стадия" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZi-gS-efv">
                                                     <rect key="frame" x="24" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="XkC-nX-n7F"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Рассмотрение законопроекта в первом чтении" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Oh-r8-AIu">
                                                     <rect key="frame" x="124" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -745,14 +739,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="0Om-3P-O99"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рассмотрение законопроекта Государственной Думой" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIy-4l-GL1">
                                                     <rect key="frame" x="124" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -783,7 +777,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="hUI-Wj-3N5"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -792,7 +786,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -823,7 +817,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="lk1-Gy-KPW"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -832,7 +826,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -863,7 +857,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="r7z-fe-n80"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -872,7 +866,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -904,7 +898,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка событий и документов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvG-Xd-xX5">
                                                     <rect key="frame" x="16" y="11" width="323" height="20.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -944,14 +938,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="Ua3-xw-nlW"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по охране здоровья" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcH-BW-Wcr">
                                                     <rect key="frame" x="116" y="11" width="251" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -981,14 +975,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="3dK-Fc-eMH"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по информационной политике" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAz-Gw-V5Q">
                                                     <rect key="frame" x="116" y="11" width="251" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1019,14 +1013,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="KeP-2o-Q0A"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по охране здоровья; Комитет ГД по экономической политике, предпринимательству и туризму" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-dy-12H">
                                                     <rect key="frame" x="116" y="11" width="251" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1104,52 +1098,53 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text=" 📘 Документы: 12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7c6-rh-pg0">
-                                            <rect key="frame" x="0.0" y="160" width="341" height="25.5"/>
+                                            <rect key="frame" x="0.0" y="167.5" width="341" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="vGc-Fe-bPC"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
-                                            <rect key="frame" x="16" y="11" width="217" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
+                                            <rect key="frame" x="20" y="20" width="213" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="413-7 ГД" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AR-Zw-VTO">
-                                            <rect key="frame" x="241" y="8" width="100" height="18"/>
+                                            <rect key="frame" x="241" y="20" width="100" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="ADO-uL-whV"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-5r-zP6">
-                                            <rect key="frame" x="16" y="37" width="317" height="115"/>
+                                            <rect key="frame" x="20" y="46" width="313" height="113.5"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">предложить принять законопроект к рассмотрению (срок представления отзывов, предложений и замечаний в комитет 06.11.2016, предлагаемая дата рассмотрения Государственной Думой 18.11.2016)</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="wYZ-mf-Wv2" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leadingMargin" id="0Ue-5M-GNi"/>
+                                        <constraint firstItem="wYZ-mf-Wv2" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leading" constant="20" symbolic="YES" id="0Ue-5M-GNi"/>
                                         <constraint firstItem="7c6-rh-pg0" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leading" id="1dK-Ca-sza"/>
-                                        <constraint firstItem="7c6-rh-pg0" firstAttribute="top" secondItem="fF7-5r-zP6" secondAttribute="bottom" constant="8" id="GBt-eG-TsG"/>
-                                        <constraint firstItem="wYZ-mf-Wv2" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="topMargin" id="LtA-9Z-wBd"/>
+                                        <constraint firstItem="7c6-rh-pg0" firstAttribute="top" secondItem="fF7-5r-zP6" secondAttribute="bottom" constant="8" symbolic="YES" id="GBt-eG-TsG"/>
+                                        <constraint firstItem="wYZ-mf-Wv2" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="top" constant="20" symbolic="YES" id="LtA-9Z-wBd"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="fF7-5r-zP6" secondAttribute="trailing" id="Ly5-Ro-3Ww"/>
                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="height" secondItem="wYZ-mf-Wv2" secondAttribute="height" id="TYg-IV-cDz"/>
-                                        <constraint firstItem="fF7-5r-zP6" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leadingMargin" id="TvU-UG-bVa"/>
+                                        <constraint firstItem="fF7-5r-zP6" firstAttribute="leading" secondItem="gQ8-ml-vf3" secondAttribute="leading" constant="20" symbolic="YES" id="TvU-UG-bVa"/>
                                         <constraint firstAttribute="bottom" secondItem="7c6-rh-pg0" secondAttribute="bottom" constant="4" id="X26-3b-QzX"/>
+                                        <constraint firstItem="3AR-Zw-VTO" firstAttribute="height" secondItem="wYZ-mf-Wv2" secondAttribute="height" id="ZPu-ge-TPw"/>
                                         <constraint firstItem="fF7-5r-zP6" firstAttribute="top" secondItem="wYZ-mf-Wv2" secondAttribute="bottom" constant="8" id="oC1-ZO-It1"/>
-                                        <constraint firstItem="3AR-Zw-VTO" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="top" constant="8" id="oYy-D7-9vQ"/>
+                                        <constraint firstItem="3AR-Zw-VTO" firstAttribute="top" secondItem="gQ8-ml-vf3" secondAttribute="top" constant="20" symbolic="YES" id="oYy-D7-9vQ"/>
                                         <constraint firstItem="3AR-Zw-VTO" firstAttribute="leading" secondItem="wYZ-mf-Wv2" secondAttribute="trailing" constant="8" id="pIL-5f-6xQ"/>
                                         <constraint firstAttribute="trailing" secondItem="7c6-rh-pg0" secondAttribute="trailing" id="q5P-9o-4n0"/>
                                         <constraint firstAttribute="trailing" secondItem="3AR-Zw-VTO" secondAttribute="trailing" id="sBt-FR-ziA"/>
@@ -1181,7 +1176,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7G-CF-QE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4638" y="82"/>
+            <point key="canvasLocation" x="4637.6000000000004" y="81.409295352323838"/>
         </scene>
         <!--Документы 📃№ 123456-7-->
         <scene sceneID="Rw6-cv-OgV">
@@ -1207,16 +1202,16 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Проект федерального закона" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDf-zh-nqs">
-                                            <rect key="frame" x="88" y="11" width="271" height="19.5"/>
+                                            <rect key="frame" x="88" y="11" width="271" height="18"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaz-Sv-eFG">
-                                            <rect key="frame" x="88" y="38" width="271" height="17"/>
+                                            <rect key="frame" x="88" y="36.5" width="271" height="16"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1267,43 +1262,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5l8-VP-Ldh">
-                                <rect key="frame" x="8" y="80" width="359" height="120"/>
+                                <rect key="frame" x="8" y="72" width="359" height="125"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OuH-iF-qPN">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="58.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер - созыв" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="8u2-TC-v0P">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeC-b0-VRJ">
-                                                <rect key="frame" x="104" y="26" width="151.5" height="30"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeC-b0-VRJ">
+                                                <rect key="frame" x="106" y="28.5" width="147.5" height="30"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-q7-glv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="151.5" height="30"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-q7-glv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="30"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PD8-ps-Q1P">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PD8-ps-Q1P">
+                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="1s0-Qc-3U1"/>
+                                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="1s0-Qc-3U1"/>
+                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="vUr-MO-EuZ"/>
                                                                 </constraints>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOM-tm-L0A">
-                                                                <rect key="frame" x="100" y="0.0" width="16.5" height="30"/>
+                                                                <rect key="frame" x="88" y="0.0" width="16.5" height="30"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vyv-gP-u2F">
-                                                                <rect key="frame" x="116.5" y="0.0" width="35" height="30"/>
+                                                                <rect key="frame" x="112.5" y="0.0" width="35" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="35" id="lUw-e9-yrI"/>
@@ -1321,22 +1317,23 @@
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="8u2-TC-v0P" firstAttribute="leading" secondItem="OuH-iF-qPN" secondAttribute="leading" id="QsR-Sj-aeo"/>
-                                            <constraint firstAttribute="trailing" secondItem="8u2-TC-v0P" secondAttribute="trailing" id="UYZ-Pi-3QQ"/>
+                                            <constraint firstItem="8u2-TC-v0P" firstAttribute="leading" secondItem="OuH-iF-qPN" secondAttribute="leading" id="FUi-cY-NTs"/>
+                                            <constraint firstAttribute="trailing" secondItem="8u2-TC-v0P" secondAttribute="trailing" id="Fmv-Rn-m3w"/>
+                                            <constraint firstItem="8u2-TC-v0P" firstAttribute="top" secondItem="OuH-iF-qPN" secondAttribute="top" id="b5c-eV-iv9"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQN-jD-RNv">
-                                        <rect key="frame" x="0.0" y="64" width="359" height="56"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MQN-jD-RNv">
+                                        <rect key="frame" x="0.0" y="66.5" width="359" height="58.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование законопроекта" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHm-hy-EDl">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование законопроекта" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHm-hy-EDl">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B54-VU-jua">
-                                                <rect key="frame" x="0.0" y="26" width="359" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B54-VU-jua">
+                                                <rect key="frame" x="0.0" y="28.5" width="359" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1350,8 +1347,32 @@
                                 <variation key="heightClass=compact" axis="horizontal"/>
                                 <variation key="heightClass=regular" axis="vertical"/>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cw5-tm-rGo">
+                                <rect key="frame" x="16" y="205" width="351" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57g-TV-Okj">
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="30"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <state key="normal" title="🗑 Очистить"/>
+                                        <connections>
+                                            <action selector="clearButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="kd4-RR-YkV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iI8-4X-eO9">
+                                        <rect key="frame" x="179.5" y="0.0" width="171.5" height="30"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="🔍 Поиск">
+                                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="2lj-S0-UjD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ome-z4-Ebt">
-                                <rect key="frame" x="0.0" y="254" width="375" height="413"/>
+                                <rect key="frame" x="0.0" y="243" width="375" height="424"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpressAddBillTableViewCell" rowHeight="98" id="iNt-Ff-zj9" customClass="QuickSearchTableViewCell" customModule="RussianBills" customModuleProvider="target">
@@ -1367,19 +1388,16 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="KpT-Dl-E6I"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="О внесении изменений в часть вторую Налогового кодекса Российской Федерации" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU6-cJ-eBA">
                                                     <rect key="frame" x="8" y="32" width="359" height="57.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1401,47 +1419,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cw5-tm-rGo">
-                                <rect key="frame" x="16" y="208" width="343" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57g-TV-Okj">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <state key="normal" title="🗑 Очистить"/>
-                                        <connections>
-                                            <action selector="clearButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="kd4-RR-YkV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iI8-4X-eO9">
-                                        <rect key="frame" x="175.5" y="0.0" width="167.5" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="🔍 Поиск">
-                                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="2lj-S0-UjD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ome-z4-Ebt" secondAttribute="trailing" id="Bil-5v-pra"/>
-                            <constraint firstItem="5l8-VP-Ldh" firstAttribute="top" secondItem="2dU-OV-4CK" secondAttribute="bottom" constant="16" id="D8O-Fk-Css">
+                            <constraint firstItem="5l8-VP-Ldh" firstAttribute="top" secondItem="2dU-OV-4CK" secondAttribute="bottom" constant="8" symbolic="YES" id="D8O-Fk-Css">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstItem="5l8-VP-Ldh" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" constant="8" id="Ez3-Rz-i93"/>
                             <constraint firstItem="cw5-tm-rGo" firstAttribute="top" secondItem="5l8-VP-Ldh" secondAttribute="bottom" constant="8" id="Gc9-M8-EE7"/>
                             <constraint firstAttribute="trailing" secondItem="5l8-VP-Ldh" secondAttribute="trailing" constant="8" id="LQx-4w-vGg"/>
                             <constraint firstAttribute="bottom" secondItem="ome-z4-Ebt" secondAttribute="bottom" id="NAD-jt-k88"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cw5-tm-rGo" secondAttribute="trailing" id="OSh-Ea-jkf"/>
                             <constraint firstItem="ome-z4-Ebt" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" id="P1D-6h-xdB"/>
-                            <constraint firstItem="ome-z4-Ebt" firstAttribute="top" secondItem="cw5-tm-rGo" secondAttribute="bottom" constant="16" id="fpw-TK-6Qw">
+                            <constraint firstAttribute="trailing" secondItem="cw5-tm-rGo" secondAttribute="trailing" constant="8" id="b5D-f8-zy8"/>
+                            <constraint firstItem="ome-z4-Ebt" firstAttribute="top" secondItem="cw5-tm-rGo" secondAttribute="bottom" constant="8" symbolic="YES" id="fpw-TK-6Qw">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
-                            <constraint firstItem="cw5-tm-rGo" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leadingMargin" id="ivx-T1-mT1"/>
+                            <constraint firstItem="cw5-tm-rGo" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" constant="16" id="ivx-T1-mT1"/>
                             <constraint firstItem="ome-z4-Ebt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="65o-Bv-dPr" secondAttribute="leading" id="jNf-PW-rK6"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ome-z4-Ebt" secondAttribute="trailing" id="v7R-6z-2RF"/>
                         </constraints>
@@ -1662,23 +1656,23 @@
                                             <rect key="frame" x="20" y="4" width="335" height="85.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="41.5"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует с 12 мая 1992 года" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-QZ-Fpg">
-                                                    <rect key="frame" x="0.0" y="47.5" width="335" height="17"/>
+                                                    <rect key="frame" x="0.0" y="45.5" width="335" height="18"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Действует в настоящее время" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-x8-yDM">
-                                                    <rect key="frame" x="0.0" y="68.5" width="335" height="17"/>
+                                                    <rect key="frame" x="0.0" y="67.5" width="335" height="18"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1709,18 +1703,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Жириновский Владимир Вольфович" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m0x-nD-iOI">
-                                            <rect key="frame" x="16" y="12" width="292.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="10" width="292.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="В должности ✅ Депутат ГД РФ  🏢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="25f-3F-rOM">
-                                            <rect key="frame" x="16" y="35.5" width="212" height="14.5"/>
+                                            <rect key="frame" x="16" y="33.5" width="258" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1823,11 +1817,38 @@
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="NWL-M2-iB8">
+                                        <rect key="frame" x="0.0" y="145.5" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NWL-M2-iB8" id="YTt-wq-rdm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Синхронизировать с iCloud" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lD7-W9-FWL">
+                                                    <rect key="frame" x="16" y="11" width="280" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-gV-0Zr">
+                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lD7-W9-FWL" firstAttribute="top" secondItem="YTt-wq-rdm" secondAttribute="topMargin" id="EGu-Mb-jXG"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="lD7-W9-FWL" secondAttribute="bottom" id="X2F-YH-wyv"/>
+                                                <constraint firstItem="lD7-W9-FWL" firstAttribute="leading" secondItem="YTt-wq-rdm" secondAttribute="leadingMargin" id="ZtO-wA-SBC"/>
+                                                <constraint firstItem="LZr-gV-0Zr" firstAttribute="centerY" secondItem="YTt-wq-rdm" secondAttribute="centerY" id="f0S-on-s0J"/>
+                                                <constraint firstAttribute="trailing" secondItem="LZr-gV-0Zr" secondAttribute="trailing" constant="16" id="mwe-dI-2GK"/>
+                                                <constraint firstItem="LZr-gV-0Zr" firstAttribute="leading" secondItem="lD7-W9-FWL" secondAttribute="trailing" constant="14" id="vFZ-jR-jtF"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -1835,7 +1856,7 @@
                             <tableViewSection headerTitle="Обновлять законопроекты каждые" id="7eb-eB-env">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="54" id="GDB-Go-Udu">
-                                        <rect key="frame" x="0.0" y="201.5" width="375" height="54"/>
+                                        <rect key="frame" x="0.0" y="246.5" width="375" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GDB-Go-Udu" id="NyJ-N8-UPx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="53.5"/>
@@ -1878,7 +1899,7 @@
                             <tableViewSection id="HAh-ru-DPY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="Lvn-m5-ezK" rowHeight="77" style="IBUITableViewCellStyleDefault" id="Px5-5z-Gut">
-                                        <rect key="frame" x="0.0" y="291.5" width="375" height="77"/>
+                                        <rect key="frame" x="0.0" y="336.5" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Px5-5z-Gut" id="veO-Wr-9NG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
@@ -1898,7 +1919,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nrA-fr-ntN" style="IBUITableViewCellStyleDefault" id="sBL-S5-Khe">
-                                        <rect key="frame" x="0.0" y="368.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="413.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sBL-S5-Khe" id="CxK-Vd-Wq4">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1916,7 +1937,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="grC-uA-oRr" style="IBUITableViewCellStyleDefault" id="f9a-hy-e8c">
-                                        <rect key="frame" x="0.0" y="412.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="457.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9a-hy-e8c" id="jM4-nO-QGg">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1940,7 +1961,7 @@
                             <tableViewSection headerTitle="О программе" id="tv1-JZ-GS0">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="8hP-1M-K6U" rowHeight="105" style="IBUITableViewCellStyleDefault" id="O2e-6Y-JfH">
-                                        <rect key="frame" x="0.0" y="512.5" width="375" height="105"/>
+                                        <rect key="frame" x="0.0" y="557.5" width="375" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O2e-6Y-JfH" id="CFC-Sj-27P">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
@@ -1960,7 +1981,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="mgU-df-tuT" rowHeight="48" style="IBUITableViewCellStyleDefault" id="gcI-YR-AJU">
-                                        <rect key="frame" x="0.0" y="617.5" width="375" height="48"/>
+                                        <rect key="frame" x="0.0" y="662.5" width="375" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gcI-YR-AJU" id="6b5-kC-D6s">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
