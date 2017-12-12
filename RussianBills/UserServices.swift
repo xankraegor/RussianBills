@@ -330,30 +330,26 @@ enum UserServices {
                 if let error = response.result.error as? AFError {
                     switch error {
                     case .invalidURL(let url):
-                        print("Invalid URL: \(url) - \(error.localizedDescription)")
+                        assertionFailure("Invalid URL: \(url) - \(error.localizedDescription)")
                     case .parameterEncodingFailed(let reason):
-                        print("Parameter encoding failed: \(error.localizedDescription)")
-                        print("Failure Reason: \(reason)")
+                        assertionFailure("Parameter encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
                     case .multipartEncodingFailed(let reason):
-                        print("Multipart encoding failed: \(error.localizedDescription)")
-                        print("Failure Reason: \(reason)")
+                        assertionFailure("Multipart encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
                     case .responseValidationFailed(let reason):
-                        print("Response validation failed: \(error.localizedDescription)")
-                        print("Failure Reason: \(reason)")
+                        assertionFailure("Response validation failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
 
                         switch reason {
                         case .dataFileNil, .dataFileReadFailed:
-                            print("Downloaded file could not be read")
+                            assertionFailure("Downloaded file could not be read")
                         case .missingContentType(let acceptableContentTypes):
-                            print("Content Type Missing: \(acceptableContentTypes)")
+                            assertionFailure("Content Type Missing: \(acceptableContentTypes)")
                         case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
-                            print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                            assertionFailure("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
                         case .unacceptableStatusCode(let code):
-                            print("Response status code was unacceptable: \(code)")
+                            assertionFailure("Response status code was unacceptable: \(code)")
                         }
                     case .responseSerializationFailed(let reason):
-                        print("Response serialization failed: \(error.localizedDescription)")
-                        print("Failure Reason: \(reason)")
+                        assertionFailure("Response serialization failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
                     }
                 } else {
                     if let suggestedFullFileName = response.response?.suggestedFilename?.removingPercentEncoding,
