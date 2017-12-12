@@ -13,14 +13,14 @@ import SafariServices
 
 final class BillCardTableViewController: UITableViewController {
     let realm = try? Realm()
-    
+
     @IBOutlet weak var billTypeLabel: UILabel?
     @IBOutlet weak var billTitle: UILabel?
     @IBOutlet weak var billCommentsLabel: UILabel?
 
     @IBOutlet weak var introductionDateLabel: UILabel?
     @IBOutlet weak var introducedByLabel: UILabel?
-    
+
     @IBOutlet weak var lastEventStageLabel: UILabel?
     @IBOutlet weak var lastEventPhaseLabel: UILabel?
     @IBOutlet weak var lastEventDecisionLabel: UILabel?
@@ -53,7 +53,7 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
-    var realmNotificationToken: NotificationToken? = nil
+    var realmNotificationToken: NotificationToken?
 
     // MARK: - Life Cycle
 
@@ -76,7 +76,7 @@ final class BillCardTableViewController: UITableViewController {
         navigationController?.isToolbarHidden = true
         fetchExistingBillData()
         if let currentBill = bill {
-            if currentBill.parserContent != nil  {
+            if currentBill.parserContent != nil {
                 activateMoreInfoCell()
             }
         }
@@ -89,7 +89,6 @@ final class BillCardTableViewController: UITableViewController {
         realmNotificationToken?.invalidate()
     }
 
-    
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -121,7 +120,6 @@ final class BillCardTableViewController: UITableViewController {
         return nil
     }
 
-
     // MARK: - Helper functions
 
     func fetchExistingBillData(withBill: Bill_? = nil) {
@@ -139,7 +137,6 @@ final class BillCardTableViewController: UITableViewController {
             lastEventDecisionLabel?.text = bill.generateSolutionDescription()
             lastEventDateLabel?.text = bill.generateLastEventDateDescription()
             lastEventDocumentLabel?.text = bill.generateLastEventDocumentDescription()
-            
 
             respCommitteeLabel?.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
             profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
@@ -177,7 +174,6 @@ final class BillCardTableViewController: UITableViewController {
                     self?.lastEventDateLabel?.text = bill.generateLastEventDateDescription()
                     self?.lastEventDocumentLabel?.text = bill.generateLastEventDocumentDescription()
 
-
                     self?.respCommitteeLabel?.text = (bill.committeeResponsible?.name.count ?? 0 > 0) ? bill.committeeResponsible?.name : "Не указан"
                     self?.profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
                     self?.coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
@@ -189,10 +185,9 @@ final class BillCardTableViewController: UITableViewController {
             fatalError("Bill is not being provided")
         }
     }
-    
-    
+
     // MARK: - Navigation 
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "BillDetailsSegue" {
             if let dest = segue.destination as? BillDetailsTableViewController, let content = bill?.parserContent, let number = bill?.number {
@@ -203,7 +198,6 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
-    
     // MARK: - AlertController
 
     @IBAction func composeButtonPressed(_ sender: Any) {
@@ -235,10 +229,10 @@ final class BillCardTableViewController: UITableViewController {
         }))
 
         if let fav = bill?.favorite, let number = bill?.number {
-            alert.addAction(UIAlertAction(title: fav ? "Убрать из избранного" : "Добавить в избранное" , style: .default, handler: { [weak self] (action) in
+            alert.addAction(UIAlertAction(title: fav ? "Убрать из избранного" : "Добавить в избранное", style: .default, handler: { [weak self] (action) in
 
                 let realm = try? Realm()
-                if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
+                if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number) {
 
                         if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number), existingFavoriteBill.markedToBeRemovedFromFavorites == false {
                             try? realm?.write {
@@ -256,9 +250,6 @@ final class BillCardTableViewController: UITableViewController {
                         }
                 }
 
-
-
-
             }))
         } else {
             assertionFailure("Can't unwrap optional bill to add action in share menu")
@@ -269,7 +260,6 @@ final class BillCardTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    
     // MARK: - Helper functions
 
     func installRealmToken() {
@@ -277,7 +267,7 @@ final class BillCardTableViewController: UITableViewController {
             return
         }
 
-        realmNotificationToken = currentBill.observe { [weak self] (_)->Void in
+        realmNotificationToken = currentBill.observe { [weak self] (_) -> Void in
             if currentBill.parserContent != nil {
                 self?.activateMoreInfoCell()
             }
@@ -309,7 +299,7 @@ final class BillCardTableViewController: UITableViewController {
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
             UserServices.downloadBills(withQuery: searchQuery, completion: {
-                [weak self] (bills, totalCount)->Void in
+                [weak self] (bills, totalCount) -> Void in
                 if let firstBill = bills.first {
                     self?.bill = firstBill
                     self?.fetchExistingBillData()

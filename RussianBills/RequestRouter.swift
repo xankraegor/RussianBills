@@ -20,7 +20,7 @@ enum RequestRouter: URLRequestConvertible {
     case federalSubject(current: Bool?)
     case regionalSubject(current: Bool?)
     case instances(current: Bool?)
-    
+
     // Parsing
     case bill(number: String)
     case document(link: String)
@@ -28,9 +28,9 @@ enum RequestRouter: URLRequestConvertible {
     private var method: HTTPMethod {
         return .get
     }
-    
+
     private func baseUrl() throws -> URL? {
-        switch self{
+        switch self {
         case .bill(number: _):
             return nil
         case .document(link: _):
@@ -66,18 +66,18 @@ enum RequestRouter: URLRequestConvertible {
     }
 
     private var parameters: Parameters {
-        var dict = ["app_token": appToken()] 
+        var dict = ["app_token": appToken()]
         switch self {
-            
+
             // Early exit cases
-            
+
         case let .bill(number):
             return ["OpenAgent": "", "RN" : number]
         case .document(link: _):
             return [:]
-            
+
             // Full cycle cases
-            
+
         case let .search(bill):
             var billParameters = RequestRouter.generateBillRequestParameters(forQuery: bill)
             billParameters["app_token"] = appToken()
@@ -139,7 +139,7 @@ enum RequestRouter: URLRequestConvertible {
     }
 
     // MARK: - Private API and app keys
-    
+
     private func appToken() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let token = dict["appToken"] as? String {

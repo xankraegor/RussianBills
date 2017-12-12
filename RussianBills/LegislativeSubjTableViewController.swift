@@ -12,8 +12,8 @@ import MapKit
 
 final class LegislativeSubjTableViewController: UITableViewController {
 
-    var subjectType: LegislativeSubjectType? = nil
-    var id: Int? = nil
+    var subjectType: LegislativeSubjectType?
+    var id: Int?
 
     @IBOutlet weak var nameLabel: UILabel?
     @IBOutlet weak var typeLabel: UILabel?
@@ -36,8 +36,6 @@ final class LegislativeSubjTableViewController: UITableViewController {
 
     var locationForMap: CLLocation?
 
-
-
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -59,7 +57,6 @@ final class LegislativeSubjTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
     }
-
 
     // MARK: - Helper functions
 

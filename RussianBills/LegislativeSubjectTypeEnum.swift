@@ -25,7 +25,7 @@ enum LegislativeSubjectType {
         }
     }
 
-    func item(byId id: Int)->Object? {
+    func item(byId id: Int) -> Object? {
         if let realm = try? Realm() {
             return realm.object(ofType: objectType(), forPrimaryKey: id)
         }

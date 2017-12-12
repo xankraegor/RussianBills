@@ -16,10 +16,9 @@ final class FavoritesTableViewController: UITableViewController {
 
     fileprivate var filterString = ""
 
-    var changesObserver: NSObjectProtocol? = nil
-    var realmNotificationToken: NotificationToken? = nil
+    var changesObserver: NSObjectProtocol?
+    var realmNotificationToken: NotificationToken?
     let searchController = UISearchController(searchResultsController: nil)
-
 
     // MARK: - Life cycle
 
@@ -46,7 +45,6 @@ final class FavoritesTableViewController: UITableViewController {
         realmNotificationToken?.invalidate()
     }
 
-
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,9 +56,8 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
 
-
     // MARK: - Additional Views
-    
+
     func setupEmptyFavoriteViewTemplate () {
         if filterString.count == 0 {
             tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
@@ -88,7 +85,6 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
 
-
     // MARK: - Observation
 
     func setupPushChangesObserver() {
@@ -108,7 +104,7 @@ final class FavoritesTableViewController: UITableViewController {
 
     func setupRealmNotificationToken() {
         realmNotificationToken = favoriteBills?.observe {
-            [weak self] (_)->Void in
+            [weak self] (_) -> Void in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -116,7 +112,6 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
 }
-
 
 // MARK: - Table view data source
 
@@ -137,7 +132,6 @@ extension FavoritesTableViewController {
     }
 
 }
-
 
 // MARK: - Table view delegate
 
@@ -205,4 +199,3 @@ extension FavoritesTableViewController: UISearchResultsUpdating {
 //        filterString = ""
 //    }
 //}
-

@@ -14,13 +14,13 @@ import SwiftyJSON
 final class Faction_: Object, InitializableWithJson {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
-    
+
     convenience required init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
         name = json["name"].stringValue
     }
-    
+
     override static func primaryKey() -> String {
         return "id"
     }

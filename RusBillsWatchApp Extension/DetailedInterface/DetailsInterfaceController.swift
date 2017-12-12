@@ -16,7 +16,6 @@ class DetailsInterfaceController: WKInterfaceController {
     @IBOutlet var nameAndCommentLabel: WKInterfaceLabel!
     @IBOutlet var lastEventLabel: WKInterfaceLabel!
 
-
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
 
@@ -59,6 +58,5 @@ class DetailsInterfaceController: WKInterfaceController {
             lastEventLabel.setText(lastEventText)
         }
     }
-    
 
 }

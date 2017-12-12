@@ -23,7 +23,7 @@ enum Request {
     // MARK: - Bill Search Request Function
 
     // NOT Enqueued
-    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int)->Void ) {
+    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int) -> Void ) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
             Alamofire.request(requestMessage).responseJSON { response in
                 if let error = response.error {
@@ -72,10 +72,9 @@ enum Request {
 
     // MARK: - Other request Functions
 
-    static func committies(current: Bool? = nil, completion: @escaping ([Committee_])->Void ) {
+    static func committies(current: Bool? = nil, completion: @escaping ([Committee_]) -> Void ) {
         if let requestMessage = RequestRouter.committees(current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var committies: [Committee_] = []
@@ -91,10 +90,9 @@ enum Request {
         }
     }
 
-    static func lawClasses(completion: @escaping ([LawClass_])->Void) {
+    static func lawClasses(completion: @escaping ([LawClass_]) -> Void) {
         if let requestMessage = RequestRouter.classes.urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var lawClasses: [LawClass_] = []
@@ -110,10 +108,9 @@ enum Request {
         }
     }
 
-    static func topics(completion: @escaping ([Topic_])->Void) {
+    static func topics(completion: @escaping ([Topic_]) -> Void) {
         if let requestMessage = RequestRouter.topics.urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var topics: [Topic_] = []
@@ -129,10 +126,9 @@ enum Request {
         }
     }
 
-    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_])->Void ) {
+    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_]) -> Void ) {
         if let requestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var deputies: [Deputy_] = []
@@ -148,10 +144,9 @@ enum Request {
         }
     }
 
-    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_])->Void ) {
+    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_]) -> Void ) {
         if let requestMessage = RequestRouter.federalSubject(current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var subjects: [FederalSubject_] = []
@@ -168,10 +163,9 @@ enum Request {
         }
     }
 
-    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_])->Void ) {
+    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_]) -> Void ) {
         if let requestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var subjects: [RegionalSubject_] = []
@@ -187,10 +181,9 @@ enum Request {
         }
     }
 
-    static func instances(current: Bool? = nil, completion: @escaping ([Instance_])->Void ) {
+    static func instances(current: Bool? = nil, completion: @escaping ([Instance_]) -> Void ) {
         if let requestMessage = RequestRouter.instances(current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue)
-            { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var instances: [Instance_] = []
@@ -205,5 +198,5 @@ enum Request {
             assertionFailure("Cannot generate a request about instances")
         }
     }
-    
+
 }

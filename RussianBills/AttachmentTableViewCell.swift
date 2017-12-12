@@ -9,9 +9,9 @@
 import UIKit
 
 class AttachmentTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var docTypeImage: UIImageView?
     @IBOutlet weak var billTitle: UILabel?
     @IBOutlet weak var infoLabel: UILabel?
-    
+
 }

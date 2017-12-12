@@ -17,7 +17,7 @@ enum NameStartEndTableViewCellDateTextGenerator {
         switch self {
         case let .startDate(isoDate):
             return "Начало работы: " + (isoDate.isoDateToReadableDate() ?? "нет данных")
-            
+
         case .noEndDate:
             return "Действует в настоящее время"
         case let .endDate(isoDate):

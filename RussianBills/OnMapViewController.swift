@@ -38,7 +38,7 @@ class OnMapViewController: UIViewController {
         let region: MKCoordinateRegion = MKCoordinateRegionMake(pointLocation, theSpan)
         mapView?.setRegion(region, animated: true)
 
-        let pinLocation : CLLocationCoordinate2D = locationToDisplay!.coordinate
+        let pinLocation: CLLocationCoordinate2D = locationToDisplay!.coordinate
         let objectAnnotation = MKPointAnnotation()
         objectAnnotation.coordinate = pinLocation
         objectAnnotation.title = nameToDisplay
@@ -53,7 +53,6 @@ class OnMapViewController: UIViewController {
     deinit {
         LocationManager.instance.stopUpdatingLocation()
     }
-
 
     /*
     // MARK: - Navigation

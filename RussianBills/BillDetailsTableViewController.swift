@@ -10,12 +10,11 @@ import UIKit
 import RealmSwift
 
 final class BillDetailsTableViewController: UITableViewController {
-    
+
     var parserContent: BillParserContent?
     var billNumber: String?
     var bill: Bill_?
-    var realmNotificationToken: NotificationToken? = nil
-
+    var realmNotificationToken: NotificationToken?
 
     // MARK: - Life Cycle
 
@@ -38,7 +37,6 @@ final class BillDetailsTableViewController: UITableViewController {
         realmNotificationToken?.invalidate()
     }
 
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,7 +46,7 @@ final class BillDetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return parserContent?.phases[section].events.count ?? 0
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return parserContent?.phases[section].name ?? ""
     }
@@ -68,14 +66,13 @@ final class BillDetailsTableViewController: UITableViewController {
             cell.accessoryType = .none
             cell.selectionStyle = .none
         }
-        
+
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-
 
     // MARK: - Navigation
 
@@ -85,7 +82,7 @@ final class BillDetailsTableViewController: UITableViewController {
             dest.billNumber = self.billNumber
         }
     }
-    
+
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if let indexPath = tableView.indexPathForSelectedRow {
             return parserContent!.phases[indexPath.section].events[indexPath.row].attachments.count > 0
@@ -93,12 +90,11 @@ final class BillDetailsTableViewController: UITableViewController {
         return false
     }
 
-
     // MARK: - Helper functions
 
     func installRealmToken() {
         if let currentBill = bill {
-            realmNotificationToken = currentBill.observe { [weak self] (_)-> Void in
+            realmNotificationToken = currentBill.observe { [weak self] (_) -> Void in
                 if currentBill.parserContent != nil, let newContent = BillParserContent.deserialize(data: currentBill.parserContent!) {
                     self?.parserContent = newContent
                     self?.tableView.reloadData()

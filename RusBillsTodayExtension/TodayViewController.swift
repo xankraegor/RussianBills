@@ -52,7 +52,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
 
-    
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         setupView()
         completionHandler(NCUpdateResult.newData)
@@ -110,7 +109,7 @@ extension TodayViewController: UITableViewDelegate {
         guard let number = favoriteBillsFilteredAndSorted?[indexPath.row].number,
             number.count > 0 else { return }
         let url = URL(string: "rusBills://favorites")!.appendingPathComponent(number)
-       
+
         extensionContext?.open(url, completionHandler: nil)
     }
 

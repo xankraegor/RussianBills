@@ -21,7 +21,7 @@ final class LocationManager: NSObject {
 
     weak var delegate: LocationManagerDelegate?
 
-    lazy var locationManager: CLLocationManager =  {
+    lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
         lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -39,7 +39,7 @@ final class LocationManager: NSObject {
         locationManager.stopUpdatingLocation()
     }
 
-    func geocode(address: String, completion: @escaping (CLPlacemark?)->Void) {
+    func geocode(address: String, completion: @escaping (CLPlacemark?) -> Void) {
         let locale = Locale(identifier: "ru_RU")
 
         let addressInRussia = "Россия, \(address)"
@@ -72,5 +72,5 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         delegate?.locationManager(self, coordinates: locations[0].coordinate)
     }
-    
+
 }

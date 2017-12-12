@@ -62,8 +62,4 @@ public final class FavoriteBillForWatchOS {
         ]
     }
 
-
-
-
-
 }

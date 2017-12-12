@@ -12,7 +12,7 @@ import RealmSwift
 /// Any possible ordered list of bills (f.e. to keep order consistency
 /// between API response and cached data)
 final class BillsList_: Object {
-    
+
     @objc dynamic var name = "notSet"
     @objc dynamic var totalCount = 0
 
@@ -23,7 +23,7 @@ final class BillsList_: Object {
     }
 
     let bills = List<Bill_>()
-    
+
     override static func primaryKey() -> String {
         return "name"
     }

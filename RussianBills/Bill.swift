@@ -60,14 +60,14 @@ final class Bill_: Object {
         return lastEventSolutionDescription.count > 0 ? lastEventSolutionDescription : nil
     }
 
-    func generateLastEventDocumentDescription()->String {
+    func generateLastEventDocumentDescription() -> String {
         var output = ""
         output += lastEventDocumentType.count > 0 ? lastEventDocumentType + " " : ""
         output += lastEventDocumentName.count > 0 ? lastEventDocumentName + " " : ""
         return output.count > 0 ? output : "Не указан"
     }
 
-    func generateLastEventDateDescription()->String {
+    func generateLastEventDateDescription() -> String {
         return lastEventDate.isoDateToReadableDate() ?? "Не указана"
     }
 
@@ -84,22 +84,22 @@ final class Bill_: Object {
         guard committeeCoexecutor.count > 0 else {
             return "Не указаны"
         }
-        return committeeCoexecutor.map{$0.name}.joined(separator: "; ")
+        return committeeCoexecutor.map {$0.name}.joined(separator: "; ")
     }
 
-    func generateProfileCommitteesDescription()->String {
+    func generateProfileCommitteesDescription() -> String {
         guard committeeProfile.count > 0 else {
             return "Не указаны"
         }
-        return committeeProfile.map{$0.name}.joined(separator: "; ")
+        return committeeProfile.map {$0.name}.joined(separator: "; ")
     }
 
-    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+    private func replace(WithText replacementText: String, ifMissingSourceText source: String) -> String {
         let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
         return textWithoutSpaces.count > 0 ? source : replacementText
     }
 
-    public func generateHashForLastEvent()->String {
+    public func generateHashForLastEvent() -> String {
         let lastEventStageDescr = lastEventStage?.name ?? ""
         let lastEventStageHash = lastEventStageDescr.hashValue
         let lastEventPhaseDescr = lastEventPhase?.name ?? ""
@@ -178,7 +178,6 @@ final class Bill_: Object {
             textArr.append(solution)
         }
 
-
         if textArr.count > 0 {
             output += "\n\(textArr.joined(separator: "\n"))"
         }
@@ -187,7 +186,6 @@ final class Bill_: Object {
     }
 
 }
-
 
 // MARK: - InitializableWithJson
 extension Bill_: InitializableWithJson {

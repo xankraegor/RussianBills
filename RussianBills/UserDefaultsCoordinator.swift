@@ -64,7 +64,7 @@ enum UserDefaultsCoordinator: String {
         } else {
             return date
         }
-    } 
+    }
 
     public static func updateTimestampUsingClassType(ofCollection: [Object]) {
         guard let element = ofCollection.first else {
@@ -99,13 +99,13 @@ enum UserDefaultsCoordinator: String {
         #endif
 
     }
-    
+
     public static func saveQuickSearchFields(name: String, nr1: String, nr2: String) {
         UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(name, forKey: "quickSearchSavedName")
         UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(nr1, forKey: "quickSearchSavedNr1")
         UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(nr2, forKey: "quickSearchSavedNr2")
     }
-    
+
     public static func getQuickSearchFields()->(name: String?, nr1: String?, nr2: String?) {
         let name = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedName")
         let nr1 = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedNr1")
@@ -113,7 +113,7 @@ enum UserDefaultsCoordinator: String {
         return (name, nr1, nr2)
     }
 
-    public static func favoriteBillsUpdateTimeout()->Double {
+    public static func favoriteBillsUpdateTimeout() -> Double {
         let storedUpdateTimeout = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: "favoriteUpdateTimeout")
         let favoritesUpdateTimeout = storedUpdateTimeout == 0 ? UserDefaultsCoordinator.defaultBillsUpdateTimeout : storedUpdateTimeout
         return favoritesUpdateTimeout

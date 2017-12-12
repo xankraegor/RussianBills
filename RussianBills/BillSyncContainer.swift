@@ -13,7 +13,7 @@ public struct BillSyncContainer {
     public let number: String
     public let name: String
     public let comments: String
-    public var favoriteUpdatedTimestamp : Date
+    public var favoriteUpdatedTimestamp: Date
     public var favoriteHasUnseenChanges: Bool
     public var favoriteHasUnseenChangesTimestamp: Date
 
@@ -37,7 +37,6 @@ extension BillSyncContainer: Equatable {
          && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
     }
 }
-
 
 // MARK: - BillSyncContainer + FavoriteBill_
 

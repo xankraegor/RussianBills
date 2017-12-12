@@ -11,7 +11,7 @@ import Eureka
 import RealmSwift
 
 final class SearchFormController: FormViewController {
-    
+
     var query = BillSearchQuery() {
         didSet {
             preprocessRequest(usingQuery: query, afterSeconds: 1.0)
@@ -51,12 +51,12 @@ final class SearchFormController: FormViewController {
             return []
         }
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         form
-            
+
             +++ Section("Основные данные")
             <<< PushRow<String>() {
                 $0.title = "Тип"
@@ -66,12 +66,12 @@ final class SearchFormController: FormViewController {
                 }.onChange { [weak self] row in
                     self?.setLawType(withStatus: row.value ?? "")
             }
-            <<< TextAreaRow(){ row in
+            <<< TextAreaRow() { row in
                 row.placeholder = "Наименование законопроекта: целиком или частично"
                 }.onChange { [weak self] row in
                     self?.query.name = row.value
             }
-            <<< TextRow(){ row in
+            <<< TextRow() { row in
                 row.title = "Номер и созыв"
                 row.placeholder = "в формате 1234567-8"
                 }.onChange { [weak self] row in
@@ -81,7 +81,7 @@ final class SearchFormController: FormViewController {
             <<< PushRow<String>("Статус") {
                 $0.title = ""
                 $0.selectorTitle = "Выберите статус законопроекта"
-                var allValues = (BillStatus.allValues.map{$0.description})
+                var allValues = (BillStatus.allValues.map {$0.description})
                 allValues.append("Любой")
                 $0.options = allValues
                 $0.value = "Любой"    // initially selected
@@ -90,7 +90,7 @@ final class SearchFormController: FormViewController {
             }
 
             +++ Section("Дата внесения законопроекта")
-            <<< SwitchRow("beginDateSwitch"){
+            <<< SwitchRow("beginDateSwitch") {
                 $0.title = "Начиная с даты"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -108,7 +108,7 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = nil
                     }
                 })
-            <<< DateRow("beginDate"){
+            <<< DateRow("beginDate") {
                 $0.hidden = Condition.function(["beginDateSwitch"], { form in
                     return !((form.rowBy(tag: "beginDateSwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -119,7 +119,7 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                     }
                 })
-            <<< SwitchRow("endDateSwitch"){
+            <<< SwitchRow("endDateSwitch") {
                 $0.title = "Заканчивая датой"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -137,7 +137,7 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = nil
                     }
                 })
-            <<< DateRow("endDate"){
+            <<< DateRow("endDate") {
                 $0.hidden = Condition.function(["endDateSwitch"], { form in
                     return !((form.rowBy(tag: "endDateSwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -153,7 +153,7 @@ final class SearchFormController: FormViewController {
 
             // MARK: Duma Deputy
 
-            <<< SwitchRow("deputySwitch"){
+            <<< SwitchRow("deputySwitch") {
                 $0.title = "Депутат Госдумы РФ"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -203,7 +203,7 @@ final class SearchFormController: FormViewController {
 
             // MARK: Council Member
 
-            <<< SwitchRow("councilSwitch"){
+            <<< SwitchRow("councilSwitch") {
                 $0.title = "Член Совета Федерации"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -253,7 +253,7 @@ final class SearchFormController: FormViewController {
 
             // MARK: Federal Subject
 
-            <<< SwitchRow("federalSwitch"){
+            <<< SwitchRow("federalSwitch") {
                 $0.title = "Федеральный орган госвласти"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -301,7 +301,7 @@ final class SearchFormController: FormViewController {
 
             // MARK: Regional Subject
 
-            <<< SwitchRow("regionalSwitch"){
+            <<< SwitchRow("regionalSwitch") {
                 $0.title = "Региональный орган зак. власти"
                 $0.value = false
                 }.onChange({ [weak self] (row) in
@@ -350,7 +350,7 @@ final class SearchFormController: FormViewController {
         <<< PushRow<String>("sortOrder") {
                 $0.title = ""
                 $0.selectorTitle = "Выберите порядок сортировки"
-                $0.options = BillSearchQuerySortType.allValues.map{$0.description}
+                $0.options = BillSearchQuerySortType.allValues.map {$0.description}
                 $0.value = BillSearchQuerySortType.last_event_date.description  // initially selected
                 }.onChange { [weak self] row in
                     self?.setSortOrder(to: row.value ?? "")
@@ -359,7 +359,7 @@ final class SearchFormController: FormViewController {
     }
 
     // MARK: - Updating Query
-    
+
     func setLawType(withStatus type: String) {
         switch type {
         case LawType.federalLaw.description:

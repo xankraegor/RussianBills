@@ -21,7 +21,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 
     /// RealmObjects to handle
     let favoriteBills = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
-    var favoritesRealmNotificationToken: NotificationToken? = nil
+    var favoritesRealmNotificationToken: NotificationToken?
 
     fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
     fileprivate var validSession: WCSession? {
@@ -37,7 +37,6 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         return nil
     }
 
-
     func startSession() {
         session?.delegate = self
         session?.activate()
@@ -45,7 +44,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     }
 
     func setupRealmHandle() {
-        favoritesRealmNotificationToken = favoriteBills?.observe { [weak self] (_)->Void in
+        favoritesRealmNotificationToken = favoriteBills?.observe { [weak self] (_) -> Void in
             self?.sendContextToWatch()
         }
     }
@@ -114,7 +113,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 extension WatchSessionManager {
 
     // Sender
-    func updateApplicationContext(applicationContext: [String : Any]) throws {
+    func updateApplicationContext(applicationContext: [String: Any]) throws {
         if let session = validSession {
             do {
                 try session.updateApplicationContext(applicationContext)
@@ -125,7 +124,7 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         // handle receiving application context
         //DispatchQueue.main.async() {
 
@@ -139,7 +138,7 @@ extension WatchSessionManager {
 extension WatchSessionManager {
 
     // Sender
-    func transferUserInfo(userInfo: [String : Any]) -> WCSessionUserInfoTransfer? {
+    func transferUserInfo(userInfo: [String: Any]) -> WCSessionUserInfoTransfer? {
         return validSession?.transferUserInfo(userInfo)
     }
 
@@ -149,7 +148,7 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         // handle receiving user info
         //DispatchQueue.main.async() {
 
@@ -162,7 +161,7 @@ extension WatchSessionManager {
 extension WatchSessionManager {
 
     // Sender
-    func transferFile(file: NSURL, metadata: [String : Any]) -> WCSessionFileTransfer? {
+    func transferFile(file: NSURL, metadata: [String: Any]) -> WCSessionFileTransfer? {
         return validSession?.transferFile(file as URL, metadata: metadata)
     }
 
@@ -179,7 +178,6 @@ extension WatchSessionManager {
     }
 }
 
-
 // MARK: Interactive Messaging
 extension WatchSessionManager {
 
@@ -192,7 +190,7 @@ extension WatchSessionManager {
     }
 
     // Sender
-    func sendMessage(message: [String : Any], replyHandler: (([String : Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+    func sendMessage(message: [String: Any], replyHandler: (([String: Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         validReachableSession?.sendMessage(message, replyHandler: replyHandler, errorHandler: errorHandler)
     }
 
@@ -201,7 +199,7 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
 
     }
 

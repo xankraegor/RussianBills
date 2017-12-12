@@ -36,7 +36,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
      * If session state is WCSessionActivationStateNotActivated there will be an error with more details.
      */
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
+
     }
 
 }
@@ -47,7 +47,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 extension WatchSessionManager {
 
     // Sender
-    func updateApplicationContext(applicationContext: [String : Any]) throws {
+    func updateApplicationContext(applicationContext: [String: Any]) throws {
         if let session = session {
             do {
                 try session.updateApplicationContext(applicationContext)
@@ -58,19 +58,19 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         DispatchQueue.main.async() {
             let payload = applicationContext["favoriteBills"] as! [[String: String]]
-            var favBills : [FavoriteBillForWatchOS] = []
+            var favBills: [FavoriteBillForWatchOS] = []
             for favoriteBillDictionary in payload {
                 if let fb = FavoriteBillForWatchOS(withDictionary: favoriteBillDictionary) {
-                    
+
                     favBills.append(fb)
                 } else {
                     continue
                 }
             }
-            
+
             let notificationWithContext = Notification(name: Notification.Name(rawValue: "watchReceivedUpdatedData"), object: nil, userInfo: ["favoriteBills": favBills])
             self.notifCenter.post(notificationWithContext)
         }
@@ -83,7 +83,7 @@ extension WatchSessionManager {
 extension WatchSessionManager {
 
     // Sender
-    func transferUserInfo(userInfo: [String : Any]) -> WCSessionUserInfoTransfer? {
+    func transferUserInfo(userInfo: [String: Any]) -> WCSessionUserInfoTransfer? {
         return session?.transferUserInfo(userInfo)
     }
 
@@ -93,7 +93,7 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         // handle receiving user info
         //        DispatchQueue.main.async() {
             // make sure to put on the main queue to update UI!
@@ -105,7 +105,7 @@ extension WatchSessionManager {
 extension WatchSessionManager {
 
     // Sender
-    func transferFile(file: NSURL, metadata: [String : Any]) -> WCSessionFileTransfer? {
+    func transferFile(file: NSURL, metadata: [String: Any]) -> WCSessionFileTransfer? {
         return session?.transferFile(file as URL, metadata: metadata)
     }
 
@@ -122,7 +122,6 @@ extension WatchSessionManager {
 
 }
 
-
 // MARK: Interactive Messaging
 extension WatchSessionManager {
 
@@ -135,7 +134,7 @@ extension WatchSessionManager {
     }
 
     // Sender
-    func sendMessage(message: [String : Any], replyHandler: (([String : Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
+    func sendMessage(message: [String: Any], replyHandler: (([String: Any]) -> Void)? = nil, errorHandler: ((Error) -> Void)? = nil) {
         validReachableSession?.sendMessage(message, replyHandler: replyHandler, errorHandler: errorHandler)
     }
 
@@ -144,10 +143,10 @@ extension WatchSessionManager {
     }
 
     // Receiver
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         DispatchQueue.main.async() {
             let payload = message["favoriteBills"] as! [[String: String]]
-            var favBills : [FavoriteBillForWatchOS] = []
+            var favBills: [FavoriteBillForWatchOS] = []
             for favoriteBillDictionary in payload {
                 if let fb = FavoriteBillForWatchOS(withDictionary: favoriteBillDictionary) {
 
@@ -169,4 +168,3 @@ extension WatchSessionManager {
         // }
     }
 }
-

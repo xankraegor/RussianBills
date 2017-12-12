@@ -13,7 +13,6 @@ import Alamofire
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
 
-
     // MARK: - Download Reference Categories
 
     static func downloadAllReferenceCategories(forced: Bool = false, completion: VoidToVoid = nil) {
@@ -176,7 +175,7 @@ enum UserServices {
             }
         }
     }
-    
+
     // MARK: - Bills
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_], Int) -> Void)? = nil) {
@@ -212,7 +211,7 @@ enum UserServices {
         }
     }
 
-    static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int)->Void)? = nil) {
+    static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int) -> Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
             if forced {
                 assertionFailure("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
@@ -230,7 +229,7 @@ enum UserServices {
             return
         }
 
-        let queries: [BillSearchQuery] = favoriteBills.map{ BillSearchQuery(withNumber: $0.number) }
+        let queries: [BillSearchQuery] = favoriteBills.map { BillSearchQuery(withNumber: $0.number) }
 
         for i in 0..<queries.count {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
@@ -247,7 +246,7 @@ enum UserServices {
                 let previousHashValue = existingBill.generateHashForLastEvent()
 
                 Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _) in
-                    
+
                     guard let downloadedBill = result.first else {
                         assertionFailure("∆ Bill not received after querying by number \(queries[i].number ?? "nil") while updating favorite bills")
                         return
@@ -292,7 +291,7 @@ enum UserServices {
 
     // MARK: - Attachments
 
-    static func pathForDownloadAttachment(forBillNumber: String, withLink link: String)->String? {
+    static func pathForDownloadAttachment(forBillNumber: String, withLink link: String) -> String? {
         let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
         if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link),
            let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
@@ -303,7 +302,7 @@ enum UserServices {
     }
 
     static func downloadAttachment(forBillNumber billNumber: String, withLink downloadLink: String,
-                                   updateProgressStatus: @escaping (Double)->Void, completion: VoidToVoid) {
+                                   updateProgressStatus: @escaping (Double) -> Void, completion: VoidToVoid) {
         let fileId = FilesManager.extractUniqueDocumentNameFrom(urlString: downloadLink)
         let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: billNumber)
         let temporaryFileName = String(downloadLink.hashValue)

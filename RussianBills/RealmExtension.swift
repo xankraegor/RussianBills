@@ -23,7 +23,7 @@ extension Realm {
 
         if let current = andAreCurrent {
             predicatesAnd.append(NSPredicate(format: "isCurrent = \(current)"))
-            
+
         }
 
         if let deps = dumaDeputies { // true - dumaDeputees, false - councilMembers
@@ -41,5 +41,5 @@ extension Realm {
         return self.objects(T.self).filter(predicate)
 
     }
-    
+
 }

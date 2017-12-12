@@ -13,12 +13,11 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
 
     var event: BillParserEvent?
     var billNumber: String?
-    var previewItemUrlString: String? = nil
+    var previewItemUrlString: String?
     var downloadingAttachments = Set<String>()
 
-
     // MARK: - Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -28,7 +27,6 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
     }
-
 
     // MARK: - Table view data source
 
@@ -44,7 +42,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let downloadLink = event?.attachments[indexPath.row],
             let billNr = billNumber, let cell = tableView.cellForRow(at: indexPath) else {
@@ -86,20 +84,18 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         return UserServices.pathForDownloadAttachment(forBillNumber: billNr, withLink: downloadUrl) != nil
     }
 
-    
     // MARK: - QLPreviewControllerDataSource
-    
+
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         if previewItemUrlString != nil {
             return 1
         }
         return 0
     }
-    
+
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         return URL(fileURLWithPath: previewItemUrlString!) as QLPreviewItem
     }
-
 
     // MARK: - Helper functions
 
@@ -109,14 +105,14 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         qpController.dataSource = self
         show(qpController, sender: nil)
     }
-    
+
     func downloadAttachment(forCell cell: AttachmentTableViewCell, billNr: String, downloadLink: String) {
         UserServices.downloadAttachment(forBillNumber: billNr, withLink: downloadLink, updateProgressStatus: { (progressValue) in
             DispatchQueue.main.async {
                 let percent = progressValue * 100
                 cell.infoLabel?.text = String(format: "Документ загружается: %2.1f%%", percent)
             }
-            
+
             }, completion: { [weak self] in
                 self?.downloadingAttachments.remove(downloadLink)
                 DispatchQueue.main.async {
@@ -126,7 +122,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
                 }
         })
     }
-    
+
     func prepareView() {
         guard event != nil else {
             fatalError("No event handed to the UITableViewController")
@@ -139,7 +135,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
             self.navigationItem.title = "Документы 📃\(navigationTitle)"
         }
     }
-    
+
     func setCellDownloadImageAndLabel(cell: AttachmentTableViewCell, atIndexPath indexPath: IndexPath) {
         if let number = billNumber,
             let link = event?.attachments[indexPath.row],

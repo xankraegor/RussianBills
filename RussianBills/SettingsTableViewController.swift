@@ -38,7 +38,6 @@ final class SettingsTableViewController: UITableViewController {
         }
     }
 
-
     // MARK: - Table View Delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -50,7 +49,6 @@ final class SettingsTableViewController: UITableViewController {
         }
     }
 
-
     // MARK: - Slider Changed
 
     @IBAction func sliderValueChanged(_ sender: Any) {
@@ -61,7 +59,6 @@ final class SettingsTableViewController: UITableViewController {
         }
 
     }
-
 
     // MARK: - Helper functions
 

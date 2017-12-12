@@ -14,7 +14,6 @@ final class MainTableViewController: UITableViewController {
 
     @IBOutlet weak var updatedFavoriteBillsCountLabel: UILabel?
 
-
     // MARK: - Life cycle
 
     override func viewDidLoad() {
@@ -38,7 +37,7 @@ final class MainTableViewController: UITableViewController {
 
     // MARK: - Notifications
 
-    @objc func methodOfReceivedNotification(notification: Notification){
+    @objc func methodOfReceivedNotification(notification: Notification) {
         if let dict = notification.userInfo as? [String: Int], let count = dict["count"] {
             setFavoritesBadge(count: count)
         }
@@ -54,7 +53,6 @@ final class MainTableViewController: UITableViewController {
             updatedFavoriteBillsCountLabel?.isHidden = true
         }
     }
-
 
     // MARK: - Navigation
 
@@ -82,7 +80,6 @@ final class MainTableViewController: UITableViewController {
             }
         }
     }
-
 
     // MARK: - Debug
 

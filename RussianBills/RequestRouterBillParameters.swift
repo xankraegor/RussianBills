@@ -95,8 +95,6 @@ extension RequestRouter {
             dict["deputy"] = deputy
         }
 
-        
-
         /// responsible_committee — идентификатор ответственного комитета
         if let respComittee = query.committeeResponsibleId {
             dict["responsible_committee"] = respComittee
@@ -142,7 +140,7 @@ extension RequestRouter {
         /// last_event_date — по дате последнего события (по убыванию)
         /// last_event_date_asc — по дате последнего события (по возрастанию)
         /// responsible_committee — по ответственному комитету
-        dict["sort"] = query.sortType.rawValue 
+        dict["sort"] = query.sortType.rawValue
 
         return dict
     }

@@ -30,7 +30,6 @@ final class RegionalSubject_: Object {
 
 }
 
-
 // MARK: - InitializableWithJson
 extension RegionalSubject_: InitializableWithJson {
 
@@ -44,7 +43,6 @@ extension RegionalSubject_: InitializableWithJson {
     }
 
 }
-
 
 // MARK: - QuickSearchFieldsReporting
 extension RegionalSubject_: QuickSearchFieldsReporting {

@@ -51,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initializing Watch Session
         WatchSessionManager.sharedManager.startSession()
 
-
         // Other actions
         UserServices.downloadAllReferenceCategories(forced: true)
         UserServices.updateFavoriteBills(forced: false) {
@@ -62,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Color Scheme
-
 
         return true
     }
@@ -100,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationCenter.default.post(name: .favoriteBillsDidChangeRemotely, object: nil, userInfo: userInfo)
         completionHandler(.newData)
     }
@@ -139,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
 
         if url.scheme == "rusBills", let host = url.host, host == "favorites" {
 

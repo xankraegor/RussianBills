@@ -13,8 +13,8 @@ import FirebaseDatabase
 
 final class AuthFormController: FormViewController {
 
-    var enteredEmail: String? = nil
-    var enteredPassword: String? = nil
+    var enteredEmail: String?
+    var enteredPassword: String?
     var authHandle: AuthStateDidChangeListenerHandle?
     var authStatus: AuthStatus = .denied
 
@@ -68,11 +68,11 @@ final class AuthFormController: FormViewController {
         form +++ Section("loginSection") { section in
             section.header?.title = ""
         }
-            <<< LabelRow("authStatus"){ row in
+            <<< LabelRow("authStatus") { row in
                 row.title = authStatus.rawValue
                 row.cell.textLabel?.numberOfLines = 0
             }
-            <<< EmailRow("emailRow"){ row in
+            <<< EmailRow("emailRow") { row in
                 row.title = "Адрес"
                 row.placeholder = "test@test.com"
                 row.add(rule: RuleRequired())
@@ -102,7 +102,7 @@ final class AuthFormController: FormViewController {
                 })
             }
 
-            <<< PasswordRow("passwordRow"){ row in
+            <<< PasswordRow("passwordRow") { row in
                 row.title = "Пароль"
                 row.placeholder = "password"
                 row.add(rule: RuleRequired())
@@ -159,7 +159,7 @@ final class AuthFormController: FormViewController {
             +++ Section("signUpSection") { section in
                 section.header?.title = "Зарегистрироваться"
             }
-            <<< EmailRow("emailRowSignUp"){ row in
+            <<< EmailRow("emailRowSignUp") { row in
                 row.title = "Адрес"
                 row.placeholder = "test@test.com"
                 row.add(rule: RuleRequired())
@@ -167,12 +167,12 @@ final class AuthFormController: FormViewController {
                 row.validationOptions = .validatesOnChange
                 }
 
-            <<< PasswordRow("passwordRowSignUp"){ row in
+            <<< PasswordRow("passwordRowSignUp") { row in
                 row.title = "Использовать пароль"
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChange
             }
-            <<< PasswordRow("confirmPasswordRowSignUp"){ row in
+            <<< PasswordRow("confirmPasswordRowSignUp") { row in
                 row.title = "Повторите пароль"
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChange
@@ -231,5 +231,5 @@ final class AuthFormController: FormViewController {
 
         tableView.reloadData()
     }
-    
+
 }

@@ -23,7 +23,6 @@ class MainInterfaceController: WKInterfaceController {
 
     let notifCenter = NotificationCenter.default
 
-
     // MARK: - Life cycle
 
     override func awake(withContext context: Any?) {
@@ -45,11 +44,11 @@ class MainInterfaceController: WKInterfaceController {
             favoriteBills = WatchSessionManager.shared.favoriteBills
         }
     }
-    
+
     override func willActivate() {
         super.willActivate()
     }
-    
+
     override func didDeactivate() {
         super.didDeactivate()
     }

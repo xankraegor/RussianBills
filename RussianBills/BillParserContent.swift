@@ -11,7 +11,7 @@ import Foundation
 struct BillParserContent: Codable {
     var phases: [BillParserPhase] = []
 
-    func serialize()->Data? {
+    func serialize() -> Data? {
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(self) else {
             return nil
@@ -19,7 +19,7 @@ struct BillParserContent: Codable {
         return data
     }
 
-    static func deserialize(data: Data)->BillParserContent? {
+    static func deserialize(data: Data) -> BillParserContent? {
         let decoder = JSONDecoder()
         guard let decoded = try? decoder.decode(self, from: data) else {
             return nil

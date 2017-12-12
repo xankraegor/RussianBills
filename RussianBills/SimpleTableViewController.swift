@@ -14,7 +14,7 @@ final class SimpleTableViewController: UITableViewController {
     var objectsToDisplay: SimpleTableViewControllerSelector?
 
     let realm = try? Realm()
-    var realmNotificationToken: NotificationToken? = nil
+    var realmNotificationToken: NotificationToken?
 
     lazy var objects: Results<Object>? = {
         if objectsToDisplay == .dumaDeputees {
@@ -34,7 +34,6 @@ final class SimpleTableViewController: UITableViewController {
     }
 
     let searchController = UISearchController(searchResultsController: nil)
-
 
     // MARK: - Life Cycle
 
@@ -91,11 +90,9 @@ final class SimpleTableViewController: UITableViewController {
         }
     }
 
-
     deinit {
         realmNotificationToken?.invalidate()
     }
-
 
     // MARK: - Helper functions
 
@@ -107,20 +104,16 @@ final class SimpleTableViewController: UITableViewController {
         }
     }
 
-
-
-
     // MARK: - Observation
 
     func setupRealmNotificationToken() {
         realmNotificationToken = objects?.observe {
-            [weak self] (_)->Void in
+            [weak self] (_) -> Void in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
     }
-
 
     // MARK: - Navigation
 
@@ -164,7 +157,6 @@ final class SimpleTableViewController: UITableViewController {
         }
     }
 }
-
 
 // MARK: - Table View Data Source
 
@@ -257,7 +249,6 @@ extension SimpleTableViewController {
 
 }
 
-
 // MARK: - UISearchResultsUpdating
 
 extension SimpleTableViewController: UISearchResultsUpdating {
@@ -267,7 +258,6 @@ extension SimpleTableViewController: UISearchResultsUpdating {
     }
 
 }
-
 
 // MARK: - UISearchBarDelegate
 
@@ -279,7 +269,6 @@ extension SimpleTableViewController: UISearchBarDelegate {
     }
 
 }
-
 
 // MARK: - Other search bar methods
 
@@ -294,8 +283,7 @@ extension SimpleTableViewController {
 
         if objectsToDisplay?.typeUsedForObjects === FederalSubject_.self ||
             objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
-            objectsToDisplay?.typeUsedForObjects === Deputy_.self
-        {
+            objectsToDisplay?.typeUsedForObjects === Deputy_.self {
             searchController.searchBar.scopeButtonTitles = ["Все", "Действующие", "Не действ."]
             searchController.searchBar.sizeToFit()
         }
@@ -324,7 +312,6 @@ extension SimpleTableViewController {
             }
         }()
 
-
         var newFilteredObjects: [Object] = []
 
         switch self.objectsToDisplay! {
@@ -351,4 +338,3 @@ extension SimpleTableViewController {
     }
 
 }
-

@@ -69,7 +69,6 @@ public final class IcloudSyncEngine: NSObject {
 
     }
 
-
     /// The modification date of the last note modified locally to use when querying the server
     private var modificationDateForQuery: Date {
         return storage.mostRecentlyModifiedBillSyncContainer?.favoriteUpdatedTimestamp ?? Date.distantPast
@@ -113,7 +112,6 @@ public final class IcloudSyncEngine: NSObject {
         privateDatabase.add(operation)
     }
 
-
     /// Realm collection notification token
     private var notificationToken: NotificationToken?
 
@@ -127,8 +125,8 @@ public final class IcloudSyncEngine: NSObject {
             switch changes {
             case .update(let collection, _, let insertions, let modifications):
                 // Figure out which notes should be saved and which notes should be deleted
-                let favoriteBillsToSave = (insertions + modifications).map{collection[$0]}.filter{!$0.markedToBeRemovedFromFavorites}
-                let favoriteBillsToDelete = modifications.map{ collection[$0]}.filter{$0.markedToBeRemovedFromFavorites}
+                let favoriteBillsToSave = (insertions + modifications).map {collection[$0]}.filter {!$0.markedToBeRemovedFromFavorites}
+                let favoriteBillsToDelete = modifications.map { collection[$0]}.filter {$0.markedToBeRemovedFromFavorites}
 
                 // Push changes to CloudKit
                 welf.pushToCloudKit(billsToUpdate: favoriteBillsToSave, billsToDelete: favoriteBillsToDelete)
@@ -150,7 +148,7 @@ public final class IcloudSyncEngine: NSObject {
         pushRecordsToCloudKit(recordsToUpdate: recordsToSave, recordIDsToDelete: recordsToDelete)
     }
 
-    fileprivate func pushRecordsToCloudKit(recordsToUpdate: [CKRecord], recordIDsToDelete: [CKRecordID], completion: ((Error?) -> ())? = nil) {
+    fileprivate func pushRecordsToCloudKit(recordsToUpdate: [CKRecord], recordIDsToDelete: [CKRecordID], completion: ((Error?) -> Void)? = nil) {
         let operation = CKModifyRecordsOperation(recordsToSave: recordsToUpdate, recordIDsToDelete: recordIDsToDelete)
         operation.savePolicy = .changedKeys
 
@@ -227,8 +225,7 @@ public final class IcloudSyncEngine: NSObject {
         // The .notesDidChangeRemotely local notification is posted by the AppDelegate when it receives a push notification from CloudKit
         changesObserver = NotificationCenter.default.addObserver(forName: .favoriteBillsDidChangeRemotely,
                                                                  object: nil,
-                                                                 queue: OperationQueue.main)
-        { [weak self] note in
+                                                                 queue: OperationQueue.main) { [weak self] note in
             // When a notification is received from the server, we must download the notifications because they might have been coalesced
             self?.fetchServerNotifications()
         }
@@ -350,7 +347,7 @@ public final class IcloudSyncEngine: NSObject {
     // MARK: - Util
 
     /// Helper method to retry a CloudKit operation when its error suggests it
-    private func retryCloudKitOperationIfPossible(with error: Error?, block: @escaping () -> ()) {
+    private func retryCloudKitOperationIfPossible(with error: Error?, block: @escaping () -> Void) {
         guard let error = error as? CKError else {
             slog("CloudKit can't interpret an error during retrying an operation")
             return

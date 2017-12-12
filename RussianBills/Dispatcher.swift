@@ -32,13 +32,13 @@ final class Dispatcher {
 
     // Dispatcher Functions
 
-    func dispatchReferenceDownload(with: @escaping ()->()) {
+    func dispatchReferenceDownload(with: @escaping ()->Void) {
         DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
             with()
         }
     }
 
-    func dispatchBillsPrefetching(afterSeconds: Double, block: @escaping ()->()) {
+    func dispatchBillsPrefetching(afterSeconds: Double, block: @escaping ()->Void) {
         prefetchBillsWorkItem?.cancel()
         billsPrefetchDispatchQueue.asyncAfter(deadline: DispatchTime.now() + afterSeconds) {
             block()

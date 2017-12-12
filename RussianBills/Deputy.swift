@@ -29,7 +29,6 @@ final class Deputy_: Object {
 
 }
 
-
 // MARK: - InitializableWithJson
 extension Deputy_: InitializableWithJson {
 
@@ -42,7 +41,6 @@ extension Deputy_: InitializableWithJson {
     }
 
 }
-
 
 // MARK: - QuickSearchFieldsReporting
 extension Deputy_: QuickSearchFieldsReporting {

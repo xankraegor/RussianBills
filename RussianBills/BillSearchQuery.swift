@@ -57,13 +57,13 @@ struct BillSearchQuery {
     // Используется всегда максимальное значение
     let pageLimit: Int = 20
     var sortType: BillSearchQuerySortType = .last_event_date
-    
+
     // MARK: - Initialization
-    
+
     init() {
-        
+
     }
-    
+
     init(withNumber: String) {
         self.number = withNumber
     }

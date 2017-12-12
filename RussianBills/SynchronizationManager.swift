@@ -31,7 +31,6 @@ final class SyncMan {
             iCloudSyncEngine = IcloudSyncEngine(storage: storage)
         }
 
-
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             self?.uid = user?.uid
         }
@@ -39,7 +38,6 @@ final class SyncMan {
         //        setupFavoritesRealmNotificationToken()
         //        setupFavoritesHandle()
     }
-
 
     // MARK: - Updating favorite bills
 
@@ -66,14 +64,13 @@ final class SyncMan {
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
-
     // MARK: - iCloud Synchronization
 
     let icloudDb = CKContainer.default().database(with: .private)
-    var iCloudSyncEngine: IcloudSyncEngine? = nil
-    var iCloudStorage: BillSyncContainerStorage? = nil
+    var iCloudSyncEngine: IcloudSyncEngine?
+    var iCloudStorage: BillSyncContainerStorage?
 
-    func isUserLoggedIntoIcloud(withResult: @escaping (Bool)->Void) {
+    func isUserLoggedIntoIcloud(withResult: @escaping (Bool) -> Void) {
         CKContainer.default().accountStatus(completionHandler: {(_ accountStatus: CKAccountStatus, _ error: Error?) -> Void in
             if accountStatus == .noAccount {
                 withResult(false)
@@ -90,21 +87,21 @@ final class SyncMan {
 
     let realm = try? Realm()
     let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
-    var favoritesRealmNotificationToken: NotificationToken? = nil
+    var favoritesRealmNotificationToken: NotificationToken?
 
-    var uid: String? = nil
+    var uid: String?
     var isAuthorized: Bool {
         return uid != nil
     }
 
-    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
+    func updateFirebaseFavoriteRecords(withCallback: (()->Void)? = nil) {
         guard let userId = uid else { return }
         let favorites = FavoriteBills().toDictionary
         firebaseDbLink.child(userId).updateChildValues(favorites)
     }
 
     func setupFavoritesRealmNotificationToken() {
-        favoritesRealmNotificationToken = favoriteBillsInRealm?.observe { [weak self] (_)->Void in
+        favoritesRealmNotificationToken = favoriteBillsInRealm?.observe { [weak self] (_) -> Void in
             if (self?.isAuthorized)! {
                 self?.updateFirebaseFavoriteRecords()
             }
@@ -114,7 +111,7 @@ final class SyncMan {
     func setupFavoritesHandle() {
         guard let userId = uid else { return }
         _ = firebaseDbLink.child(userId).child("favoriteBills").observe(DataEventType.value, with: { [weak self] (snapshot) in
-            let favoriteBillsInFirebase = snapshot.value as? [String : Double] ?? [:]
+            let favoriteBillsInFirebase = snapshot.value as? [String: Double] ?? [:]
             for item in favoriteBillsInFirebase {
                 let billNumber = item.key
                 let serverTimestamp = item.value

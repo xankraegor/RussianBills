@@ -15,7 +15,7 @@ struct FavoriteBills {
     var updateTimestamps: [Date] = []
 
     var toDictionary: [String: Any] {
-        var values : [String : Double] = [:]
+        var values: [String: Double] = [:]
         for (index, element) in billNumbers.enumerated() {
             values[element] = updateTimestamps[index].timeIntervalSince1970
         }
@@ -23,7 +23,6 @@ struct FavoriteBills {
         return [ "favoriteBills" : values ]
         // ["favoriteBills": [ "123456-7" : 542542542542.23134 , "234467-7" : 542542542324.23134 ]]
     }
-
 
     // MARK: - Initialization
 
@@ -39,7 +38,7 @@ struct FavoriteBills {
         }
     }
 
-    init(withValues data: [String : Double]) {
+    init(withValues data: [String: Double]) {
         for item in data {
             billNumbers.append(item.key)
             updateTimestamps.append(Date(timeIntervalSince1970: item.value))

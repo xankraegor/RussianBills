@@ -12,19 +12,19 @@ enum FilesManager {
 
     // MARK: - Reference Paths
 
-    static func defaultRealmPath()->URL {
+    static func defaultRealmPath() -> URL {
         let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: UserDefaultsCoordinator.suiteName)!.appendingPathComponent("default.realm")
         return path
     }
 
     #if BASEPROJECT
 
-    static func attachmentDir(forBillNumber number: String)->String {
+    static func attachmentDir(forBillNumber number: String) -> String {
         return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
     }
 
     // MARK: - Files
-    
+
     static func createEmptyFile(named fileName: String, atPath path: String) {
         FilesManager.createDirectory(atPath: path)
         let fullPath = (path as NSString).appendingPathComponent(fileName)
@@ -35,7 +35,7 @@ enum FilesManager {
             assertionFailure("∆ Error when creating an empty file in folder \(fullPath): \(error.localizedDescription)")
         }
     }
-    
+
     static func writeToFile(string: String, named fileName: String, atPath path: String) {
         do {
             try string.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
@@ -58,7 +58,7 @@ enum FilesManager {
 
     }
 
-    static func pathForFile(containingInName namePart: String, inDirectory path: String)->String? {
+    static func pathForFile(containingInName namePart: String, inDirectory path: String) -> String? {
         let filePathsList = filesInDirectory(atPath: path)
         for i in 0..<filePathsList.count {
             if filePathsList[i].fileName().contains(namePart) {
@@ -88,13 +88,12 @@ enum FilesManager {
 
         do {
             try FileManager.default.moveItem(atPath: existingFullPath.path, toPath: newFullPath.path)
-        }
-        catch let error {
+        } catch let error {
             assertionFailure("∆ Cannot move the file: \(error)")
         }
     }
-    
-    static func sizeOfFile(atPath: String)->String? {
+
+    static func sizeOfFile(atPath: String) -> String? {
         guard let attributes = try? FileManager.default.attributesOfItem(atPath: atPath), let fileSize = attributes[FileAttributeKey.size] as? UInt64  else {
             return nil
         }
@@ -103,14 +102,14 @@ enum FilesManager {
         let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(fileSize))
         return sizeToDisplay
     }
-    
+
     // MARK : - Directories
-    
-    static func doesDirExist(atPath path: String)->Bool {
+
+    static func doesDirExist(atPath path: String) -> Bool {
         var isDir: ObjCBool = false
         return FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
     }
-    
+
     static func createDirectory(atPath path: String) {
         do {
             try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
@@ -129,7 +128,7 @@ enum FilesManager {
         return fileList
     }
 
-    static func sizeOfDirectoryContents(atPath path: String)->String? {
+    static func sizeOfDirectoryContents(atPath path: String) -> String? {
         let documentsDirectoryURL = URL(fileURLWithPath: path)
         var bool: ObjCBool = false
         if FileManager.default.fileExists(atPath: documentsDirectoryURL.path, isDirectory: &bool), bool.boolValue {
@@ -165,10 +164,10 @@ enum FilesManager {
             assertionFailure("∆ deleteAllAttachments: can't receive Documents directory contents")
         }
     }
-    
+
     // MARK: - Specific functions 
-    
-    static func extractUniqueDocumentNameFrom(urlString: String)->String? {
+
+    static func extractUniqueDocumentNameFrom(urlString: String) -> String? {
         // Example: http://sozd.parlament.gov.ru/download/78155743-0269-463E-8EEE-5648D5A0B40E
         if let key = urlString.components(separatedBy: "/").last?.components(separatedBy: "&").last {
             let forbiddenCharactersSet = CharacterSet(charactersIn: "-0123456789ABCDEF").inverted
