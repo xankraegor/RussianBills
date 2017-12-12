@@ -15,95 +15,35 @@ import CloudKit
 
 /// Main Synchronization Class
 final class SyncMan {
-    // Singleton
-    static let shared = SyncMan()
+
+    static let shared = SyncMan() // Singleton
 
     var foregroundFavoriteBillsUpdateTimer: Timer?
-
-    private var authHandle: AuthStateDidChangeListenerHandle?
-    let firebaseDbLink = Database.database().reference()
-    let icloudDb = CKContainer.default().database(with: .private)
-
-    var uid: String? = nil
-    var isAuthorized: Bool {
-        return uid != nil
-    }
-
-    let realm = try? Realm()
-    let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
-    var favoritesRealmNotificationToken: NotificationToken? = nil
-
-    var iCloudSyncEngine: IcloudSyncEngine? = nil
-    var iCloudStorage: BillSyncContainerStorage? = nil
 
     // MARK: - Initialization
 
     private init() {
 
         setupForegroundUpdateTimer()
+
+        iCloudStorage = BillSyncContainerStorage()
+        if let storage = iCloudStorage {
+            iCloudSyncEngine = IcloudSyncEngine(storage: storage)
+        }
+
+
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             self?.uid = user?.uid
         }
 
-//        setupFavoritesRealmNotificationToken()
-//        setupFavoritesHandle()
+        //        setupFavoritesRealmNotificationToken()
+        //        setupFavoritesHandle()
     }
 
-    // MARK: - Firebase synchronization
 
-//    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
-//        guard let userId = uid else { return }
-//        let favorites = FavoriteBills().toDictionary
-////        debugPrint(favorites)
-//        firebaseDbLink.child(userId).updateChildValues(favorites)
-//    }
-//
-//    func setupFavoritesRealmNotificationToken() {
-//        favoritesRealmNotificationToken = favoriteBillsInRealm?.observe { [weak self] (_)->Void in
-//            if (self?.isAuthorized)! {
-//                self?.updateFirebaseFavoriteRecords()
-//            }
-//        }
-//    }
-//
-//    func setupFavoritesHandle() {
-//        guard let userId = uid else { return }
-//        let refHandle = firebaseDbLink.child(userId).child("favoriteBills").observe(DataEventType.value, with: { [weak self] (snapshot) in
-//            let favoriteBillsInFirebase = snapshot.value as? [String : Double] ?? [:]
-//            for item in favoriteBillsInFirebase {
-//                let billNumber = item.key
-//                let serverTimestamp = item.value
-//                if let existingBill = self?.realm?.object(ofType: Bill_.self, forPrimaryKey: billNumber) {
-//
-//                    // need to update server record :
-//                    if existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970 > serverTimestamp {
-//                        if existingBill.favorite {
-//                            // adding new favorite to the server
-//                            self?.firebaseDbLink.child(userId).child("favoriteBills").setValue([existingBill.number : existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970])
-//                        } else {
-//                            // removing a favorite from the server
-//                            self?.firebaseDbLink.child(userId).child("favoriteBills").child(existingBill.number).removeValue()
-//                        }
-//
-//                        // need to update local record :
-//                    } else if existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970 < serverTimestamp {
-//                        try? self?.realm?.write {
-//                            existingBill.favorite = true
-//                            existingBill.favoriteUpdatedTimestamp = Date(timeIntervalSince1970: serverTimestamp)
-//                        }
-//                    }
-//
-//                    // else: timestamps are equal, nothing to update
-//                    // (...)
-//
-//                } else { // Need to create and load a non-existing bill
-//                    UserServices.downloadNonExistingBillBySync(withNumber: billNumber, favoriteTimestamp: serverTimestamp)
-//                }
-//            }
-//        })
-//    }
+    // MARK: - Updating favorite bills
 
-    // MARK: - Foreground update timer
+    var favoriteBillsUpdateTimer: DispatchSourceTimer?
 
     func setupForegroundUpdateTimer(fireNow: Bool = false) {
         foregroundFavoriteBillsUpdateTimer = Timer.scheduledTimer(withTimeInterval: UserDefaultsCoordinator.favoriteBillsUpdateTimeout(), repeats: true, block: { (_) in
@@ -114,10 +54,6 @@ final class SyncMan {
             foregroundFavoriteBillsUpdateTimer?.fire()
         }
     }
-
-    // MARK: - Updating favorite bills
-
-    var favoriteBillsUpdateTimer: DispatchSourceTimer?
 
     var favoriteBillsLastUpdate: Date? {
         let timestamp = UserDefaults.standard.double(forKey: "favoritesUpdateTimestamp")
@@ -133,6 +69,10 @@ final class SyncMan {
 
     // MARK: - iCloud Synchronization
 
+    let icloudDb = CKContainer.default().database(with: .private)
+    var iCloudSyncEngine: IcloudSyncEngine? = nil
+    var iCloudStorage: BillSyncContainerStorage? = nil
+
     func isUserLoggedIntoIcloud(withResult: @escaping (Bool)->Void) {
         CKContainer.default().accountStatus(completionHandler: {(_ accountStatus: CKAccountStatus, _ error: Error?) -> Void in
             if accountStatus == .noAccount {
@@ -143,39 +83,74 @@ final class SyncMan {
         })
     }
 
-    func writeToIcloud() {
-        guard let favs = favoriteBillsInRealm else { return }
+    // MARK: - Firebase synchronization
 
-        let records : [CKRecord] = favs.map{ CKRecord(recordType: "FavoriteBill", recordID: CKRecordID(recordName: $0.number)) }
+    private var authHandle: AuthStateDidChangeListenerHandle?
+    let firebaseDbLink = Database.database().reference()
 
-        records.forEach { (record) in
-            icloudDb.save(record, completionHandler: { (responseRecord, error) in
-                if let error = error {
-                    debugPrint("∆ Error while writing data to iCloud: \(error.localizedDescription)")
-                    return
-                }
-            })
+    let realm = try? Realm()
+    let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
+    var favoritesRealmNotificationToken: NotificationToken? = nil
+
+    var uid: String? = nil
+    var isAuthorized: Bool {
+        return uid != nil
+    }
+
+    func updateFirebaseFavoriteRecords(withCallback: (()->())? = nil) {
+        guard let userId = uid else { return }
+        let favorites = FavoriteBills().toDictionary
+        firebaseDbLink.child(userId).updateChildValues(favorites)
+    }
+
+    func setupFavoritesRealmNotificationToken() {
+        favoritesRealmNotificationToken = favoriteBillsInRealm?.observe { [weak self] (_)->Void in
+            if (self?.isAuthorized)! {
+                self?.updateFirebaseFavoriteRecords()
+            }
         }
     }
 
-    func fetchAndModifyRecords() {
-//        guard let favs = favoriteBillsInRealm else { return }
-//        let recordIDs = Array(favs).map{ CKRecordID(recordName: $0.name ) }
+    func setupFavoritesHandle() {
+        guard let userId = uid else { return }
+        _ = firebaseDbLink.child(userId).child("favoriteBills").observe(DataEventType.value, with: { [weak self] (snapshot) in
+            let favoriteBillsInFirebase = snapshot.value as? [String : Double] ?? [:]
+            for item in favoriteBillsInFirebase {
+                let billNumber = item.key
+                let serverTimestamp = item.value
+                if let existingBill = self?.realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: billNumber) {
 
-        var fetchedRecords: [CKRecord] = []
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: "FavoriteBill", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
+                    // need to update server record :
+                    if existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970 > serverTimestamp {
+                        // adding new favorite to the server
+                        self?.firebaseDbLink.child(userId).child("favoriteBills").setValue([existingBill.number : existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970])
+                    } else {
+                        // removing a favorite from the server
+                        self?.firebaseDbLink.child(userId).child("favoriteBills").child(existingBill.number).removeValue()
+                    }
+                }
 
-        operation.recordFetchedBlock = { record in
-            fetchedRecords.append(record)
-        }
+                // !!! CAUTION !!! THIS PART OF CODE PERFORMS CHANGES IN THE LOCAL REALM DATABASE
+                // IT IS INTENTIONALLY SWITCHED OFF IN FAVOR OF ICLOUD SYNCHRONIZATION ATM.
+                // DO NOT PERFORM SIMULTANOUSLY WITH ICLOUD SYNC
 
-        operation.queryCompletionBlock = { cursor, error in
-            print(fetchedRecords)
-        }
+                /*
+                 else if existingBill.favoriteUpdatedTimestamp.timeIntervalSince1970 < serverTimestamp { // need to update local record :
+                 try? self?.realm?.write {
+                 existingBill.favorite = true
+                 existingBill.favoriteUpdatedTimestamp = Date(timeIntervalSince1970: serverTimestamp)
+                 }
+                 }
 
-        icloudDb.add(operation)
+                 // else: timestamps are equal, nothing to update
+                 // (...)
+
+                 } else { // Need to create and load a non-existing bill
+                 UserServices.downloadNonExistingBillBySync(withNumber: billNumber, favoriteTimestamp: serverTimestamp)
+                 */
+            }
+
+        })
     }
 
 }

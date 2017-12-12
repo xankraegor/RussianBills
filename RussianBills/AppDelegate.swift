@@ -38,12 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initializing Synchronization manager
         syncman = SyncMan.shared
 
-        // Initalizing iCloud sync engaine
+        // Remote notifications
         UIApplication.shared.registerForRemoteNotifications()
-        syncman?.iCloudStorage = BillSyncContainerStorage()
-        if let storage = syncman?.iCloudStorage {
-            syncman?.iCloudSyncEngine = IcloudSyncEngine(storage: storage)
-        }
 
         // Enabling user notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
