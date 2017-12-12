@@ -124,7 +124,7 @@ final class BillCardTableViewController: UITableViewController {
 
     func fetchExistingBillData(withBill: Bill_? = nil) {
         if let bill = bill {
-            navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
+            navigationItem.title = bill.favorite ? "№ \(bill.number) 🎖" : " № \(bill.number)"
             billTypeLabel?.text = bill.lawType.description
             billTitle?.text = bill.name
             billCommentsLabel?.text = bill.comments
@@ -144,7 +144,7 @@ final class BillCardTableViewController: UITableViewController {
 
             tableView.reloadData()
         } else if let favbill = favoriteBill {
-            navigationItem.title = "🎖\(favbill.number)"
+            navigationItem.title = "№ \(favbill.number) 🎖"
             billTitle?.text = favbill.name
             billCommentsLabel?.text = favbill.comments
 
@@ -160,7 +160,7 @@ final class BillCardTableViewController: UITableViewController {
             UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: favbill.number), completion: { [weak self] (bills, _) in
                 DispatchQueue.main.async {
                     guard let bill = bills.first else { return }
-                    self?.navigationItem.title = bill.favorite ? "🎖\(bill.number)" : "📃\(bill.number)"
+                    self?.navigationItem.title = bill.favorite ? "№ \(bill.number) 🎖" : "№ \(bill.number)"
                     self?.billTypeLabel?.text = bill.lawType.description
                     self?.billTitle?.text = bill.name
                     self?.billCommentsLabel?.text = bill.comments
@@ -229,7 +229,7 @@ final class BillCardTableViewController: UITableViewController {
         }))
 
         if let fav = bill?.favorite, let number = bill?.number {
-            alert.addAction(UIAlertAction(title: fav ? "Убрать из избранного" : "Добавить в избранное", style: .default, handler: { [weak self] (action) in
+            alert.addAction(UIAlertAction(title: fav ? "Убрать из отслеживаемых" : "Добавить в отслеживаемые", style: .default, handler: { [weak self] (action) in
 
                 let realm = try? Realm()
                 if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number) {
@@ -239,14 +239,14 @@ final class BillCardTableViewController: UITableViewController {
                                 existingFavoriteBill.markedToBeRemovedFromFavorites = true
                             }
                             try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.billSyncContainer)
-                            self?.navigationItem.title = "📃\(number)"
+                            self?.navigationItem.title = "№ \(number)"
                         } else {
                             let newFavoriteBill = FavoriteBill_(fromBill: updBill)
                             try? realm?.write {
                                 realm?.add(newFavoriteBill, update: true)
                             }
                             try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.billSyncContainer)
-                            self?.navigationItem.title = "🎖\(number)"
+                            self?.navigationItem.title = "№ \(number) 🎖"
                         }
                 }
 

@@ -98,22 +98,10 @@
                     <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
-                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
                     </connections>
                 </notificationController>
             </objects>
             <point key="canvasLocation" x="220" y="643"/>
-        </scene>
-        <!--Notification Controller-->
-        <scene sceneID="ZPc-GJ-vnh">
-            <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="RusBillsWatchApp" customModuleProvider="target">
-                    <items>
-                        <label alignment="left" text="Законопроект №12345 обновлен" numberOfLines="0" id="wch-RL-0Mo"/>
-                    </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="518" y="643"/>
         </scene>
     </scenes>
 </document>

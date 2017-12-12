@@ -25,11 +25,6 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 
     fileprivate let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
     fileprivate var validSession: WCSession? {
-        // paired - the user has to have their device paired to the watch
-        // watchAppInstalled - the user must have your watch app installed
-
-        // Note: if the device is paired, but your watch app is not installed
-        // consider prompting the user to install it for a better experience
 
         if let s = session, s.isWatchAppInstalled && s.isPaired {
             return s
@@ -125,10 +120,7 @@ extension WatchSessionManager {
 
     // Receiver
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        // handle receiving application context
-        //DispatchQueue.main.async() {
 
-        //}
     }
 }
 
@@ -143,16 +135,12 @@ extension WatchSessionManager {
     }
 
     func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-        // implement this on the sender if you need to confirm that
-        // the user info did in fact transfer
+
     }
 
     // Receiver
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
-        // handle receiving user info
-        //DispatchQueue.main.async() {
 
-        //}
     }
 
 }
@@ -204,9 +192,6 @@ extension WatchSessionManager {
     }
 
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        // handle receiving message data
-        // DispatchQueue.main.async() {
 
-        // }
     }
 }
