@@ -77,7 +77,7 @@ final class FavoritesTableViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.searchBarStyle = .minimal
-
+        searchController.searchBar.placeholder = "Фильтровать"
         definesPresentationContext = true
 
         if #available(iOS 11.0, *) {

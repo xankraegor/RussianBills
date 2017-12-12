@@ -290,6 +290,7 @@ extension SimpleTableViewController {
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.placeholder = "Фильтровать"
 
         if objectsToDisplay?.typeUsedForObjects === FederalSubject_.self ||
             objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
