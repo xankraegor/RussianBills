@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--🛠 Критерии поиска-->
+        <!--Критерии поиска-->
         <scene sceneID="bu7-2L-Cv7">
             <objects>
                 <viewController id="ldw-gj-cUn" customClass="SearchFormController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -24,8 +24,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="🛠 Критерии поиска" largeTitleDisplayMode="never" id="136-fa-jIL">
+                    <navigationItem key="navigationItem" title="Критерии поиска" largeTitleDisplayMode="never" id="136-fa-jIL">
                         <barButtonItem key="rightBarButtonItem" title="Начать" id="N2C-dc-EFb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Qs9-rJ-346" kind="show" identifier="SearchResultsSegueId" id="E6z-qO-Roa"/>
                             </connections>
@@ -36,7 +37,7 @@
             </objects>
             <point key="canvasLocation" x="2422" y="82"/>
         </scene>
-        <!--🔍 Результаты поиска -->
+        <!--Результаты поиска -->
         <scene sceneID="aEd-vK-kaR">
             <objects>
                 <tableViewController id="Qs9-rJ-346" customClass="SearchResultsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -104,14 +105,14 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="🔍 Результаты поиска " largeTitleDisplayMode="never" id="cg6-YU-k94"/>
+                    <navigationItem key="navigationItem" title="Результаты поиска " largeTitleDisplayMode="never" id="cg6-YU-k94"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoK-Nr-qo4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3176.8000000000002" y="79.610194902548727"/>
         </scene>
-        <!--🇷🇺 Законопроекты-->
+        <!--ろаконопроекты-->
         <scene sceneID="ssA-En-DFa">
             <objects>
                 <tableViewController storyboardIdentifier="MainSceneID" id="EIW-S8-JWd" customClass="MainTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -424,7 +425,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="🇷🇺 Законопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
+                    <navigationItem key="navigationItem" title="ろаконопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="updatedFavoriteBillsCountLabel" destination="xlB-Pv-Gh7" id="hi5-DL-LMF"/>
@@ -1046,6 +1047,7 @@
                     <navigationItem key="navigationItem" title="📃№ 123456-7" id="BG1-9U-MPp">
                         <barButtonItem key="backBarButtonItem" title="Back" id="J7h-ad-HKQ"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qQy-m7-8zp">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="composeButtonPressed:" destination="lxy-Bg-9id" id="njW-QK-bpm"/>
                             </connections>
@@ -1100,7 +1102,7 @@
                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="vGc-Fe-bPC"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
@@ -1548,14 +1550,26 @@
             <objects>
                 <navigationController storyboardIdentifier="rootViewControllerId" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="FV3-Kl-nKh" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ru2-vz-ih3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Ru2-vz-ih3">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.11372549019607843" green="0.46274509803921571" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="UGK-Lf-FAk">
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="EIW-S8-JWd" kind="relationship" relationship="rootViewController" id="JSQ-bR-SKG"/>
@@ -1574,7 +1588,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="СИНХРОНИЗАЦИЯ" id="CwD-Ac-nb4">
+                            <tableViewSection headerTitle="СИНХРОНИЗАЦИЯ" footerTitle="При включении синхронизации Вам будет предложено заменить избранное на устройстве или на сервере" id="CwD-Ac-nb4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uTr-2q-pEx" rowHeight="45" style="IBUITableViewCellStyleDefault" id="Vi2-CJ-7KP">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="45"/>
@@ -1592,6 +1606,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="tintColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="Zc5-U5-uJ4" kind="show" id="QNS-nE-8dy"/>
@@ -1644,10 +1659,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Обновлять законопроекты каждые" id="7eb-eB-env">
+                            <tableViewSection headerTitle="Обнолвение законопроектов" footerTitle="Укажите предпочитаемый период автоматического обновления информации о законопроектах" id="7eb-eB-env">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="54" id="GDB-Go-Udu">
-                                        <rect key="frame" x="0.0" y="246.5" width="375" height="54"/>
+                                        <rect key="frame" x="0.0" y="298" width="375" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GDB-Go-Udu" id="NyJ-N8-UPx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="53.5"/>
@@ -1668,7 +1683,7 @@
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="Bcs-dZ-MFh"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="82" id="W29-lg-Txz"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1687,10 +1702,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="HAh-ru-DPY">
+                            <tableViewSection headerTitle="Сохраненные документы" footerTitle="Вы можете удалить все сохраненные документы для высвобождения дополнительного места на устройстве" id="HAh-ru-DPY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="Lvn-m5-ezK" rowHeight="77" style="IBUITableViewCellStyleDefault" id="Px5-5z-Gut">
-                                        <rect key="frame" x="0.0" y="336.5" width="375" height="77"/>
+                                        <rect key="frame" x="0.0" y="443.5" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Px5-5z-Gut" id="veO-Wr-9NG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
@@ -1700,7 +1715,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="343" height="76.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1710,7 +1725,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nrA-fr-ntN" style="IBUITableViewCellStyleDefault" id="sBL-S5-Khe">
-                                        <rect key="frame" x="0.0" y="413.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="520.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sBL-S5-Khe" id="CxK-Vd-Wq4">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1727,62 +1742,81 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="grC-uA-oRr" style="IBUITableViewCellStyleDefault" id="f9a-hy-e8c">
-                                        <rect key="frame" x="0.0" y="457.5" width="375" height="44"/>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="О программе" id="Rkv-XB-RDF">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="101" id="Uix-3A-FYL">
+                                        <rect key="frame" x="0.0" y="664.5" width="375" height="101"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9a-hy-e8c" id="jM4-nO-QGg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uix-3A-FYL" id="DFZ-jc-EUa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Локальная база данных занимает 20 кб" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="grC-uA-oRr">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xan_logo_small" translatesAutoresizingMaskIntoConstraints="NO" id="RwR-eA-k1c">
+                                                    <rect key="frame" x="20" y="20" width="64" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="64" id="vvh-pi-ueh"/>
+                                                        <constraint firstAttribute="width" constant="64" id="zac-jp-yyi"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-2J-Ocb">
+                                                    <rect key="frame" x="84" y="20" width="271" height="64"/>
+                                                    <string key="text">Антон Алексеев
+© Xan Kraegor, 2017</string>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="YBC-2J-Ocb" firstAttribute="height" secondItem="RwR-eA-k1c" secondAttribute="height" id="EOe-YZ-32I"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YBC-2J-Ocb" secondAttribute="bottom" constant="6" id="GCY-c4-CPD"/>
+                                                <constraint firstItem="YBC-2J-Ocb" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="topMargin" constant="9" id="JcW-TO-D8C"/>
+                                                <constraint firstItem="YBC-2J-Ocb" firstAttribute="leading" secondItem="RwR-eA-k1c" secondAttribute="trailing" id="QMM-Ht-4G2"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RwR-eA-k1c" secondAttribute="bottom" constant="6" id="VOE-CY-TC1"/>
+                                                <constraint firstItem="RwR-eA-k1c" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="top" constant="20" symbolic="YES" id="X5x-9p-eqO"/>
+                                                <constraint firstAttribute="trailing" secondItem="YBC-2J-Ocb" secondAttribute="trailing" constant="20" symbolic="YES" id="kbv-ed-ru4"/>
+                                                <constraint firstItem="RwR-eA-k1c" firstAttribute="leading" secondItem="DFZ-jc-EUa" secondAttribute="leading" constant="20" symbolic="YES" id="uXK-pw-osc"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="О программе" id="tv1-JZ-GS0">
+                            <tableViewSection id="HYj-NX-lgP">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="8hP-1M-K6U" rowHeight="105" style="IBUITableViewCellStyleDefault" id="O2e-6Y-JfH">
-                                        <rect key="frame" x="0.0" y="557.5" width="375" height="105"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="4v3-Yt-1jF" rowHeight="100" style="IBUITableViewCellStyleDefault" id="Qra-BU-plD">
+                                        <rect key="frame" x="0.0" y="801.5" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O2e-6Y-JfH" id="CFC-Sj-27P">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qra-BU-plD" id="yjr-Gu-Jhm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8hP-1M-K6U">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="104.5"/>
+                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4v3-Yt-1jF">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="99.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Программа построена на базе API и информации из системы обеспечения законодательной деятельности Государственной автоматизированной системы «Законотворчество» (СОЗД ГАС «Законотворчество»)
 © 2017 Государственная Дума Федерального Собрания Российской Федерации</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="mgU-df-tuT" rowHeight="48" style="IBUITableViewCellStyleDefault" id="gcI-YR-AJU">
-                                        <rect key="frame" x="0.0" y="662.5" width="375" height="48"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="ohY-fc-G03" style="IBUITableViewCellStyleDefault" id="0u6-Wz-Jek">
+                                        <rect key="frame" x="0.0" y="901.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gcI-YR-AJU" id="6b5-kC-D6s">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0u6-Wz-Jek" id="Fuw-GQ-Sg6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="В программе использованы изображения, созданные Dimitry Miroliubov ( https://www.flaticon.com/packs/files-8 )" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mgU-df-tuT">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="47.5"/>
+                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="В программе использованы изображения, созданные Dimitry Miroliubov ( https://www.flaticon.com/packs/files-8 )" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ohY-fc-G03">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1806,7 +1840,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="authStatusLabel" destination="bes-By-zmI" id="e7n-2w-1P9"/>
-                        <outlet property="dataBaseSizeLabel" destination="grC-uA-oRr" id="zxX-aV-xdi"/>
                         <outlet property="downloadedAttachmentsDeleteCell" destination="sBL-S5-Khe" id="cDK-5N-aEp"/>
                         <outlet property="downloadedFilesSizeLabel" destination="Lvn-m5-ezK" id="BLr-yG-NYB"/>
                         <outlet property="sliderTimeLabel" destination="3Tt-Wj-5Ul" id="jYl-Jv-Oki"/>
@@ -1820,6 +1853,7 @@
         <!--Авторизация-->
         <scene sceneID="1CN-P6-yQm">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTS-at-KEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Авторизация" id="Zc5-U5-uJ4" customClass="AuthFormController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="65Z-ep-tDe"/>
@@ -1831,18 +1865,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gTS-at-KEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2422" y="1612"/>
         </scene>
     </scenes>
     <resources>
         <image name="file_doc" width="410" height="410"/>
+        <image name="xan_logo_small" width="85" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lBj-yx-6tQ"/>
         <segue reference="0xS-fK-VXV"/>
-        <segue reference="LwO-fy-era"/>
+        <segue reference="ECW-Zv-M8L"/>
         <segue reference="3EB-K3-3Dt"/>
     </inferredMetricsTieBreakers>
 </document>

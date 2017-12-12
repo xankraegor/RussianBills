@@ -11,7 +11,6 @@ import UIKit
 final class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel?
-    @IBOutlet weak var dataBaseSizeLabel: UILabel?
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell?
     @IBOutlet weak var authStatusLabel: UILabel?
     @IBOutlet weak var updateBillsTimeoutSlider: UISlider?
@@ -25,7 +24,6 @@ final class SettingsTableViewController: UITableViewController {
         navigationController?.isToolbarHidden = true
         tableView.delegate = self
         setSizeLabelText()
-        setDBSizeLabelText()
         authStatusLabel?.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
     }
 
@@ -72,13 +70,6 @@ final class SettingsTableViewController: UITableViewController {
             let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
             downloadedFilesSizeLabel?.text = "Загруженные приложения к законопроектам занимают \(size)"
         }
-    }
-
-    func setDBSizeLabelText() {
-        let path = FilesManager.defaultRealmPath().absoluteString
-        print(path)
-        let size = FilesManager.sizeOfFile(atPath: path) ?? "0 байт"
-        dataBaseSizeLabel?.text = "База данных законопроектов занимает \(size)"
     }
 
 }

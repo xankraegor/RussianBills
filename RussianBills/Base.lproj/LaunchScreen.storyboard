@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,34 +18,48 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZ4-Ne-H3Y">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUy-46-1mA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                <subviews>
+                                    <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Zd4-qp-Zos">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <color key="barTintColor" red="0.070588238540000001" green="0.42323197587777778" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <items>
+                                            <navigationItem id="HOG-2l-5qo"/>
+                                        </items>
+                                    </navigationBar>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Zd4-qp-Zos" secondAttribute="trailing" id="KLo-iG-EgT"/>
+                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="top" secondItem="TUy-46-1mA" secondAttribute="top" constant="44" id="Yll-JX-SgT"/>
+                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="top" secondItem="TUy-46-1mA" secondAttribute="bottom" constant="-52" id="lJi-py-sjN"/>
+                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="leading" secondItem="TUy-46-1mA" secondAttribute="leading" id="ryB-Q4-uQu"/>
+                                </constraints>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Eeg-f3-dxi">
+                                <rect key="frame" x="0.0" y="734" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <navigationItem id="ES1-Bo-mvh"/>
+                                    <barButtonItem id="Mfh-c5-ULF"/>
                                 </items>
-                            </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9B-lS-bi5">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items/>
+                                <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="i9B-lS-bi5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Hsw-z5-HAY"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="i9B-lS-bi5" secondAttribute="bottom" id="MYt-U9-fFo"/>
-                            <constraint firstAttribute="trailing" secondItem="i9B-lS-bi5" secondAttribute="trailing" id="Qfn-ud-jcF"/>
-                            <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Yqh-iP-r1Y"/>
-                            <constraint firstItem="uZ4-Ne-H3Y" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="iEh-5v-9tp"/>
-                            <constraint firstAttribute="trailing" secondItem="uZ4-Ne-H3Y" secondAttribute="trailing" id="pa0-ND-fY7"/>
+                            <constraint firstItem="TUy-46-1mA" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="BVc-Mw-lam"/>
+                            <constraint firstAttribute="trailing" secondItem="TUy-46-1mA" secondAttribute="trailing" id="UFh-eX-A4y"/>
+                            <constraint firstItem="TUy-46-1mA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="yKP-5Q-96H"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="52" y="374.6305418719212"/>
         </scene>
     </scenes>
 </document>
