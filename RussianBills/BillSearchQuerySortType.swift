@@ -30,4 +30,6 @@ enum BillSearchQuerySortType: String, CustomStringConvertible {
             }
         }
     }
+
+    static let allValues = [name, number, date, date_asc, last_event_date, last_event_date_asc, responsible_committee]
 }

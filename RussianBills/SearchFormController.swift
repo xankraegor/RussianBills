@@ -14,11 +14,43 @@ final class SearchFormController: FormViewController {
     
     var query = BillSearchQuery() {
         didSet {
-            preprocessRequest(usingQuery: query, afterSeconds: 0.5)
+            preprocessRequest(usingQuery: query, afterSeconds: 1.0)
         }
     }
 
     var prefetchedBills = false
+
+    lazy var deputies: [Deputy_] = {
+        if let members = try? Realm().objects(Deputy_.self).filter("position CONTAINS[cd] 'депутат'").sorted(byKeyPath: "name", ascending: true) {
+            return Array(members)
+        } else {
+            return []
+        }
+    }()
+
+    lazy var councilMembers: [Deputy_] = {
+        if let members = try? Realm().objects(Deputy_.self).filter("position CONTAINS[cd] 'член'").sorted(byKeyPath: "name", ascending: true) {
+            return Array(members)
+        } else {
+            return []
+        }
+    }()
+
+    lazy var federalSubjects: [FederalSubject_] = {
+        if let members = try? Realm().objects(FederalSubject_.self).sorted(byKeyPath: "id", ascending: true) {
+            return Array(members)
+        } else {
+            return []
+        }
+    }()
+
+    lazy var regionalSubjects: [RegionalSubject_] = {
+        if let members = try? Realm().objects(RegionalSubject_.self).sorted(byKeyPath: "name", ascending: true) {
+            return Array(members)
+        } else {
+            return []
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +100,7 @@ final class SearchFormController: FormViewController {
                         let dateRow: DateRow? = self?.form.rowBy(tag: "beginDate")
                         if let existingDate = dateRow?.value {
                             self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
-                            } else {
+                        } else {
                             assertionFailure("∆ Something went wrong with accessing begin date from the search form")
                         }
                     } else {
@@ -116,6 +148,214 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationEnd = Date.ISOStringFromDate(date: existingDate)
                     }
                 })
+
+            +++ Section("Субъекты закинициативы")
+
+            // MARK: Duma Deputy
+
+            <<< SwitchRow("deputySwitch"){
+                $0.title = "Депутат Госдумы РФ"
+                $0.value = false
+                }.onChange({ [weak self] (row) in
+                    let switchValue = row.value ?? false
+                    if switchValue {
+                        let councilSwitch = self?.form.rowBy(tag: "councilSwitch")
+                        (councilSwitch as! SwitchRow).value = false
+                        councilSwitch?.updateCell()
+                        // Set value from end date to query
+                        if let dict = self?.form.values(includeHidden: true),
+                            let deputy = dict["deputyPerson"] as? Deputy_ {
+                            self?.query.deputyId = deputy.id
+                        } else {
+                            assertionFailure("∆ Something went wrong with accessing deputy from the search form")
+                        }
+                    } else {
+                        // Nullify the date
+                        self?.query.deputyId = nil
+                    }
+                })
+
+            <<< PushRow<Deputy_>("deputyPerson") {
+                $0.selectorTitle = "Выберите депутата"
+                var deps = deputies
+                let absentValue = Deputy_(__withFakeName: "Любой")
+                deps.insert(absentValue, at: 0)
+                $0.options = deps
+                $0.value = absentValue // initially selected
+                $0.hidden = Condition.function(["deputySwitch"], { form in
+                    return !((form.rowBy(tag: "deputySwitch") as? SwitchRow)?.value ?? false)
+                })
+                $0.displayValueFor = {
+                    if let deputyName = $0?.name, deputyName != "Любой", let deputyCurrent = $0?.isCurrent {
+                        return "\(deputyCurrent ? "✅" : "⏹") \(deputyName) "
+                    }
+                    return "Любой"
+                }
+                $0.cell.textLabel?.numberOfLines = 0
+                }
+                .onChange { [weak self] row in
+                    if row.value?.id == 0 { // Absent value
+                        self?.query.deputyId = nil
+                    } else if let id = row.value?.id, let deputy = try? Realm().object(ofType: Deputy_.self, forPrimaryKey: id), let existingDeputy = deputy {
+                        self?.query.deputyId = existingDeputy.id
+                    }
+            }
+
+            // MARK: Council Member
+
+            <<< SwitchRow("councilSwitch"){
+                $0.title = "Член Совета Федерации"
+                $0.value = false
+                }.onChange({ [weak self] (row) in
+                    let switchValue = row.value ?? false
+                    if switchValue {
+                        let deputySwitch = self?.form.rowBy(tag: "deputySwitch")
+                        (deputySwitch as! SwitchRow).value = false
+                        deputySwitch?.updateCell()
+                        // Set value from end date to query
+                        if let dict = self?.form.values(includeHidden: true),
+                            let deputy = dict["councilPerson"] as? Deputy_ {
+                            self?.query.deputyId = deputy.id
+                        } else {
+                            assertionFailure("∆ Something went wrong with accessing council member from the search form")
+                        }
+                    } else {
+                        // Nullify the date
+                        self?.query.deputyId = nil
+                    }
+                })
+
+            <<< PushRow<Deputy_>("councilPerson") {
+                $0.selectorTitle = "Выберите члена Совета Федерации"
+                var deps = councilMembers
+                let absentValue = Deputy_(__withFakeName: "Любой")
+                deps.insert(absentValue, at: 0)
+                $0.options = deps
+                $0.value = absentValue // initially selected
+                $0.hidden = Condition.function(["councilSwitch"], { form in
+                    return !((form.rowBy(tag: "councilSwitch") as? SwitchRow)?.value ?? false)
+                })
+                $0.displayValueFor = {
+                    if let deputyName = $0?.name, deputyName != "Любой", let deputyCurrent = $0?.isCurrent {
+                        return "\(deputyCurrent ? "✅" : "⏹") \(deputyName) "
+                    }
+                    return "Любой"
+                }
+                $0.cell.textLabel?.numberOfLines = 0
+                }
+                .onChange { [weak self] row in
+                    if row.value?.id == 0 { // Absent value
+                        self?.query.deputyId = nil
+                    } else if let id = row.value?.id, let deputy = try? Realm().object(ofType: Deputy_.self, forPrimaryKey: id), let existingDeputy = deputy {
+                        self?.query.deputyId = existingDeputy.id
+                    }
+            }
+
+            // MARK: Federal Subject
+
+            <<< SwitchRow("federalSwitch"){
+                $0.title = "Федеральный орган госвласти"
+                $0.value = false
+                }.onChange({ [weak self] (row) in
+                    let switchValue = row.value ?? false
+                    if switchValue {
+                        // Set value from end date to query
+                        if let dict = self?.form.values(includeHidden: true),
+                            let fed = dict["federalBody"] as? FederalSubject_ {
+                            self?.query.federalSubjectId = fed.id
+                        } else {
+                            assertionFailure("∆ Something went wrong with accessing deputy from the search form")
+                        }
+                    } else {
+                        // Nullify the date
+                        self?.query.federalSubjectId = nil
+                    }
+                })
+
+            <<< PushRow<FederalSubject_>("federalBody") {
+                $0.selectorTitle = "Выберите федеральный орган власти"
+                var feds = federalSubjects
+                let absentValue = FederalSubject_(__withFakeName: "Любой")
+                feds.insert(absentValue, at: 0)
+                $0.options = feds
+                $0.value = absentValue // initially selected
+                $0.hidden = Condition.function(["federalSwitch"], { form in
+                    return !((form.rowBy(tag: "federalSwitch") as? SwitchRow)?.value ?? false)
+                })
+                $0.displayValueFor = {
+                    if let name = $0?.name, name != "Любой", let current = $0?.isCurrent {
+                        return "\(current ? "✅" : "⏹") \(name) "
+                    }
+                    return "Любой"
+                }
+                $0.cell.textLabel?.numberOfLines = 0
+                }
+                .onChange { [weak self] row in
+                    if row.value?.id == 0 { // Absent value
+                        self?.query.deputyId = nil
+                    } else if let id = row.value?.id, let deputy = try? Realm().object(ofType: Deputy_.self, forPrimaryKey: id), let existingDeputy = deputy {
+                        self?.query.deputyId = existingDeputy.id
+                    }
+
+            }
+
+            // MARK: Regional Subject
+
+            <<< SwitchRow("regionalSwitch"){
+                $0.title = "Региональный орган зак. власти"
+                $0.value = false
+                }.onChange({ [weak self] (row) in
+                    let switchValue = row.value ?? false
+                    if switchValue {
+                        // Set value from end date to query
+                        if let dict = self?.form.values(includeHidden: true),
+                            let reg = dict["regionalBody"] as? RegionalSubject_ {
+                            self?.query.regionalSubjectId = reg.id
+                        } else {
+                            assertionFailure("∆ Something went wrong with accessing regional subject from the search form")
+                        }
+                    } else {
+                        // Nullify the date
+                        self?.query.regionalSubjectId = nil
+                    }
+                })
+
+            <<< PushRow<RegionalSubject_>("regionalBody") {
+                $0.selectorTitle = "Выберите региональный орган власти"
+                var regs = regionalSubjects
+                let absentValue = RegionalSubject_(__withFakeName: "Любой")
+                regs.insert(absentValue, at: 0)
+                $0.options = regs
+                $0.value = absentValue // initially selected
+                $0.hidden = Condition.function(["regionalSwitch"], { form in
+                    return !((form.rowBy(tag: "regionalSwitch") as? SwitchRow)?.value ?? false)
+                })
+                $0.displayValueFor = {
+                    if let name = $0?.name, name != "Любой", let current = $0?.isCurrent {
+                        return "\(current ? "✅" : "⏹") \(name) "
+                    }
+                    return "Любой"
+                }
+                $0.cell.textLabel?.numberOfLines = 0
+                }
+                .onChange { [weak self] row in
+                    if row.value?.id == 0 { // Absent value
+                        self?.query.deputyId = nil
+                    } else if let id = row.value?.id, let deputy = try? Realm().object(ofType: Deputy_.self, forPrimaryKey: id), let existingDeputy = deputy {
+                        self?.query.deputyId = existingDeputy.id
+                    }
+        }
+
+        +++ Section("Порядок сортировки")
+        <<< PushRow<String>("sortOrder") {
+                $0.title = ""
+                $0.selectorTitle = "Выберите порядок сортировки"
+                $0.options = BillSearchQuerySortType.allValues.map{$0.description}
+                $0.value = BillSearchQuerySortType.last_event_date.description  // initially selected
+                }.onChange { [weak self] row in
+                    self?.setSortOrder(to: row.value ?? "")
+            }
+
     }
 
     // MARK: - Updating Query
@@ -157,6 +397,28 @@ final class SearchFormController: FormViewController {
             query.status = BillStatus.submitted
         default:
             query.status = nil
+        }
+    }
+
+    func setSortOrder(to order: String) {
+
+        switch order {
+        case BillSearchQuerySortType.name.description:
+            query.sortType = .name
+        case BillSearchQuerySortType.number.description:
+            query.sortType = .number
+        case BillSearchQuerySortType.date.description:
+            query.sortType = .date
+        case BillSearchQuerySortType.date_asc.description:
+            query.sortType = .date_asc
+        // case BillSearchQuerySortType.last_event_date.description
+        case BillSearchQuerySortType.last_event_date_asc.description:
+            query.sortType = .last_event_date_asc
+        case BillSearchQuerySortType.responsible_committee.description:
+            query.sortType = .responsible_committee
+        default:
+            //case last_event_date:
+            query.sortType = .last_event_date
         }
     }
 
