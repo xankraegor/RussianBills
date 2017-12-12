@@ -81,33 +81,35 @@ extension RequestRouter {
         }
 
         /// federal_subject — идентификатор федерального органа власти — субъекта законодательной инициативы
-        if let fedSubj = query.federalSubject {
-            dict["federal_subject"] = fedSubj.id
+        if let fedSubj = query.federalSubjectId {
+            dict["federal_subject"] =  fedSubj
         }
 
         /// regional_subject — идентификатор регионального органа власти — субъекта законодательной инициативы
-        if let regSubj = query.regionalSubject {
-            dict["regional_subject"] = regSubj.id
+        if let regSubj = query.regionalSubjectId {
+            dict["regional_subject"] = regSubj
         }
 
         /// deputy — идентификатор депутата ГД или члена СФ — субъекта законодательной инициативы
-        if let deputy = query.deputy {
-            dict["deputy"] = deputy.id
+        if let deputy = query.deputyId {
+            dict["deputy"] = deputy
         }
 
+        
+
         /// responsible_committee — идентификатор ответственного комитета
-        if let respComittee = query.committeeResponsible {
-            dict["responsible_committee"] = respComittee.id
+        if let respComittee = query.committeeResponsibleId {
+            dict["responsible_committee"] = respComittee
         }
 
         /// soexecutor_committee — идентификатор комитета-соисполнителя
-        if let coexecCommittee = query.committeeCoexecutor {
-            dict["soexecutor_committee"] = coexecCommittee.id
+        if let coexecCommittee = query.committeeCoexecutorId {
+            dict["soexecutor_committee"] = coexecCommittee
         }
 
         /// profile_committee — идентификатор профильного комитета
-        if let profileCommittee = query.committeeProfile {
-            dict["profile_committee"] = profileCommittee.id
+        if let profileCommittee = query.committeeProfileId {
+            dict["profile_committee"] = profileCommittee
         }
 
         /// ПАРАМЕТРЫ ПОИСКА ПО СОБЫТИЯМ
