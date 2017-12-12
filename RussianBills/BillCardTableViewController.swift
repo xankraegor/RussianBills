@@ -239,21 +239,24 @@ final class BillCardTableViewController: UITableViewController {
 
                 let realm = try? Realm()
                 if let updBill = realm?.object(ofType: Bill_.self, forPrimaryKey: self?.bill?.number)  {
-                    try? realm?.write {
-                        if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number) {
+
+                        if let existingFavoriteBill = realm?.object(ofType: FavoriteBill_.self, forPrimaryKey: updBill.number), existingFavoriteBill.markedToBeRemovedFromFavorites == false {
                             try? realm?.write {
                                 existingFavoriteBill.markedToBeRemovedFromFavorites = true
                             }
                             try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.billSyncContainer)
+                            self?.navigationItem.title = "📃\(number)"
                         } else {
                             let newFavoriteBill = FavoriteBill_(fromBill: updBill)
-                            realm?.add(newFavoriteBill, update: true)
+                            try? realm?.write {
+                                realm?.add(newFavoriteBill, update: true)
+                            }
                             try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.billSyncContainer)
+                            self?.navigationItem.title = "🎖\(number)"
                         }
-                    }
                 }
 
-                self?.navigationItem.title = fav ? "🎖\(number)" : "📃\(number)"
+
 
 
             }))
