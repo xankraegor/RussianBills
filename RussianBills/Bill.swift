@@ -10,13 +10,13 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-final class Bill_: Object, InitializableWithJson {
+final class Bill_: Object {
 
     @objc dynamic var number: String = ""
     @objc dynamic var name: String = ""
 
     @objc dynamic var id: Int = 0
-    @objc dynamic var lawType: LawType = LawType.federalLaw
+    @objc dynamic var lawType: LawType = LawType.undefined
     @objc dynamic var comments: String = ""
     @objc dynamic var introductionDate: String = ""
     @objc dynamic var url: String = ""
@@ -50,14 +50,156 @@ final class Bill_: Object, InitializableWithJson {
         }
     }
 
-    // MARK: - Initialization
+    override static func primaryKey() -> String {
+        return "number"
+    }
+
+    // MARK: - Helper functions
+
+    func generateSolutionDescription() -> String? {
+        return lastEventSolutionDescription.count > 0 ? lastEventSolutionDescription : nil
+    }
+
+    func generateLastEventDocumentDescription()->String {
+        var output = ""
+        output += lastEventDocumentType.count > 0 ? lastEventDocumentType + " " : ""
+        output += lastEventDocumentName.count > 0 ? lastEventDocumentName + " " : ""
+        return output.count > 0 ? output : "Не указан"
+    }
+
+    func generateLastEventDateDescription()->String {
+        return lastEventDate.isoDateToReadableDate() ?? "Не указана"
+    }
+
+    func generateSubjectsDescription() -> String? {
+        var output: [String] = []
+        factions.forEach({output.append($0.name)})
+        deputies.forEach({output.append("\($0.position) \($0.name)")})
+        federalSubjects.forEach({output.append($0.name)})
+        regionalSubjects.forEach({output.append($0.name)})
+        return output.joined(separator: "; ")
+    }
+
+    func generateCoexecitorCommitteesDescription() -> String {
+        guard committeeCoexecutor.count > 0 else {
+            return "Не указаны"
+        }
+        return committeeCoexecutor.map{$0.name}.joined(separator: "; ")
+    }
+
+    func generateProfileCommitteesDescription()->String {
+        guard committeeProfile.count > 0 else {
+            return "Не указаны"
+        }
+        return committeeProfile.map{$0.name}.joined(separator: "; ")
+    }
+
+    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
+        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
+        return textWithoutSpaces.count > 0 ? source : replacementText
+    }
+
+    public func generateHashForLastEvent()->String {
+        let lastEventStageDescr = lastEventStage?.name ?? ""
+        let lastEventStageHash = lastEventStageDescr.hashValue
+        let lastEventPhaseDescr = lastEventPhase?.name ?? ""
+        let lastEventPhaseHash = lastEventPhaseDescr.hashValue
+        let lastEventSolutionDescriptionHash = lastEventSolutionDescription.hashValue
+        let lastEventDateHash = lastEventDate.hashValue
+        let lastEventDocumentNameHash = lastEventDocumentName.hashValue
+        let lastEventDocumentTypeHash = lastEventDocumentType.hashValue
+        let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)"
+        return combinedHash
+    }
+
+    // MARK: - Additional Description
+
+    override var description: String {
+        let repl = "отсутствует"
+        var output = ""
+
+        output += "Проект нормативно-правового акта №" + replace(WithText: repl, ifMissingSourceText: number) + "\n"
+        output += "Тип нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: lawType.description) + "\n"
+        output += "Наименование проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: name) + "\n"
+        output += "Описание проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: comments) + "\n"
+        output += "Внёсен: " + replace(WithText: repl, ifMissingSourceText: introductionDate) + "\n"
+        output += "Субъекты законодательной инициативы: " + replace(WithText: repl, ifMissingSourceText: generateSubjectsDescription() ?? "") + "\n"
+
+        if let content = parserContent, let parser = BillParserContent.deserialize(data: content) {
+            output += "СОБЫТИЯ РАССМОТРЕНИЯ ПРОЕКТА НОРМАТИВНО-ПРАВОВОГО АКТА\n"
+            for phase in parser.phases {
+                output += String(repeating: " ", count: 5)
+                for event in phase.events {
+                    output += "\n"
+                    output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
+                    output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
+                    output += String(repeating: " ", count: 10) + "Прикреплено документов: \(event.attachments.count)\n"
+                }
+            }
+        } else {
+            output += "Текущая стадия рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventStage?.name ?? "") + "\n"
+            output += "Текущая фаза рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventPhase?.name ?? "") + "\n"
+            output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: generateSolutionDescription() ?? "") + "\n"
+            output += "Дата: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDateDescription()) + "\n"
+            output += "Документ: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDocumentDescription()) + "\n"
+            output += "Ссылка на СОЗД: " + url
+        }
+
+        return output
+    }
+
+    var shortDescription: String {
+        var output = "Законопроект №\(number): \(lawType.description) «\(name)»"
+        if comments.count > 0 { output += "[\(comments)]" }
+        output += "\n\nСсылка на зконопроект: \(url)\n"
+
+        if introductionDate.count > 0 {
+            output += "\nКогда внесён: \(introductionDate)"
+        }
+        if let subjectsDescr = generateSubjectsDescription(), subjectsDescr.count > 0 {
+            output += "\nКем внесён: \(subjectsDescr)"
+        }
+
+        var textArr = Array<String>()
+
+        if let date = lastEventDate.isoDateToReadableDate() {
+            textArr.append(date + ": ")
+        }
+
+        if let phase = lastEventPhase?.name.trimmingCharacters(in: .whitespacesAndNewlines), phase.count > 0 {
+            textArr.append(phase + " — ")
+        }
+
+        if let stage = lastEventStage?.name.trimmingCharacters(in: .whitespacesAndNewlines), stage.count > 0 {
+            textArr.append(stage + " — ")
+        }
+
+        if let solution = generateSolutionDescription() {
+            textArr.append(solution)
+        }
+
+
+        if textArr.count > 0 {
+            output += "\n\(textArr.joined(separator: "\n"))"
+        }
+
+        return output
+    }
+
+}
+
+
+// MARK: - InitializableWithJson
+extension Bill_: InitializableWithJson {
 
     convenience init(withJson json: JSON) {
         self.init()
 
         // Basic values
         id = json["id"].intValue
-        lawType = LawType(rawValue: json["type"]["id"].intValue)!
+        if let lt = LawType(rawValue: json["type"]["id"].intValue) {
+            lawType = lt
+        }
         name = json["name"].stringValue.prettify()
         comments = json["comments"].stringValue.prettify()
         number = json["number"].stringValue
@@ -80,11 +222,7 @@ final class Bill_: Object, InitializableWithJson {
         updated = Date()
     }
 
-    override static func primaryKey() -> String {
-        return "number"
-    }
-
-    // MARK : - Initialization helper functions
+    // MARK: Initialization helper functions
 
     func decodeFactions(_ json: JSON, realm: Realm) {
         let factions = json["subject"]["factions"].arrayValue
@@ -264,138 +402,6 @@ final class Bill_: Object, InitializableWithJson {
         lastEventDate = json["lastEvent"]["date"].stringValue
         lastEventDocumentName = json["lastEvent"]["document"]["name"].stringValue
         lastEventDocumentType = json["lastEvent"]["document"]["type"].stringValue
-    }
-
-    // MARK: - Helper functions
-
-    func generateSolutionDescription() -> String? {
-        return lastEventSolutionDescription.count > 0 ? lastEventSolutionDescription : nil
-    }
-
-    func generateLastEventDocumentDescription()->String {
-        var output = ""
-        output += lastEventDocumentType.count > 0 ? lastEventDocumentType + " " : ""
-        output += lastEventDocumentName.count > 0 ? lastEventDocumentName + " " : ""
-        return output.count > 0 ? output : "Не указан"
-    }
-
-    func generateLastEventDateDescription()->String {
-        return lastEventDate.isoDateToReadableDate() ?? "Не указана"
-    }
-
-    func generateSubjectsDescription() -> String? {
-        var output: [String] = []
-        factions.forEach({output.append($0.name)})
-        deputies.forEach({output.append("\($0.position) \($0.name)")})
-        federalSubjects.forEach({output.append($0.name)})
-        regionalSubjects.forEach({output.append($0.name)})
-        return output.joined(separator: "; ")
-    }
-
-    func generateCoexecitorCommitteesDescription() -> String {
-        guard committeeCoexecutor.count > 0 else {
-            return "Не указаны"
-        }
-         return committeeCoexecutor.map{$0.name}.joined(separator: "; ")
-    }
-
-    func generateProfileCommitteesDescription()->String {
-        guard committeeProfile.count > 0 else {
-            return "Не указаны"
-        }
-        return committeeProfile.map{$0.name}.joined(separator: "; ")
-    }
-
-    private func replace(WithText replacementText: String, ifMissingSourceText source: String)->String {
-        let textWithoutSpaces = source.trimmingCharacters(in: .whitespacesAndNewlines)
-        return textWithoutSpaces.count > 0 ? source : replacementText
-    }
-
-    public func generateHashForLastEvent()->String {
-        let lastEventStageDescr = lastEventStage?.name ?? ""
-        let lastEventStageHash = lastEventStageDescr.hashValue
-        let lastEventPhaseDescr = lastEventPhase?.name ?? ""
-        let lastEventPhaseHash = lastEventPhaseDescr.hashValue
-        let lastEventSolutionDescriptionHash = lastEventSolutionDescription.hashValue
-        let lastEventDateHash = lastEventDate.hashValue
-        let lastEventDocumentNameHash = lastEventDocumentName.hashValue
-        let lastEventDocumentTypeHash = lastEventDocumentType.hashValue
-        let combinedHash = "\(lastEventStageHash)\(lastEventPhaseHash)\(lastEventSolutionDescriptionHash)\(lastEventDateHash)\(lastEventDocumentNameHash)\(lastEventDocumentTypeHash)"
-        return combinedHash
-    }
-
-    // MARK: - Additional Description
-
-    override var description: String {
-        let repl = "отсутствует"
-        var output = ""
-
-        output += "Проект нормативно-правового акта №" + replace(WithText: repl, ifMissingSourceText: number) + "\n"
-        output += "Тип нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: lawType.description) + "\n"
-        output += "Наименование проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: name) + "\n"
-        output += "Описание проекта нормативно-правового акта: " + replace(WithText: repl, ifMissingSourceText: comments) + "\n"
-        output += "Внёсен: " + replace(WithText: repl, ifMissingSourceText: introductionDate) + "\n"
-        output += "Субъекты законодательной инициативы: " + replace(WithText: repl, ifMissingSourceText: generateSubjectsDescription() ?? "") + "\n"
-
-        if let content = parserContent, let parser = BillParserContent.deserialize(data: content) {
-            output += "СОБЫТИЯ РАССМОТРЕНИЯ ПРОЕКТА НОРМАТИВНО-ПРАВОВОГО АКТА\n"
-            for phase in parser.phases {
-                output += String(repeating: " ", count: 5)
-                for event in phase.events {
-                    output += "\n"
-                    output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
-                    output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
-                    output += String(repeating: " ", count: 10) + "Прикреплено документов: \(event.attachments.count)\n"
-                }
-            }
-        } else {
-            output += "Текущая стадия рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventStage?.name ?? "") + "\n"
-            output += "Текущая фаза рассмотрения: " + replace(WithText: repl, ifMissingSourceText: lastEventPhase?.name ?? "") + "\n"
-            output += "Принятое решение: " + replace(WithText: repl, ifMissingSourceText: generateSolutionDescription() ?? "") + "\n"
-            output += "Дата: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDateDescription()) + "\n"
-            output += "Документ: " + replace(WithText: repl, ifMissingSourceText: generateLastEventDocumentDescription()) + "\n"
-            output += "Ссылка на СОЗД: " + url
-        }
-
-        return output
-    }
-
-    var shortDescription: String {
-        var output = "Законопроект №\(number): \(lawType.description) «\(name)»"
-        if comments.count > 0 { output += "[\(comments)]" }
-        output += "\n\nСсылка на зконопроект: \(url)\n"
-
-        if introductionDate.count > 0 {
-            output += "\nКогда внесён: \(introductionDate)"
-        }
-        if let subjectsDescr = generateSubjectsDescription(), subjectsDescr.count > 0 {
-            output += "\nКем внесён: \(subjectsDescr)"
-        }
-
-        var textArr = Array<String>()
-
-        if let date = lastEventDate.isoDateToReadableDate() {
-            textArr.append(date + ": ")
-        }
-
-        if let phase = lastEventPhase?.name.trimmingCharacters(in: .whitespacesAndNewlines), phase.count > 0 {
-            textArr.append(phase + " — ")
-        }
-
-        if let stage = lastEventStage?.name.trimmingCharacters(in: .whitespacesAndNewlines), stage.count > 0 {
-            textArr.append(stage + " — ")
-        }
-
-        if let solution = generateSolutionDescription() {
-            textArr.append(solution)
-        }
-
-
-        if textArr.count > 0 {
-            output += "\n\(textArr.joined(separator: "\n"))"
-        }
-
-        return output
     }
 
 }
