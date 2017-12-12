@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import Alamofire
+import SwiftyJSON
 
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
@@ -372,6 +373,58 @@ enum UserServices {
         } else {
             assertionFailure("∆ UserServices.deleteAttachment cannot generate filePath to delete the file. The file may be already deleted or moved")
         }
+    }
+
+    // MARK: - Custom Keys
+
+    public static func setupCustomApiKeys(apiKey: String, appToken: String, completionMessage: @escaping (Bool, String)->Void) {
+        UserDefaultsCoordinator.setCustomKeys(apiKey: apiKey, appToken: appToken)
+        UserDefaultsCoordinator.setUsingCustomKeys(to: true)
+        UserServices.testSavedCustomKeys { (passing, message) in
+            if !passing {
+                UserDefaultsCoordinator.setUsingCustomKeys(to: false)
+            }
+            completionMessage(passing, message)
+        }
+    }
+
+    public static func resetToDefaultApiKeys() {
+        UserDefaultsCoordinator.setUsingCustomKeys(to: false)
+        UserDefaultsCoordinator.setCustomKeys(apiKey: "", appToken: "")
+    }
+
+    private static func testSavedCustomKeys(completion: @escaping (_ passing: Bool, _ message: String)->Void) {
+        // Error Response {"code":1,"text":"API token _ is not found."}
+
+        let searchQuery = BillSearchQuery(withNumber: "274618-7")
+        guard let requestMessage = RequestRouter.search(bill: searchQuery).urlRequest else { return }
+        Alamofire.request(requestMessage).responseJSON { response in
+            if let error = response.error {
+                completion(false, "Ошибка при сохранении ключей: \(error.localizedDescription)")
+                return
+            }
+
+            if let error = response.result.error {
+                completion(false, "Ошибка при сохранении ключей: \(error.localizedDescription)")
+                return
+            }
+
+            if let contents = response.result.value {
+                let json = JSON(contents)
+                let errorCode: Int = json["code"].intValue
+                let errorMessage: String = json["text"].stringValue
+                if errorCode > 0 {
+                    completion(false, "Ошибка при сохранении ключей: \(errorMessage)")
+                    return
+                }
+
+                let billCount: Int = json["count"].intValue
+                if billCount > 0 {
+                    completion(true, "Сохранение ключей прошло успешно")
+                }
+            }
+        }
+
     }
 
 }

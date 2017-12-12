@@ -38,6 +38,7 @@
 		2A3C164D1FCF66EA00371B1B /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2A3C164F1FCF6A3300371B1B /* MessagesViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */; };
 		2A3D42051FBA594C0034331E /* SynchronizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D42041FBA594C0034331E /* SynchronizationManager.swift */; };
+		2A4310551FE0530A005CC51C /* UserDefaultsCoordinator+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4310541FE0530A005CC51C /* UserDefaultsCoordinator+Keys.swift */; };
 		2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */; };
 		2A4A2BA71FD5E43A00E08F3F /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA51FD5E43A00E08F3F /* Interface.storyboard */; };
 		2A4A2BA91FD5E43A00E08F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4A2BA81FD5E43A00E08F3F /* Assets.xcassets */; };
@@ -255,6 +256,7 @@
 		2A3C16461FCF636900371B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewTableViewCell.swift; sourceTree = "<group>"; };
 		2A3D42041FBA594C0034331E /* SynchronizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationManager.swift; sourceTree = "<group>"; };
+		2A4310541FE0530A005CC51C /* UserDefaultsCoordinator+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsCoordinator+Keys.swift"; sourceTree = "<group>"; };
 		2A45E4FC1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchFieldsReporting.swift; sourceTree = "<group>"; };
 		2A4A2BA31FD5E43A00E08F3F /* RusBillsWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RusBillsWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A4A2BA61FD5E43A00E08F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 			children = (
 				2A75E8FC1F2282F30008FD8F /* FilesManager.swift */,
 				2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */,
+				2A4310541FE0530A005CC51C /* UserDefaultsCoordinator+Keys.swift */,
 				2AE76E1F1FB1383900CE79AF /* FirebaseModel */,
 				2A98F16C1F0AF029004F5524 /* Model */,
 				2AA4D19D1F0C121C00EE2DA3 /* Enums */,
@@ -1255,6 +1258,7 @@
 				2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */,
 				2AA4D1A31F0C37EB00EE2DA3 /* RequestRouterBillParameters.swift in Sources */,
 				2A3A04031F992BB9007D4EFE /* SearchResultsTableViewCell.swift in Sources */,
+				2A4310551FE0530A005CC51C /* UserDefaultsCoordinator+Keys.swift in Sources */,
 				2A8424BD1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift in Sources */,
 				2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */,
 				2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */,

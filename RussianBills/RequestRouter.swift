@@ -36,7 +36,8 @@ enum RequestRouter: URLRequestConvertible {
         case .document(link: _):
             return try "http://asozd2.duma.gov.ru".asURL()
         default:
-            return (try "http://api.duma.gov.ru/api/".asURL()).appendingPathComponent(apiKey())
+
+            return (try "http://api.duma.gov.ru/api/".asURL()).appendingPathComponent(apiKey)
         }
     }
 
@@ -66,7 +67,7 @@ enum RequestRouter: URLRequestConvertible {
     }
 
     private var parameters: Parameters {
-        var dict = ["app_token": appToken()]
+        var dict = ["app_token": appToken]
         switch self {
 
             // Early exit cases
@@ -80,7 +81,7 @@ enum RequestRouter: URLRequestConvertible {
 
         case let .search(bill):
             var billParameters = RequestRouter.generateBillRequestParameters(forQuery: bill)
-            billParameters["app_token"] = appToken()
+            billParameters["app_token"] = appToken
             return billParameters
 
         case let .deputy(beginsWithChars, position, current):
@@ -138,23 +139,23 @@ enum RequestRouter: URLRequestConvertible {
         }
     }
 
-    // MARK: - Private API and app keys
+    // MARK: - Keys ref
 
-    private func appToken() -> String {
-        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
-            if let token = dict["appToken"] as? String {
-                return token
-            }
+    var apiKey: String {
+        if UserDefaultsCoordinator.getUsingCustomKeys() {
+            return UserDefaultsCoordinator.customApiKeys()?.apiKey ?? ""
+        } else {
+            return UserDefaultsCoordinator.apiKey()
         }
-        fatalError("Cannot get app key from Keys.plist")
     }
 
-    private func apiKey() -> String {
-        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
-            if let key = dict["apiKey"] as? String {
-                return key
-            }
+    var appToken: String {
+        if UserDefaultsCoordinator.getUsingCustomKeys() {
+            return UserDefaultsCoordinator.customApiKeys()?.appToken ?? ""
+        } else {
+            return UserDefaultsCoordinator.appToken()
         }
-        fatalError("Cannot get API key from Keys.plist")
     }
+
+    
 }

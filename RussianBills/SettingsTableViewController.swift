@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class SettingsTableViewController: UITableViewController {
 
@@ -15,6 +16,10 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var authStatusLabel: UILabel?
     @IBOutlet weak var updateBillsTimeoutSlider: UISlider?
     @IBOutlet weak var sliderTimeLabel: UILabel?
+
+    @IBOutlet weak var switchKeysButton: UIButton?
+    @IBOutlet weak var switchKeysStatusLabel: UILabel?
+
 
     private let sliderValues: [Double] = [30, 120, 300, 900, 3600] // TimeInterval in seconds
     private let sliderValuesDescription: [String] = ["30 сек.", "2 мин.", "5 мин.", "15 мин.", "1 час"]
@@ -36,6 +41,8 @@ final class SettingsTableViewController: UITableViewController {
             updateBillsTimeoutSlider?.value = 3
             sliderTimeLabel?.text = sliderValuesDescription[3]
         }
+
+        updateKeysCells()
     }
 
     // MARK: - Table View Delegate
@@ -43,9 +50,36 @@ final class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         // Удалить все загруженные файлы
-        if indexPath.section == 0 && indexPath.row == 1 {
+        if indexPath.section == 4 && indexPath.row == 1 {
             FilesManager.deleteAllAttachments()
             setSizeLabelText()
+        }
+
+        if indexPath.section == 5 && indexPath.row == 1 { // About link to github
+            presentSafariWithUrl("https://github.com/xankraegor/RussianBills")
+        }
+
+        if indexPath.section == 6 {
+            switch indexPath.row {
+            case 0:
+                presentSafariWithUrl("http://api.duma.gov.ru/")
+            case 1:
+                presentSafariWithUrl("https://github.com/Alamofire/Alamofire/blob/master/LICENSE")
+            case 2:
+                presentSafariWithUrl("https://github.com/tid-kijyun/Kanna/blob/master/LICENSE")
+            case 3:
+                presentSafariWithUrl("https://github.com/realm/realm-cocoa/blob/master/LICENSE")
+            case 4:
+                presentSafariWithUrl("https://github.com/RxSwiftCommunity/RxRealm/blob/master/LICENSE")
+            case 5:
+                presentSafariWithUrl("https://github.com/ReactiveX/RxSwift/blob/master/LICENSE.md")
+            case 6:
+                presentSafariWithUrl("https://github.com/SwiftyJSON/SwiftyJSON/blob/master/LICENSE")
+            case 7:
+                presentSafariWithUrl("https://www.flaticon.com/packs/files-8")
+            default:
+                break
+            }
         }
     }
 
@@ -57,7 +91,6 @@ final class SettingsTableViewController: UITableViewController {
             UserDefaults.standard.set(sliderValues[sliderPosition - 1], forKey: "favoriteUpdateTimeout")
             sliderTimeLabel?.text = sliderValuesDescription[sliderPosition - 1]
         }
-
     }
 
     // MARK: - Helper functions
@@ -66,6 +99,75 @@ final class SettingsTableViewController: UITableViewController {
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
             let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
             downloadedFilesSizeLabel?.text = "Загруженные приложения к законопроектам занимают \(size)"
+        }
+    }
+
+    // MARK: - Custom Keys
+
+    @IBAction func switchKeysButtonPressed(_ sender: Any) {
+        let usingCustomKeys = UserDefaultsCoordinator.getUsingCustomKeys()
+        if usingCustomKeys {
+            // Reset keys to default
+            UserServices.resetToDefaultApiKeys()
+            updateKeysCells()
+            let alert = UIAlertController(title: "Используются системные ключи" , message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
+            present(alert, animated: true, completion: nil)
+        } else {
+            // Setup new keys
+
+            let alert = UIAlertController(title: "Введите полученные ключи", message: "", preferredStyle: UIAlertControllerStyle.alert)
+
+            alert.addTextField(configurationHandler: {(textField: UITextField!) in
+                textField.placeholder = "Ключ API"
+            })
+
+            alert.addTextField(configurationHandler: {(textField: UITextField!) in
+                textField.placeholder = "Ключ приложения"
+            })
+
+
+            let actionCancel = UIAlertAction(title: "Отменить", style: UIAlertActionStyle.default, handler: nil)
+
+            let actionDone = UIAlertAction(title: "Применить", style: UIAlertActionStyle.default) { [weak self] _ in
+                guard let inputApiKey = alert.textFields?[0].text, let inputAppKey = alert.textFields?[1].text else { return }
+                UserServices.setupCustomApiKeys(apiKey: inputApiKey, appToken: inputAppKey, completionMessage: {
+                    (passing, message) in
+                    let alert = UIAlertController(title: passing ? "Успешно" : "Ошибка" , message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
+                    self?.present(alert, animated: true) {
+                        [weak self] in
+                        self?.updateKeysCells()
+                    }
+                })
+            }
+
+            alert.addAction(actionCancel)
+            alert.addAction(actionDone)
+
+            present(alert, animated: true, completion: nil)
+        }
+    }
+
+
+    func updateKeysCells() {
+        if UserDefaultsCoordinator.getUsingCustomKeys() {
+            switchKeysButton?.setTitle("Использовать ключи приложения", for: UIControlState.normal)
+            switchKeysStatusLabel?.text = "Сейчас исп.: свои ключи"
+        } else {
+            switchKeysButton?.setTitle("Использовать свои ключи", for: UIControlState.normal)
+            switchKeysStatusLabel?.text = "Сейчас исп.: ключи приложения"
+        }
+    }
+
+    @IBAction func getCustomKeysButtonPressed(_ sender: Any) {
+        presentSafariWithUrl("http://api.duma.gov.ru/key-request")
+    }
+
+    func presentSafariWithUrl(_ url: String) {
+        if let url = URL(string: url) {
+            let svc = SFSafariViewController(url: url)
+            present(svc, animated: true, completion: nil)
         }
     }
 
