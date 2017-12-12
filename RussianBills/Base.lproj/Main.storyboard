@@ -1641,8 +1641,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-gV-0Zr">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-gV-0Zr">
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.44497333900000002" green="0.67017237169999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1668,6 +1669,7 @@
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="cTG-in-5lM">
                                                     <rect key="frame" x="18" y="15" width="261" height="25"/>
+                                                    <color key="tintColor" red="0.44497333900000002" green="0.67017237169999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="Xkg-4M-r5W"/>
                                                     </constraints>
@@ -1713,6 +1715,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3m-R5-T0H">
                                                     <rect key="frame" x="20" y="0.0" width="301" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Получить свой ключ"/>
                                                     <connections>
                                                         <action selector="getCustomKeysButtonPressed:" destination="mLy-6O-xIp" eventType="touchUpInside" id="tgO-Tp-8JZ"/>
@@ -2098,6 +2101,6 @@
         <segue reference="lBj-yx-6tQ"/>
         <segue reference="a2n-kh-rhy"/>
         <segue reference="LwO-fy-era"/>
-        <segue reference="hLO-Mz-Bcc"/>
+        <segue reference="3EB-K3-3Dt"/>
     </inferredMetricsTieBreakers>
 </document>
