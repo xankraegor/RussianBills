@@ -11,14 +11,27 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список федеральных органов власти, обладающих ПЗИ
-final class FederalSubject_: Object, InitializableWithJson, QuickSearchFieldsReporting {
+final class FederalSubject_: Object {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var isCurrent: Bool = false
     @objc dynamic var startDate: String = ""
     @objc dynamic var stopDate: String = ""
 
-    convenience required init(withJson json: JSON) {
+    convenience init(__withFakeName name: String) {
+        self.init()
+        self.name = name
+    }
+
+    override static func primaryKey() -> String {
+        return "id"
+    }
+}
+
+// MARK: - InitializableWithJson
+extension FederalSubject_: InitializableWithJson {
+
+    convenience init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
         name = json["name"].stringValue
@@ -27,11 +40,10 @@ final class FederalSubject_: Object, InitializableWithJson, QuickSearchFieldsRep
         stopDate = json["stopDate"].stringValue
     }
 
-    override static func primaryKey() -> String {
-        return "id"
-    }
+}
 
-    // MARK: - QuickSearchFieldsReporting
+// MARK: - QuickSearchFieldsReporting
+extension FederalSubject_: QuickSearchFieldsReporting {
 
     static var searchFields = ["name"]
     static var hasIsCurrent = true

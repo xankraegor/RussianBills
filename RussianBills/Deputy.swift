@@ -11,14 +11,29 @@ import RealmSwift
 import SwiftyJSON
 
 /// Список депутатов Госдумы и членов Совета Федерации
-final class Deputy_: Object, InitializableWithJson, QuickSearchFieldsReporting {
+final class Deputy_: Object {
 
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
     @objc dynamic var position: String = ""
     @objc dynamic var isCurrent: Bool = false
 
-    convenience required init(withJson json: JSON) {
+    convenience init(__withFakeName name: String) {
+        self.init()
+        self.name = name
+    }
+
+    override static func primaryKey() -> String {
+        return "id"
+    }
+
+}
+
+
+// MARK: - InitializableWithJson
+extension Deputy_: InitializableWithJson {
+
+    convenience init(withJson json: JSON) {
         self.init()
         id = json["id"].intValue
         name = json["name"].stringValue
@@ -26,12 +41,13 @@ final class Deputy_: Object, InitializableWithJson, QuickSearchFieldsReporting {
         isCurrent = json["isCurrent"].boolValue
     }
 
-    override static func primaryKey() -> String {
-        return "id"
-    }
+}
 
-    // MARK: - QuickSearchFieldsReporting
+
+// MARK: - QuickSearchFieldsReporting
+extension Deputy_: QuickSearchFieldsReporting {
 
     static var searchFields = ["name", "position"]
     static var hasIsCurrent = true
+
 }
