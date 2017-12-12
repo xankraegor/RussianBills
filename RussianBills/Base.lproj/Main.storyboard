@@ -8,7 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -509,10 +508,10 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="X8g-7w-cfE"/>
-                        <barButtonItem systemItem="add" id="bHI-CM-PyG">
+                        <barButtonItem title="Перейти к поиску" id="bHI-CM-PyG">
                             <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="VmW-rd-EdG" kind="show" id="tzN-ZO-cIZ"/>
+                                <segue destination="ldw-gj-cUn" kind="show" id="hLO-Mz-Bcc"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -1246,211 +1245,6 @@
             </objects>
             <point key="canvasLocation" x="5396" y="79.610194902548727"/>
         </scene>
-        <!--⏱ Быстрое добавление-->
-        <scene sceneID="JCM-tD-7g2">
-            <objects>
-                <viewController id="VmW-rd-EdG" customClass="QuickSearchTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2dU-OV-4CK"/>
-                        <viewControllerLayoutGuide type="bottom" id="91s-gm-5gt"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="65o-Bv-dPr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5l8-VP-Ldh">
-                                <rect key="frame" x="8" y="72" width="359" height="125"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OuH-iF-qPN">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="58.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер - созыв" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="8u2-TC-v0P">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeC-b0-VRJ">
-                                                <rect key="frame" x="106" y="28.5" width="147.5" height="30"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-q7-glv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="30"/>
-                                                        <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PD8-ps-Q1P">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="1s0-Qc-3U1"/>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="vUr-MO-EuZ"/>
-                                                                </constraints>
-                                                                <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                            </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOM-tm-L0A">
-                                                                <rect key="frame" x="88" y="0.0" width="16.5" height="30"/>
-                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vyv-gP-u2F">
-                                                                <rect key="frame" x="112.5" y="0.0" width="35" height="30"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="35" id="lUw-e9-yrI"/>
-                                                                </constraints>
-                                                                <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                            </textField>
-                                                        </subviews>
-                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    </stackView>
-                                                </subviews>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="8u2-TC-v0P" firstAttribute="leading" secondItem="OuH-iF-qPN" secondAttribute="leading" id="FUi-cY-NTs"/>
-                                            <constraint firstAttribute="trailing" secondItem="8u2-TC-v0P" secondAttribute="trailing" id="Fmv-Rn-m3w"/>
-                                            <constraint firstItem="8u2-TC-v0P" firstAttribute="top" secondItem="OuH-iF-qPN" secondAttribute="top" id="b5c-eV-iv9"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MQN-jD-RNv">
-                                        <rect key="frame" x="0.0" y="66.5" width="359" height="58.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование законопроекта" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHm-hy-EDl">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B54-VU-jua">
-                                                <rect key="frame" x="0.0" y="28.5" width="359" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <variation key="heightClass=compact" axis="horizontal"/>
-                                <variation key="heightClass=regular" axis="vertical"/>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cw5-tm-rGo">
-                                <rect key="frame" x="16" y="205" width="351" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57g-TV-Okj">
-                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <state key="normal" title="🗑 Очистить"/>
-                                        <connections>
-                                            <action selector="clearButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="kd4-RR-YkV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iI8-4X-eO9">
-                                        <rect key="frame" x="179.5" y="0.0" width="171.5" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="🔍 Поиск">
-                                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchButtonPressed:" destination="VmW-rd-EdG" eventType="touchUpInside" id="2lj-S0-UjD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ome-z4-Ebt">
-                                <rect key="frame" x="0.0" y="243" width="375" height="424"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpressAddBillTableViewCell" rowHeight="98" id="iNt-Ff-zj9" customClass="QuickSearchTableViewCell" customModule="RussianBills" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="98"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iNt-Ff-zj9" id="kUh-Ij-UFF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="97.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📃12345-6" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEG-hz-HbB">
-                                                    <rect key="frame" x="15" y="11" width="345" height="21"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="KpT-Dl-E6I"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="О внесении изменений в часть вторую Налогового кодекса Российской Федерации" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU6-cJ-eBA">
-                                                    <rect key="frame" x="8" y="32" width="359" height="57.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="SEG-hz-HbB" firstAttribute="trailing" secondItem="kUh-Ij-UFF" secondAttribute="trailingMargin" id="3Om-T4-VYz"/>
-                                                <constraint firstAttribute="trailing" secondItem="PU6-cJ-eBA" secondAttribute="trailing" constant="8" id="4vM-D9-TPW"/>
-                                                <constraint firstAttribute="bottom" secondItem="PU6-cJ-eBA" secondAttribute="bottom" constant="8" id="Clk-1f-9Mx"/>
-                                                <constraint firstItem="PU6-cJ-eBA" firstAttribute="leading" secondItem="kUh-Ij-UFF" secondAttribute="leading" constant="8" id="Hrr-8S-v3E"/>
-                                                <constraint firstItem="SEG-hz-HbB" firstAttribute="leading" secondItem="kUh-Ij-UFF" secondAttribute="leadingMargin" id="Wjc-ZA-knC"/>
-                                                <constraint firstItem="PU6-cJ-eBA" firstAttribute="top" secondItem="SEG-hz-HbB" secondAttribute="bottom" id="eNt-JR-ylT"/>
-                                                <constraint firstItem="SEG-hz-HbB" firstAttribute="top" secondItem="kUh-Ij-UFF" secondAttribute="topMargin" id="neU-09-2HQ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="billNameLabel" destination="PU6-cJ-eBA" id="BiR-pp-wcf"/>
-                                            <outlet property="billNumberLabel" destination="SEG-hz-HbB" id="ucZ-Fb-DGS"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ome-z4-Ebt" secondAttribute="trailing" id="Bil-5v-pra"/>
-                            <constraint firstItem="5l8-VP-Ldh" firstAttribute="top" secondItem="2dU-OV-4CK" secondAttribute="bottom" constant="8" symbolic="YES" id="D8O-Fk-Css">
-                                <variation key="heightClass=compact" constant="8"/>
-                            </constraint>
-                            <constraint firstItem="5l8-VP-Ldh" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" constant="8" id="Ez3-Rz-i93"/>
-                            <constraint firstItem="cw5-tm-rGo" firstAttribute="top" secondItem="5l8-VP-Ldh" secondAttribute="bottom" constant="8" id="Gc9-M8-EE7"/>
-                            <constraint firstAttribute="trailing" secondItem="5l8-VP-Ldh" secondAttribute="trailing" constant="8" id="LQx-4w-vGg"/>
-                            <constraint firstAttribute="bottom" secondItem="ome-z4-Ebt" secondAttribute="bottom" id="NAD-jt-k88"/>
-                            <constraint firstItem="ome-z4-Ebt" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" id="P1D-6h-xdB"/>
-                            <constraint firstAttribute="trailing" secondItem="cw5-tm-rGo" secondAttribute="trailing" constant="8" id="b5D-f8-zy8"/>
-                            <constraint firstItem="ome-z4-Ebt" firstAttribute="top" secondItem="cw5-tm-rGo" secondAttribute="bottom" constant="8" symbolic="YES" id="fpw-TK-6Qw">
-                                <variation key="heightClass=compact" constant="8"/>
-                            </constraint>
-                            <constraint firstItem="cw5-tm-rGo" firstAttribute="leading" secondItem="65o-Bv-dPr" secondAttribute="leading" constant="16" id="ivx-T1-mT1"/>
-                            <constraint firstItem="ome-z4-Ebt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="65o-Bv-dPr" secondAttribute="leading" id="jNf-PW-rK6"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ome-z4-Ebt" secondAttribute="trailing" id="v7R-6z-2RF"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="⏱ Быстрое добавление" largeTitleDisplayMode="never" id="o9p-Jv-mQU">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="5t7-ko-CcZ"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="nameTextField" destination="B54-VU-jua" id="2Ai-Fq-kTN"/>
-                        <outlet property="number1TextField" destination="PD8-ps-Q1P" id="S8B-eS-wBr"/>
-                        <outlet property="number2TextField" destination="Vyv-gP-u2F" id="78i-Ay-VsW"/>
-                        <outlet property="tableView" destination="ome-z4-Ebt" id="zVi-gC-Uqa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vDS-3J-A44" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3367" y="-783"/>
-        </scene>
         <!--Субъект закинициативы-->
         <scene sceneID="ZLf-5K-EgO">
             <objects>
@@ -2048,6 +1842,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="lBj-yx-6tQ"/>
         <segue reference="0xS-fK-VXV"/>
-        <segue reference="ECW-Zv-M8L"/>
+        <segue reference="LwO-fy-era"/>
+        <segue reference="hLO-Mz-Bcc"/>
     </inferredMetricsTieBreakers>
 </document>

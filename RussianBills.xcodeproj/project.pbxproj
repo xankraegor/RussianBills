@@ -60,7 +60,6 @@
 		2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */; };
 		2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B21F0AE1B400611BD8 /* Main.storyboard */; };
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
-		2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */; };
 		2A6DD02F1F1BF87B00FB16D7 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */; };
 		2A6F7F9D1FD8CA8200730222 /* DateToReadableDateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F7F9C1FD8CA8200730222 /* DateToReadableDateString.swift */; };
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
@@ -136,7 +135,6 @@
 		2AB1F5A21FCF783600BC6ED7 /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2AB1F5A31FCF783700BC6ED7 /* DateToIsoStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF24601F1B7BDD0019B80F /* DateToIsoStringExtension.swift */; };
 		2AB1F5A41FCF785000BC6ED7 /* UserDefaultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */; };
-		2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */; };
 		2AB5E5A31FB0F711005613FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */; };
 		2ABABAEA1FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */; };
 		2AC02F601FBF594D0047ACDA /* TempRegSubjInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */; };
@@ -283,7 +281,6 @@
 		2A6315B31F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A6315B81F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A6315BA1F0AE1B400611BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewCell.swift; sourceTree = "<group>"; };
 		2A6DD02E1F1BF87B00FB16D7 /* Phase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		2A6F7F9C1FD8CA8200730222 /* DateToReadableDateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToReadableDateString.swift; sourceTree = "<group>"; };
 		2A75E8FC1F2282F30008FD8F /* FilesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
@@ -324,7 +321,6 @@
 		2AB1596C1F15526A00FF7BBD /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		2AB1596E1F15530600FF7BBD /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		2AB159721F15633100FF7BBD /* UserDefaultsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsCoordinator.swift; sourceTree = "<group>"; };
-		2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSearchTableViewController.swift; sourceTree = "<group>"; };
 		2AB5E5A21FB0F710005613FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2ABABAE91FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegislativeSubjectTypeEnum.swift; sourceTree = "<group>"; };
 		2AC02F5F1FBF594D0047ACDA /* TempRegSubjInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRegSubjInfo.swift; sourceTree = "<group>"; };
@@ -665,18 +661,8 @@
 				2AA6771F1F215325003CFD37 /* BillDetails */,
 				2AD1E93A1F127AB100CA0D89 /* FavoriteBills */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
-				2AB31E811F16A15B005E681F /* QuickSearch */,
 			);
 			name = Scenes;
-			sourceTree = "<group>";
-		};
-		2AB31E811F16A15B005E681F /* QuickSearch */ = {
-			isa = PBXGroup;
-			children = (
-				2AB31E7F1F16A154005E681F /* QuickSearchTableViewController.swift */,
-				2A6357931F16A3BD00191DF8 /* QuickSearchTableViewCell.swift */,
-			);
-			name = QuickSearch;
 			sourceTree = "<group>";
 		};
 		2ABABAEB1FBDE3D3000B58E5 /* Legislative Subjects Scene */ = {
@@ -1234,7 +1220,6 @@
 				2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */,
 				2A8782061F0BECF400A0554F /* RequestFunctionsProvider.swift in Sources */,
 				2AA9C36D1FC738A900169EB7 /* BillSyncContainerStorage.swift in Sources */,
-				2AB31E801F16A154005E681F /* QuickSearchTableViewController.swift in Sources */,
 				2AA6771C1F214EDD003CFD37 /* BillDetailsTableViewController.swift in Sources */,
 				2AA751351FBDF55D00E2535E /* OnMapViewController.swift in Sources */,
 				2A45E4FD1F9547BB006B18E8 /* QuickSearchFieldsReporting.swift in Sources */,
@@ -1252,7 +1237,6 @@
 				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
-				2A6357941F16A3BD00191DF8 /* QuickSearchTableViewCell.swift in Sources */,
 				2A98F1721F0AF3B4004F5524 /* Committee.swift in Sources */,
 				2A4FDBD91F0EEFCC005C59AE /* SimpleTableViewControllerSelector.swift in Sources */,
 				2A4FDBE31F104576005C59AE /* NameStartEndTableViewCell.swift in Sources */,
