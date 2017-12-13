@@ -1,56 +1,12 @@
 PODS:
   - Alamofire (4.6.0)
   - Eureka (4.0.1)
-  - Firebase/Auth (4.7.0):
-    - Firebase/Core
-    - FirebaseAuth (= 4.4.0)
-  - Firebase/Core (4.7.0):
-    - FirebaseAnalytics (= 4.0.5)
-    - FirebaseCore (= 4.0.12)
-  - Firebase/Database (4.7.0):
-    - Firebase/Core
-    - FirebaseDatabase (= 4.1.2)
-  - FirebaseAnalytics (4.0.5):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - nanopb (~> 0.3)
-  - FirebaseAuth (4.4.0):
-    - FirebaseAnalytics (~> 4.0)
-    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.12):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseDatabase (4.1.2):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseCore (~> 4.0)
-    - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.7)
-  - GoogleToolboxForMac/DebugUtils (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/Defines (2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
-    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
-  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
-  - GTMSessionFetcher/Core (1.1.12)
   - Kanna (4.0.0)
-  - leveldb-library (1.20)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
   - Realm (3.0.2):
     - Realm/Headers (= 3.0.2)
   - Realm/Headers (3.0.2)
   - RealmSwift (3.0.2):
     - Realm (= 3.0.2)
-  - RxCocoa (4.0.0):
-    - RxSwift (~> 4.0)
   - RxRealm (0.7.5):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
@@ -58,61 +14,34 @@ PODS:
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `master`)
-  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `master`)
-  - Firebase/Auth
-  - Firebase/Core
-  - Firebase/Database
+  - Alamofire (~> 4.6)
+  - Eureka
   - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
   - RealmSwift
-  - RxCocoa
   - RxRealm
   - RxSwift
   - SwiftyJSON
 
 EXTERNAL SOURCES:
-  Alamofire:
-    :branch: master
-    :git: https://github.com/Alamofire/Alamofire.git
-  Eureka:
-    :branch: master
-    :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :branch: feature/v4.0.0
     :git: https://github.com/tid-kijyun/Kanna.git
 
 CHECKOUT OPTIONS:
-  Alamofire:
-    :commit: bc973c5311ce3db3f01a9fcde027fb11fa2254bf
-    :git: https://github.com/Alamofire/Alamofire.git
-  Eureka:
-    :commit: 076eaaa27d1c90c68f01a6389cfcaa0359ea1a10
-    :git: https://github.com/xmartlabs/Eureka.git
   Kanna:
     :commit: 58e3513d20cd16fe8b9ff16b5a2b481fcd643499
     :git: https://github.com/tid-kijyun/Kanna.git
 
 SPEC CHECKSUMS:
-  Alamofire: 0dda98a0ed7eec4bdcd5fe3cdd35fcd2b3022825
-  Eureka: 3311299432b1e11fa4b40796654fc759caabcd93
-  Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
-  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
-  FirebaseAuth: cdeee95b528958dbb7dcf220ad0fb804d3a284b0
-  FirebaseCore: 6cf108b63997bc08c04a1ffa55a3ac0d71a59ffc
-  FirebaseDatabase: 18ecb23e15c7f58bb0c4527e9cace06897cc40ca
-  FirebaseInstanceID: 148c25c986c8699e67304b114e365713dce467f2
-  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
-  leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
-  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: cb2ea5af7dbcdc462652ea6a1184ac9ffeb04d6c
+PODFILE CHECKSUM: 2a8fb42eba98f682ffde1d1fb4a5ff27464abf66
 
 COCOAPODS: 1.3.1

@@ -13,7 +13,7 @@ final class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel?
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell?
-    @IBOutlet weak var authStatusLabel: UILabel?
+    
     @IBOutlet weak var updateBillsTimeoutSlider: UISlider?
     @IBOutlet weak var sliderTimeLabel: UILabel?
 
@@ -29,7 +29,6 @@ final class SettingsTableViewController: UITableViewController {
         navigationController?.isToolbarHidden = true
         tableView.delegate = self
         setSizeLabelText()
-        authStatusLabel?.text = SyncMan.shared.isAuthorized ? "Вход осуществлён" : "Войдите для синхронизации"
     }
 
     override func viewWillAppear(_ animated: Bool) {

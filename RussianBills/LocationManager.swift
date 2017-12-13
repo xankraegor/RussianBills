@@ -8,7 +8,6 @@
 
 import Foundation
 import MapKit
-import CoreLocation
 
 protocol LocationManagerDelegate: class {
     func locationManager(_ manager: LocationManager, coordinates: CLLocationCoordinate2D)

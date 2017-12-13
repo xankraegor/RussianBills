@@ -8,7 +8,6 @@
 
 import UIKit
 import RealmSwift
-import Firebase
 import UserNotifications
 
 @UIApplicationMain
@@ -19,9 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        // Firebase
-        FirebaseApp.configure()
 
         // Realm
         var config = Realm.Configuration()

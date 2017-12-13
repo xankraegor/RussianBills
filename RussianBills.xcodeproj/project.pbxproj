@@ -150,7 +150,6 @@
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
 		2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */; };
-		2AE76E1A1FB10D9800CE79AF /* AutorizationFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */; };
 		2AE76E1C1FB12FB900CE79AF /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */; };
 		2AE76E1E1FB1383300CE79AF /* FavoriteBillsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */; };
 		2AF15C121FC75C230018991C /* ICloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */; };
@@ -337,7 +336,6 @@
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
 		2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillListType.swift; sourceTree = "<group>"; };
-		2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationFormController.swift; sourceTree = "<group>"; };
 		2AE76E1B1FB12FB900CE79AF /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
 		2AE76E1D1FB1383300CE79AF /* FavoriteBillsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBillsStruct.swift; sourceTree = "<group>"; };
 		2AF15C111FC75C230018991C /* ICloudSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncEngine.swift; sourceTree = "<group>"; };
@@ -654,7 +652,6 @@
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
-				2AE76E191FB10D9800CE79AF /* AutorizationFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AA751341FBDF55D00E2535E /* OnMapViewController.swift */,
 				2ABABAEB1FBDE3D3000B58E5 /* Legislative Subjects Scene */,
@@ -1089,33 +1086,23 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-RussianBills/Pods-RussianBills-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1231,7 +1218,6 @@
 				2A4FDBD51F0EEC77005C59AE /* SimpleTableViewController.swift in Sources */,
 				2A8782041F0BE89A00A0554F /* DeputyPosition.swift in Sources */,
 				2A4FDBE51F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift in Sources */,
-				2AE76E1A1FB10D9800CE79AF /* AutorizationFormController.swift in Sources */,
 				2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */,
 				2A1DC8FE1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift in Sources */,
 				2AFF24611F1B7BDD0019B80F /* DateToIsoStringExtension.swift in Sources */,
