@@ -47,11 +47,10 @@ final class SettingsTableViewController: UITableViewController {
     // MARK: - Table View Delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        tableView.deselectRow(at: indexPath, animated: true)
         // Удалить все загруженные файлы
         if indexPath.section == 4 && indexPath.row == 1 {
-            FilesManager.deleteAllAttachments()
-            setSizeLabelText()
+            deleteAttachmentsDialog()
         }
 
         if indexPath.section == 5 && indexPath.row == 1 { // About link to github
@@ -168,6 +167,21 @@ final class SettingsTableViewController: UITableViewController {
             let svc = SFSafariViewController(url: url)
             present(svc, animated: true, completion: nil)
         }
+    }
+
+    func deleteAttachmentsDialog() {
+
+        let alert = UIAlertController(title: "Удаление сохраненных вложений", message: "Все загруженные документы, приложенные к законопроекам, будут удалены. Их можно загрузить повторно. Продолжить? ", preferredStyle: UIAlertControllerStyle.alert)
+
+        let actionCancel = UIAlertAction(title: "Отменить", style: UIAlertActionStyle.default, handler: nil)
+        let actionDone = UIAlertAction(title: "Удалить", style: UIAlertActionStyle.destructive) { [weak self] _ in
+            FilesManager.deleteAllAttachments()
+            self?.setSizeLabelText()
+        }
+
+        alert.addAction(actionCancel)
+        alert.addAction(actionDone)
+        present(alert, animated: true, completion: nil)
     }
 
 }
