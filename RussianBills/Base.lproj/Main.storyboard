@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Критерии поиска-->
+        <!--Условия поиска-->
         <scene sceneID="bu7-2L-Cv7">
             <objects>
                 <viewController id="ldw-gj-cUn" customClass="SearchFormController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -24,7 +24,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Критерии поиска" largeTitleDisplayMode="never" id="136-fa-jIL">
+                    <navigationItem key="navigationItem" title="Условия поиска" largeTitleDisplayMode="never" id="136-fa-jIL">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="1mp-e8-3pS"/>
                         <barButtonItem key="rightBarButtonItem" title="Начать" id="N2C-dc-EFb">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -57,7 +58,7 @@
                                             <rect key="frame" x="191.66666666666663" y="11" width="163.33333333333337" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
@@ -72,7 +73,7 @@
                                             <rect key="frame" x="20" y="11" width="163.66666666666666" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.80988261421319796" green="0.5112381795438925" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -105,14 +106,16 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Результаты поиска " largeTitleDisplayMode="never" id="cg6-YU-k94"/>
+                    <navigationItem key="navigationItem" title="Результаты поиска " largeTitleDisplayMode="never" id="cg6-YU-k94">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="MKD-ts-P67"/>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoK-Nr-qo4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3177" y="913"/>
         </scene>
-        <!--ろаконопроекты-->
+        <!--ʒаконопроекты-->
         <scene sceneID="ssA-En-DFa">
             <objects>
                 <tableViewController storyboardIdentifier="MainSceneID" id="EIW-S8-JWd" customClass="MainTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -419,7 +422,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="ろаконопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
+                    <navigationItem key="navigationItem" title="ʒаконопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="updatedFavoriteBillsCountLabel" destination="xlB-Pv-Gh7" id="hi5-DL-LMF"/>
@@ -429,7 +432,7 @@
             </objects>
             <point key="canvasLocation" x="1494" y="913"/>
         </scene>
-        <!--🎖Отслеживаемые-->
+        <!--Отслеживаемые-->
         <scene sceneID="n0u-nz-NCg">
             <objects>
                 <tableViewController storyboardIdentifier="FavoritesSceneID" id="JRx-t1-bpu" customClass="FavoritesTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -454,23 +457,23 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="225656-7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-o9-qqk">
-                                            <rect key="frame" x="110" y="11" width="249" height="21"/>
+                                            <rect key="frame" x="112" y="11" width="247" height="21"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="51U-Yb-ZPv"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Обновления " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h10-vb-5I5">
-                                            <rect key="frame" x="16" y="11" width="94" height="21"/>
+                                            <rect key="frame" x="16" y="11" width="96" height="21"/>
                                             <color key="backgroundColor" red="1" green="0.36362834690355206" blue="0.25536405446526522" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="A1r-WM-4AP"/>
                                                 <constraint firstAttribute="height" constant="21" id="Si3-7I-PV4"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -503,21 +506,22 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="X8g-7w-cfE"/>
-                        <barButtonItem title="Перейти к поиску" id="bHI-CM-PyG">
-                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem title="Перейки к поиску" id="bHI-CM-PyG">
                             <connections>
                                 <segue destination="ldw-gj-cUn" kind="show" id="hLO-Mz-Bcc"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="🎖Отслеживаемые" largeTitleDisplayMode="never" id="Hok-Jr-RSu"/>
+                    <navigationItem key="navigationItem" title="Отслеживаемые" largeTitleDisplayMode="never" id="Hok-Jr-RSu">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="fLr-ie-XXm"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="paG-gG-Yyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2356" y="107"/>
+            <point key="canvasLocation" x="2356" y="-39"/>
         </scene>
-        <!--📃№ 123456-7-->
+        <!--№ 123456-7-->
         <scene sceneID="T2K-qE-SeX">
             <objects>
                 <tableViewController storyboardIdentifier="BillCardTableViewControllerId" id="lxy-Bg-9id" customClass="BillCardTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -610,7 +614,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="4" id="mmZ-5D-rF3" userLabel="Red">
                                         <rect key="frame" x="0.0" y="196" width="375" height="4"/>
@@ -1038,8 +1042,8 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="📃№ 123456-7" id="BG1-9U-MPp">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="J7h-ad-HKQ"/>
+                    <navigationItem key="navigationItem" title="№ 123456-7" id="BG1-9U-MPp">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="J7h-ad-HKQ"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qQy-m7-8zp">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -1072,7 +1076,7 @@
             </objects>
             <point key="canvasLocation" x="3919" y="913"/>
         </scene>
-        <!--События 📃№ 123456-7-->
+        <!--События З/п № 123456-7-->
         <scene sceneID="q4z-sn-gcP">
             <objects>
                 <tableViewController id="mYG-kS-5th" customClass="BillDetailsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -1096,7 +1100,7 @@
                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="vGc-Fe-bPC"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="09.12.2016 14:55" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYZ-mf-Wv2">
@@ -1157,7 +1161,7 @@
                             <outlet property="delegate" destination="mYG-kS-5th" id="nvp-i8-Phx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="События 📃№ 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Mwd-5I-bmn">
+                    <navigationItem key="navigationItem" title="События З/п № 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Mwd-5I-bmn">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="eq5-J1-xdc"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -1170,7 +1174,7 @@
             </objects>
             <point key="canvasLocation" x="4638" y="913"/>
         </scene>
-        <!--Документы 📃№ 123456-7-->
+        <!--Документы з/п. № 123456-7-->
         <scene sceneID="Rw6-cv-OgV">
             <objects>
                 <tableViewController id="3yu-96-Bfc" customClass="BillAttachedDocumentsTableViewController" customModule="RussianBills" customModuleProvider="target" sceneMemberID="viewController">
@@ -1233,7 +1237,7 @@
                             <outlet property="delegate" destination="3yu-96-Bfc" id="rDJ-fg-Hho"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Документы 📃№ 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Spq-Q7-gUk">
+                    <navigationItem key="navigationItem" title="Документы з/п. № 123456-7" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="Spq-Q7-gUk">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="ny5-Mh-x5s"/>
                     </navigationItem>
                 </tableViewController>
@@ -1352,7 +1356,9 @@
                             <outlet property="delegate" destination="HuN-bd-2jP" id="QAs-un-9tK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Субъект закинициативы" id="u6X-X3-Q8g"/>
+                    <navigationItem key="navigationItem" title="Субъект закинициативы" id="u6X-X3-Q8g">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="val-16-A8H"/>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addressLabel" destination="QeY-p9-bmb" id="cEf-t1-Cfb"/>
@@ -1553,7 +1559,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.11372549019607843" green="0.46274509803921571" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1567,7 +1573,7 @@
                         <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="EIW-S8-JWd" kind="relationship" relationship="rootViewController" id="JSQ-bR-SKG"/>
@@ -1603,7 +1609,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZr-gV-0Zr">
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
-                                                    <color key="onTintColor" red="0.44497333900000002" green="0.67017237169999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="onTintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1629,7 +1635,7 @@
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="cTG-in-5lM">
                                                     <rect key="frame" x="18" y="15" width="261" height="25"/>
-                                                    <color key="tintColor" red="0.44497333900000002" green="0.67017237169999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="Xkg-4M-r5W"/>
                                                     </constraints>
@@ -1689,6 +1695,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="q3m-R5-T0H" secondAttribute="trailing" constant="20" symbolic="YES" id="ut1-WX-cIj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1705,7 +1712,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="335" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <state key="normal" title="Использовать свои ключи">
-                                                        <color key="titleColor" red="0.070588238540000001" green="0.48627451059999999" blue="0.97254902119999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="switchKeysButtonPressed:" destination="mLy-6O-xIp" eventType="touchUpInside" id="m2Z-0G-NVq"/>
@@ -2014,6 +2021,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Настройки" leftItemsSupplementBackButton="YES" id="ysC-N8-6sw">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="IP7-54-Fxl"/>
                         <barButtonItem key="leftBarButtonItem" id="REA-lt-NXK">
                             <connections>
                                 <action selector="closeButtonPressed:" destination="mLy-6O-xIp" id="JpN-1q-5Gm"/>
@@ -2042,6 +2050,6 @@
         <segue reference="lBj-yx-6tQ"/>
         <segue reference="a2n-kh-rhy"/>
         <segue reference="LwO-fy-era"/>
-        <segue reference="3EB-K3-3Dt"/>
+        <segue reference="hLO-Mz-Bcc"/>
     </inferredMetricsTieBreakers>
 </document>

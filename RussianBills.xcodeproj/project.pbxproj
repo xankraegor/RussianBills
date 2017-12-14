@@ -147,6 +147,7 @@
 		2ACA45621FD75A8F00C309EF /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2BB41FD5E43A00E08F3F /* MainInterfaceController.swift */; };
 		2AD1E9391F127AA600CA0D89 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */; };
 		2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */; };
+		2AD574BA1FE1FC790091F453 /* MainTableViewControllerNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD574B91FE1FC790091F453 /* MainTableViewControllerNavigationItem.swift */; };
 		2AE05F9B1F40F1FC00AEE2D1 /* BillsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */; };
 		2AE20DB91FA216CB00BDCF08 /* BillParserContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */; };
 		2AE6E8F01FAA893F0006AD05 /* BillListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */; };
@@ -333,6 +334,7 @@
 		2ACA10A61FCCCA5200869553 /* RusBillsTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RusBillsTodayExtension.entitlements; sourceTree = "<group>"; };
 		2AD1E9381F127AA600CA0D89 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		2AD350D41FA51CAD00EAC827 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
+		2AD574B91FE1FC790091F453 /* MainTableViewControllerNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewControllerNavigationItem.swift; sourceTree = "<group>"; };
 		2AE05F9A1F40F1FC00AEE2D1 /* BillsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillsList.swift; sourceTree = "<group>"; };
 		2AE20DB81FA216CB00BDCF08 /* BillParserContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillParserContent.swift; sourceTree = "<group>"; };
 		2AE6E8EF1FAA893F0006AD05 /* BillListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillListType.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 			children = (
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
+				2AD574B91FE1FC790091F453 /* MainTableViewControllerNavigationItem.swift */,
 				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
 				2AA751341FBDF55D00E2535E /* OnMapViewController.swift */,
@@ -1250,6 +1253,7 @@
 				2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */,
 				2ABABAEA1FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift in Sources */,
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
+				2AD574BA1FE1FC790091F453 /* MainTableViewControllerNavigationItem.swift in Sources */,
 				2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */,
 				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,
 				2AA9C36B1FC733B000169EB7 /* Bill+CKRecord.swift in Sources */,

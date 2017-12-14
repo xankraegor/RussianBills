@@ -6,6 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,39 +24,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUy-46-1mA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
-                                <subviews>
-                                    <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Zd4-qp-Zos">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                        <color key="barTintColor" red="0.070588238540000001" green="0.42323197587777778" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <items>
-                                            <navigationItem id="HOG-2l-5qo"/>
-                                        </items>
-                                    </navigationBar>
-                                </subviews>
-                                <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZP_logo_nogrid" translatesAutoresizingMaskIntoConstraints="NO" id="QtO-uB-ILi">
+                                <rect key="frame" x="48" y="205.33333333333334" width="279" height="279.33333333333326"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Zd4-qp-Zos" secondAttribute="trailing" id="KLo-iG-EgT"/>
-                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="top" secondItem="TUy-46-1mA" secondAttribute="top" constant="44" id="Yll-JX-SgT"/>
-                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="top" secondItem="TUy-46-1mA" secondAttribute="bottom" constant="-52" id="lJi-py-sjN"/>
-                                    <constraint firstItem="Zd4-qp-Zos" firstAttribute="leading" secondItem="TUy-46-1mA" secondAttribute="leading" id="ryB-Q4-uQu"/>
+                                    <constraint firstAttribute="width" secondItem="QtO-uB-ILi" secondAttribute="height" multiplier="1:1" id="9Cr-OT-LSW"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="Yg2-ov-Gtw"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="gqD-X1-lk6"/>
                                 </constraints>
-                            </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Eeg-f3-dxi">
-                                <rect key="frame" x="0.0" y="734" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem id="Mfh-c5-ULF"/>
-                                </items>
-                                <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </toolbar>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-In-ksT">
+                                <rect key="frame" x="16" y="708.66666666666663" width="343" height="26.333333333333371"/>
+                                <string key="text">Антон Алексеев 
+© 2017 Xan Kraegor</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-9z-wqG">
+                                <rect key="frame" x="16" y="669.66666666666663" width="343" height="31"/>
+                                <string key="text">Законопроекты
+
+</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.2627450980392157" green="0.46274509803921571" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="TUy-46-1mA" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="BVc-Mw-lam"/>
-                            <constraint firstAttribute="trailing" secondItem="TUy-46-1mA" secondAttribute="trailing" id="UFh-eX-A4y"/>
-                            <constraint firstItem="TUy-46-1mA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="yKP-5Q-96H"/>
+                            <constraint firstItem="CSJ-9z-wqG" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="47K-9d-sdL"/>
+                            <constraint firstItem="7bG-In-ksT" firstAttribute="top" secondItem="CSJ-9z-wqG" secondAttribute="bottom" constant="8" id="6Ud-Yz-1IA"/>
+                            <constraint firstItem="QtO-uB-ILi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Fa-Im-gND"/>
+                            <constraint firstAttribute="top" relation="lessThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="top" constant="-48" id="ALX-zh-OYy"/>
+                            <constraint firstItem="7bG-In-ksT" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="EBy-zD-Idh"/>
+                            <constraint firstItem="QtO-uB-ILi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="48" id="GQB-g6-Z8R"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="bottom" constant="48" id="H3n-ig-Jh8"/>
+                            <constraint firstItem="7bG-In-ksT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="16:9" id="HBh-OX-CuQ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="trailing" constant="48" id="Ojq-xP-Z2z"/>
+                            <constraint firstItem="7bG-In-ksT" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="cbB-0K-fNy"/>
+                            <constraint firstItem="QtO-uB-ILi" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.85" id="fAe-fV-ehI"/>
+                            <constraint firstItem="CSJ-9z-wqG" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="wId-kT-fvw"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -62,4 +73,7 @@
             <point key="canvasLocation" x="52" y="374.6305418719212"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ZP_logo_nogrid" width="2047" height="2048"/>
+    </resources>
 </document>

@@ -73,8 +73,19 @@ final class FavoritesTableViewController: UITableViewController {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.placeholder = "Фильтровать"
+        let scb = searchController.searchBar
+        scb.searchBarStyle = .default
+        scb.barTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+
+        if let textfield = scb.value(forKey: "searchField") as? UITextField {
+            textfield.tintColor = UIColor.black
+            if let backgroundview = textfield.subviews.first {
+                backgroundview.backgroundColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9450980392, alpha: 1)
+                backgroundview.layer.cornerRadius = 10
+                backgroundview.clipsToBounds = true
+            }
+        }
+
         definesPresentationContext = true
 
         if #available(iOS 11.0, *) {
@@ -140,7 +151,7 @@ extension FavoritesTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCellId", for: indexPath) as! FavoritesTableViewCell
         cell.nameLabel?.text = favoriteBills![indexPath.row].name
-        cell.numberLabel?.text = "📃" + favoriteBills![indexPath.row].number
+        cell.numberLabel?.text = "№ " + favoriteBills![indexPath.row].number
         cell.hasUpdatesLabel?.isHidden = !favoriteBills![indexPath.row].favoriteHasUnseenChanges
         cell.hasUpdatesLabel?.layer.cornerRadius = 10
         cell.hasUpdatesLabel?.layer.masksToBounds = true

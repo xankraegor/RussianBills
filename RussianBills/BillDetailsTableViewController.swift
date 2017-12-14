@@ -29,7 +29,7 @@ final class BillDetailsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 100
         navigationController?.isToolbarHidden = true
         if let navigationTitle = billNumber {
-            self.navigationItem.title = "События 📃\(navigationTitle)"
+            self.navigationItem.title = "События з/п. № \(navigationTitle)"
         }
     }
 

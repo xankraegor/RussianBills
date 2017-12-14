@@ -20,13 +20,14 @@ enum BillSearchQuerySortType: String, CustomStringConvertible {
     var description: String {
         get {
             switch self {
-            case .name: return "по названию законопроекта"
-            case .number: return "по номеру законопроекта"
-            case .date: return "по дате внесения в ГД (по убыванию)"
-            case .date_asc: return "по дате внесения в ГД (по возрастанию)"
-            case .last_event_date: return "по дате последнего события (по убыванию)"
-            case .last_event_date_asc: return "по дате последнего события (по возрастанию)"
-            case .responsible_committee: return "по ответственному комитету"
+            // Сортировать по:
+            case .name: return "названию законопроекта"
+            case .number: return "номеру законопроекта"
+            case .date: return "дате внесения в ГД (по убыванию)"
+            case .date_asc: return "дате внесения в ГД (по возрастанию)"
+            case .last_event_date: return "дате последнего события (по убыванию)"
+            case .last_event_date_asc: return "дате последнего события (по возрастанию)"
+            case .responsible_committee: return "ответственному комитету"
             }
         }
     }

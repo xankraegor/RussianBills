@@ -57,6 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Color Scheme
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.black]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Фильтровать", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
+        UISearchBar.appearance().tintColor = UIColor.white
+
 
         return true
     }

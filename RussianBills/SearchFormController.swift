@@ -58,6 +58,7 @@ final class SearchFormController: FormViewController {
         form
 
             +++ Section("Основные данные")
+            // MARK: Law Type
             <<< PushRow<String>() {
                 $0.title = "Тип"
                 $0.selectorTitle = "Выберите тип законопроекта"
@@ -66,11 +67,13 @@ final class SearchFormController: FormViewController {
                 }.onChange { [weak self] row in
                     self?.setLawType(withStatus: row.value ?? "")
             }
+            // MARK: Name
             <<< TextAreaRow() { row in
                 row.placeholder = "Наименование законопроекта: целиком или частично"
                 }.onChange { [weak self] row in
                     self?.query.name = row.value
             }
+            // MARK: Number
             <<< TextRow() { row in
                 row.title = "Номер и созыв"
                 row.placeholder = "в формате 1234567-8"
@@ -78,6 +81,7 @@ final class SearchFormController: FormViewController {
                     self?.query.number = row.value
             }
             +++ Section("Статус")
+            // MARK: Status
             <<< PushRow<String>("Статус") {
                 $0.title = ""
                 $0.selectorTitle = "Выберите статус законопроекта"
@@ -89,9 +93,12 @@ final class SearchFormController: FormViewController {
                     self?.setBillStatus(to: row.value ?? "")
             }
 
-            +++ Section("Дата внесения законопроекта")
+            +++ Section("Период внесения законопроекта")
+            // MARK: Begin intro date switch
             <<< SwitchRow("beginDateSwitch") {
-                $0.title = "Начиная с даты"
+                $0.title = "Дата начала"
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = false
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -108,6 +115,7 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = nil
                     }
                 })
+            // MARK: Begin intro date
             <<< DateRow("beginDate") {
                 $0.hidden = Condition.function(["beginDateSwitch"], { form in
                     return !((form.rowBy(tag: "beginDateSwitch") as? SwitchRow)?.value ?? false)
@@ -119,8 +127,11 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                     }
                 })
+            // MARK: End intro date switch
             <<< SwitchRow("endDateSwitch") {
-                $0.title = "Заканчивая датой"
+                $0.title = "Дата окончания"
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = false
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -137,6 +148,7 @@ final class SearchFormController: FormViewController {
                         self?.query.registrationStart = nil
                     }
                 })
+            // MARK: End intro date
             <<< DateRow("endDate") {
                 $0.hidden = Condition.function(["endDateSwitch"], { form in
                     return !((form.rowBy(tag: "endDateSwitch") as? SwitchRow)?.value ?? false)
@@ -150,12 +162,12 @@ final class SearchFormController: FormViewController {
                 })
 
             +++ Section("Субъекты закинициативы")
-
-            // MARK: Duma Deputy
-
+            // MARK: Duma Deputy switch
             <<< SwitchRow("deputySwitch") {
-                $0.title = "Депутат Госдумы РФ"
+                $0.title = "Депутат Госдумы"
                 $0.value = false
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -174,7 +186,7 @@ final class SearchFormController: FormViewController {
                         self?.query.deputyId = nil
                     }
                 })
-
+            // MARK: Duma Deputy
             <<< PushRow<Deputy_>("deputyPerson") {
                 $0.selectorTitle = "Выберите депутата"
                 var deps = deputies
@@ -200,12 +212,12 @@ final class SearchFormController: FormViewController {
                         self?.query.deputyId = existingDeputy.id
                     }
             }
-
-            // MARK: Council Member
-
+            // MARK: Council Member switch
             <<< SwitchRow("councilSwitch") {
                 $0.title = "Член Совета Федерации"
                 $0.value = false
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -224,7 +236,7 @@ final class SearchFormController: FormViewController {
                         self?.query.deputyId = nil
                     }
                 })
-
+            // MARK: Council member
             <<< PushRow<Deputy_>("councilPerson") {
                 $0.selectorTitle = "Выберите члена Совета Федерации"
                 var deps = councilMembers
@@ -251,10 +263,11 @@ final class SearchFormController: FormViewController {
                     }
             }
 
-            // MARK: Federal Subject
-
+            // MARK: Federal Subject switch
             <<< SwitchRow("federalSwitch") {
                 $0.title = "Федеральный орган госвласти"
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = false
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -271,7 +284,7 @@ final class SearchFormController: FormViewController {
                         self?.query.federalSubjectId = nil
                     }
                 })
-
+            // MARK: Federal Subject
             <<< PushRow<FederalSubject_>("federalBody") {
                 $0.selectorTitle = "Выберите федеральный орган власти"
                 var feds = federalSubjects
@@ -299,11 +312,12 @@ final class SearchFormController: FormViewController {
 
             }
 
-            // MARK: Regional Subject
-
+            // MARK: Regional Subject switch
             <<< SwitchRow("regionalSwitch") {
                 $0.title = "Региональный орган зак. власти"
                 $0.value = false
+                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -319,7 +333,7 @@ final class SearchFormController: FormViewController {
                         self?.query.regionalSubjectId = nil
                     }
                 })
-
+            // MARK: Regional Subject
             <<< PushRow<RegionalSubject_>("regionalBody") {
                 $0.selectorTitle = "Выберите региональный орган власти"
                 var regs = regionalSubjects
@@ -344,17 +358,19 @@ final class SearchFormController: FormViewController {
                     } else if let id = row.value?.id, let deputy = try? Realm().object(ofType: Deputy_.self, forPrimaryKey: id), let existingDeputy = deputy {
                         self?.query.deputyId = existingDeputy.id
                     }
-        }
+            }
 
-        +++ Section("Порядок сортировки")
-        <<< PushRow<String>("sortOrder") {
+            +++ Section("Сортировать по:")
+            // MARK: Sort order
+            <<< PushRow<String>("sortOrder") {
                 $0.title = ""
-                $0.selectorTitle = "Выберите порядок сортировки"
+                $0.selectorTitle = "Сортировать по:"
+                $0.cell.detailTextLabel?.textColor = UIColor.black
                 $0.options = BillSearchQuerySortType.allValues.map {$0.description}
                 $0.value = BillSearchQuerySortType.last_event_date.description  // initially selected
                 }.onChange { [weak self] row in
                     self?.setSortOrder(to: row.value ?? "")
-            }
+        }
 
     }
 
