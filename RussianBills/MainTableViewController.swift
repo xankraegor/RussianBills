@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import CloudKit
+import Crashlytics
 
 final class MainTableViewController: UITableViewController {
 
@@ -84,7 +85,7 @@ final class MainTableViewController: UITableViewController {
     // MARK: - Debug
 
     @IBAction func syncButtonPressed(_ sender: Any) {
-
+        Crashlytics.sharedInstance().crash()
     }
 
 }

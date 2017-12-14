@@ -132,7 +132,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
         tableView.estimatedRowHeight = 100
 
         if let navigationTitle = billNumber {
-            self.navigationItem.title = "Документы з/п. № (navigationTitle)"
+            self.navigationItem.title = "Документы з/п. № \(navigationTitle)"
         }
     }
 

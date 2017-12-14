@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 import UserNotifications
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        // Crashlythics
+        let path = Bundle.main.path(forResource: "fabric", ofType: "apikey")!
+        let key = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
+        let trimmedKey = key.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        Fabric.with([Crashlytics.self.start(withAPIKey: trimmedKey)])
+        Fabric.sharedSDK().debug = true
 
         // Realm
         var config = Realm.Configuration()
@@ -32,13 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Initializing Synchronization manager
+        UIApplication.shared.registerForRemoteNotifications()
         syncman = SyncMan.shared
 
-        // Remote notifications
-        UIApplication.shared.registerForRemoteNotifications()
-
         // Enabling user notifications
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert]) { (granted, error) in
             DispatchQueue.main.async {
                 application.registerForRemoteNotifications()
             }

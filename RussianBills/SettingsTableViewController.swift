@@ -64,16 +64,18 @@ final class SettingsTableViewController: UITableViewController {
             case 1:
                 presentSafariWithUrl("https://github.com/Alamofire/Alamofire/blob/master/LICENSE")
             case 2:
-                presentSafariWithUrl("https://github.com/tid-kijyun/Kanna/blob/master/LICENSE")
+                presentSafariWithUrl("http://try.crashlytics.com/terms/terms-of-service.pdf")
             case 3:
-                presentSafariWithUrl("https://github.com/realm/realm-cocoa/blob/master/LICENSE")
+                presentSafariWithUrl("https://github.com/tid-kijyun/Kanna/blob/master/LICENSE")
             case 4:
-                presentSafariWithUrl("https://github.com/RxSwiftCommunity/RxRealm/blob/master/LICENSE")
+                presentSafariWithUrl("https://github.com/realm/realm-cocoa/blob/master/LICENSE")
             case 5:
-                presentSafariWithUrl("https://github.com/ReactiveX/RxSwift/blob/master/LICENSE.md")
+                presentSafariWithUrl("https://github.com/RxSwiftCommunity/RxRealm/blob/master/LICENSE")
             case 6:
-                presentSafariWithUrl("https://github.com/SwiftyJSON/SwiftyJSON/blob/master/LICENSE")
+                presentSafariWithUrl("https://github.com/ReactiveX/RxSwift/blob/master/LICENSE.md")
             case 7:
+                presentSafariWithUrl("https://github.com/SwiftyJSON/SwiftyJSON/blob/master/LICENSE")
+            case 8:
                 presentSafariWithUrl("https://www.flaticon.com/packs/files-8")
             default:
                 break

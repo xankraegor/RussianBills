@@ -4,6 +4,8 @@
 
 ## Private Keys
 Keys.plist
+fabric.apikey
+fabric.buildsecret
 
 ## Build generated
 build/

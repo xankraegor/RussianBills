@@ -421,6 +421,13 @@
                                 <segue destination="mLy-6O-xIp" kind="show" id="wff-Ty-8LP"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Tnj-sD-QjU"/>
+                        <barButtonItem title="Simulate Crash" id="gEk-BQ-2ZQ">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="syncButtonPressed:" destination="EIW-S8-JWd" id="4cg-mf-2mA"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="ʒаконопроекты" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="qWF-7P-wFS"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -1793,22 +1800,22 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="О программе" id="Rkv-XB-RDF">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="Uix-3A-FYL">
-                                        <rect key="frame" x="0.0" y="877.33333333333337" width="375" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Uix-3A-FYL">
+                                        <rect key="frame" x="0.0" y="877.33333333333337" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uix-3A-FYL" id="DFZ-jc-EUa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xan_logo_small" translatesAutoresizingMaskIntoConstraints="NO" id="RwR-eA-k1c">
-                                                    <rect key="frame" x="20" y="20.333333333333336" width="64" height="64"/>
+                                                    <rect key="frame" x="20" y="4" width="64" height="64.333333333333329"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="64" id="vvh-pi-ueh"/>
                                                         <constraint firstAttribute="width" constant="64" id="zac-jp-yyi"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBC-2J-Ocb">
-                                                    <rect key="frame" x="84" y="20.333333333333336" width="271" height="64"/>
+                                                    <rect key="frame" x="84" y="4" width="271" height="64.333333333333329"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Разработчик: Антон Алексеев 
 © 2017 XanKraegor </string>
@@ -1822,25 +1829,25 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="YBC-2J-Ocb" firstAttribute="height" secondItem="RwR-eA-k1c" secondAttribute="height" id="EOe-YZ-32I"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="YBC-2J-Ocb" secondAttribute="bottom" constant="6" id="GCY-c4-CPD"/>
-                                                <constraint firstItem="YBC-2J-Ocb" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="topMargin" constant="9" id="JcW-TO-D8C"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YBC-2J-Ocb" secondAttribute="bottom" constant="4" id="GCY-c4-CPD"/>
+                                                <constraint firstItem="YBC-2J-Ocb" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="top" constant="4" id="JcW-TO-D8C"/>
                                                 <constraint firstItem="YBC-2J-Ocb" firstAttribute="leading" secondItem="RwR-eA-k1c" secondAttribute="trailing" id="QMM-Ht-4G2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="RwR-eA-k1c" secondAttribute="bottom" constant="6" id="VOE-CY-TC1"/>
-                                                <constraint firstItem="RwR-eA-k1c" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="top" constant="20" symbolic="YES" id="X5x-9p-eqO"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RwR-eA-k1c" secondAttribute="bottom" constant="4" id="VOE-CY-TC1"/>
+                                                <constraint firstItem="RwR-eA-k1c" firstAttribute="top" secondItem="DFZ-jc-EUa" secondAttribute="top" constant="4" id="X5x-9p-eqO"/>
                                                 <constraint firstAttribute="trailing" secondItem="YBC-2J-Ocb" secondAttribute="trailing" constant="20" symbolic="YES" id="kbv-ed-ru4"/>
                                                 <constraint firstItem="RwR-eA-k1c" firstAttribute="leading" secondItem="DFZ-jc-EUa" secondAttribute="leading" constant="20" symbolic="YES" id="uXK-pw-osc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SPX-eX-iQs" style="IBUITableViewCellStyleDefault" id="d2S-F9-MVs">
-                                        <rect key="frame" x="0.0" y="977.33333333333337" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="921.33333333333337" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d2S-F9-MVs" id="ylZ-N3-MmR">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Исходный код приложения доступен на GitHub" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SPX-eX-iQs">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
@@ -1854,14 +1861,14 @@
                             <tableViewSection headerTitle="В программе использованы:" id="HYj-NX-lgP">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="4v3-Yt-1jF" style="IBUITableViewCellStyleDefault" id="Qra-BU-plD">
-                                        <rect key="frame" x="0.0" y="1077.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1021.3333333333334" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qra-BU-plD" id="yjr-Gu-Jhm">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4v3-Yt-1jF">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">API и информация из системы обеспечения законодательной деятельности Государственной автоматизированной системы «Законотворчество» (СОЗД ГАС «Законотворчество») © 2017 Государственная Дума Федерального Собрания Российской Федерации</string>
@@ -1873,14 +1880,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="OR1-JC-g23" style="IBUITableViewCellStyleDefault" id="5jd-NM-jfh">
-                                        <rect key="frame" x="0.0" y="1121.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1065.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5jd-NM-jfh" id="gdd-x3-AEG">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OR1-JC-g23">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк Alamofire
@@ -1892,15 +1899,35 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="sMM-p7-75s" style="IBUITableViewCellStyleDefault" id="p0t-32-4Dr">
+                                        <rect key="frame" x="0.0" y="1109.3333333333335" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p0t-32-4Dr" id="lJu-r6-I19">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sMM-p7-75s">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <string key="text">Феймворк Crashlytics (часть Fabric) 
+© 2017 Google Inc.</string>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ik9-7I-cWK" style="IBUITableViewCellStyleDefault" id="BOF-dh-yDr">
-                                        <rect key="frame" x="0.0" y="1165.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1153.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BOF-dh-yDr" id="hKn-L4-o6r">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ik9-7I-cWK">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк Kanna
@@ -1913,14 +1940,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uiV-Rs-qZL" style="IBUITableViewCellStyleDefault" id="XI7-Uz-joH">
-                                        <rect key="frame" x="0.0" y="1209.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1197.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XI7-Uz-joH" id="xNJ-4q-3BM">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uiV-Rs-qZL">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк Realm Swift (RealmCocoa)
@@ -1933,14 +1960,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fSC-Ni-vFa" style="IBUITableViewCellStyleDefault" id="VNx-ZK-tBg">
-                                        <rect key="frame" x="0.0" y="1253.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1241.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VNx-ZK-tBg" id="O1z-f7-CDL">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fSC-Ni-vFa">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк RxRealm
@@ -1953,14 +1980,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="aJZ-gw-68V" style="IBUITableViewCellStyleDefault" id="aDB-sR-OQc">
-                                        <rect key="frame" x="0.0" y="1297.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1285.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aDB-sR-OQc" id="Wip-PT-eq7">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aJZ-gw-68V">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк RxSwift
@@ -1973,14 +2000,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="rqA-tu-LNr" style="IBUITableViewCellStyleDefault" id="EeS-u7-jup">
-                                        <rect key="frame" x="0.0" y="1341.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1329.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EeS-u7-jup" id="QjD-xV-JbP">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rqA-tu-LNr">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Фреймворк SwiftyJSON
@@ -1993,14 +2020,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ohY-fc-G03" style="IBUITableViewCellStyleDefault" id="0u6-Wz-Jek">
-                                        <rect key="frame" x="0.0" y="1385.3333333333335" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1373.3333333333335" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0u6-Wz-Jek" id="Fuw-GQ-Sg6">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ohY-fc-G03">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Изображения с flaticon.com
@@ -2050,6 +2077,6 @@
         <segue reference="lBj-yx-6tQ"/>
         <segue reference="a2n-kh-rhy"/>
         <segue reference="LwO-fy-era"/>
-        <segue reference="hLO-Mz-Bcc"/>
+        <segue reference="3EB-K3-3Dt"/>
     </inferredMetricsTieBreakers>
 </document>
