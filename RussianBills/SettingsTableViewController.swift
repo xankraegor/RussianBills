@@ -11,6 +11,8 @@ import SafariServices
 
 final class SettingsTableViewController: UITableViewController {
 
+    @IBOutlet weak var iCloudSyncEngineSwitch: UISwitch!
+
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel?
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell?
     
@@ -42,6 +44,7 @@ final class SettingsTableViewController: UITableViewController {
         }
 
         updateKeysCells()
+        iCloudSyncEngineSwitch.isOn = UserDefaultsCoordinator.iCloudSyncTurnedOn
     }
 
     // MARK: - Table View Delegate
@@ -90,6 +93,27 @@ final class SettingsTableViewController: UITableViewController {
             let sliderPosition = Int(sliderValue)
             UserDefaults.standard.set(sliderValues[sliderPosition - 1], forKey: "favoriteUpdateTimeout")
             sliderTimeLabel?.text = sliderValuesDescription[sliderPosition - 1]
+        }
+    }
+
+    // MARK: - iCloud Sync Switch
+
+    @IBAction func iCloudSyncSwitchValueChanged(_ sender: UISwitch) {
+        // If iCloud is on
+        if FileManager.default.ubiquityIdentityToken != nil {
+            if sender.isOn {
+                UserDefaultsCoordinator.iCloudSyncTurnedOn = true
+                SyncMan.shared.iCloudSyncEngine?.start()
+            } else {
+                UserDefaultsCoordinator.iCloudSyncTurnedOn = false
+                SyncMan.shared.iCloudSyncEngine?.stop()
+            }
+        } else {
+            // Set previous value and tell user about it
+            let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "выключить" : "включить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
+            present(alert, animated: true, completion: nil)
+            sender.setOn(!sender.isOn, animated: false)
         }
     }
 

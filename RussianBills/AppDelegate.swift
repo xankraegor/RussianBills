@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let key = try! String(contentsOfFile: path, encoding: String.Encoding.utf8)
         let trimmedKey = key.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         Fabric.with([Crashlytics.self.start(withAPIKey: trimmedKey)])
-        Fabric.sharedSDK().debug = true
 
         // Realm
         var config = Realm.Configuration()

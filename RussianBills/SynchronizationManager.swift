@@ -17,6 +17,11 @@ final class SyncMan {
     
     let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
     var foregroundFavoriteBillsUpdateTimer: Timer?
+    var favoriteBillsUpdateTimer: DispatchSourceTimer?
+
+    let icloudDb = CKContainer.default().database(with: .private)
+    var iCloudSyncEngine: IcloudSyncEngine?
+    var iCloudStorage: BillSyncContainerStorage?
 
     // MARK: - Initialization
 
@@ -27,13 +32,15 @@ final class SyncMan {
         iCloudStorage = BillSyncContainerStorage()
         if let storage = iCloudStorage {
             iCloudSyncEngine = IcloudSyncEngine(storage: storage)
+            if UserDefaultsCoordinator.iCloudSyncTurnedOn {
+                iCloudSyncEngine?.start()
+            }
         }
-
     }
 
     // MARK: - Updating favorite bills
 
-    var favoriteBillsUpdateTimer: DispatchSourceTimer?
+
 
     func setupForegroundUpdateTimer(fireNow: Bool = false) {
         foregroundFavoriteBillsUpdateTimer = Timer.scheduledTimer(withTimeInterval: UserDefaultsCoordinator.favoriteBillsUpdateTimeout(), repeats: true, block: { (_) in
@@ -56,20 +63,6 @@ final class SyncMan {
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
-    // MARK: - iCloud Synchronization
 
-    let icloudDb = CKContainer.default().database(with: .private)
-    var iCloudSyncEngine: IcloudSyncEngine?
-    var iCloudStorage: BillSyncContainerStorage?
-
-    func isUserLoggedIntoIcloud(withResult: @escaping (Bool) -> Void) {
-        CKContainer.default().accountStatus(completionHandler: {(_ accountStatus: CKAccountStatus, _ error: Error?) -> Void in
-            if accountStatus == .noAccount {
-                withResult(false)
-            } else {
-                withResult(true)
-            }
-        })
-    }
 
 }

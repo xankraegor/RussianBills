@@ -374,6 +374,8 @@ final class SearchFormController: FormViewController {
 
     }
 
+
+
     // MARK: - Updating Query
 
     func setLawType(withStatus type: String) {
@@ -441,6 +443,7 @@ final class SearchFormController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
+        navigationController?.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
     // MARK: - Navigation

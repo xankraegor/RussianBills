@@ -8,12 +8,17 @@
 
 import Foundation
 import RealmSwift
-//import RxRealm
-//import RxSwift
 import CloudKit
 
 extension CKContainer {
     public static let shared = CKContainer(identifier: "iCloud.com.xankraegor.russianBills")
+}
+
+public enum ICLoudSyncInitType {
+    case normal
+    case replaceLocalData
+    case replaceServerData
+    case merge
 }
 
 extension Notification.Name {
@@ -30,6 +35,11 @@ private func slog(_ format: String, _ args: CVarArg...) {
 /// This class is responsible for observing changes to the local database and pushing them to CloudKit
 /// as well as observing changes in CloudKit and syncing them to the local database
 public final class IcloudSyncEngine: NSObject {
+
+    /// Realm notification token
+    private var notificationToken: NotificationToken?
+    /// CloudKit observer
+    private var changesObserver: NSObjectProtocol?
 
     private struct Constants {
         static let previousChangeToken = "PreviousChangeToken"
@@ -50,23 +60,31 @@ public final class IcloudSyncEngine: NSObject {
         self.storage = storage
         self.container = container
         self.privateDatabase = container.privateCloudDatabase
-
         super.init()
+    }
 
+    func start() {
+        print("∆ iCloudSync: start")
         // Fetch notifications not processed yet
         fetchServerNotifications()
 
         // Do initial cloud fetch
         fetchCloudKitBills()
 
-        // Sync magic
+        // Sync
         subscribeToLocalDatabaseChanges()
         subscribeToCloudKitChanges()
 
         // Clean database before the app terminates
-
         NotificationCenter.default.addObserver(self, selector: #selector(cleanup(_:)), name: .UIApplicationWillTerminate, object: UIApplication.shared)
+    }
 
+    func stop() {
+        print("∆ iCloudSync: stop")
+        notificationToken = nil
+        changesObserver = nil
+        NotificationCenter.default.removeObserver(self)
+        cleanup()
     }
 
     /// The modification date of the last note modified locally to use when querying the server
@@ -112,8 +130,7 @@ public final class IcloudSyncEngine: NSObject {
         privateDatabase.add(operation)
     }
 
-    /// Realm collection notification token
-    private var notificationToken: NotificationToken?
+
 
     private func subscribeToLocalDatabaseChanges() {
         let bills = storage.realm.objects(FavoriteBill_.self)
@@ -218,8 +235,7 @@ public final class IcloudSyncEngine: NSObject {
         }
     }
 
-    // CloudKit notes observer
-    private var changesObserver: NSObjectProtocol?
+
 
     private func startObservingCloudKitChanges() {
         // The .notesDidChangeRemotely local notification is posted by the AppDelegate when it receives a push notification from CloudKit
