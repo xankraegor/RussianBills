@@ -257,6 +257,7 @@ final class BillCardTableViewController: UITableViewController {
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
+        alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         self.present(alert, animated: true, completion: nil)
     }
 
