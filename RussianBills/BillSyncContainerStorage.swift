@@ -51,12 +51,6 @@ public final class BillSyncContainerStorage {
         }
     }
 
-    public var allRecords: Set<CKRecord> {
-        let objects = self.realm.objects(FavoriteBill_.self)
-            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false).map { $0.record }
-        return Set(objects)
-    }
-
     var mostRecentlyModifiedBillSyncContainer: BillSyncContainer? {
         let realmBillsByFavoriteUpdatedTimestamp = realm.objects(FavoriteBill_.self)
             .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)

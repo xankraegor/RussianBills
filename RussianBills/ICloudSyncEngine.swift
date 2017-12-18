@@ -82,28 +82,30 @@ public final class ICloudSyncEngine: NSObject {
 
     func start(completion: @escaping (Bool)->Void) {
         slog("[Engine] start()")
+
         UIApplication.shared.registerForRemoteNotifications()
 
         syncDispatchGroup.enter()
-        slog("+ start")
+        slog("+dispatchGoup@start")
         // Clean database before the app terminates
         NotificationCenter.default.addObserver(self, selector: #selector(cleanup(_:)), name: .UIApplicationWillTerminate, object: UIApplication.shared)
 
         // Fetch notifications not processed yet
-        fetchServerNotifications(forced: false)
+        fetchServerNotifications()
         // Do initial cloud fetch
-        fetchCloudKitBills(force: false)
+        fetchCloudKitBills()
         // On-the-go sync subsriptions
         subscribeToLocalDatabaseChanges()
         subscribeToCloudKitChanges()
+
         syncDispatchGroup.leave()
-        slog("- start")
+        slog("-dispatchGoup@start")
 
         syncDispatchGroup.notify(queue: DispatchQueue.main) {
             slog("[Engine] start()_COMPLETION")
             completion(true)
+            self.isSyncResolveRequired(completion: { req, _ in print("[Engine] resolve rquired: \(req)") })
         }
-
     }
 
     func stop() {
@@ -117,9 +119,9 @@ public final class ICloudSyncEngine: NSObject {
 
     // MARK: - Start: Fetch Server Notifications part
 
-    private func fetchServerNotifications(forced: Bool) {
+    private func fetchServerNotifications(forced: Bool = false) {
         syncDispatchGroup.enter()
-        slog("+ fetchServerNotifications")
+        slog("+dispatchGoup@fetchServerNotifications")
         slog("[Engine] fetchServerNotifications(forced: \(forced))")
         let operation = CKFetchNotificationChangesOperation(previousServerChangeToken: previousChangeToken)
         // This will hold the identifiers for every changed record
@@ -166,7 +168,7 @@ public final class ICloudSyncEngine: NSObject {
             self?.markNotificationsAsRead(with: notificationIDs)
             slog("[Engine] fetchServerNotifications: competion block success")
             self?.syncDispatchGroup.leave()
-            slog("- fetchServerNotifications")
+            slog("-dispatchGoup@fetchServerNotifications")
         }
 
         container.add(operation)
@@ -175,7 +177,7 @@ public final class ICloudSyncEngine: NSObject {
     /// Download a list of records from CloudKit and update the local database accordingly
     private func consolidateUpdatedCloudBills(with identifiers: [CKRecordID]) {
         syncDispatchGroup.enter()
-        slog("+ consolidateUpdatedCloudBills")
+        slog("+dispatchGoup@consolidateUpdatedCloudBills")
         slog("[Engine] consolidateUpdatedCloudBills(withIdentifiers:)")
         let operation = CKFetchRecordsOperation(recordIDs: identifiers)
 
@@ -185,7 +187,7 @@ public final class ICloudSyncEngine: NSObject {
                     self?.consolidateUpdatedCloudBills(with: identifiers)
                 }
                 self?.syncDispatchGroup.leave()
-                slog("- consolidateUpdatedCloudBills")
+                slog("-dispatchGoup@consolidateUpdatedCloudBills")
                 return
             }
 
@@ -194,7 +196,7 @@ public final class ICloudSyncEngine: NSObject {
             }
             slog("[Engine] consolidateUpdatedCloudBills: operation.fetchRecordsCompletionBlock: finished")
             self?.syncDispatchGroup.leave()
-            slog("- consolidateUpdatedCloudBills")
+            slog("-dispatchGoup@consolidateUpdatedCloudBills")
         }
 
         privateDatabase.add(operation)
@@ -205,13 +207,13 @@ public final class ICloudSyncEngine: NSObject {
     private func processFetchedBill(_ cloudKitBill: CKRecord) {
         slog("[Engine] processFetchedBill(cloudKitBill: \(cloudKitBill.recordID.recordName))")
         syncDispatchGroup.enter()
-        slog("+ processFetchedBill")
+        slog("+dispatchGoup@processFetchedBill")
         DispatchQueue.main.async {
             guard let favoriteBill = FavoriteBill_.from(record: cloudKitBill) else {
                 slog("[Engine] processFetchedBill(cloudKitBill: Error creating local bill from cloud bill \(cloudKitBill.recordID.recordName)")
                 assertionFailure("Error creating local bill from cloud bill \(cloudKitBill.recordID.recordName)")
                 self.syncDispatchGroup.leave()
-                slog("- processFetchedBill")
+                slog("-dispatchGoup@processFetchedBill")
                 return
             }
 
@@ -225,13 +227,13 @@ public final class ICloudSyncEngine: NSObject {
             }
 
             self.syncDispatchGroup.leave()
-            slog("- processFetchedBill")
+            slog("-dispatchGoup@processFetchedBill")
         }
     }
 
     private func markNotificationsAsRead(with identifiers: [CKNotificationID]) {
         syncDispatchGroup.enter()
-        slog("+ markNotificationsAsRead")
+        slog("+dispatchGoup@markNotificationsAsRead")
         slog("[Engine] markNotificationsAsRead(with identifiers: \(identifiers.count)")
         let operation = CKMarkNotificationsReadOperation(notificationIDsToMarkRead: identifiers)
 
@@ -243,12 +245,12 @@ public final class ICloudSyncEngine: NSObject {
                     self?.markNotificationsAsRead(with: identifiers)
                 }
                 self?.syncDispatchGroup.leave()
-                slog("- markNotificationsAsRead")
+                slog("-dispatchGoup@markNotificationsAsRead")
                 return
             }
             slog("[Engine] markNotificationsAsRead: completion success")
             self?.syncDispatchGroup.leave()
-            slog("- markNotificationsAsRead")
+            slog("-dispatchGoup@markNotificationsAsRead")
         }
 
         container.add(operation)
@@ -258,10 +260,10 @@ public final class ICloudSyncEngine: NSObject {
     // MARK: - Start: Fetch Cloud Kit Bills part
 
     /// Download bills from CloudKit
-    private func fetchCloudKitBills(force: Bool, _ inputCursor: CKQueryCursor? = nil) {
+    private func fetchCloudKitBills(forced: Bool = false, _ inputCursor: CKQueryCursor? = nil) {
         syncDispatchGroup.enter()
-        slog("+ fetchCloudKitBills")
-        slog("[Engine] fetchCloudKitBills (force: \(force), _ inputCursor: CKQueryCursor? = \(String(describing: inputCursor))")
+        slog("+dispatchGoup@fetchCloudKitBills")
+        slog("[Engine] fetchCloudKitBills (force: \(forced), _ inputCursor: CKQueryCursor? = \(String(describing: inputCursor))")
         let operation: CKQueryOperation
 
         // We may be starting a new query or continuing a previous one if there are many results
@@ -270,7 +272,7 @@ public final class ICloudSyncEngine: NSObject {
             slog("[Engine] fetchCloudKitBills: CKQueryOperation(cursor: cursor)")
         } else {
             // This query will fetch all bills modified since the last sync, sorted by modification date (descending)
-            let predicate = force ? NSPredicate(value: true) : NSPredicate(format: "favoriteUpdatedTimestamp > %@", modificationDateForQuery as CVarArg)
+            let predicate = forced ? NSPredicate(value: true) : NSPredicate(format: "favoriteUpdatedTimestamp > %@", modificationDateForQuery as CVarArg)
             let query = CKQuery(recordType: Constants.billRecordType, predicate: predicate)
             query.sortDescriptors = [NSSortDescriptor(key: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)]
             operation = CKQueryOperation(query: query)
@@ -281,21 +283,21 @@ public final class ICloudSyncEngine: NSObject {
             slog("[Engine] fetchCloudKitBills: operation.queryCompletionBlock")
             guard error == nil else {
                 self?.retryCloudKitOperationIfPossible(with: error) {
-                    self?.fetchCloudKitBills(force: force, inputCursor)
+                    self?.fetchCloudKitBills(forced: forced, inputCursor)
                 }
                 self?.syncDispatchGroup.leave()
-                slog("- fetchCloudKitBills")
+                slog("-dispatchGoup@fetchCloudKitBills")
                 return
             }
 
             if let cursor = cursor {
                 // There are more results to come, continue fetching
-                self?.fetchCloudKitBills(force: force, cursor)
+                self?.fetchCloudKitBills(forced: forced, cursor)
             }
 
             slog("[Engine] fetchCloudKitBills: operation.queryCompletionBlock recursively finished (cursor not present)")
             self?.syncDispatchGroup.leave()
-            slog("- fetchCloudKitBills - queryCompletionBlock")
+            slog("-dispatchGoup@fetchCloudKitBills - queryCompletionBlock")
         }
 
         operation.recordFetchedBlock = { [weak self] record in
@@ -312,7 +314,7 @@ public final class ICloudSyncEngine: NSObject {
 
     private func subscribeToLocalDatabaseChanges() {
         syncDispatchGroup.enter()
-        slog("+ subscribeToLocalDatabaseChanges")
+        slog("+dispatchGoup@subscribeToLocalDatabaseChanges")
         slog("[Engine] subscribeToLocalDatabaseChanges()")
         let bills = storage.realm.objects(FavoriteBill_.self)
 
@@ -321,7 +323,7 @@ public final class ICloudSyncEngine: NSObject {
             slog("[Engine] subscribeToLocalDatabaseChanges: notificationToken observe block")
             guard let welf = self else {
                 self?.syncDispatchGroup.leave()
-                slog("- subscribeToLocalDatabaseChanges")
+                slog("-dispatchGoup@subscribeToLocalDatabaseChanges")
                 return
             }
 
@@ -340,18 +342,18 @@ public final class ICloudSyncEngine: NSObject {
             }
             slog("[Engine] subscribeToLocalDatabaseChanges: notificationToken observe block end")
             self?.syncDispatchGroup.leave()
-            slog("- subscribeToLocalDatabaseChanges")
+            slog("-dispatchGoup@subscribeToLocalDatabaseChanges")
         }
     }
 
     fileprivate func pushToCloudKit(billsToUpdate: [FavoriteBill_], billsToDelete: [FavoriteBill_]) {
         syncDispatchGroup.enter()
-        slog("+ pushToCloudKit")
+        slog("+dispatchGoup@pushToCloudKit")
         slog("[Engine] pushToCloudKit(billsToUpdate: [\(billsToUpdate.count)], billsToDelete: [\(billsToDelete.count)])")
         guard billsToUpdate.count > 0 || billsToDelete.count > 0 else {
             slog("[Engine] pushToCloudKit: Aborted, no bills to update")
             syncDispatchGroup.leave()
-            slog("- pushToCloudKit")
+            slog("-dispatchGoup@pushToCloudKit")
             return
         }
 
@@ -360,13 +362,13 @@ public final class ICloudSyncEngine: NSObject {
 
         pushRecordsToCloudKit(recordsToUpdate: recordsToSave, recordIDsToDelete: recordsToDelete)
         syncDispatchGroup.leave()
-        slog("- pushToCloudKit")
+        slog("-dispatchGoup@pushToCloudKit")
     }
 
     fileprivate func pushRecordsToCloudKit(recordsToUpdate: [CKRecord], recordIDsToDelete: [CKRecordID], completion: ((Error?) -> Void)? = nil) {
         slog("[Engine] pushRecordsToCloudKit (recordsToUpdate: \(recordsToUpdate.count), recordIDsToDelete: \(recordIDsToDelete.count), completion: ((Error?) -> Void)? = nil)")
         syncDispatchGroup.enter()
-        slog("+ pushRecordsToCloudKit")
+        slog("+dispatchGoup@pushRecordsToCloudKit")
 
         let operation = CKModifyRecordsOperation(recordsToSave: recordsToUpdate, recordIDsToDelete: recordIDsToDelete)
         operation.savePolicy = .changedKeys
@@ -377,7 +379,7 @@ public final class ICloudSyncEngine: NSObject {
                 self?.retryCloudKitOperationIfPossible(with: error) { self?.pushRecordsToCloudKit(recordsToUpdate: recordsToUpdate, recordIDsToDelete: recordIDsToDelete, completion: completion)
                 }
                 self?.syncDispatchGroup.leave()
-                slog("- pushRecordsToCloudKit")
+                slog("-dispatchGoup@pushRecordsToCloudKit")
                 return
             }
 
@@ -385,7 +387,7 @@ public final class ICloudSyncEngine: NSObject {
                 slog("[Engine] pushRecordsToCloudKit: successful, run completion")
                 completion?(nil)
                 self?.syncDispatchGroup.leave()
-                slog("- pushRecordsToCloudKit")
+                slog("-dispatchGoup@pushRecordsToCloudKit")
             }
         }
 
@@ -397,7 +399,7 @@ public final class ICloudSyncEngine: NSObject {
     private func subscribeToCloudKitChanges() {
         slog("[Engine] subscribeToCloudKitChanges()")
         syncDispatchGroup.enter()
-        slog("+ subscribeToCloudKitChanges")
+        slog("+dispatchGoup@subscribeToCloudKitChanges")
         startObservingCloudKitChanges()
 
         // Create the CloudKit subscription so we receive push notifications when bills change remotely
@@ -413,7 +415,7 @@ public final class ICloudSyncEngine: NSObject {
             if subscription != nil {
                 slog("[Engine] subscribeToCloudKitChanges: privateDatabase.save: success")
                 self?.self.syncDispatchGroup.leave()
-                slog("- subscribeToCloudKitChanges")
+                slog("-dispatchGoup@subscribeToCloudKitChanges")
             } else {
                 guard error == nil else {
                     slog("[Engine] subscribeToCloudKitChanges: privateDatabase.save: error: \(error?.localizedDescription ?? "no description")")
@@ -421,11 +423,11 @@ public final class ICloudSyncEngine: NSObject {
                         self?.subscribeToCloudKitChanges()
                     }
                     self?.syncDispatchGroup.leave()
-                    slog("- subscribeToCloudKitChanges")
+                    slog("-dispatchGoup@subscribeToCloudKitChanges")
                     return
                 }
                 self?.syncDispatchGroup.leave()
-                slog("- subscribeToCloudKitChanges")
+                slog("-dispatchGoup@subscribeToCloudKitChanges")
             }
         }
     }
@@ -433,7 +435,7 @@ public final class ICloudSyncEngine: NSObject {
     private func startObservingCloudKitChanges() {
         slog("[Engine] startObservingCloudKitChanges()")
         syncDispatchGroup.enter()
-        slog("+ startObservingCloudKitChanges")
+        slog("+dispatchGoup@startObservingCloudKitChanges")
 
         // The .billsDidChangeRemotely local notification is posted by the AppDelegate when it receives a push notification from CloudKit
         changesObserver = NotificationCenter.default.addObserver(forName: .favoriteBillsDidChangeRemotely, object: nil, queue: OperationQueue.main) { [weak self] _ in
@@ -442,7 +444,7 @@ public final class ICloudSyncEngine: NSObject {
             self?.fetchServerNotifications(forced: false)
         }
         syncDispatchGroup.leave()
-        slog("- startObservingCloudKitChanges")
+        slog("-dispatchGoup@startObservingCloudKitChanges")
     }
 
     // MARK: - Stop functions
@@ -479,9 +481,10 @@ public final class ICloudSyncEngine: NSObject {
         }
     }
 
-    // MARK: - Sync resolve
+    // MARK: - Resolve sync
 
     func isSyncResolveRequired(completion: @escaping (Bool?, _ with: Set<CKRecord>?)->Void ) {
+        slog("[Engine] isSyncResolveRequired")
         let query = CKQuery(recordType: Constants.billRecordType, predicate: NSPredicate(value: true))
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             if let _ = error {
@@ -489,17 +492,41 @@ public final class ICloudSyncEngine: NSObject {
                 return
             }
 
-            if let receivedRecords = records {
-                let cloudRecords = Set(receivedRecords)
-                let diff = cloudRecords.symmetricDifference(receivedRecords)
-                slog("isSyncResolveRequired: symmetric difference count: \(diff.count); diff = \n{\n\(diff)\n}")
-                if diff.count > 0 {
-                    completion(true, diff)
-                } else {
-                    completion(false, nil)
-                }
+            if let receivedRecords = records, let localRecords = try? Realm().objects(FavoriteBill_.self) {
+                let cloudFav = Set(receivedRecords.flatMap{FavoriteBill_.from(record: $0)})
+                let localFav = Set(localRecords)
+
+                let cloudUnique = cloudFav.subtracting(localFav)
+                let localUnique = localFav.subtracting(cloudFav)
+
+                print("Cloud unique = \(cloudUnique.map{$0.number})")
+                print("Local unique = \(localUnique.map{$0.number})")
+
+//                slog("[Engine] cloud records: \(cloudRecords.map{$0.recordID.recordName})")
+//                slog("[Engine] local records: \(localRecords.map{$0.recordID.recordName})")
+
             }
         }
+    }
+
+    func resolveDiff(_ required: Bool?, with diff: Set<CKRecord>?) {
+        guard let req = required else {
+            slog("[Engine] resolveDiff: Sync resolve required error: nil received")
+            return
+        }
+
+        slog("[Engine] resolveDiff: sync resolve is \(req ? "required" : "not required")")
+
+        guard req, let difference = diff else {
+            slog("Sync resolve required error: resolve required but diff is nil")
+            return
+        }
+
+        let favoriteBills = difference.flatMap{ FavoriteBill_.from(record: $0) }
+        let toUpdate = favoriteBills.filter{ !$0.markedToBeRemovedFromFavorites }
+        let toDelete = favoriteBills.filter{ $0.markedToBeRemovedFromFavorites }
+        slog("[Engine] resolveDiff: resolve")
+        pushToCloudKit(billsToUpdate: toUpdate, billsToDelete: toDelete)
     }
 
 }

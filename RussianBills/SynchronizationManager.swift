@@ -37,12 +37,9 @@ final class SyncMan {
             }
         }
 
-
     }
 
     // MARK: - Updating favorite bills
-
-
 
     func setupForegroundUpdateTimer(fireNow: Bool = false) {
         foregroundFavoriteBillsUpdateTimer = Timer.scheduledTimer(withTimeInterval: UserDefaultsCoordinator.favoriteBillsUpdateTimeout(), repeats: true, block: { (_) in
@@ -70,5 +67,7 @@ final class SyncMan {
 // MARK: - Sync logging
 public func slog(_ format: String, _ args: CVarArg...) {
     // guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
-    NSLog("[SYNC] " + format, args)
+    DispatchQueue.main.async {
+        NSLog("[SYNC] " + format, args)
+    }
 }
