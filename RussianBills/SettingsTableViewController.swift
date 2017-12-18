@@ -102,8 +102,19 @@ final class SettingsTableViewController: UITableViewController {
         // If iCloud is on
         if FileManager.default.ubiquityIdentityToken != nil {
             if sender.isOn {
+                self.iCloudSyncEngineSwitch.isEnabled = false
                 UserDefaultsCoordinator.iCloudSyncTurnedOn = true
-                SyncMan.shared.iCloudSyncEngine?.start()
+                SyncMan.shared.iCloudSyncEngine?.start() {
+                    [weak self] success in
+                    if success {
+                        self?.iCloudSyncEngineSwitch.isEnabled = true
+                    } else {
+                        SyncMan.shared.iCloudSyncEngine?.stop()
+                        UserDefaultsCoordinator.iCloudSyncTurnedOn = false
+                        self?.iCloudSyncEngineSwitch.isEnabled = true
+                        sender.isOn = false
+                    }
+                }
             } else {
                 UserDefaultsCoordinator.iCloudSyncTurnedOn = false
                 SyncMan.shared.iCloudSyncEngine?.stop()

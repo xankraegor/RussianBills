@@ -20,7 +20,7 @@ final class SyncMan {
     var favoriteBillsUpdateTimer: DispatchSourceTimer?
 
     let icloudDb = CKContainer.default().database(with: .private)
-    var iCloudSyncEngine: IcloudSyncEngine?
+    var iCloudSyncEngine: ICloudSyncEngine?
     var iCloudStorage: BillSyncContainerStorage?
 
     // MARK: - Initialization
@@ -30,12 +30,14 @@ final class SyncMan {
         setupForegroundUpdateTimer()
 
         iCloudStorage = BillSyncContainerStorage()
-        if let storage = iCloudStorage {
-            iCloudSyncEngine = IcloudSyncEngine(storage: storage)
-            if UserDefaultsCoordinator.iCloudSyncTurnedOn {
-                iCloudSyncEngine?.start()
+        if let storage = iCloudStorage, UserDefaultsCoordinator.iCloudSyncTurnedOn {
+            iCloudSyncEngine = ICloudSyncEngine(storage: storage)
+            iCloudSyncEngine?.start() { [weak self] success in
+                if !success { self?.iCloudSyncEngine?.stop() }
             }
         }
+
+
     }
 
     // MARK: - Updating favorite bills
@@ -63,6 +65,10 @@ final class SyncMan {
         UIApplication.shared.applicationIconBadgeNumber = count
     }
 
+}
 
-
+// MARK: - Sync logging
+public func slog(_ format: String, _ args: CVarArg...) {
+    // guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
+    NSLog("[SYNC] " + format, args)
 }

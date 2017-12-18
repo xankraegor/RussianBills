@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 import RealmSwift
 import RxSwift
 import RxRealm
@@ -50,6 +51,12 @@ public final class BillSyncContainerStorage {
         }
     }
 
+    public var allRecords: Set<CKRecord> {
+        let objects = self.realm.objects(FavoriteBill_.self)
+            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false).map { $0.record }
+        return Set(objects)
+    }
+
     var mostRecentlyModifiedBillSyncContainer: BillSyncContainer? {
         let realmBillsByFavoriteUpdatedTimestamp = realm.objects(FavoriteBill_.self)
             .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
@@ -72,22 +79,17 @@ public final class BillSyncContainerStorage {
         }
     }
 
-    private func insertOrUpdate<T: Object>(objects: [T],
-                                           notNotifying token: NotificationToken? = nil,
-                                           updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
+    private func insertOrUpdate<T: Object>(objects: [T],notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
         try objects.forEach({ try self.insertOrUpdate(object: $0, notNotifying: token, updateDecisionHandler: updateDecisionHandler) })
     }
 
-    private func insertOrUpdate<T: Object>(object: T,
-                                           notNotifying token: NotificationToken? = nil,
-                                           updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
-        guard let primaryKey = T.primaryKey() else {
-            fatalError("insertOrUpdate can't be used for objects without a primary key")
+    private func insertOrUpdate<T: Object>(object: T, notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
+        guard let primaryKey = T.primaryKey(),
+            let primaryKeyValue = object.value(forKey: primaryKey) else {
+                fatalError("insertOrUpdate can't be used for objects without a primary key")
         }
 
-        guard let primaryKeyValue = object.value(forKey: primaryKey) else {
-            fatalError("insertOrUpdate can't be used for objects without a primary key")
-        }
+        slog("Container:insertOrUpdate")
 
         let tokens: [NotificationToken]
 
@@ -98,10 +100,12 @@ public final class BillSyncContainerStorage {
         }
 
         if let existingObject = realm.object(ofType: T.self, forPrimaryKey: primaryKeyValue) {
+            slog("Container:insertOrUpdate an object already exists")
             // object already exists, call updateDecisionHandler to determine whether we should update it or not
             if updateDecisionHandler(existingObject, object) {
                 realm.beginWrite()
                 realm.add(object, update: true)
+                slog("Container:insertOrUpdate an object already exists, updated in realm")
                 try realm.commitWrite(withoutNotifying: tokens)
             }
         } else {
@@ -109,6 +113,7 @@ public final class BillSyncContainerStorage {
             realm.beginWrite()
             realm.add(object)
             try realm.commitWrite(withoutNotifying: tokens)
+            slog("Container:insertOrUpdate added an object missing in realm")
         }
     }
 
@@ -119,27 +124,29 @@ public final class BillSyncContainerStorage {
 
         try realm.write {
             if reallyRemove {
+                slog("FavoriteBill \(favoriteBill.number) removed from realm)")
                 self.realm.delete(favoriteBill)
             } else {
                 favoriteBill.markedToBeRemovedFromFavorites = true
                 realm.add(favoriteBill, update: true)
+                slog("FavoriteBill \(favoriteBill.number) marked for removal)")
             }
         }
     }
 
     func deletePreviouslyUnfavoritedBills(notNotifying token: NotificationToken? = nil) throws {
+        slog("deletePreviouslyUnfavoritedBills:notNotifying:")
         let objects = realm.objects(FavoriteBill_.self).filter("markedToBeRemovedFromFavorites == true")
 
-        let tokens: [NotificationToken]
         if let token = token {
-            tokens = [token]
+            realm.beginWrite()
+            objects.forEach({ realm.delete($0) })
+            try realm.commitWrite(withoutNotifying: [token])
         } else {
-            tokens = []
+            realm.beginWrite()
+            objects.forEach({ realm.delete($0) })
+            try realm.commitWrite()
         }
-
-        realm.beginWrite()
-        objects.forEach({ realm.delete($0) })
-        try realm.commitWrite(withoutNotifying: tokens)
     }
 
 }

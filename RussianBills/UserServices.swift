@@ -236,10 +236,14 @@ enum UserServices {
             Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
             Dispatcher.shared.billsPrefetchDispatchQueue.async() {
 
-                guard let number = queries[i].number,
-                    let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
+                guard let number = queries[i].number else {
+                    assertionFailure("∆ updateFavoriteBills can't get queries[i].number")
+                    return
+                }
+                guard let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
                     let existingBill = bill else {
-                        assertionFailure("∆ Bill record by number \(queries[i].number ?? "nil") missing in Realm while updating favorite bills")
+                        debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
+                        UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: number))
                         return
                 }
 

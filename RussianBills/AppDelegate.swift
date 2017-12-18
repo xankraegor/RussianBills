@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Initializing Synchronization manager
-        UIApplication.shared.registerForRemoteNotifications()
+
         syncman = SyncMan.shared
 
         // Enabling user notifications
