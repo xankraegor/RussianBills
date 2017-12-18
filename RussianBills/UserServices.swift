@@ -26,9 +26,7 @@ enum UserServices {
         downloadInstances(forced: forced)
 
         Dispatcher.shared.referenceDownloadDispatchGroup.notify(queue: DispatchQueue.main) {
-            if let compl = completion {
-                compl()
-            }
+            completion?()
         }
     }
 
@@ -44,9 +42,7 @@ enum UserServices {
                     realm?.add(result, update: true)
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             })
         }
     }
@@ -65,9 +61,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -86,9 +80,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -107,9 +99,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -128,9 +118,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -149,9 +137,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -170,9 +156,7 @@ enum UserServices {
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                if let compl = completion {
-                    compl()
-                }
+                completion?()
             }
         }
     }
@@ -191,8 +175,8 @@ enum UserServices {
 
                     // Check if a favorite bill has changes
                     if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self,
-                            forPrimaryKey: res.number),
-                       res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
+                                                                      forPrimaryKey: res.number),
+                        res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
                         try? realm?.write {
                             existingFavoriteBillRecord.favoriteHasUnseenChanges = true
                             // Change bill updated timestamp accordingly
@@ -206,9 +190,7 @@ enum UserServices {
                 realm?.add(result, update: true)
             }
 
-            if let compl = completion {
-                compl(result, totalCount)
-            }
+            completion?(result, totalCount)
         }
     }
 
@@ -221,9 +203,9 @@ enum UserServices {
         }
 
         guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
-                .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
-            assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
-            return
+            .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
+                assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
+                return
         }
 
         guard favoriteBills.count > 0 else {
@@ -275,11 +257,8 @@ enum UserServices {
 
         Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
             UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
-            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self)
-                    .filter(FavoritesFilters.both.rawValue).count
-            if let completion = completeWithUpdatedCount {
-                completion(favoriteBillsWithUnseenChanges ?? 0)
-            }
+            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
+            completeWithUpdatedCount?(favoriteBillsWithUnseenChanges ?? 0)
         }
     }
 
@@ -299,7 +278,7 @@ enum UserServices {
     static func pathForDownloadAttachment(forBillNumber: String, withLink link: String) -> String? {
         let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
         if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link),
-           let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
+            let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
             return path
         } else {
             return nil
