@@ -49,7 +49,7 @@ public final class ICloudSyncEngine: NSObject {
         return date
     }
     /// Dispatch group for start operations to wait for
-    private let startGroup = DispatchGroup()
+    private let syncDispatchGroup = DispatchGroup()
     /// Holds the latest change token we got from CloudKit, storing it in UserDefaults
     private var previousChangeToken: CKServerChangeToken? {
         get {
@@ -83,6 +83,9 @@ public final class ICloudSyncEngine: NSObject {
     func start(completion: @escaping (Bool)->Void) {
         slog("[Engine] start()")
         UIApplication.shared.registerForRemoteNotifications()
+
+        syncDispatchGroup.enter()
+        slog("+ start")
         // Clean database before the app terminates
         NotificationCenter.default.addObserver(self, selector: #selector(cleanup(_:)), name: .UIApplicationWillTerminate, object: UIApplication.shared)
 
@@ -93,9 +96,13 @@ public final class ICloudSyncEngine: NSObject {
         // On-the-go sync subsriptions
         subscribeToLocalDatabaseChanges()
         subscribeToCloudKitChanges()
+        syncDispatchGroup.leave()
+        slog("- start")
 
-        slog("[Engine] start()_completion()")
-        completion(true)
+        syncDispatchGroup.notify(queue: DispatchQueue.main) {
+            slog("[Engine] start()_COMPLETION")
+            completion(true)
+        }
 
     }
 
@@ -108,10 +115,11 @@ public final class ICloudSyncEngine: NSObject {
         UIApplication.shared.unregisterForRemoteNotifications()
     }
 
-
     // MARK: - Start: Fetch Server Notifications part
 
     private func fetchServerNotifications(forced: Bool) {
+        syncDispatchGroup.enter()
+        slog("+ fetchServerNotifications")
         slog("[Engine] fetchServerNotifications(forced: \(forced))")
         let operation = CKFetchNotificationChangesOperation(previousServerChangeToken: previousChangeToken)
         // This will hold the identifiers for every changed record
@@ -157,6 +165,8 @@ public final class ICloudSyncEngine: NSObject {
             // Tell CloudKit we've read the notifications
             self?.markNotificationsAsRead(with: notificationIDs)
             slog("[Engine] fetchServerNotifications: competion block success")
+            self?.syncDispatchGroup.leave()
+            slog("- fetchServerNotifications")
         }
 
         container.add(operation)
@@ -164,6 +174,8 @@ public final class ICloudSyncEngine: NSObject {
 
     /// Download a list of records from CloudKit and update the local database accordingly
     private func consolidateUpdatedCloudBills(with identifiers: [CKRecordID]) {
+        syncDispatchGroup.enter()
+        slog("+ consolidateUpdatedCloudBills")
         slog("[Engine] consolidateUpdatedCloudBills(withIdentifiers:)")
         let operation = CKFetchRecordsOperation(recordIDs: identifiers)
 
@@ -172,6 +184,8 @@ public final class ICloudSyncEngine: NSObject {
                 self?.retryCloudKitOperationIfPossible(with: error) {
                     self?.consolidateUpdatedCloudBills(with: identifiers)
                 }
+                self?.syncDispatchGroup.leave()
+                slog("- consolidateUpdatedCloudBills")
                 return
             }
 
@@ -179,6 +193,8 @@ public final class ICloudSyncEngine: NSObject {
                 self?.processFetchedBill(record)
             }
             slog("[Engine] consolidateUpdatedCloudBills: operation.fetchRecordsCompletionBlock: finished")
+            self?.syncDispatchGroup.leave()
+            slog("- consolidateUpdatedCloudBills")
         }
 
         privateDatabase.add(operation)
@@ -188,10 +204,14 @@ public final class ICloudSyncEngine: NSObject {
     /// Sync a single bill to the local database
     private func processFetchedBill(_ cloudKitBill: CKRecord) {
         slog("[Engine] processFetchedBill(cloudKitBill: \(cloudKitBill.recordID.recordName))")
+        syncDispatchGroup.enter()
+        slog("+ processFetchedBill")
         DispatchQueue.main.async {
             guard let favoriteBill = FavoriteBill_.from(record: cloudKitBill) else {
                 slog("[Engine] processFetchedBill(cloudKitBill: Error creating local bill from cloud bill \(cloudKitBill.recordID.recordName)")
                 assertionFailure("Error creating local bill from cloud bill \(cloudKitBill.recordID.recordName)")
+                self.syncDispatchGroup.leave()
+                slog("- processFetchedBill")
                 return
             }
 
@@ -203,10 +223,15 @@ public final class ICloudSyncEngine: NSObject {
                 slog("[Engine] Error saving local bill from cloud bill \(cloudKitBill.recordID.recordName): \(error)")
                 assertionFailure("Error saving local bill from cloud bill \(cloudKitBill.recordID.recordName): \(error)")
             }
+
+            self.syncDispatchGroup.leave()
+            slog("- processFetchedBill")
         }
     }
 
     private func markNotificationsAsRead(with identifiers: [CKNotificationID]) {
+        syncDispatchGroup.enter()
+        slog("+ markNotificationsAsRead")
         slog("[Engine] markNotificationsAsRead(with identifiers: \(identifiers.count)")
         let operation = CKMarkNotificationsReadOperation(notificationIDsToMarkRead: identifiers)
 
@@ -217,10 +242,13 @@ public final class ICloudSyncEngine: NSObject {
                     slog("[Engine] markNotificationsAsRead: completion will be repeated")
                     self?.markNotificationsAsRead(with: identifiers)
                 }
-
+                self?.syncDispatchGroup.leave()
+                slog("- markNotificationsAsRead")
                 return
             }
             slog("[Engine] markNotificationsAsRead: completion success")
+            self?.syncDispatchGroup.leave()
+            slog("- markNotificationsAsRead")
         }
 
         container.add(operation)
@@ -231,6 +259,8 @@ public final class ICloudSyncEngine: NSObject {
 
     /// Download bills from CloudKit
     private func fetchCloudKitBills(force: Bool, _ inputCursor: CKQueryCursor? = nil) {
+        syncDispatchGroup.enter()
+        slog("+ fetchCloudKitBills")
         slog("[Engine] fetchCloudKitBills (force: \(force), _ inputCursor: CKQueryCursor? = \(String(describing: inputCursor))")
         let operation: CKQueryOperation
 
@@ -253,6 +283,8 @@ public final class ICloudSyncEngine: NSObject {
                 self?.retryCloudKitOperationIfPossible(with: error) {
                     self?.fetchCloudKitBills(force: force, inputCursor)
                 }
+                self?.syncDispatchGroup.leave()
+                slog("- fetchCloudKitBills")
                 return
             }
 
@@ -262,6 +294,8 @@ public final class ICloudSyncEngine: NSObject {
             }
 
             slog("[Engine] fetchCloudKitBills: operation.queryCompletionBlock recursively finished (cursor not present)")
+            self?.syncDispatchGroup.leave()
+            slog("- fetchCloudKitBills - queryCompletionBlock")
         }
 
         operation.recordFetchedBlock = { [weak self] record in
@@ -277,13 +311,19 @@ public final class ICloudSyncEngine: NSObject {
     // MARK: - Start: Local subscription part
 
     private func subscribeToLocalDatabaseChanges() {
+        syncDispatchGroup.enter()
+        slog("+ subscribeToLocalDatabaseChanges")
         slog("[Engine] subscribeToLocalDatabaseChanges()")
         let bills = storage.realm.objects(FavoriteBill_.self)
 
         // Here we subscribe to changes in bills to push them to CloudKit
         notificationToken = bills.observe { [weak self] changes in
             slog("[Engine] subscribeToLocalDatabaseChanges: notificationToken observe block")
-            guard let welf = self else { return }
+            guard let welf = self else {
+                self?.syncDispatchGroup.leave()
+                slog("- subscribeToLocalDatabaseChanges")
+                return
+            }
 
             switch changes {
             case .update(let collection, _, let insertions, let modifications):
@@ -299,13 +339,19 @@ public final class ICloudSyncEngine: NSObject {
                 break
             }
             slog("[Engine] subscribeToLocalDatabaseChanges: notificationToken observe block end")
+            self?.syncDispatchGroup.leave()
+            slog("- subscribeToLocalDatabaseChanges")
         }
     }
 
     fileprivate func pushToCloudKit(billsToUpdate: [FavoriteBill_], billsToDelete: [FavoriteBill_]) {
+        syncDispatchGroup.enter()
+        slog("+ pushToCloudKit")
         slog("[Engine] pushToCloudKit(billsToUpdate: [\(billsToUpdate.count)], billsToDelete: [\(billsToDelete.count)])")
         guard billsToUpdate.count > 0 || billsToDelete.count > 0 else {
             slog("[Engine] pushToCloudKit: Aborted, no bills to update")
+            syncDispatchGroup.leave()
+            slog("- pushToCloudKit")
             return
         }
 
@@ -313,27 +359,33 @@ public final class ICloudSyncEngine: NSObject {
         let recordsToDelete = billsToDelete.map({ $0.recordID })
 
         pushRecordsToCloudKit(recordsToUpdate: recordsToSave, recordIDsToDelete: recordsToDelete)
+        syncDispatchGroup.leave()
+        slog("- pushToCloudKit")
     }
 
     fileprivate func pushRecordsToCloudKit(recordsToUpdate: [CKRecord], recordIDsToDelete: [CKRecordID], completion: ((Error?) -> Void)? = nil) {
         slog("[Engine] pushRecordsToCloudKit (recordsToUpdate: \(recordsToUpdate.count), recordIDsToDelete: \(recordIDsToDelete.count), completion: ((Error?) -> Void)? = nil)")
+        syncDispatchGroup.enter()
+        slog("+ pushRecordsToCloudKit")
+
         let operation = CKModifyRecordsOperation(recordsToSave: recordsToUpdate, recordIDsToDelete: recordIDsToDelete)
         operation.savePolicy = .changedKeys
-
         operation.modifyRecordsCompletionBlock = { [weak self] _, _, error in
             guard error == nil else {
                 slog("[Engine] pushRecordsToCloudKit: Error modifying records: \(error!)")
 
-                self?.retryCloudKitOperationIfPossible(with: error) {
-                    self?.pushRecordsToCloudKit(recordsToUpdate: recordsToUpdate, recordIDsToDelete: recordIDsToDelete,
-                                                completion: completion)
+                self?.retryCloudKitOperationIfPossible(with: error) { self?.pushRecordsToCloudKit(recordsToUpdate: recordsToUpdate, recordIDsToDelete: recordIDsToDelete, completion: completion)
                 }
+                self?.syncDispatchGroup.leave()
+                slog("- pushRecordsToCloudKit")
                 return
             }
 
             DispatchQueue.main.async {
                 slog("[Engine] pushRecordsToCloudKit: successful, run completion")
                 completion?(nil)
+                self?.syncDispatchGroup.leave()
+                slog("- pushRecordsToCloudKit")
             }
         }
 
@@ -344,11 +396,13 @@ public final class ICloudSyncEngine: NSObject {
 
     private func subscribeToCloudKitChanges() {
         slog("[Engine] subscribeToCloudKitChanges()")
+        syncDispatchGroup.enter()
+        slog("+ subscribeToCloudKitChanges")
         startObservingCloudKitChanges()
 
         // Create the CloudKit subscription so we receive push notifications when bills change remotely
         let subscription = CKQuerySubscription(recordType: Constants.billRecordType, predicate: NSPredicate(value: true),
-                options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion])
+                                               options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion])
 
         let info = CKNotificationInfo()
         info.shouldSendContentAvailable = true
@@ -358,26 +412,37 @@ public final class ICloudSyncEngine: NSObject {
         privateDatabase.save(subscription) { [weak self] subscription, error in
             if subscription != nil {
                 slog("[Engine] subscribeToCloudKitChanges: privateDatabase.save: success")
+                self?.self.syncDispatchGroup.leave()
+                slog("- subscribeToCloudKitChanges")
             } else {
                 guard error == nil else {
                     slog("[Engine] subscribeToCloudKitChanges: privateDatabase.save: error: \(error?.localizedDescription ?? "no description")")
                     self?.retryCloudKitOperationIfPossible(with: error) {
                         self?.subscribeToCloudKitChanges()
                     }
+                    self?.syncDispatchGroup.leave()
+                    slog("- subscribeToCloudKitChanges")
                     return
                 }
+                self?.syncDispatchGroup.leave()
+                slog("- subscribeToCloudKitChanges")
             }
         }
     }
 
     private func startObservingCloudKitChanges() {
         slog("[Engine] startObservingCloudKitChanges()")
+        syncDispatchGroup.enter()
+        slog("+ startObservingCloudKitChanges")
+
         // The .billsDidChangeRemotely local notification is posted by the AppDelegate when it receives a push notification from CloudKit
         changesObserver = NotificationCenter.default.addObserver(forName: .favoriteBillsDidChangeRemotely, object: nil, queue: OperationQueue.main) { [weak self] _ in
             slog("[Engine] startObservingCloudKitChanges: oserver '.favoriteBillsDidChangeRemotely' activated")
             // When a notification is received from the server, we must download the notifications because they might have been coalesced
             self?.fetchServerNotifications(forced: false)
         }
+        syncDispatchGroup.leave()
+        slog("- startObservingCloudKitChanges")
     }
 
     // MARK: - Stop functions
