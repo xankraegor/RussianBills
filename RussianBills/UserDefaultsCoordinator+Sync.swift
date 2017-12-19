@@ -12,7 +12,7 @@ import Foundation
 extension UserDefaultsCoordinator {
     static var iCloudSyncTurnedOn: Bool {
         get {
-            return UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.bool(forKey: "isICloudSyncActive")
+            return (UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.object(forKey: "isICloudSyncActive") as? Bool) ?? false
         }
         set {
             UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(newValue, forKey: "isICloudSyncActive")
