@@ -28,12 +28,11 @@ final class SyncMan {
     private init() {
 
         setupForegroundUpdateTimer()
-
         iCloudStorage = BillSyncContainerStorage()
-        if let storage = iCloudStorage, UserDefaultsCoordinator.iCloudSyncTurnedOn {
+        if let storage = iCloudStorage {
             iCloudSyncEngine = ICloudSyncEngine(storage: storage)
-            iCloudSyncEngine?.start() { [weak self] success in
-                if !success { self?.iCloudSyncEngine?.stop() }
+            if UserDefaultsCoordinator.iCloudSyncTurnedOn {
+                iCloudSyncEngine?.start()
             }
         }
 
