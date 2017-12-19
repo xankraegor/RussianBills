@@ -99,28 +99,31 @@ final class SettingsTableViewController: UITableViewController {
     // MARK: - iCloud Sync Switch
 
     @IBAction func iCloudSyncSwitchValueChanged(_ sender: UISwitch) {
-        // If iCloud is on
+
         if FileManager.default.ubiquityIdentityToken != nil {
+            // If iCloud is on
             if sender.isOn {
-                self.iCloudSyncEngineSwitch.isEnabled = false
-                UserDefaultsCoordinator.iCloudSyncTurnedOn = true
-                SyncMan.shared.iCloudSyncEngine?.start() {
-                    [weak self] success in
-                    if success {
-                        self?.iCloudSyncEngineSwitch.isEnabled = true
+                sender.isEnabled = false
+
+                SyncMan.shared.iCloudSyncEngine?.startAnew() { successful in
+                    if successful {
+                        sender.isEnabled = true
+                        UserDefaultsCoordinator.iCloudSyncTurnedOn = true
                     } else {
-                        SyncMan.shared.iCloudSyncEngine?.stop()
+                        sender.isEnabled = true
                         UserDefaultsCoordinator.iCloudSyncTurnedOn = false
-                        self?.iCloudSyncEngineSwitch.isEnabled = true
                         sender.isOn = false
                     }
                 }
             } else {
-                UserDefaultsCoordinator.iCloudSyncTurnedOn = false
-                SyncMan.shared.iCloudSyncEngine?.stop()
+                // To be sure it's not being called from 'sender.isOn = false' a couple of lines before
+                if UserDefaultsCoordinator.iCloudSyncTurnedOn {
+                    UserDefaultsCoordinator.iCloudSyncTurnedOn = false
+                    SyncMan.shared.iCloudSyncEngine?.stop()
+                }
             }
         } else {
-            // Set previous value and tell user about it
+            // Set previous value and tell user that it can't be changed as long as icloud is unreachable
             let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "выключить" : "включить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
             present(alert, animated: true, completion: nil)
