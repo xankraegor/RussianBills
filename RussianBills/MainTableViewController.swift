@@ -82,10 +82,4 @@ final class MainTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Debug
-
-    @IBAction func syncButtonPressed(_ sender: Any) {
-        Crashlytics.sharedInstance().crash()
-    }
-
 }
