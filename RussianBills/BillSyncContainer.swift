@@ -13,14 +13,16 @@ public struct BillSyncContainer {
     public let number: String
     public let name: String
     public let comments: String
+    public let note: String
     public var favoriteUpdatedTimestamp: Date
     public var favoriteHasUnseenChanges: Bool
     public var favoriteHasUnseenChangesTimestamp: Date
 
-    public init(withNumber number: String, name: String, comments: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
+    public init(withNumber number: String, name: String, comments: String, note: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
         self.number = number
         self.name = name
         self.comments = comments
+        self.note = note
         self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
         self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
@@ -32,6 +34,7 @@ extension BillSyncContainer: Equatable {
         return lhs.number == rhs.number
             && lhs.name == rhs.name
             && lhs.comments == rhs.comments
+            && lhs.note == rhs.note
             && lhs.favoriteUpdatedTimestamp == rhs.favoriteUpdatedTimestamp
             && lhs.favoriteHasUnseenChanges == rhs.favoriteHasUnseenChanges
          && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
@@ -45,6 +48,7 @@ extension BillSyncContainer {
         self.number = bill.number
         self.name = bill.name
         self.comments = bill.comments
+        self.note = bill.note
         self.favoriteUpdatedTimestamp = bill.favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = bill.favoriteHasUnseenChanges
         self.favoriteHasUnseenChangesTimestamp = bill.favoriteHasUnseenChangesTimestamp
@@ -54,6 +58,7 @@ extension BillSyncContainer {
         let favoriteBill = FavoriteBill_()
         favoriteBill.number = self.number
         favoriteBill.comments = self.comments
+        favoriteBill.note = self.note
         favoriteBill.name = self.name
         favoriteBill.favoriteHasUnseenChanges = self.favoriteHasUnseenChanges
         favoriteBill.favoriteUpdatedTimestamp = self.favoriteUpdatedTimestamp
@@ -69,7 +74,7 @@ extension BillSyncContainer {
 
 extension FavoriteBill_ {
     var billSyncContainer: BillSyncContainer {
-        let container = BillSyncContainer(withNumber: self.number, name: self.name, comments: self.comments, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp)
+        let container = BillSyncContainer(withNumber: self.number, name: self.name, comments: self.comments, note: self.note, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp)
         return container
     }
 }

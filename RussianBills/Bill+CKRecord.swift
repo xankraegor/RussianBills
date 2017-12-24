@@ -11,7 +11,7 @@ import CloudKit
 import RealmSwift
 
 enum BillKey: String {
-    case number, name, comments, favorite, favoriteUpdatedTimestamp, favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp
+    case number, name, comments, note, favorite, favoriteUpdatedTimestamp, favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp
 }
 
 extension CKRecord {
@@ -35,6 +35,7 @@ extension FavoriteBill_ {
 
         record[.name] = name as CKRecordValue
         record[.comments] = comments as CKRecordValue
+        record[.note] = note as CKRecordValue
         record[.favoriteUpdatedTimestamp] = favoriteUpdatedTimestamp as CKRecordValue
         record[.favoriteHasUnseenChanges] = favoriteHasUnseenChanges as CKRecordValue
         record[.favoriteHasUnseenChangesTimestamp] = favoriteHasUnseenChangesTimestamp as CKRecordValue
@@ -46,6 +47,7 @@ extension FavoriteBill_ {
         let number = record.recordID.recordName
         guard let name = record[.name] as? String,
         let comments = record[.comments] as? String,
+        let note = record[.note] as? String,
         let favoriteUpdatedTimestamp = record[.favoriteUpdatedTimestamp] as? Date,
         let favoriteHasUnseenChanges = record[.favoriteHasUnseenChanges] as? Int,
         let favoriteHasUnseenChangesTimestamp = record[.favoriteHasUnseenChangesTimestamp] as? Date else {
@@ -54,7 +56,7 @@ extension FavoriteBill_ {
 
         let unseenChanges = favoriteHasUnseenChanges == 0 ? false : true
 
-        let favoriteBill = FavoriteBill_(withNumber: number, name: name, comments: comments, favoriteUpdatedTimestamp: favoriteUpdatedTimestamp, favoriteHasUnseenChanges: unseenChanges, favoriteHasUnseenChangesTimestamp: favoriteHasUnseenChangesTimestamp)
+        let favoriteBill = FavoriteBill_(withNumber: number, name: name, comments: comments, note: note, favoriteUpdatedTimestamp: favoriteUpdatedTimestamp, favoriteHasUnseenChanges: unseenChanges, favoriteHasUnseenChangesTimestamp: favoriteHasUnseenChangesTimestamp)
 
         return favoriteBill
     }

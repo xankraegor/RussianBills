@@ -31,6 +31,8 @@ final class BillCardTableViewController: UITableViewController {
     @IBOutlet weak var moreDocsIndicator: UIActivityIndicatorView?
     @IBOutlet weak var moreDocsCell: UITableViewCell?
 
+    @IBOutlet weak var noteLabel: UILabel!
+
     @IBOutlet weak var respCommitteeLabel: UILabel?
     @IBOutlet weak var coexecCommitteeLabel: UILabel?
     @IBOutlet weak var profileComitteesLabel: UILabel?
@@ -113,16 +115,40 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 1 { // Last Events Section
+        // Last Events Section
+        if section == 1 {
             let updated = bill?.updated ?? Date.distantPast
             return "Обновлено \(updated.toReadableString())"
+        }
+
+        // Note section
+        if section == 4 {
+            if favoriteBill != nil {
+                return ""
+            } else {
+                return "Добавьте законопроект в отслеживаемые для добавления заметки"
+            }
         }
         return nil
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = super.tableView(tableView, numberOfRowsInSection: section)
+        // Note section
+        if section == 4 {
+            if favoriteBill != nil {
+                return 2
+            } else {
+                return 0
+            }
+        } else {
+            return count
+        }
+    }
+
     // MARK: - Helper functions
 
-    func fetchExistingBillData(withBill: Bill_? = nil) {
+    private func fetchExistingBillData() {
         if let bill = bill {
             navigationItem.title = bill.favorite ? "№ \(bill.number) 🎖" : " № \(bill.number)"
             billTypeLabel?.text = bill.lawType.description
@@ -142,11 +168,27 @@ final class BillCardTableViewController: UITableViewController {
             profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
             coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
 
+            if let note = favoriteBill?.displayedNote {
+                noteLabel.text = note
+                noteLabel.textColor = UIColor.black
+            } else {
+                noteLabel.text = "Заметка отсутствует"
+                noteLabel.textColor = UIColor.gray
+            }
+
             tableView.reloadData()
         } else if let favbill = favoriteBill {
             navigationItem.title = "№ \(favbill.number) 🎖"
             billTitle?.text = favbill.name
             billCommentsLabel?.text = favbill.comments
+
+            if let note = favoriteBill?.displayedNote {
+                noteLabel.text = note
+                noteLabel.textColor = UIColor.black
+            } else {
+                noteLabel.text = "Заметка отсутствует"
+                noteLabel.textColor = UIColor.gray
+            }
 
             introductionDateLabel?.text = " … "
             introducedByLabel?.text = " … "
@@ -196,11 +238,21 @@ final class BillCardTableViewController: UITableViewController {
                 dest.bill = bill
             }
         }
+
+        if segue.identifier == "noteSegueId" {
+            if let dest = segue.destination as? FavoriteBillNoteViewController, let number = bill?.number {
+                dest.billNr = number
+            }
+        }
+    }
+
+    @IBAction func unwindFromNoteController(segue: UIStoryboardSegue) {
+        fetchExistingBillData()
     }
 
     // MARK: - AlertController
 
-    @IBAction func composeButtonPressed(_ sender: Any) {
+    @IBAction private func composeButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { [weak self] (action) in
@@ -263,7 +315,7 @@ final class BillCardTableViewController: UITableViewController {
 
     // MARK: - Helper functions
 
-    func installRealmToken() {
+    private func installRealmToken() {
         guard let currentBill = bill else {
             return
         }
@@ -275,15 +327,15 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
-    func activateMoreInfoCell() {
+    private func activateMoreInfoCell() {
         moreDocsLabel?.text = "Все события и документы"
-        moreDocsLabel?.textColor = moreDocsLabel?.tintColor
+        moreDocsLabel?.textColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
         moreDocsIndicator?.stopAnimating()
         moreDocsCell?.accessoryType = .disclosureIndicator
         moreDocsCell?.isUserInteractionEnabled = true
     }
 
-    func beginStagesParsing() {
+    private func beginStagesParsing() {
         if let billUrlString = bill?.url,
             let billUrl = URL(string: billUrlString) {
             debugPrint("BillURL: \(billUrlString)")
@@ -296,7 +348,7 @@ final class BillCardTableViewController: UITableViewController {
         }
     }
 
-    func reloadCurrentBillData() {
+    private func reloadCurrentBillData() {
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
             UserServices.downloadBills(withQuery: searchQuery, completion: {

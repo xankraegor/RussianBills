@@ -20,6 +20,7 @@ final class FavoriteBill_: Object {
     @objc dynamic var number: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var comments: String = ""
+    @objc dynamic var note: String = ""
     @objc dynamic var favoriteUpdatedTimestamp = Date.distantPast
     @objc dynamic var favoriteHasUnseenChanges: Bool = false
     @objc dynamic var favoriteHasUnseenChangesTimestamp = Date.distantPast
@@ -35,6 +36,11 @@ final class FavoriteBill_: Object {
         }
     }
 
+    var displayedNote: String? {
+        let trimmedNote = self.note.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return trimmedNote.count > 0 ? trimmedNote : nil
+    }
+
     override static func primaryKey() -> String {
         return "number"
     }
@@ -47,11 +53,12 @@ final class FavoriteBill_: Object {
         self.favoriteUpdatedTimestamp = Date()
     }
 
-    convenience init(withNumber number: String, name: String, comments: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
+    convenience init(withNumber number: String, name: String, comments: String, note: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
         self.init()
         self.number = number
         self.name = name
         self.comments = comments
+        self.note = note
         self.favoriteUpdatedTimestamp = favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = favoriteHasUnseenChanges
         self.favoriteHasUnseenChangesTimestamp = favoriteHasUnseenChangesTimestamp
@@ -66,6 +73,7 @@ extension FavoriteBill_: NSCopying {
         newFavoriteBill.number = self.number
         newFavoriteBill.favoriteUpdatedTimestamp = self.favoriteUpdatedTimestamp
         newFavoriteBill.comments = self.comments
+        newFavoriteBill.note = self.note
         newFavoriteBill.favoriteHasUnseenChanges = self.favoriteHasUnseenChanges
         newFavoriteBill.favoriteHasUnseenChangesTimestamp = self.favoriteHasUnseenChangesTimestamp
         newFavoriteBill.markedToBeRemovedFromFavorites = self.markedToBeRemovedFromFavorites
