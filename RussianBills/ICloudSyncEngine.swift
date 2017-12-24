@@ -493,8 +493,6 @@ public final class ICloudSyncEngine: NSObject {
                 try? realm.commitWrite()
             }
 
-            // TODO: bills with same number but different properties at both sides
-
             grp.notify(queue: DispatchQueue.main, execute: {
                 completion(true)
             })

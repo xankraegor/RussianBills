@@ -68,8 +68,6 @@ extension RequestRouter {
 
         /// ПАРАМЕТРЫ СО ЗНАЧЕНИЯМИ ИЗ СПРАВОЧНИКОВ
 
-        // TODO: Возможно несколько параметров!!!
-
         /// topic — идентификатор тематического блока
         if let topic = query.topic {
             dict["topic"] = topic.id
