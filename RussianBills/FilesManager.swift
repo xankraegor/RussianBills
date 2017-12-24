@@ -119,13 +119,7 @@ enum FilesManager {
     }
 
     static func filesInDirectory(atPath path: String) -> [String] {
-        var fileList: [String] = []
-        do {
-            fileList = try FileManager.default.contentsOfDirectory(atPath: path)
-        } catch let error {
-            assertionFailure("∆ Can't examine contents at path \(path):: \(error.localizedDescription)")
-        }
-        return fileList
+        return (try? FileManager.default.contentsOfDirectory(atPath: path)) ?? []
     }
 
     static func sizeOfDirectoryContents(atPath path: String) -> String? {
