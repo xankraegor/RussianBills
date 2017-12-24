@@ -780,6 +780,7 @@
 				2A3C16381FCF636900371B1B /* Frameworks */,
 				2A3C16391FCF636900371B1B /* Resources */,
 				3256F1E7C8B8CE3B02C7810B /* [CP] Copy Pods Resources */,
+				2A50E4B91FF05B9C009E1ADB /* Autoincrement build number */,
 			);
 			buildRules = (
 			);
@@ -797,6 +798,7 @@
 				2A4A2BA11FD5E43A00E08F3F /* Resources */,
 				2A4A2BC61FD5E43A00E08F3F /* Embed App Extensions */,
 				4B5D06BBB3DA117915BF5F42 /* Frameworks */,
+				2A50E4BA1FF05BAC009E1ADB /* Autoincrement build number */,
 			);
 			buildRules = (
 			);
@@ -815,6 +817,7 @@
 				2A4A2BAB1FD5E43A00E08F3F /* Sources */,
 				2A4A2BAC1FD5E43A00E08F3F /* Frameworks */,
 				2A4A2BAD1FD5E43A00E08F3F /* Resources */,
+				2A50E4BB1FF05BD2009E1ADB /* Autoincrement build number */,
 			);
 			buildRules = (
 			);
@@ -861,6 +864,7 @@
 				2ACA10921FCCC9CD00869553 /* Frameworks */,
 				2ACA10931FCCC9CD00869553 /* Resources */,
 				A298AC63FBBDA405ED255929 /* [CP] Copy Pods Resources */,
+				2A50E4B81FF05B85009E1ADB /* Autoincrement Build Number */,
 			);
 			buildRules = (
 			);
@@ -1029,6 +1033,62 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2A50E4B81FF05B85009E1ADB /* Autoincrement Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Autoincrement Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		2A50E4B91FF05B9C009E1ADB /* Autoincrement build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Autoincrement build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		2A50E4BA1FF05BAC009E1ADB /* Autoincrement build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Autoincrement build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		2A50E4BB1FF05BD2009E1ADB /* Autoincrement build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Autoincrement build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 		2A85AFC61FE2165B0073261A /* Fabric Crashlythics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
