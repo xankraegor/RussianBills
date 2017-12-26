@@ -255,17 +255,7 @@ final class BillCardTableViewController: UITableViewController {
     @IBAction private func composeButtonPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Действия с законопроектом", message: "Выберите действие", preferredStyle: .actionSheet)
 
-        alert.addAction(UIAlertAction(title: "Сохранить как текстовый файл", style: .default, handler: { [weak self] (action) in
-
-            if let description = self?.description, let number = self?.bill?.number {
-                FilesManager.createAndOrWriteToFileBillDescription(text: description, name: number, atPath: NSHomeDirectory())
-            } else {
-                assertionFailure("Can't generate bill description or/and get bill number to save them to a file")
-            }
-
-        }))
-
-        alert.addAction(UIAlertAction(title: "Скопировать как текст", style: .default, handler: { [weak self] (action) in
+        alert.addAction(UIAlertAction(title: "Скопировать описание", style: .default, handler: { [weak self] (action) in
             UIPasteboard.general.string = self?.description
         }))
 

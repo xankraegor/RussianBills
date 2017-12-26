@@ -1432,13 +1432,37 @@
                                                     <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="1iZ-Fr-et9" kind="show" identifier="showOnMapSegue" id="iOd-N0-QQ4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="1oH-rP-pxZ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lee-dP-7DS" style="IBUITableViewCellStyleDefault" id="0Xh-4O-YwJ">
+                                        <rect key="frame" x="0.0" y="347" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Xh-4O-YwJ" id="gss-lu-dce">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Поиск законопроектов субъекта закинициативы" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lee-dP-7DS">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ldw-gj-cUn" kind="show" identifier="SearchWithThisSubjectSegueId" id="RcN-tU-zP2"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1463,7 +1487,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRd-cv-UJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4638" y="1771"/>
+            <point key="canvasLocation" x="3177" y="1770"/>
         </scene>
         <!--Учреждение на карте-->
         <scene sceneID="brL-Gs-d6O">
@@ -1501,7 +1525,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DRO-hR-jch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5405.6000000000004" y="1770.4433497536947"/>
+            <point key="canvasLocation" x="3918" y="1770"/>
         </scene>
         <!--$UniversalTitle$-->
         <scene sceneID="aez-dd-Gp5">
@@ -1640,7 +1664,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="3918" y="1771"/>
+            <point key="canvasLocation" x="2356" y="1770"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sFv-Qh-FXJ">
@@ -2161,9 +2185,9 @@
         <image name="xan_logo_small" width="85" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lBj-yx-6tQ"/>
-        <segue reference="a2n-kh-rhy"/>
+        <segue reference="wXA-hc-24i"/>
+        <segue reference="0xS-fK-VXV"/>
         <segue reference="LwO-fy-era"/>
-        <segue reference="3EB-K3-3Dt"/>
+        <segue reference="RcN-tU-zP2"/>
     </inferredMetricsTieBreakers>
 </document>

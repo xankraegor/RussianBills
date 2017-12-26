@@ -142,18 +142,35 @@ final class LegislativeSubjTableViewController: UITableViewController {
             return self.locationForMap != nil
         }
 
-        return false
+        return true
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "showOnMapSegue",
             let dest = segue.destination as? OnMapViewController {
             dest.locationToDisplay = self.locationForMap
             dest.nameToDisplay = organizationName
-            return
         }
 
-        assertionFailure("Wrong segue id or cannot cast destination controller as a desired class")
+        if segue.identifier == "SearchWithThisSubjectSegueId",
+            let dest = segue.destination as? SearchFormController, let st = subjectType, let existingId = id {
+            switch st {
+            case .deputy:
+                if let dep = st.item(byId: existingId) as? Deputy_ {
+                    if dep.position == DeputyPosition.duma.rawValue {
+                        dest.receivedDeputyId = existingId
+                    } else if dep.position == DeputyPosition.federalCouncil.rawValue {
+                        dest.receivedCouncilId = existingId
+                    }
+                }
+            case .federalSubject:
+                dest.receivedFederalSubjectId = existingId
+            case .regionalSubject:
+                dest.receivedRegionalSubjectId = existingId
+            }
+        }
+
     }
 
 }

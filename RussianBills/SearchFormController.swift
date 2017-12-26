@@ -12,6 +12,11 @@ import RealmSwift
 
 final class SearchFormController: FormViewController {
 
+    var receivedDeputyId = -1
+    var receivedCouncilId = -1
+    var receivedFederalSubjectId = -1
+    var receivedRegionalSubjectId = -1
+
     var query = BillSearchQuery() {
         didSet {
             preprocessRequest(usingQuery: query, afterSeconds: 1.0)
@@ -51,6 +56,8 @@ final class SearchFormController: FormViewController {
             return []
         }
     }()
+
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,7 +172,7 @@ final class SearchFormController: FormViewController {
             // MARK: Duma Deputy switch
             <<< SwitchRow("deputySwitch") {
                 $0.title = "Депутат Госдумы"
-                $0.value = false
+                $0.value = receivedDeputyId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
@@ -190,10 +197,17 @@ final class SearchFormController: FormViewController {
             <<< PushRow<Deputy_>("deputyPerson") {
                 $0.selectorTitle = "Выберите депутата"
                 var deps = deputies
-                let absentValue = Deputy_(__withFakeName: "Любой")
+                let absentValue = Deputy_(withFakeName: "Любой")
                 deps.insert(absentValue, at: 0)
                 $0.options = deps
-                $0.value = absentValue // initially selected
+                // initially selected value
+                if receivedDeputyId > 0, let realm = try? Realm(), let deputy = realm.object(ofType: Deputy_.self, forPrimaryKey: receivedDeputyId) {
+                    $0.value = deputy
+                    self.query.deputyId = receivedDeputyId
+                } else {
+                    $0.value = absentValue
+                }
+
                 $0.hidden = Condition.function(["deputySwitch"], { form in
                     return !((form.rowBy(tag: "deputySwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -215,7 +229,7 @@ final class SearchFormController: FormViewController {
             // MARK: Council Member switch
             <<< SwitchRow("councilSwitch") {
                 $0.title = "Член Совета Федерации"
-                $0.value = false
+                $0.value = receivedCouncilId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
@@ -240,10 +254,18 @@ final class SearchFormController: FormViewController {
             <<< PushRow<Deputy_>("councilPerson") {
                 $0.selectorTitle = "Выберите члена Совета Федерации"
                 var deps = councilMembers
-                let absentValue = Deputy_(__withFakeName: "Любой")
+                let absentValue = Deputy_(withFakeName: "Любой")
                 deps.insert(absentValue, at: 0)
                 $0.options = deps
-                $0.value = absentValue // initially selected
+
+                // initially selected value
+                if receivedCouncilId > 0, let realm = try? Realm(), let member = realm.object(ofType: Deputy_.self, forPrimaryKey: receivedCouncilId) {
+                    $0.value = member
+                    self.query.deputyId = receivedCouncilId
+                } else {
+                    $0.value = absentValue
+                }
+
                 $0.hidden = Condition.function(["councilSwitch"], { form in
                     return !((form.rowBy(tag: "councilSwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -268,7 +290,7 @@ final class SearchFormController: FormViewController {
                 $0.title = "Федеральный орган госвласти"
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.value = false
+                $0.value = receivedFederalSubjectId > 0 ? true : false
                 }.onChange({ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -291,7 +313,15 @@ final class SearchFormController: FormViewController {
                 let absentValue = FederalSubject_(__withFakeName: "Любой")
                 feds.insert(absentValue, at: 0)
                 $0.options = feds
-                $0.value = absentValue // initially selected
+                // initially selected value
+                if receivedFederalSubjectId > 0, let realm = try? Realm(), let fedsub = realm.object(ofType: FederalSubject_.self, forPrimaryKey: receivedFederalSubjectId) {
+                    $0.value = fedsub
+                    self.query.federalSubjectId = receivedFederalSubjectId
+                } else {
+                    $0.value = absentValue
+                }
+
+
                 $0.hidden = Condition.function(["federalSwitch"], { form in
                     return !((form.rowBy(tag: "federalSwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -315,7 +345,7 @@ final class SearchFormController: FormViewController {
             // MARK: Regional Subject switch
             <<< SwitchRow("regionalSwitch") {
                 $0.title = "Региональный орган зак. власти"
-                $0.value = false
+                $0.value = receivedRegionalSubjectId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 }.onChange({ [weak self] (row) in
@@ -340,7 +370,15 @@ final class SearchFormController: FormViewController {
                 let absentValue = RegionalSubject_(__withFakeName: "Любой")
                 regs.insert(absentValue, at: 0)
                 $0.options = regs
-                $0.value = absentValue // initially selected
+
+                // initially selected value
+                if receivedRegionalSubjectId > 0, let realm = try? Realm(), let regsub = realm.object(ofType: RegionalSubject_.self, forPrimaryKey: receivedRegionalSubjectId) {
+                    $0.value = regsub
+                    self.query.regionalSubjectId = receivedRegionalSubjectId
+                } else {
+                    $0.value = absentValue
+                }
+
                 $0.hidden = Condition.function(["regionalSwitch"], { form in
                     return !((form.rowBy(tag: "regionalSwitch") as? SwitchRow)?.value ?? false)
                 })
@@ -374,7 +412,10 @@ final class SearchFormController: FormViewController {
 
     }
 
-
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+        super.viewWillAppear(animated)
+    }
 
     // MARK: - Updating Query
 
@@ -440,11 +481,6 @@ final class SearchFormController: FormViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isToolbarHidden = true
-        navigationController?.navigationItem.rightBarButtonItem?.isEnabled = true
-    }
 
     // MARK: - Navigation
 

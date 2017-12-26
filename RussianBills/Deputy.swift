@@ -18,7 +18,7 @@ final class Deputy_: Object {
     @objc dynamic var position: String = ""
     @objc dynamic var isCurrent: Bool = false
 
-    convenience init(__withFakeName name: String) {
+    convenience init(withFakeName name: String) {
         self.init()
         self.name = name
     }
