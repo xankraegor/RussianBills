@@ -1046,7 +1046,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Заметка отсутствует" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CFS-06-g5O">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="42"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1061,11 +1061,11 @@
                                         <rect key="frame" x="0.0" y="947.33333333333337" width="375" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BtR-SO-LtO" id="MB2-4G-Qym">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="42"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Редактировать заметку" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pty-T9-0bW">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="42"/>
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1087,17 +1087,28 @@
                             <outlet property="delegate" destination="lxy-Bg-9id" id="6nG-E4-eCL"/>
                         </connections>
                     </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="№ 123456-7" id="BG1-9U-MPp">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="J7h-ad-HKQ"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qQy-m7-8zp">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" systemItem="organize" id="ROr-uN-kVi">
                             <connections>
-                                <action selector="composeButtonPressed:" destination="lxy-Bg-9id" id="njW-QK-bpm"/>
+                                <action selector="organizedButtonPressed:" destination="lxy-Bg-9id" id="9WS-Da-n6X"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Отслеживаемый" id="4eA-aV-OI0">
+                            <connections>
+                                <action selector="organizedTextButtonPressed:" destination="lxy-Bg-9id" id="Rpj-bV-jRO"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="8Ew-i5-JDB"/>
+                        <barButtonItem systemItem="action" id="qQy-m7-8zp">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="lxy-Bg-9id" id="njW-QK-bpm"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="№ 123456-7" id="BG1-9U-MPp">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="J7h-ad-HKQ"/>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="billCommentsLabel" destination="MVz-oL-s5U" id="4Ar-p5-h6I"/>
                         <outlet property="billTitle" destination="xsM-qm-98s" id="HsW-Pn-otq"/>
@@ -1115,8 +1126,11 @@
                         <outlet property="moreDocsLabel" destination="SvG-Xd-xX5" id="n7B-6G-3sG"/>
                         <outlet property="navigationItem" destination="BG1-9U-MPp" id="ePW-fP-Te4"/>
                         <outlet property="noteLabel" destination="CFS-06-g5O" id="Wqw-KS-xHZ"/>
+                        <outlet property="organizedButton" destination="ROr-uN-kVi" id="X7B-mF-ccJ"/>
+                        <outlet property="organizedTextButton" destination="4eA-aV-OI0" id="gfC-sQ-iRz"/>
                         <outlet property="profileComitteesLabel" destination="HJk-dy-12H" id="Iv0-FP-QJ8"/>
                         <outlet property="respCommitteeLabel" destination="kcH-BW-Wcr" id="9zR-JW-Wky"/>
+                        <outlet property="shareButton" destination="qQy-m7-8zp" id="Et8-as-nfB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vW-Te-2g5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1502,7 +1516,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nja-6x-jkx">
-                                <rect key="frame" x="0.0" y="88" width="375" height="682"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1511,10 +1525,10 @@
                             <constraint firstItem="nja-6x-jkx" firstAttribute="leading" secondItem="uRn-8S-xU0" secondAttribute="leading" id="9U7-jR-5Px"/>
                             <constraint firstItem="nja-6x-jkx" firstAttribute="top" secondItem="gIx-27-ssF" secondAttribute="bottom" id="Eiw-5F-klc"/>
                             <constraint firstAttribute="trailing" secondItem="nja-6x-jkx" secondAttribute="trailing" id="HSx-Ge-vbd"/>
+                            <constraint firstAttribute="bottom" secondItem="nja-6x-jkx" secondAttribute="bottom" id="N4w-0e-zWp"/>
                             <constraint firstAttribute="trailing" secondItem="nja-6x-jkx" secondAttribute="trailing" id="P5M-fV-rCt"/>
                             <constraint firstItem="nja-6x-jkx" firstAttribute="leading" secondItem="uRn-8S-xU0" secondAttribute="leading" id="Vi5-m8-DRj"/>
                             <constraint firstItem="nja-6x-jkx" firstAttribute="top" secondItem="gIx-27-ssF" secondAttribute="bottom" id="j5i-Vd-JdF"/>
-                            <constraint firstItem="PhD-vt-bgx" firstAttribute="top" secondItem="nja-6x-jkx" secondAttribute="bottom" constant="8" symbolic="YES" id="zx3-d4-6Zb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Учреждение на карте" id="IRV-NH-2jt"/>
@@ -1525,7 +1539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DRO-hR-jch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3918" y="1770"/>
+            <point key="canvasLocation" x="3917.5999999999999" y="1769.7044334975369"/>
         </scene>
         <!--$UniversalTitle$-->
         <scene sceneID="aez-dd-Gp5">
