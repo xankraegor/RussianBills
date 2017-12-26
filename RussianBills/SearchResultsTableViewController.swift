@@ -38,7 +38,9 @@ final class SearchResultsTableViewController: UITableViewController {
                 let realm = try? Realm()
                 let newList = BillsList_(withName: BillsListType.mainSearch, totalCount: totalCount)
                 newList.bills.append(objectsIn: resultBills)
-                try? realm?.write {realm?.add(newList, update: true)}
+                try? realm?.write {
+                    realm?.add(newList, update: true)
+                }
             })
         }
 

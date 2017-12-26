@@ -55,14 +55,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="№ 225656-7" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-x6-87v">
-                                            <rect key="frame" x="191.66666666666663" y="11" width="163.33333333333337" height="18"/>
+                                            <rect key="frame" x="191.66666666666663" y="8" width="163.33333333333337" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="18" id="4sA-O3-zFd"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rac-lJ-aLw">
-                                            <rect key="frame" x="20" y="36.666666666666657" width="347" height="174"/>
+                                            <rect key="frame" x="20" y="33.666666666666657" width="335" height="177"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <string key="text">О внесении изменений в Бюджетный кодекс Российской Федерации и признании утратившими силу отдельных положений Федерального закона "О внесении изменений в Бюджетный кодекс Российской Федерации в части регулирования бюджетного процесса и приведении в соответствие с бюджетным законодательством Российской Федерации отдельных законодательных актов Российской Федерации"</string>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -70,26 +73,28 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В избранном 🎖" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PwY-Y5-hV5">
-                                            <rect key="frame" x="20" y="11" width="163.66666666666666" height="18"/>
+                                            <rect key="frame" x="20" y="8" width="163.66666666666666" height="18"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="18" id="P08-kG-8Uf"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="tAc-x6-87v" firstAttribute="height" secondItem="PwY-Y5-hV5" secondAttribute="height" id="1vM-gq-dGi"/>
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="tAc-x6-87v" secondAttribute="bottom" constant="8" id="CMa-3e-v0r"/>
                                         <constraint firstItem="Rac-lJ-aLw" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="20" symbolic="YES" id="HEV-Vt-fhL"/>
                                         <constraint firstAttribute="right" secondItem="tAc-x6-87v" secondAttribute="right" constant="20" symbolic="YES" id="Rmr-c4-kgw"/>
-                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="top" constant="11" id="g5M-FZ-92d"/>
-                                        <constraint firstItem="tAc-x6-87v" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="topMargin" id="gxw-ld-NMa"/>
+                                        <constraint firstItem="PwY-Y5-hV5" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="top" constant="8" id="g5M-FZ-92d"/>
+                                        <constraint firstItem="tAc-x6-87v" firstAttribute="top" secondItem="KXM-RZ-pom" secondAttribute="top" constant="8" id="gxw-ld-NMa"/>
                                         <constraint firstItem="PwY-Y5-hV5" firstAttribute="leading" secondItem="KXM-RZ-pom" secondAttribute="leading" constant="20" symbolic="YES" id="iH2-Ol-GRC"/>
-                                        <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="PwY-Y5-hV5" secondAttribute="bottom" constant="7.5" id="jvu-Cb-rKI"/>
+                                        <constraint firstItem="Rac-lJ-aLw" firstAttribute="top" secondItem="PwY-Y5-hV5" secondAttribute="bottom" constant="8" id="jvu-Cb-rKI"/>
                                         <constraint firstAttribute="bottom" secondItem="Rac-lJ-aLw" secondAttribute="bottom" constant="8" id="oUQ-Uj-NU0"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="width" secondItem="PwY-Y5-hV5" secondAttribute="width" id="pQ4-j8-BTv"/>
                                         <constraint firstItem="tAc-x6-87v" firstAttribute="leading" secondItem="PwY-Y5-hV5" secondAttribute="trailing" constant="8" id="vn5-EG-Lcr"/>
-                                        <constraint firstAttribute="trailing" secondItem="Rac-lJ-aLw" secondAttribute="trailing" constant="8" id="vuQ-zb-GHN"/>
+                                        <constraint firstAttribute="trailing" secondItem="Rac-lJ-aLw" secondAttribute="trailing" constant="20" symbolic="YES" id="vuQ-zb-GHN"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -561,7 +566,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О внесении дополнений в Федеральный закон «Об ограничении курения табака» и еще более длинное название" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="99" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsM-qm-98s">
-                                                    <rect key="frame" x="8" y="0.0" width="359" height="77"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="77"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
@@ -571,8 +576,8 @@
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="xsM-qm-98s" firstAttribute="top" secondItem="czN-2z-O6m" secondAttribute="top" id="Gdm-A9-y4M"/>
-                                                <constraint firstAttribute="trailing" secondItem="xsM-qm-98s" secondAttribute="trailing" constant="8" id="IFN-eo-HAG"/>
-                                                <constraint firstItem="xsM-qm-98s" firstAttribute="leading" secondItem="czN-2z-O6m" secondAttribute="leading" constant="8" id="Vky-Is-8E0"/>
+                                                <constraint firstAttribute="trailing" secondItem="xsM-qm-98s" secondAttribute="trailing" constant="20" symbolic="YES" id="IFN-eo-HAG"/>
+                                                <constraint firstItem="xsM-qm-98s" firstAttribute="leading" secondItem="czN-2z-O6m" secondAttribute="leading" constant="20" symbolic="YES" id="Vky-Is-8E0"/>
                                                 <constraint firstAttribute="bottom" secondItem="xsM-qm-98s" secondAttribute="bottom" id="bVz-D1-Oez"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -692,7 +697,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Стадия" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZi-gS-efv">
-                                                    <rect key="frame" x="24" y="11" width="100" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="XkC-nX-n7F"/>
@@ -702,7 +707,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Рассмотрение законопроекта в первом чтении" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Oh-r8-AIu">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -711,13 +716,13 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="9Oh-r8-AIu" firstAttribute="trailing" secondItem="0Vt-cg-t4m" secondAttribute="trailingMargin" id="1oG-sa-fTE"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Oh-r8-AIu" secondAttribute="trailing" constant="20" symbolic="YES" id="1oG-sa-fTE"/>
                                                 <constraint firstItem="9Oh-r8-AIu" firstAttribute="centerY" secondItem="0Vt-cg-t4m" secondAttribute="centerY" id="1zs-W1-BXy"/>
                                                 <constraint firstItem="TZi-gS-efv" firstAttribute="centerY" secondItem="0Vt-cg-t4m" secondAttribute="centerY" id="2ne-d0-4sb"/>
                                                 <constraint firstItem="9Oh-r8-AIu" firstAttribute="top" secondItem="0Vt-cg-t4m" secondAttribute="topMargin" id="G6O-SU-mgq"/>
                                                 <constraint firstItem="TZi-gS-efv" firstAttribute="top" secondItem="0Vt-cg-t4m" secondAttribute="topMargin" id="Nna-XS-sR8"/>
                                                 <constraint firstItem="9Oh-r8-AIu" firstAttribute="bottom" secondItem="0Vt-cg-t4m" secondAttribute="bottomMargin" id="OlP-bq-4UB"/>
-                                                <constraint firstItem="TZi-gS-efv" firstAttribute="leading" secondItem="0Vt-cg-t4m" secondAttribute="leadingMargin" constant="8" id="cg0-Nv-U4X"/>
+                                                <constraint firstItem="TZi-gS-efv" firstAttribute="leading" secondItem="0Vt-cg-t4m" secondAttribute="leading" constant="20" symbolic="YES" id="cg0-Nv-U4X"/>
                                                 <constraint firstItem="9Oh-r8-AIu" firstAttribute="leading" secondItem="TZi-gS-efv" secondAttribute="trailing" id="esf-10-TXe"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -730,7 +735,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фаза" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2e-EC-QMF">
-                                                    <rect key="frame" x="24" y="11" width="100" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="0Om-3P-O99"/>
@@ -740,7 +745,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рассмотрение законопроекта Государственной Думой" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIy-4l-GL1">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -749,13 +754,13 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="g2e-EC-QMF" firstAttribute="leading" secondItem="HVa-Mq-jdy" secondAttribute="leadingMargin" constant="8" id="1e5-EV-klB"/>
+                                                <constraint firstItem="g2e-EC-QMF" firstAttribute="leading" secondItem="HVa-Mq-jdy" secondAttribute="leading" constant="20" symbolic="YES" id="1e5-EV-klB"/>
                                                 <constraint firstItem="CIy-4l-GL1" firstAttribute="centerY" secondItem="HVa-Mq-jdy" secondAttribute="centerY" id="ZwA-54-6RX"/>
                                                 <constraint firstItem="CIy-4l-GL1" firstAttribute="top" secondItem="HVa-Mq-jdy" secondAttribute="topMargin" id="bEc-wQ-mFS"/>
                                                 <constraint firstItem="g2e-EC-QMF" firstAttribute="centerY" secondItem="HVa-Mq-jdy" secondAttribute="centerY" id="eW6-Is-Z1i"/>
                                                 <constraint firstItem="CIy-4l-GL1" firstAttribute="leading" secondItem="g2e-EC-QMF" secondAttribute="trailing" id="ghu-SD-7FZ"/>
                                                 <constraint firstItem="g2e-EC-QMF" firstAttribute="top" secondItem="HVa-Mq-jdy" secondAttribute="topMargin" id="ons-Ch-Yrz"/>
-                                                <constraint firstItem="CIy-4l-GL1" firstAttribute="trailing" secondItem="HVa-Mq-jdy" secondAttribute="trailingMargin" id="uJH-or-d3h"/>
+                                                <constraint firstAttribute="trailing" secondItem="CIy-4l-GL1" secondAttribute="trailing" constant="20" symbolic="YES" id="uJH-or-d3h"/>
                                                 <constraint firstItem="CIy-4l-GL1" firstAttribute="bottom" secondItem="HVa-Mq-jdy" secondAttribute="bottomMargin" id="zN6-1l-OOO"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -768,7 +773,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Решение" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFr-Bl-9DD">
-                                                    <rect key="frame" x="24" y="11" width="100" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="hUI-Wj-3N5"/>
@@ -778,7 +783,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8P-XZ-Vi3">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
@@ -789,9 +794,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="xFr-Bl-9DD" firstAttribute="leading" secondItem="D0T-xa-5vE" secondAttribute="leadingMargin" constant="8" id="2sc-d5-6gl"/>
+                                                <constraint firstItem="xFr-Bl-9DD" firstAttribute="leading" secondItem="D0T-xa-5vE" secondAttribute="leading" constant="20" symbolic="YES" id="2sc-d5-6gl"/>
                                                 <constraint firstItem="P8P-XZ-Vi3" firstAttribute="top" secondItem="D0T-xa-5vE" secondAttribute="topMargin" id="B8B-uR-0uj"/>
-                                                <constraint firstItem="P8P-XZ-Vi3" firstAttribute="trailing" secondItem="D0T-xa-5vE" secondAttribute="trailingMargin" id="Hg2-Rl-c2k"/>
+                                                <constraint firstAttribute="trailing" secondItem="P8P-XZ-Vi3" secondAttribute="trailing" constant="20" symbolic="YES" id="Hg2-Rl-c2k"/>
                                                 <constraint firstItem="xFr-Bl-9DD" firstAttribute="top" secondItem="D0T-xa-5vE" secondAttribute="topMargin" id="IBo-DW-ahR"/>
                                                 <constraint firstItem="P8P-XZ-Vi3" firstAttribute="bottom" secondItem="D0T-xa-5vE" secondAttribute="bottomMargin" id="QcN-XW-uey"/>
                                                 <constraint firstItem="xFr-Bl-9DD" firstAttribute="centerY" secondItem="D0T-xa-5vE" secondAttribute="centerY" id="W62-w8-tTr"/>
@@ -808,7 +813,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgk-rn-5ff">
-                                                    <rect key="frame" x="24" y="11" width="100" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="lk1-Gy-KPW"/>
@@ -818,7 +823,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqa-Rq-szJ">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
@@ -833,8 +838,8 @@
                                                 <constraint firstItem="Hqa-Rq-szJ" firstAttribute="bottom" secondItem="F3h-TY-J4Z" secondAttribute="bottomMargin" id="Jzt-bs-xZb"/>
                                                 <constraint firstItem="Hqa-Rq-szJ" firstAttribute="centerY" secondItem="F3h-TY-J4Z" secondAttribute="centerY" id="Lli-0X-Ln0"/>
                                                 <constraint firstItem="dgk-rn-5ff" firstAttribute="top" secondItem="F3h-TY-J4Z" secondAttribute="topMargin" id="Vtu-RK-aOd"/>
-                                                <constraint firstItem="Hqa-Rq-szJ" firstAttribute="trailing" secondItem="F3h-TY-J4Z" secondAttribute="trailingMargin" id="Y9Z-GV-0T3"/>
-                                                <constraint firstItem="dgk-rn-5ff" firstAttribute="leading" secondItem="F3h-TY-J4Z" secondAttribute="leadingMargin" constant="8" id="cBl-U3-h3u"/>
+                                                <constraint firstAttribute="trailing" secondItem="Hqa-Rq-szJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Y9Z-GV-0T3"/>
+                                                <constraint firstItem="dgk-rn-5ff" firstAttribute="leading" secondItem="F3h-TY-J4Z" secondAttribute="leading" constant="20" symbolic="YES" id="cBl-U3-h3u"/>
                                                 <constraint firstItem="Hqa-Rq-szJ" firstAttribute="leading" secondItem="dgk-rn-5ff" secondAttribute="trailing" id="fl7-v8-9MW"/>
                                                 <constraint firstItem="Hqa-Rq-szJ" firstAttribute="top" secondItem="F3h-TY-J4Z" secondAttribute="topMargin" id="kdw-fA-uaA"/>
                                             </constraints>
@@ -848,7 +853,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Документ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7NU-Ci-yAf">
-                                                    <rect key="frame" x="24" y="11" width="100" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="21"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="r7z-fe-n80"/>
@@ -858,7 +863,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hk6-fj-ibw">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Отклонить законопроект
 Постановление ГД 307-5 ГД от 4 апреля 2008 года</string>
@@ -875,8 +880,8 @@
                                                 <constraint firstItem="7NU-Ci-yAf" firstAttribute="top" secondItem="7fd-M6-vvW" secondAttribute="topMargin" id="VOC-PF-Ke5"/>
                                                 <constraint firstItem="hk6-fj-ibw" firstAttribute="top" secondItem="7fd-M6-vvW" secondAttribute="topMargin" id="dJ1-HM-ZLr"/>
                                                 <constraint firstItem="hk6-fj-ibw" firstAttribute="leading" secondItem="7NU-Ci-yAf" secondAttribute="trailing" id="gxd-OC-Bqd"/>
-                                                <constraint firstItem="7NU-Ci-yAf" firstAttribute="leading" secondItem="7fd-M6-vvW" secondAttribute="leadingMargin" constant="8" id="tdo-IL-9HV"/>
-                                                <constraint firstItem="hk6-fj-ibw" firstAttribute="trailing" secondItem="7fd-M6-vvW" secondAttribute="trailingMargin" id="yZA-IQ-42a"/>
+                                                <constraint firstItem="7NU-Ci-yAf" firstAttribute="leading" secondItem="7fd-M6-vvW" secondAttribute="leading" constant="20" symbolic="YES" id="tdo-IL-9HV"/>
+                                                <constraint firstAttribute="trailing" secondItem="hk6-fj-ibw" secondAttribute="trailing" constant="20" symbolic="YES" id="yZA-IQ-42a"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -892,25 +897,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка событий и документов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvG-Xd-xX5">
-                                                    <rect key="frame" x="24" y="11.000000000000002" width="307" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="11.000000000000002" width="307" height="20.666666666666671"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EsH-Dg-Bmr">
-                                                    <rect key="frame" x="339" y="11" width="20" height="20"/>
+                                                    <rect key="frame" x="335" y="11" width="20" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="SvG-Xd-xX5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZzH-o3-U9C" secondAttribute="leadingMargin" id="FVG-Nd-SrY"/>
-                                                <constraint firstItem="EsH-Dg-Bmr" firstAttribute="trailing" secondItem="ZzH-o3-U9C" secondAttribute="trailingMargin" id="PAO-fH-O3d"/>
+                                                <constraint firstItem="SvG-Xd-xX5" firstAttribute="leading" secondItem="ZzH-o3-U9C" secondAttribute="leading" constant="20" symbolic="YES" id="FVG-Nd-SrY"/>
+                                                <constraint firstAttribute="trailing" secondItem="EsH-Dg-Bmr" secondAttribute="trailing" constant="20" symbolic="YES" id="PAO-fH-O3d"/>
                                                 <constraint firstItem="EsH-Dg-Bmr" firstAttribute="centerY" secondItem="ZzH-o3-U9C" secondAttribute="centerY" id="hz2-Sp-CcZ"/>
                                                 <constraint firstItem="SvG-Xd-xX5" firstAttribute="centerY" secondItem="ZzH-o3-U9C" secondAttribute="centerYWithinMargins" id="qec-Le-yA3"/>
-                                                <constraint firstItem="EsH-Dg-Bmr" firstAttribute="leading" secondItem="SvG-Xd-xX5" secondAttribute="trailing" constant="8" id="tYB-8t-ak8"/>
-                                                <constraint firstItem="SvG-Xd-xX5" firstAttribute="leading" secondItem="ZzH-o3-U9C" secondAttribute="leadingMargin" constant="8" id="zjE-2n-nhH"/>
+                                                <constraint firstItem="EsH-Dg-Bmr" firstAttribute="leading" secondItem="SvG-Xd-xX5" secondAttribute="trailing" constant="8" symbolic="YES" id="tYB-8t-ak8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -929,7 +933,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ответств." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4g-1n-oK0">
-                                                    <rect key="frame" x="24" y="11.000000000000002" width="100" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="11.000000000000002" width="100" height="20.666666666666671"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="Ua3-xw-nlW"/>
@@ -939,7 +943,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по охране здоровья" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcH-BW-Wcr">
-                                                    <rect key="frame" x="124" y="11" width="235" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -948,12 +952,12 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="kcH-BW-Wcr" firstAttribute="trailing" secondItem="lD6-qt-cg6" secondAttribute="trailingMargin" id="ARS-0L-4N0"/>
+                                                <constraint firstAttribute="trailing" secondItem="kcH-BW-Wcr" secondAttribute="trailing" constant="20" symbolic="YES" id="ARS-0L-4N0"/>
                                                 <constraint firstItem="kcH-BW-Wcr" firstAttribute="bottom" secondItem="lD6-qt-cg6" secondAttribute="bottomMargin" id="Fzw-4T-GJM"/>
                                                 <constraint firstItem="q4g-1n-oK0" firstAttribute="top" secondItem="lD6-qt-cg6" secondAttribute="topMargin" id="ll5-Zi-638"/>
                                                 <constraint firstItem="kcH-BW-Wcr" firstAttribute="top" secondItem="lD6-qt-cg6" secondAttribute="topMargin" id="uYY-AM-c3R"/>
                                                 <constraint firstItem="kcH-BW-Wcr" firstAttribute="leading" secondItem="q4g-1n-oK0" secondAttribute="trailing" id="yxc-5H-gh2"/>
-                                                <constraint firstItem="q4g-1n-oK0" firstAttribute="leading" secondItem="lD6-qt-cg6" secondAttribute="leadingMargin" constant="8" id="zel-AW-sfw"/>
+                                                <constraint firstItem="q4g-1n-oK0" firstAttribute="leading" secondItem="lD6-qt-cg6" secondAttribute="leading" constant="20" symbolic="YES" id="zel-AW-sfw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -966,7 +970,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Соисполн." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-9g-Sky">
-                                                    <rect key="frame" x="16" y="11" width="100" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="3dK-Fc-eMH"/>
@@ -976,7 +980,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по информационной политике" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAz-Gw-V5Q">
-                                                    <rect key="frame" x="116" y="11" width="251" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -989,9 +993,9 @@
                                                 <constraint firstItem="PAz-Gw-V5Q" firstAttribute="bottom" secondItem="cq4-By-Kxr" secondAttribute="bottomMargin" id="86b-5w-Ddv"/>
                                                 <constraint firstItem="BjB-9g-Sky" firstAttribute="top" secondItem="cq4-By-Kxr" secondAttribute="topMargin" id="Tlg-16-rGb"/>
                                                 <constraint firstItem="PAz-Gw-V5Q" firstAttribute="leading" secondItem="BjB-9g-Sky" secondAttribute="trailing" id="UHK-8Q-Jlw"/>
-                                                <constraint firstItem="PAz-Gw-V5Q" firstAttribute="trailing" secondItem="cq4-By-Kxr" secondAttribute="trailingMargin" id="ViN-Tq-6Dd"/>
+                                                <constraint firstAttribute="trailing" secondItem="PAz-Gw-V5Q" secondAttribute="trailing" constant="20" symbolic="YES" id="ViN-Tq-6Dd"/>
                                                 <constraint firstItem="PAz-Gw-V5Q" firstAttribute="top" secondItem="cq4-By-Kxr" secondAttribute="topMargin" id="bXV-3N-ojb"/>
-                                                <constraint firstItem="BjB-9g-Sky" firstAttribute="leading" secondItem="cq4-By-Kxr" secondAttribute="leadingMargin" constant="8" id="f1L-bL-ljV"/>
+                                                <constraint firstItem="BjB-9g-Sky" firstAttribute="leading" secondItem="cq4-By-Kxr" secondAttribute="leading" constant="20" symbolic="YES" id="f1L-bL-ljV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1004,7 +1008,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Профильн." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ve6-rM-QsR">
-                                                    <rect key="frame" x="16" y="11" width="100" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="100" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="KeP-2o-Q0A"/>
@@ -1014,7 +1018,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Комитет ГД по охране здоровья; Комитет ГД по экономической политике, предпринимательству и туризму" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-dy-12H">
-                                                    <rect key="frame" x="116" y="11" width="251" height="20"/>
+                                                    <rect key="frame" x="120" y="11" width="235" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -1024,10 +1028,10 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="HJk-dy-12H" firstAttribute="height" secondItem="Ve6-rM-QsR" secondAttribute="height" id="Cbw-lb-iw4"/>
-                                                <constraint firstItem="HJk-dy-12H" firstAttribute="trailing" secondItem="eYd-Cz-gU0" secondAttribute="trailingMargin" id="HoR-y0-Fp5"/>
+                                                <constraint firstAttribute="trailing" secondItem="HJk-dy-12H" secondAttribute="trailing" constant="20" symbolic="YES" id="HoR-y0-Fp5"/>
                                                 <constraint firstItem="HJk-dy-12H" firstAttribute="top" secondItem="eYd-Cz-gU0" secondAttribute="topMargin" id="JuY-P4-5Wt"/>
                                                 <constraint firstItem="HJk-dy-12H" firstAttribute="leading" secondItem="Ve6-rM-QsR" secondAttribute="trailing" id="UXe-0C-wRv"/>
-                                                <constraint firstItem="Ve6-rM-QsR" firstAttribute="leading" secondItem="eYd-Cz-gU0" secondAttribute="leadingMargin" constant="8" id="g1a-FW-s4F"/>
+                                                <constraint firstItem="Ve6-rM-QsR" firstAttribute="leading" secondItem="eYd-Cz-gU0" secondAttribute="leading" constant="20" symbolic="YES" id="g1a-FW-s4F"/>
                                                 <constraint firstItem="Ve6-rM-QsR" firstAttribute="top" secondItem="eYd-Cz-gU0" secondAttribute="topMargin" id="mnS-Rp-9BY"/>
                                                 <constraint firstItem="HJk-dy-12H" firstAttribute="bottom" secondItem="eYd-Cz-gU0" secondAttribute="bottomMargin" id="nNk-1t-pTI"/>
                                             </constraints>
@@ -1046,7 +1050,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Заметка отсутствует" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CFS-06-g5O">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="42"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1061,11 +1065,11 @@
                                         <rect key="frame" x="0.0" y="947.33333333333337" width="375" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BtR-SO-LtO" id="MB2-4G-Qym">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="42"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Редактировать заметку" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pty-T9-0bW">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="42"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1135,7 +1139,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vW-Te-2g5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3919" y="913"/>
+            <point key="canvasLocation" x="3917.5999999999999" y="912.5615763546798"/>
         </scene>
         <!--Заметка-->
         <scene sceneID="ozI-qh-9ga">
@@ -1149,7 +1153,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aOn-Ib-hUe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="black" text="Введите текст заметки" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aOn-Ib-hUe">
                                 <rect key="frame" x="20" y="88" width="335" height="704"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -1173,6 +1177,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="keyboardHeightLayoutConstraint" destination="Nej-rI-MJB" id="BQf-WA-zLW"/>
                         <outlet property="textView" destination="aOn-Ib-hUe" id="OjV-f7-veH"/>
@@ -2201,7 +2206,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="wXA-hc-24i"/>
         <segue reference="0xS-fK-VXV"/>
-        <segue reference="LwO-fy-era"/>
+        <segue reference="ECW-Zv-M8L"/>
         <segue reference="RcN-tU-zP2"/>
     </inferredMetricsTieBreakers>
 </document>
