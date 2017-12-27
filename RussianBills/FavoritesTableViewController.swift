@@ -164,18 +164,38 @@ extension FavoritesTableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let currentFavoriteBill = favoriteBills![indexPath.row]
-            try? realm?.write {
-                currentFavoriteBill.markedToBeRemovedFromFavorites = true
-                realm?.add(currentFavoriteBill, update: true)
+            guard let currentFavoriteBill = favoriteBills?[indexPath.row] else { return }
+            if currentFavoriteBill.note.count > 0 {
+                askToRemoveFavoriteBillWithNote {
+                    self.unfavorite(favoriteBill: currentFavoriteBill, atIndexPath: indexPath)
+                }
+            } else {
+                self.unfavorite(favoriteBill: currentFavoriteBill, atIndexPath: indexPath)
             }
 
-            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: currentFavoriteBill.syncProxy)
+        }
+    }
 
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            if favoriteBills!.count == 0 {
-                setupEmptyFavoriteViewTemplate ()
-            }
+    private func askToRemoveFavoriteBillWithNote(completionIfTrue: @escaping ()->Void) {
+        let alert = UIAlertController(title: "При удалении из отслеживаемых заметка также будет удалена", message: "Подтверждаете удаление из отслеживаемого?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive) {
+            (_) in completionIfTrue()
+        })
+        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func unfavorite(favoriteBill bill: FavoriteBill_, atIndexPath indexPath: IndexPath) {
+        try? realm?.write {
+            bill.markedToBeRemovedFromFavorites = true
+            realm?.add(bill, update: true)
+        }
+
+        try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: bill.syncProxy)
+
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        if favoriteBills!.count == 0 {
+            setupEmptyFavoriteViewTemplate ()
         }
     }
 
