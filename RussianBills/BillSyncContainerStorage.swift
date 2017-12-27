@@ -41,24 +41,24 @@ public final class BillSyncContainerStorage {
         self.init(realm: nil)
     }
 
-    public var allBills: Observable<[BillSyncContainer]> {
+    public var allBills: Observable<[SyncProxy]> {
         let objects = self.realm.objects(FavoriteBill_.self)
             .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
 
         return Observable.collection(from: objects).map {
             realmBills in
-            return realmBills.map({ $0.billSyncContainer })
+            return realmBills.map({ $0.syncProxy })
         }
     }
 
-    var mostRecentlyModifiedBillSyncContainer: BillSyncContainer? {
+    var mostRecentlyModifiedBillSyncContainer: SyncProxy? {
         let realmBillsByFavoriteUpdatedTimestamp = realm.objects(FavoriteBill_.self)
             .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
 
-        return realmBillsByFavoriteUpdatedTimestamp.first?.billSyncContainer
+        return realmBillsByFavoriteUpdatedTimestamp.first?.syncProxy
     }
 
-    public func store(billSyncContainer: BillSyncContainer) throws {
+    public func store(billSyncContainer: SyncProxy) throws {
         try store(favoriteBill: billSyncContainer.favoriteBill)
     }
 

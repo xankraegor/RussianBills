@@ -170,7 +170,7 @@ extension FavoritesTableViewController {
                 realm?.add(currentFavoriteBill, update: true)
             }
 
-            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: currentFavoriteBill.billSyncContainer)
+            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: currentFavoriteBill.syncProxy)
 
             tableView.deleteRows(at: [indexPath], with: .fade)
             if favoriteBills!.count == 0 {

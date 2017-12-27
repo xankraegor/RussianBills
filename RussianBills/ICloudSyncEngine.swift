@@ -98,7 +98,7 @@ public final class ICloudSyncEngine: NSObject {
     }
 
     func startAnew(completion: @escaping (Bool)->Void) {
-        resolve() { [weak self] sucessful in
+        resolveNew() { [weak self] sucessful in
             if sucessful {
                 completion(true)
                 self?.start()
@@ -429,77 +429,173 @@ public final class ICloudSyncEngine: NSObject {
 
     // MARK: - Resolve sync
 
-    func resolve(completion: @escaping (Bool)->Void) {
-        slog("[Engine] resolve(completion: @escaping (Bool)->Void)")
+    func resolveNew(completion: @escaping (Bool)->Void) {
+        slog("[Engine] resolveNew(completion: @escaping (Bool)->Void)")
         let query = CKQuery(recordType: Constants.billRecordType, predicate: NSPredicate(value: true))
 
         privateDatabase.perform(query, inZoneWith: nil) { [weak self] (records, error) in
+
             guard error == nil, let realm = try? Realm(), let welf = self, let receivedRecords = records else {
+                assertionFailure("∆ Error while performing resolve request: \(error?.localizedDescription ?? "no descr")")
                 completion(false)
                 return
             }
 
-            let cloudFav = Set(receivedRecords.flatMap{FavoriteBill_.from(record: $0)})
-            let localFav = Set(realm.objects(FavoriteBill_.self))
+            let grp = DispatchGroup()
 
-            guard cloudFav.symmetricDifference(localFav).count > 0 else {
-                completion(true)
-                return
+            // STAGE 1. LOOKING FOR UNEQUAL AND UNIQUE VALUES
+
+            let cloudF = receivedRecords.map{SyncProxy(withRecord: $0)}
+            let localF = Array(realm.objects(FavoriteBill_.self)).map({ SyncProxy(withFavoriteBill: $0) })
+
+            // Unique & with same number, which differ from each other in two arrays
+            let diffCloud = cloudF.filter { !localF.contains($0) }
+            let diffLocal = localF.filter { !cloudF.contains($0) }
+
+            // Unequal values
+            var nonEqualCloud: [SyncProxy] = []
+            var nonEqualLocal: [SyncProxy] = []
+            
+
+            for c in diffCloud {
+                for l in diffLocal {
+                    if c.number == l.number {
+                        nonEqualCloud.append(c)
+                        nonEqualLocal.append(l)
+                    }
+                }
             }
 
-            slog("[Engine] resolve: localFav = \(localFav.map{$0.number})")
-            slog("[Engine] resolve: cloudFav = \(cloudFav.map{$0.number})")
+            nonEqualCloud.sort(by: { $1.number > $0.number })
+            nonEqualLocal.sort(by: { $1.number > $0.number })
 
-            let localUnique = localFav.symmetricDifference(cloudFav).subtracting(cloudFav)
-            slog("[Engine] resolve: localUnique = \(localUnique.map{$0.number})")
+            slog("[Engine] resolveNew: Unequal cloud records: \(nonEqualCloud.map{$0.number})")
+            slog("[Engine] resolveNew: Unequal local records: \(nonEqualLocal.map{$0.number})")
 
-            let grp = DispatchGroup()
+            // Unique values
+            let uniqueCloud = diffCloud.filter { !nonEqualCloud.contains($0) }
+            let uniqueLocal = diffLocal.filter { !nonEqualLocal.contains($0) }.filter { $0.markedToBeRemovedFromFavorites ?? false != true }
+            let uniqueLocalToRemove = diffLocal.filter { !nonEqualLocal.contains($0) }.filter{ $0.markedToBeRemovedFromFavorites ?? false == true }
+
+            slog("[Engine] resolveNew: Unique cloud records: \(uniqueCloud.map{$0.number})")
+            slog("[Engine] resolveNew: Unique local records: \(uniqueLocal.map{$0.number})")
+            slog("[Engine] resolveNew: Unique local records to remove: \(uniqueLocalToRemove.map{$0.number})")
+
+            var toLocal = uniqueCloud
+            var toCloud = uniqueLocal
+
+            // STAGE 2. RESOLVE UNEQUAL ITEMS
+
             grp.enter()
-            if localUnique.count > 0 {
-                // Pushing local unique favorite bills to the server
-                let localUniqueToPush = Array(localUnique.filter({!$0.markedToBeRemovedFromFavorites})).map{$0.record}
-                let pushOp = CKModifyRecordsOperation(recordsToSave: localUniqueToPush, recordIDsToDelete: [])
-                pushOp.savePolicy = .changedKeys
+
+            for i in 0..<nonEqualCloud.count {
+                guard nonEqualCloud[i].number == nonEqualLocal[i].number else {
+                    fatalError("Sync resolve mismatch")
+                }
+                // If they are really equal, than the unseen changes are not
+                if nonEqualCloud[i].favoriteUpdatedTimestamp == nonEqualLocal[i].favoriteUpdatedTimestamp {
+
+                    if nonEqualCloud[i].favoriteHasUnseenChangesTimestamp > nonEqualLocal[i].favoriteHasUnseenChangesTimestamp {
+                        toLocal.append(nonEqualCloud[i])
+                        slog("[Engine] resolveNew: \(nonEqualCloud[i].number) has new unseen changes timestamp and will be saved locally")
+                    } else {
+                        toCloud.append(nonEqualLocal[i])
+                        slog("[Engine] resolveNew: \(nonEqualLocal[i].number) has new unseen changes timestamp and will pushed to the cloud")
+                    }
+
+                } else if nonEqualCloud[i].note != nonEqualLocal[i].note {
+                    // They have different notes, lets save both
+                    let text = "<<<<===== ВЕРСИЯ ЗАМЕТКИ ИЗ ОБЛАКА от \(nonEqualCloud[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
+                        nonEqualCloud[i].note +
+                        "\n\n<<<<===== ЛОКАЛЬНАЯ ВЕРСИЯ ЗАМЕТКИ от \(nonEqualLocal[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
+                        nonEqualLocal[i].note
+                    let newTimeStamp = Date()
+
+                    let newSyncProxy = SyncProxy(withNumber: nonEqualCloud[i].number, name: nonEqualCloud[i].name, comments: nonEqualCloud[i].comments, note: text, favoriteUpdatedTimestamp: newTimeStamp, favoriteHasUnseenChanges: nonEqualCloud[i].favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: nonEqualCloud[i].favoriteHasUnseenChangesTimestamp)
+                    slog("[Engine] resolveNew: \(nonEqualCloud[i].number) has different note content, it will be merged and saved on both sides")
+                    toLocal.append(newSyncProxy)
+                    toCloud.append(newSyncProxy)
+                } else {
+                    // Something strange happened, lets replace local copy with a server one
+                    slog("[Engine] resolveNew: \(nonEqualCloud[i].number) has diff, that is not yet covered with resolve algorithm. \nCloud content: \(nonEqualCloud[i].description)\nLocal content: \(nonEqualLocal[i].description)")
+                    toLocal.append(nonEqualCloud[i])
+                }
+            }
+
+
+            // STAGE 3. ONE-WAY TRANSACTIONS (PUSH TO CLOUD, FETCH LOCAL)
+
+            // Pushing local unique and resolved favorite bills to the server
+            if toCloud.count > 0 {
+                grp.enter()
+                let localToPush = toCloud.map{$0.record}
+                slog("[Engine] resolveNew: localToPush count \(localToPush.count)")
+                let pushOp = CKModifyRecordsOperation(recordsToSave: localToPush, recordIDsToDelete: [])
+                pushOp.savePolicy = .allKeys
 
                 pushOp.modifyRecordsCompletionBlock = { _, _, error in
                     DispatchQueue.main.async {
                         guard error == nil else {
+                            slog("[Engine] resolveNew: error while accessing Cloud Kit to resolve data: \(error?.localizedDescription ?? "description missing")")
                             // Don't turn on!
                             completion(false)
                             return
                         }
+                        slog("[Engine] resolveNew: pushOperation completed successfuly")
                         grp.leave()
                     }
                 }
 
-
                 welf.privateDatabase.add(pushOp)
+            }
 
-                // Removing favorite bills from local realm, that are marked for removal and not present on the server
-                let localUniqueMarkedToRemove = localUnique.filter({$0.markedToBeRemovedFromFavorites})
+            // Removing favorite bills from local realm, that are marked for removal and not present on the server
+            if uniqueLocalToRemove.count > 0 {
+                slog("[Engine] resolveNew: Removing favorite bills from local realm, that are marked for removal and not present on the server: \(uniqueLocalToRemove.map{$0.number})")
+                let localUniqueMarkedToRemove = uniqueLocalToRemove.map{ $0.favoriteBill }
                 if localUniqueMarkedToRemove.count > 0 {
-                    realm.beginWrite()
-                    localUniqueMarkedToRemove.forEach({ realm.delete($0) })
-                    try? realm.commitWrite()
+                    do {
+                        realm.beginWrite()
+                        localUniqueMarkedToRemove.forEach({ realm.delete($0) })
+                        try realm.commitWrite()
+                        slog("[Engine] resolveNew: local bills marked for removal: removed successfuly")
+                    } catch let error {
+                        slog("[Engine] resolveNew: local bills marked for removal: realm error: \(error.localizedDescription)")
+                        completion(false)
+                        return
+                    }
                 }
+
             }
 
             // Adding favorite bills from server to the local realm
-            let cloudUnique = cloudFav.symmetricDifference(localFav).subtracting(localFav)
-            slog("[Engine] resolve: cloudUnique = \(cloudUnique.map{$0.number})")
-            if cloudUnique.count > 0 {
-                realm.beginWrite()
-                cloudUnique.forEach({ realm.add($0, update: true)})
-                try? realm.commitWrite()
+            if toCloud.count > 0 {
+                slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: \(toCloud.map{$0.number})")
+                do {
+                    let fromCloudToFetch = toCloud.map{ $0.favoriteBill }
+                    realm.beginWrite()
+                    fromCloudToFetch.forEach({ realm.add($0, update: true)})
+                    try realm.commitWrite()
+                    slog("[Engine] resolveNew: Adding favorite bills from server to the local realm finished successfuly")
+                } catch let error {
+                    slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: realm error: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
             }
 
+            grp.leave()
+
+            // STAGE 4. COMPLETION
+
             grp.notify(queue: DispatchQueue.main, execute: {
+                slog("[Engine] resolveNew: Notified, that diff resolved")
                 completion(true)
             })
 
         }
     }
 
-
+    
 
 }

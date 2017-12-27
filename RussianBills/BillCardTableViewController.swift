@@ -339,14 +339,14 @@ final class BillCardTableViewController: UITableViewController {
                     try? realm.write {
                         existingFavoriteBill.markedToBeRemovedFromFavorites = true
                     }
-                    try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.billSyncContainer)
+                    try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.syncProxy)
                     self.organizedTextButton.title = ""
                 }
             } else {
                 try? realm.write {
                     existingFavoriteBill.markedToBeRemovedFromFavorites = true
                 }
-                try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.billSyncContainer)
+                try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: existingFavoriteBill.syncProxy)
                 self.organizedTextButton.title = ""
             }
 
@@ -355,7 +355,7 @@ final class BillCardTableViewController: UITableViewController {
             try? realm.write {
                 realm.add(newFavoriteBill, update: true)
             }
-            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.billSyncContainer)
+            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.syncProxy)
             self.organizedTextButton.title = "Отслеживаемый"
         }
     }

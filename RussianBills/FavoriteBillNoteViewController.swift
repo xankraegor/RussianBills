@@ -66,7 +66,7 @@ class FavoriteBillNoteViewController: UIViewController {
                 fav.favoriteUpdatedTimestamp = Date()
             }
 
-            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: fav.billSyncContainer)
+            try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: fav.syncProxy)
         }
     }
 

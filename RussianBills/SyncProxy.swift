@@ -8,8 +8,9 @@
 
 import Foundation
 import RealmSwift
+import CloudKit
 
-public struct BillSyncContainer {
+public struct SyncProxy {
     public let number: String
     public let name: String
     public let comments: String
@@ -17,6 +18,8 @@ public struct BillSyncContainer {
     public var favoriteUpdatedTimestamp: Date
     public var favoriteHasUnseenChanges: Bool
     public var favoriteHasUnseenChangesTimestamp: Date
+    // Non-required value which is set by init(withFavoriteBill:) only
+    public var markedToBeRemovedFromFavorites: Bool? = nil
 
     public init(withNumber number: String, name: String, comments: String, note: String, favoriteUpdatedTimestamp: Date, favoriteHasUnseenChanges: Bool, favoriteHasUnseenChangesTimestamp: Date) {
         self.number = number
@@ -29,8 +32,8 @@ public struct BillSyncContainer {
     }
 }
 
-extension BillSyncContainer: Equatable {
-    public static func ==(lhs: BillSyncContainer, rhs: BillSyncContainer) -> Bool {
+extension SyncProxy: Equatable {
+    public static func ==(lhs: SyncProxy, rhs: SyncProxy) -> Bool {
         return lhs.number == rhs.number
             && lhs.name == rhs.name
             && lhs.comments == rhs.comments
@@ -41,9 +44,17 @@ extension BillSyncContainer: Equatable {
     }
 }
 
-// MARK: - BillSyncContainer + FavoriteBill_
+extension SyncProxy: CustomStringConvertible {
 
-extension BillSyncContainer {
+    public var description: String {
+        return "Sync proxy of \(self.number)|:|\(self.name)|:|\(self.comments)|:|\(self.note)|:|\(self.favoriteUpdatedTimestamp)|:|\(favoriteHasUnseenChanges)|:|\(favoriteHasUnseenChangesTimestamp)|:|\(markedToBeRemovedFromFavorites ?? false)"
+    }
+
+}
+
+// MARK: - SyncProxy + FavoriteBill_
+
+extension SyncProxy {
     init(withFavoriteBill bill: FavoriteBill_) {
         self.number = bill.number
         self.name = bill.name
@@ -52,6 +63,7 @@ extension BillSyncContainer {
         self.favoriteUpdatedTimestamp = bill.favoriteUpdatedTimestamp
         self.favoriteHasUnseenChanges = bill.favoriteHasUnseenChanges
         self.favoriteHasUnseenChangesTimestamp = bill.favoriteHasUnseenChangesTimestamp
+        self.markedToBeRemovedFromFavorites = bill.markedToBeRemovedFromFavorites
     }
 
     var favoriteBill: FavoriteBill_ {
@@ -70,11 +82,42 @@ extension BillSyncContainer {
     }
 }
 
-// MARK: - FavoriteBill_ + BillSyncContainer
+// MARK: - FavoriteBill_ + SyncProxy
 
 extension FavoriteBill_ {
-    var billSyncContainer: BillSyncContainer {
-        let container = BillSyncContainer(withNumber: self.number, name: self.name, comments: self.comments, note: self.note, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp)
+    var syncProxy: SyncProxy {
+        let container = SyncProxy(withNumber: self.number, name: self.name, comments: self.comments, note: self.note, favoriteUpdatedTimestamp: self.favoriteUpdatedTimestamp, favoriteHasUnseenChanges: self.favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: self.favoriteHasUnseenChangesTimestamp)
         return container
     }
+}
+
+// MARK: - CKRecord + SyncProxy
+
+extension SyncProxy {
+
+    init(withRecord record: CKRecord) {
+        self.number = record.recordID.recordName
+        self.name = record[.name] as! String
+        self.comments = record[.comments] as! String
+        self.note = record[.note] as! String
+        self.favoriteUpdatedTimestamp = record[.favoriteUpdatedTimestamp] as! Date
+        self.favoriteHasUnseenChanges = (record[.favoriteHasUnseenChanges] as! Int) == 0 ? false : true
+        self.favoriteHasUnseenChangesTimestamp = record[.favoriteHasUnseenChangesTimestamp] as! Date
+    }
+
+    var recordID: CKRecordID {
+        return CKRecordID(recordName: number)
+    }
+
+    var record: CKRecord {
+        let record = CKRecord(recordType: "FavoriteBill", recordID: recordID)
+        record[.name] = name as CKRecordValue
+        record[.comments] = comments as CKRecordValue
+        record[.note] = note as CKRecordValue
+        record[.favoriteUpdatedTimestamp] = favoriteUpdatedTimestamp as CKRecordValue
+        record[.favoriteHasUnseenChanges] = favoriteHasUnseenChanges as CKRecordValue
+        record[.favoriteHasUnseenChangesTimestamp] = favoriteHasUnseenChangesTimestamp as CKRecordValue
+        return record
+    }
+
 }

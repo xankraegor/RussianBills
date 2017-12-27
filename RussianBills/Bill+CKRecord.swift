@@ -11,7 +11,7 @@ import CloudKit
 import RealmSwift
 
 enum BillKey: String {
-    case number, name, comments, note, favorite, favoriteUpdatedTimestamp, favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp
+    case number, name, comments, note, favoriteUpdatedTimestamp, favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp
 }
 
 extension CKRecord {
