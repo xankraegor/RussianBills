@@ -31,15 +31,17 @@ enum UserServices {
     }
 
     static func downloadCommittees(forced: Bool = false, completion: VoidToVoid = nil) {
-        Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
-                return
-            }
+        guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
+            return
+        }
 
+        Dispatcher.shared.dispatchReferenceDownload {
             Request.committies(current: nil, completion: { (result: [Committee_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    realm?.add(result, update: true)
+                autoreleasepool{
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        realm?.add(result, update: true)
+                    }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
                 completion?()
@@ -48,16 +50,17 @@ enum UserServices {
     }
 
     static func downloadLawClasses(forced: Bool = false, completion: VoidToVoid = nil) {
+        guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
-                return
-            }
-
             Request.lawClasses { (result: [LawClass_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool {
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -67,16 +70,18 @@ enum UserServices {
     }
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
-        Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.topics.updateRequired() else {
-                return
-            }
+        guard forced || UserDefaultsCoordinator.topics.updateRequired() else {
+            return
+        }
 
+        Dispatcher.shared.dispatchReferenceDownload {
             Request.topics { (result: [Topic_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool{
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -86,16 +91,17 @@ enum UserServices {
     }
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
+        guard forced || UserDefaultsCoordinator.deputy.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.deputy.updateRequired() else {
-                return
-            }
-
             Request.deputies { (result: [Deputy_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool {
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -105,16 +111,17 @@ enum UserServices {
     }
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
+        guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else {
-                return
-            }
-
             Request.federalSubjects { (result: [FederalSubject_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool{
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -124,16 +131,17 @@ enum UserServices {
     }
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
+        guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else {
-                return
-            }
-
             Request.regionalSubjects { (result: [RegionalSubject_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool{
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -143,16 +151,17 @@ enum UserServices {
     }
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
+        guard forced || UserDefaultsCoordinator.instances.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
-            guard forced || UserDefaultsCoordinator.instances.updateRequired() else {
-                return
-            }
-
             Request.instances { (result: [Instance_]) in
-                let realm = try? Realm()
-                try? realm?.write {
-                    for obj in result {
-                        realm?.add(obj, update: true)
+                autoreleasepool {
+                    let realm = try? Realm()
+                    try? realm?.write {
+                        for obj in result {
+                            realm?.add(obj, update: true)
+                        }
                     }
                 }
                 UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
@@ -166,28 +175,30 @@ enum UserServices {
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_], Int) -> Void)? = nil) {
 
         Request.billSearch(forQuery: query) { (result: [Bill_], totalCount: Int)  in
-            let realm = try? Realm()
+            autoreleasepool {
+                let realm = try? Realm()
 
-            for res in result {
-                if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
-                    // Copy existing parser content
-                    res.parserContent = existingBill.parserContent
+                for res in result {
+                    if let existingBill = realm?.object(ofType: Bill_.self, forPrimaryKey: res.number) {
+                        // Copy existing parser content
+                        res.parserContent = existingBill.parserContent
 
-                    // Check if a favorite bill has changes
-                    if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self,
-                                                                      forPrimaryKey: res.number),
-                        res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
-                        try? realm?.write {
-                            existingFavoriteBillRecord.favoriteHasUnseenChanges = true
-                            // Change bill updated timestamp accordingly
-                            existingBill.updated = Date()
+                        // Check if a favorite bill has changes
+                        if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self,
+                                                                          forPrimaryKey: res.number),
+                            res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
+                            try? realm?.write {
+                                existingFavoriteBillRecord.favoriteHasUnseenChanges = true
+                                // Change bill updated timestamp accordingly
+                                existingBill.updated = Date()
+                            }
                         }
                     }
                 }
-            }
 
-            try? realm?.write {
-                realm?.add(result, update: true)
+                try? realm?.write {
+                    realm?.add(result, update: true)
+                }
             }
 
             completion?(result, totalCount)
@@ -196,80 +207,82 @@ enum UserServices {
 
     static func updateFavoriteBills(forced: Bool = true, completeWithUpdatedCount: ((Int) -> Void)? = nil) {
         guard forced || UserDefaultsCoordinator.favorites.updateRequired() else {
-            if forced {
-                assertionFailure("∆ UserServices info: updateFavoriteBills call revoked due to non-forced manner or non-due timer")
-            }
             return
         }
 
-        guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
-            .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
-                assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
-                return
-        }
+        autoreleasepool {
 
-        guard favoriteBills.count > 0 else {
-            return
-        }
-
-        let queries: [BillSearchQuery] = favoriteBills.map { BillSearchQuery(withNumber: $0.number) }
-
-        for i in 0..<queries.count {
-            Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
-            Dispatcher.shared.billsPrefetchDispatchQueue.async() {
-
-                guard let number = queries[i].number else {
-                    assertionFailure("∆ updateFavoriteBills can't get queries[i].number")
+            guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
+                .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
+                    assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
                     return
-                }
-                guard let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
-                    let existingBill = bill else {
-                        debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
-                        UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: number))
-                        return
-                }
+            }
 
-                let existingBillParserContent = existingBill.parserContent
-                let previousHashValue = existingBill.generateHashForLastEvent()
+            guard favoriteBills.count > 0 else {
+                return
+            }
 
-                Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _) in
+            let queries: [BillSearchQuery] = favoriteBills.map { BillSearchQuery(withNumber: $0.number) }
 
-                    guard let downloadedBill = result.first else {
-                        assertionFailure("∆ Bill not received after querying by number \(queries[i].number ?? "nil") while updating favorite bills")
+            for i in 0..<queries.count {
+                Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
+                Dispatcher.shared.billsPrefetchDispatchQueue.async() {
+
+                    guard let number = queries[i].number else {
+                        assertionFailure("∆ updateFavoriteBills can't get queries[i].number")
                         return
                     }
+                    guard let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
+                        let existingBill = bill else {
+                            debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
+                            UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: number))
+                            return
+                    }
 
-                    try? Realm().write {
-                        // Did last event changed since the last update?
-                        if downloadedBill.generateHashForLastEvent() != previousHashValue {
-                            favoriteBills[i].favoriteHasUnseenChanges = true
-                            // Change bill updated timestamp accordingly
-                            downloadedBill.updated = Date()
+                    let existingBillParserContent = existingBill.parserContent
+                    let previousHashValue = existingBill.generateHashForLastEvent()
+
+                    Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _) in
+
+                        guard let downloadedBill = result.first else {
+                            assertionFailure("∆ Bill not received after querying by number \(queries[i].number ?? "nil") while updating favorite bills")
+                            return
                         }
-                        downloadedBill.parserContent = existingBillParserContent
-                        try? Realm().add(downloadedBill, update: true)
-                        Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
-                    }
 
+                        try? Realm().write {
+                            // Did last event changed since the last update?
+                            if downloadedBill.generateHashForLastEvent() != previousHashValue {
+                                favoriteBills[i].favoriteHasUnseenChanges = true
+                                // Change bill updated timestamp accordingly
+                                downloadedBill.updated = Date()
+                            }
+                            downloadedBill.parserContent = existingBillParserContent
+                            try? Realm().add(downloadedBill, update: true)
+                            Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
+                        }
+
+                    }
                 }
             }
-        }
 
-        Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
-            UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
-            let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
-            completeWithUpdatedCount?(favoriteBillsWithUnseenChanges ?? 0)
+            Dispatcher.shared.favoritesUpdateDispatchGroup.notify(queue: .main) {
+                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: Array(favoriteBills))
+                let favoriteBillsWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue).count
+                completeWithUpdatedCount?(favoriteBillsWithUnseenChanges ?? 0)
+            }
         }
     }
 
     // MARK: - Parsed content
 
     static func setParserContent(ofBillNr billNr: String, to content: BillParserContent?) {
-        let realm = try? Realm()
-        let newContent = content?.serialize()
-        let bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
-        try? realm?.write {
-            bill?.parserContent = newContent
+        autoreleasepool {
+            let realm = try? Realm()
+            let newContent = content?.serialize()
+            let bill = realm?.object(ofType: Bill_.self, forPrimaryKey: billNr)
+            try? realm?.write {
+                bill?.parserContent = newContent
+            }
         }
     }
 
