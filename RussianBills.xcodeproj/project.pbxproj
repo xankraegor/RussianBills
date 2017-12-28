@@ -526,8 +526,6 @@
 		2A6315A21F0AE1B400611BD8 = {
 			isa = PBXGroup;
 			children = (
-				2A85AFC91FE218520073261A /* fabric.buildsecret */,
-				2A85AFD11FE2C30D0073261A /* fabric.apikey */,
 				2A6315AD1F0AE1B400611BD8 /* RussianBills */,
 				2ACA10981FCCC9CD00869553 /* RusBillsTodayExtension */,
 				2A3C163E1FCF636900371B1B /* RusBillsIMessageExtension */,
@@ -536,6 +534,8 @@
 				2A6315AC1F0AE1B400611BD8 /* Products */,
 				446ACAC816582A6953401F6D /* Pods */,
 				1586E7C1CF793B55B118E911 /* Frameworks */,
+				2A85AFC91FE218520073261A /* fabric.buildsecret */,
+				2A85AFD11FE2C30D0073261A /* fabric.apikey */,
 			);
 			sourceTree = "<group>";
 		};

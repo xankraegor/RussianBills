@@ -23,8 +23,8 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var switchKeysStatusLabel: UILabel?
 
 
-    private let sliderValues: [Double] = [30, 120, 300, 900, 3600] // TimeInterval in seconds
-    private let sliderValuesDescription: [String] = ["30 сек.", "2 мин.", "5 мин.", "15 мин.", "1 час"]
+    private let sliderValues: [Double] = [300, 900, 3600, 7200, 18000] // TimeInterval in seconds
+    private let sliderValuesDescription: [String] = ["5 мин.", "15 мин.", "1 час", "2 часа", "5 часов"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +103,7 @@ final class SettingsTableViewController: UITableViewController {
         if FileManager.default.ubiquityIdentityToken != nil {
             // If iCloud is on
             if sender.isOn {
+
                 sender.isEnabled = false
 
                 SyncMan.shared.iCloudSyncEngine?.startAnew() { successful in
@@ -126,8 +127,9 @@ final class SettingsTableViewController: UITableViewController {
             // Set previous value and tell user that it can't be changed as long as icloud is unreachable
             let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "выключить" : "включить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
-            present(alert, animated: true, completion: nil)
-            sender.setOn(!sender.isOn, animated: false)
+            present(alert, animated: true, completion: { [weak sender] in
+                sender?.setOn(false, animated: true)
+            })
         }
     }
 
