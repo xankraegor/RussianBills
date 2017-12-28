@@ -325,8 +325,8 @@ public final class ICloudSyncEngine: NSObject {
             return
         }
 
-        let recordsToSave = billsToUpdate.map({ $0.record })
-        let recordsToDelete = billsToDelete.map({ $0.recordID })
+        let recordsToSave = billsToUpdate.map{ $0.record }
+        let recordsToDelete = billsToDelete.map{ $0.recordID }
 
         pushRecordsToCloudKit(recordsToUpdate: recordsToSave, recordIDsToDelete: recordsToDelete)
     }
@@ -446,7 +446,7 @@ public final class ICloudSyncEngine: NSObject {
             // STAGE 1. LOOKING FOR UNEQUAL AND UNIQUE VALUES
 
             let cloudF = receivedRecords.map{SyncProxy(withRecord: $0)}
-            let localF = Array(realm.objects(FavoriteBill_.self)).map({ SyncProxy(withFavoriteBill: $0) })
+            let localF = Array(realm.objects(FavoriteBill_.self)).map{ SyncProxy(withFavoriteBill: $0) }
 
             // Unique & with same number, which differ from each other in two arrays
             let diffCloud = cloudF.filter { !localF.contains($0) }
@@ -556,7 +556,7 @@ public final class ICloudSyncEngine: NSObject {
                 if localUniqueMarkedToRemove.count > 0 {
                     do {
                         realm.beginWrite()
-                        localUniqueMarkedToRemove.forEach({ realm.delete($0) })
+                        localUniqueMarkedToRemove.forEach{ realm.delete($0) }
                         try realm.commitWrite()
                         slog("[Engine] resolveNew: local bills marked for removal: removed successfuly")
                     } catch let error {
@@ -569,12 +569,12 @@ public final class ICloudSyncEngine: NSObject {
             }
 
             // Adding favorite bills from server to the local realm
-            if toCloud.count > 0 {
+            if toLocal.count > 0 {
                 slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: \(toCloud.map{$0.number})")
                 do {
-                    let fromCloudToFetch = toCloud.map{ $0.favoriteBill }
+                    let fromCloudToFetch = toLocal.map{ $0.favoriteBill }
                     realm.beginWrite()
-                    fromCloudToFetch.forEach({ realm.add($0, update: true)})
+                    fromCloudToFetch.forEach{ realm.add($0, update: true)}
                     try realm.commitWrite()
                     slog("[Engine] resolveNew: Adding favorite bills from server to the local realm finished successfuly")
                 } catch let error {

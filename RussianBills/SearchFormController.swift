@@ -107,7 +107,7 @@ final class SearchFormController: FormViewController {
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = false
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         // Set value from begin date to query
@@ -121,7 +121,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.registrationStart = nil
                     }
-                })
+                }
             // MARK: Begin intro date
             <<< DateRow("beginDate") {
                 $0.hidden = Condition.function(["beginDateSwitch"], { form in
@@ -129,18 +129,18 @@ final class SearchFormController: FormViewController {
                 })
                 $0.title = ""
                 $0.value = Date()
-                }.onChange({ [weak self] row in
+                }.onChange{ [weak self] row in
                     if let existingDate = row.value {
                         self?.query.registrationStart = Date.ISOStringFromDate(date: existingDate)
                     }
-                })
+                }
             // MARK: End intro date switch
             <<< SwitchRow("endDateSwitch") {
                 $0.title = "Дата окончания"
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = false
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         // Set value from end date to query
@@ -154,7 +154,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.registrationStart = nil
                     }
-                })
+                }
             // MARK: End intro date
             <<< DateRow("endDate") {
                 $0.hidden = Condition.function(["endDateSwitch"], { form in
@@ -162,11 +162,11 @@ final class SearchFormController: FormViewController {
                 })
                 $0.title = ""
                 $0.value = Date()
-                }.onChange({ [weak self] row in
+                }.onChange{ [weak self] row in
                     if let existingDate = row.value {
                         self?.query.registrationEnd = Date.ISOStringFromDate(date: existingDate)
                     }
-                })
+                }
 
             +++ Section("Субъекты закинициативы")
             // MARK: Duma Deputy switch
@@ -175,7 +175,7 @@ final class SearchFormController: FormViewController {
                 $0.value = receivedDeputyId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         let councilSwitch = self?.form.rowBy(tag: "councilSwitch")
@@ -192,7 +192,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.deputyId = nil
                     }
-                })
+                }
             // MARK: Duma Deputy
             <<< PushRow<Deputy_>("deputyPerson") {
                 $0.selectorTitle = "Выберите депутата"
@@ -232,7 +232,7 @@ final class SearchFormController: FormViewController {
                 $0.value = receivedCouncilId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         let deputySwitch = self?.form.rowBy(tag: "deputySwitch")
@@ -249,7 +249,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.deputyId = nil
                     }
-                })
+                }
             // MARK: Council member
             <<< PushRow<Deputy_>("councilPerson") {
                 $0.selectorTitle = "Выберите члена Совета Федерации"
@@ -291,7 +291,7 @@ final class SearchFormController: FormViewController {
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.value = receivedFederalSubjectId > 0 ? true : false
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         // Set value from end date to query
@@ -305,7 +305,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.federalSubjectId = nil
                     }
-                })
+                }
             // MARK: Federal Subject
             <<< PushRow<FederalSubject_>("federalBody") {
                 $0.selectorTitle = "Выберите федеральный орган власти"
@@ -348,7 +348,7 @@ final class SearchFormController: FormViewController {
                 $0.value = receivedRegionalSubjectId > 0 ? true : false
                 $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
                 $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                }.onChange({ [weak self] (row) in
+                }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
                         // Set value from end date to query
@@ -362,7 +362,7 @@ final class SearchFormController: FormViewController {
                         // Nullify the date
                         self?.query.regionalSubjectId = nil
                     }
-                })
+                }
             // MARK: Regional Subject
             <<< PushRow<RegionalSubject_>("regionalBody") {
                 $0.selectorTitle = "Выберите региональный орган власти"

@@ -73,10 +73,10 @@ final class Bill_: Object {
 
     func generateSubjectsDescription() -> String? {
         var output: [String] = []
-        factions.forEach({output.append($0.name)})
-        deputies.forEach({output.append("\($0.position) \($0.name)")})
-        federalSubjects.forEach({output.append($0.name)})
-        regionalSubjects.forEach({output.append($0.name)})
+        factions.forEach{output.append($0.name)}
+        deputies.forEach{output.append("\($0.position) \($0.name)")}
+        federalSubjects.forEach{output.append($0.name)}
+        regionalSubjects.forEach{output.append($0.name)}
         return output.joined(separator: "; ")
     }
 

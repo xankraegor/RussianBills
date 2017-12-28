@@ -47,7 +47,7 @@ public final class BillSyncContainerStorage {
 
         return Observable.collection(from: objects).map {
             realmBills in
-            return realmBills.map({ $0.syncProxy })
+            return realmBills.map{ $0.syncProxy }
         }
     }
 
@@ -74,7 +74,7 @@ public final class BillSyncContainerStorage {
     }
 
     private func insertOrUpdate<T: Object>(objects: [T],notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
-        try objects.forEach({ try self.insertOrUpdate(object: $0, notNotifying: token, updateDecisionHandler: updateDecisionHandler) })
+        try objects.forEach{ try self.insertOrUpdate(object: $0, notNotifying: token, updateDecisionHandler: updateDecisionHandler) }
     }
 
     private func insertOrUpdate<T: Object>(object: T, notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
@@ -134,11 +134,11 @@ public final class BillSyncContainerStorage {
 
         if let token = token {
             realm.beginWrite()
-            objects.forEach({ realm.delete($0) })
+            objects.forEach{ realm.delete($0) }
             try realm.commitWrite(withoutNotifying: [token])
         } else {
             realm.beginWrite()
-            objects.forEach({ realm.delete($0) })
+            objects.forEach{ realm.delete($0) }
             try realm.commitWrite()
         }
     }

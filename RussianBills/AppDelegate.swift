@@ -150,21 +150,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
             // Open favorites scene
-            let navigationController = mainStoryboard.instantiateInitialViewController() as! UINavigationController
-            let favoritesVC = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesSceneID")
-            navigationController.pushViewController(favoritesVC, animated: false)
+            if let navigationController = mainStoryboard.instantiateInitialViewController() as? UINavigationController {
+                let favoritesVC = mainStoryboard.instantiateViewController(withIdentifier: "FavoritesSceneID")
+                navigationController.pushViewController(favoritesVC, animated: false)
 
-            // Open bill card scene
-            if url.pathComponents[1].count > 0 {
-                let billVC = mainStoryboard.instantiateViewController(withIdentifier: "BillCardTableViewControllerId") as! BillCardTableViewController
-                billVC.billNr = url.pathComponents[1]
-                navigationController.pushViewController(billVC, animated: false)
+                // Open bill card scene
+                if url.pathComponents[1].count > 0 {
+                    if let billVC = mainStoryboard.instantiateViewController(withIdentifier: "BillCardTableViewControllerId") as? BillCardTableViewController {
+                        billVC.billNr = url.pathComponents[1]
+                        navigationController.pushViewController(billVC, animated: false)
+                    }
+                }
+
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                self.window?.rootViewController = navigationController
+                self.window?.makeKeyAndVisible()
+                return true
             }
-
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = navigationController
-            self.window?.makeKeyAndVisible()
-            return true
 
         }
 
