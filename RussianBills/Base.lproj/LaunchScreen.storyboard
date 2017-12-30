@@ -32,19 +32,10 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="gqD-X1-lk6"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-In-ksT">
-                                <rect key="frame" x="16" y="708.66666666666663" width="343" height="26.333333333333371"/>
-                                <string key="text">Антон Алексеев 
-© 2017 Xan Kraegor</string>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-9z-wqG">
-                                <rect key="frame" x="16" y="669.66666666666663" width="343" height="31"/>
-                                <string key="text">Законопроекты
-
-</string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSJ-9z-wqG">
+                                <rect key="frame" x="16" y="485" width="343" height="327"/>
+                                <string key="text">Законопроекты 
+России</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -54,15 +45,13 @@
                         <color key="tintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CSJ-9z-wqG" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="47K-9d-sdL"/>
-                            <constraint firstItem="7bG-In-ksT" firstAttribute="top" secondItem="CSJ-9z-wqG" secondAttribute="bottom" constant="8" id="6Ud-Yz-1IA"/>
+                            <constraint firstItem="CSJ-9z-wqG" firstAttribute="top" secondItem="QtO-uB-ILi" secondAttribute="bottom" id="6E2-tA-7vz"/>
                             <constraint firstItem="QtO-uB-ILi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Fa-Im-gND"/>
                             <constraint firstAttribute="top" relation="lessThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="top" constant="-48" id="ALX-zh-OYy"/>
-                            <constraint firstItem="7bG-In-ksT" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="EBy-zD-Idh"/>
                             <constraint firstItem="QtO-uB-ILi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="48" id="GQB-g6-Z8R"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="bottom" constant="48" id="H3n-ig-Jh8"/>
-                            <constraint firstItem="7bG-In-ksT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="16:9" id="HBh-OX-CuQ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QtO-uB-ILi" secondAttribute="trailing" constant="48" id="Ojq-xP-Z2z"/>
-                            <constraint firstItem="7bG-In-ksT" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="cbB-0K-fNy"/>
+                            <constraint firstAttribute="bottom" secondItem="CSJ-9z-wqG" secondAttribute="bottom" id="Vz0-bK-X46"/>
                             <constraint firstItem="QtO-uB-ILi" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.85" id="fAe-fV-ehI"/>
                             <constraint firstItem="CSJ-9z-wqG" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="wId-kT-fvw"/>
                         </constraints>

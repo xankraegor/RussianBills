@@ -22,6 +22,8 @@ final class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var switchKeysButton: UIButton?
     @IBOutlet weak var switchKeysStatusLabel: UILabel?
 
+    @IBOutlet weak var devVersionLabel: UILabel!
+
 
     private let sliderValues: [Double] = [300, 900, 3600, 7200, 18000] // TimeInterval in seconds
     private let sliderValuesDescription: [String] = ["5 мин.", "15 мин.", "1 час", "2 часа", "5 часов"]
@@ -31,6 +33,11 @@ final class SettingsTableViewController: UITableViewController {
         navigationController?.isToolbarHidden = true
         tableView.delegate = self
         setSizeLabelText()
+
+
+        if let shortVer = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, let buildVer = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            devVersionLabel.text = "Разработчик: Антон Алексеев\n© 2017 XanKraegor\nВерсия \(shortVer) (\(buildVer))"
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
