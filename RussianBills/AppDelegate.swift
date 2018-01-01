@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Realm
         var config = Realm.Configuration()
         config.fileURL = FilesManager.defaultRealmPath()
+        config.objectTypes = [Bill_.self, BillsList_.self, FederalSubject_.self, FavoriteBill_.self,
+                              RegionalSubject_.self, Committee_.self, LawClass_.self, Deputy_.self, Topic_.self,
+                              Instance_.self, Faction_.self, Stage_.self, Phase_.self]
         Realm.Configuration.defaultConfiguration = config
         let realm = try? Realm()
         let quickSearchList = BillsList_(withName: BillsListType.quickSearch, totalCount: 0)

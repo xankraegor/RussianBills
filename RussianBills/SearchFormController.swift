@@ -495,16 +495,16 @@ final class SearchFormController: FormViewController {
 
     func preprocessRequest(usingQuery: BillSearchQuery, afterSeconds: Double) {
         Dispatcher.shared.dispatchBillsPrefetching(afterSeconds: afterSeconds) { [weak self] in
-            if let existingQuery = self?.query {
-                UserServices.downloadBills(withQuery: existingQuery) { (resultBills, totalCount) in
-                    let realm = try? Realm()
-                    let newList = BillsList_(withName: BillsListType.mainSearch, totalCount: totalCount)
-                    newList.bills.append(objectsIn: resultBills)
-                    try? realm?.write {realm?.add(newList, update: true)}
-                    self?.prefetchedBills = true
-                }
-            } else {
+            guard let existingQuery = self?.query else {
                 assertionFailure("∆ preprocessRequest: existingQuery missing")
+                return
+            }
+            UserServices.downloadBills(withQuery: existingQuery) { (resultBills, totalCount) in
+                let realm = try? Realm()
+                let newList = BillsList_(withName: BillsListType.mainSearch, totalCount: totalCount)
+                newList.bills.append(objectsIn: resultBills)
+                try? realm?.write { realm?.add(newList, update: true) }
+                self?.prefetchedBills = true
             }
         }
     }
