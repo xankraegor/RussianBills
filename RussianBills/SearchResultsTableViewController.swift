@@ -93,9 +93,8 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - TableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let foundBills = searchResults else { return }
-        let hasMoreToLoad = foundBills.bills.count < foundBills.totalCount
-        if !isLoading && hasMoreToLoad && indexPath.row > foundBills.bills.count - 19 {
+        guard let foundBills = searchResults, foundBills.bills.count < foundBills.totalCount else { return }
+        if !isLoading && indexPath.row > foundBills.bills.count - 19 {
             isLoading = true
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: { resultBills, totalCount in

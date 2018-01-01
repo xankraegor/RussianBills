@@ -60,6 +60,10 @@
 		2A501EDB1FCCDB6500A68170 /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2A5750CC1FE492CD00BE5D05 /* UserDefaultsCoordinator+Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5750CB1FE492CD00BE5D05 /* UserDefaultsCoordinator+Sync.swift */; };
 		2A5A932C1F0C60320088BEB4 /* BillSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */; };
+		2A60900D1FF9D89400587F02 /* EurekaSearchPushRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A60900C1FF9D89400587F02 /* EurekaSearchPushRow.swift */; };
+		2A60900F1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */; };
+		2A6090101FF9DE7700587F02 /* EurekaSearchPushRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */; };
+		2A6090111FF9DE7A00587F02 /* EurekaSearchPushRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */; };
 		2A6315AF1F0AE1B400611BD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */; };
 		2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B21F0AE1B400611BD8 /* Main.storyboard */; };
 		2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */; };
@@ -284,6 +288,8 @@
 		2A4FDBE41F1046B8005C59AE /* NameStartEndTableViewCellDateTextGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameStartEndTableViewCellDateTextGenerator.swift; sourceTree = "<group>"; };
 		2A5750CB1FE492CD00BE5D05 /* UserDefaultsCoordinator+Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsCoordinator+Sync.swift"; sourceTree = "<group>"; };
 		2A5A932B1F0C60320088BEB4 /* BillSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSearchQuery.swift; sourceTree = "<group>"; };
+		2A60900C1FF9D89400587F02 /* EurekaSearchPushRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EurekaSearchPushRow.swift; sourceTree = "<group>"; };
+		2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EurekaSearchPushRowItem.swift; sourceTree = "<group>"; };
 		2A6315AB1F0AE1B400611BD8 /* RussianBills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RussianBills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6315AE1F0AE1B400611BD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A6315B31F0AE1B400611BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -491,6 +497,8 @@
 		2A4ED0E11F0D9922008BF1B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2A60900C1FF9D89400587F02 /* EurekaSearchPushRow.swift */,
+				2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */,
 				2A1DC8FD1F1ADA5B00866F0B /* String-IsoDateToReadableDate.swift */,
 				2A101FF01F8BAB7B0027E47B /* String-CondenseWhitespaces.swift */,
 				2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */,
@@ -1257,6 +1265,7 @@
 			files = (
 				2AB1F58B1FCF76B000BC6ED7 /* FederalSubject.swift in Sources */,
 				2AB1F58E1FCF76B000BC6ED7 /* LawClass.swift in Sources */,
+				2A6090111FF9DE7A00587F02 /* EurekaSearchPushRowItem.swift in Sources */,
 				2A029EA31FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */,
 				2AB1F58D1FCF76B000BC6ED7 /* Committee.swift in Sources */,
 				2AB1F5901FCF76B000BC6ED7 /* Faction.swift in Sources */,
@@ -1330,6 +1339,7 @@
 				2A4FDBE01F1039A0005C59AE /* UserServices.swift in Sources */,
 				2A0C51C31F1E8C3A006C011F /* BillParser.swift in Sources */,
 				2AB1596D1F15526A00FF7BBD /* Stage.swift in Sources */,
+				2A60900F1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift in Sources */,
 				2A5750CC1FE492CD00BE5D05 /* UserDefaultsCoordinator+Sync.swift in Sources */,
 				2A98F16E1F0AF070004F5524 /* LawType.swift in Sources */,
 				2A8782021F0BE4A400A0554F /* Deputy.swift in Sources */,
@@ -1358,6 +1368,7 @@
 				2AD350D51FA51CAD00EAC827 /* AttachmentTableViewCell.swift in Sources */,
 				2ABABAEA1FBDE3CE000B58E5 /* LegislativeSubjectTypeEnum.swift in Sources */,
 				2AA4D1A11F0C191900EE2DA3 /* InitialazibleWithJson.swift in Sources */,
+				2A60900D1FF9D89400587F02 /* EurekaSearchPushRow.swift in Sources */,
 				2A101FF11F8BAB7B0027E47B /* String-CondenseWhitespaces.swift in Sources */,
 				2A0C51C41F1E8C3A006C011F /* BillParserEvent.swift in Sources */,
 				2AA9C36B1FC733B000169EB7 /* Bill+CKRecord.swift in Sources */,
@@ -1402,6 +1413,7 @@
 				2AB1F58A1FCF76AF00BC6ED7 /* Phase.swift in Sources */,
 				2A501EDB1FCCDB6500A68170 /* FavoriteBill.swift in Sources */,
 				2A029EA21FDE1DCA0095A2CC /* String-CondenseWhitespaces.swift in Sources */,
+				2A6090101FF9DE7700587F02 /* EurekaSearchPushRowItem.swift in Sources */,
 				2AB1F5871FCF76AF00BC6ED7 /* Deputy.swift in Sources */,
 				2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */,
 				2AB1F5951FCF76E700BC6ED7 /* QuickSearchFieldsReporting.swift in Sources */,

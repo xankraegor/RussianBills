@@ -194,7 +194,7 @@ final class SearchFormController: FormViewController {
                     }
                 }
             // MARK: Duma Deputy
-            <<< PushRow<Deputy_>("deputyPerson") {
+            <<< SearchPushRow<Deputy_>("deputyPerson") {
                 $0.selectorTitle = "Выберите депутата"
                 var deps = deputies
                 let absentValue = Deputy_(withFakeName: "Любой")
@@ -251,7 +251,7 @@ final class SearchFormController: FormViewController {
                     }
                 }
             // MARK: Council member
-            <<< PushRow<Deputy_>("councilPerson") {
+            <<< SearchPushRow<Deputy_>("councilPerson") {
                 $0.selectorTitle = "Выберите члена Совета Федерации"
                 var deps = councilMembers
                 let absentValue = Deputy_(withFakeName: "Любой")
