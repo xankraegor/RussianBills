@@ -125,13 +125,6 @@ final class LegislativeSubjTableViewController: UITableViewController {
         LocationManager.instance.geocode(address: address) { [weak self] (placemark) in
             self?.locationForMap = placemark?.location
             self?.showOnMapLabel?.isEnabled = self?.locationForMap != nil ? true : false
-
-            if let pm = placemark {
-                print("Name: \(pm.name ?? "")")
-                print("abbreviated country name: \(pm.isoCountryCode ?? "")")
-                print("country name: \(pm.country ?? "")")
-                print("postal code: \(pm.postalCode ?? "")")
-            }
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  TopicsViewController.swift
+//  SimpleTableViewController.swift
 //  RussianBills
 //
 //  Created by Xan Kraegor on 07.07.2017.
@@ -48,43 +48,53 @@ final class SimpleTableViewController: UITableViewController {
 
         setupRealmNotificationToken()
         setupSearchController()
+        
+        navigationItem.title = objectsToDisplay!.fullDescription
+        navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
-        navigationItem.title = objectsToDisplay!.fullDescription
-        navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
-        navigationController?.toolbar.isHidden = true
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        navigationController?.setToolbarHidden(true, animated: false)
 
         switch objectsToDisplay! {
         case .lawClasses:
+            tableView.allowsSelection = false
             UserServices.downloadLawClasses { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .topics:
+            tableView.allowsSelection = false
             UserServices.downloadTopics { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .committees:
+            tableView.allowsSelection = false
             UserServices.downloadCommittees { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .federalSubjects:
+            tableView.allowsSelection = true
             UserServices.downloadFederalSubjects { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .regionalSubjects:
-            UserServices.downloadFederalSubjects { [weak self] in
+            tableView.allowsSelection = true
+            UserServices.downloadRegionalSubjects { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .instances:
+            tableView.allowsSelection = false
             UserServices.downloadInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
         case .dumaDeputees, .councilMembers:
-            UserServices.downloadInstances() { [weak self] in
+            tableView.allowsSelection = true
+            UserServices.downloadDeputies() { [weak self] in
                 self?.updateTableWithNewData()
             }
         }
