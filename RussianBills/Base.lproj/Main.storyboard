@@ -1585,25 +1585,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
-                                            <rect key="frame" x="20" y="20" width="335" height="20.333333333333329"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Комитет по труду и занятости" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ext-Ol-QRs">
+                                            <rect key="frame" x="20" y="11" width="335" height="10"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="aHz-np-daY"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Действует с 12 мая 1992 года" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-QZ-Fpg">
-                                            <rect key="frame" x="20" y="48.333333333333336" width="335" height="16.000000000000007"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Действует с 12 мая 1992 года" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idV-QZ-Fpg">
+                                            <rect key="frame" x="20" y="29" width="335" height="0.0"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Действует в настоящее время" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-x8-yDM">
-                                            <rect key="frame" x="20" y="72.333333333333343" width="335" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Действует в настоящее время" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKq-x8-yDM">
+                                            <rect key="frame" x="20" y="33" width="335" height="0.0"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
@@ -1613,14 +1610,15 @@
                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="idV-QZ-Fpg" secondAttribute="trailing" constant="20" symbolic="YES" id="0Wi-Bd-o5H"/>
-                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leadingMargin" constant="4" id="8KJ-hH-6cQ"/>
+                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="20" symbolic="YES" id="8KJ-hH-6cQ"/>
                                         <constraint firstAttribute="trailing" secondItem="ext-Ol-QRs" secondAttribute="trailing" constant="20" symbolic="YES" id="Bwq-NM-vE7"/>
                                         <constraint firstItem="ext-Ol-QRs" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="20" symbolic="YES" id="bGn-gZ-oh3"/>
-                                        <constraint firstItem="ext-Ol-QRs" firstAttribute="top" secondItem="T7w-aR-hbl" secondAttribute="top" constant="20" symbolic="YES" id="e4l-WI-hV8"/>
-                                        <constraint firstAttribute="bottom" secondItem="iKq-x8-yDM" secondAttribute="bottom" constant="20" symbolic="YES" id="ein-xN-hFn"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="iKq-x8-yDM" secondAttribute="trailing" constant="4" id="mOw-HS-bLh"/>
+                                        <constraint firstAttribute="trailing" secondItem="iKq-x8-yDM" secondAttribute="trailing" constant="20" id="bGv-BW-77W"/>
+                                        <constraint firstItem="ext-Ol-QRs" firstAttribute="top" secondItem="T7w-aR-hbl" secondAttribute="topMargin" id="e4l-WI-hV8"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="iKq-x8-yDM" secondAttribute="bottom" id="ein-xN-hFn"/>
+                                        <constraint firstAttribute="trailing" secondItem="iKq-x8-yDM" secondAttribute="trailing" constant="20" symbolic="YES" placeholder="YES" id="mOw-HS-bLh"/>
                                         <constraint firstItem="idV-QZ-Fpg" firstAttribute="top" secondItem="ext-Ol-QRs" secondAttribute="bottom" constant="8" id="ok0-aI-UBg"/>
-                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="top" secondItem="idV-QZ-Fpg" secondAttribute="bottom" constant="8" id="opt-q9-JdE"/>
+                                        <constraint firstItem="iKq-x8-yDM" firstAttribute="top" secondItem="idV-QZ-Fpg" secondAttribute="bottom" constant="4" id="opt-q9-JdE"/>
                                         <constraint firstItem="idV-QZ-Fpg" firstAttribute="leading" secondItem="T7w-aR-hbl" secondAttribute="leading" constant="20" symbolic="YES" id="wFa-Ps-nH4"/>
                                     </constraints>
                                 </tableViewCellContentView>
