@@ -373,7 +373,7 @@ final class BillCardTableViewController: UITableViewController {
 
     private func activateMoreInfoCell() {
         moreDocsLabel?.text = "Все события и документы"
-        moreDocsLabel?.textColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+        moreDocsLabel?.textColor = UIColor.ztint
         moreDocsIndicator?.stopAnimating()
         moreDocsCell?.accessoryType = .disclosureIndicator
         moreDocsCell?.isUserInteractionEnabled = true

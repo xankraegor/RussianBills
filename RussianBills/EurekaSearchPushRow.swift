@@ -26,12 +26,12 @@ open class _SearchSelectorViewController<Row: SelectableRowType, OptionsRow: Opt
         definesPresentationContext = true
         let scb = searchController.searchBar
         scb.searchBarStyle = .default
-        scb.barTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        scb.barTintColor = UIColor.ztint
 
         if let textfield = scb.value(forKey: "searchField") as? UITextField {
             textfield.tintColor = UIColor.black
             if let backgroundview = textfield.subviews.first {
-                backgroundview.backgroundColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9450980392, alpha: 1)
+                backgroundview.backgroundColor = UIColor.zSearchBarBackgroundColor
                 backgroundview.layer.cornerRadius = 10
                 backgroundview.clipsToBounds = true
             }

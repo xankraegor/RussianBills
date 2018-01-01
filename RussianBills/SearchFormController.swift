@@ -104,8 +104,8 @@ final class SearchFormController: FormViewController {
             // MARK: Begin intro date switch
             <<< SwitchRow("beginDateSwitch") {
                 $0.title = "Дата начала"
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 $0.value = false
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -137,8 +137,8 @@ final class SearchFormController: FormViewController {
             // MARK: End intro date switch
             <<< SwitchRow("endDateSwitch") {
                 $0.title = "Дата окончания"
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 $0.value = false
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -173,8 +173,8 @@ final class SearchFormController: FormViewController {
             <<< SwitchRow("deputySwitch") {
                 $0.title = "Депутат Госдумы"
                 $0.value = receivedDeputyId > 0 ? true : false
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -230,8 +230,8 @@ final class SearchFormController: FormViewController {
             <<< SwitchRow("councilSwitch") {
                 $0.title = "Член Совета Федерации"
                 $0.value = receivedCouncilId > 0 ? true : false
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
@@ -288,8 +288,8 @@ final class SearchFormController: FormViewController {
             // MARK: Federal Subject switch
             <<< SwitchRow("federalSwitch") {
                 $0.title = "Федеральный орган госвласти"
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 $0.value = receivedFederalSubjectId > 0 ? true : false
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
@@ -346,8 +346,8 @@ final class SearchFormController: FormViewController {
             <<< SwitchRow("regionalSwitch") {
                 $0.title = "Региональный орган зак. власти"
                 $0.value = receivedRegionalSubjectId > 0 ? true : false
-                $0.cell.switchControl.tintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
-                $0.cell.switchControl.onTintColor = #colorLiteral(red: 0.1269444525, green: 0.5461069942, blue: 0.8416815996, alpha: 1)
+                $0.cell.switchControl.tintColor = UIColor.ztint
+                $0.cell.switchControl.onTintColor = UIColor.ztint
                 }.onChange{ [weak self] (row) in
                     let switchValue = row.value ?? false
                     if switchValue {
