@@ -8,8 +8,6 @@ target 'RussianBills' do
     pod 'SwiftyJSON'
     pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feature/v4.0.0'
     pod 'Eureka'
-    pod 'RxSwift'
-    pod 'RxRealm'
     pod 'Fabric'
     pod 'Crashlytics'
 end

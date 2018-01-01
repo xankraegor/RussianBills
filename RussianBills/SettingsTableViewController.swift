@@ -12,18 +12,13 @@ import SafariServices
 final class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var iCloudSyncEngineSwitch: UISwitch!
-
     @IBOutlet weak var downloadedFilesSizeLabel: UILabel?
     @IBOutlet weak var downloadedAttachmentsDeleteCell: UITableViewCell?
-    
     @IBOutlet weak var updateBillsTimeoutSlider: UISlider?
     @IBOutlet weak var sliderTimeLabel: UILabel?
-
     @IBOutlet weak var switchKeysButton: UIButton?
     @IBOutlet weak var switchKeysStatusLabel: UILabel?
-
     @IBOutlet weak var devVersionLabel: UILabel!
-
 
     private let sliderValues: [Double] = [300, 900, 3600, 7200, 18000] // TimeInterval in seconds
     private let sliderValuesDescription: [String] = ["5 мин.", "15 мин.", "1 час", "2 часа", "5 часов"]
@@ -80,12 +75,8 @@ final class SettingsTableViewController: UITableViewController {
             case 4:
                 presentSafariWithUrl("https://github.com/realm/realm-cocoa/blob/master/LICENSE")
             case 5:
-                presentSafariWithUrl("https://github.com/RxSwiftCommunity/RxRealm/blob/master/LICENSE")
-            case 6:
-                presentSafariWithUrl("https://github.com/ReactiveX/RxSwift/blob/master/LICENSE.md")
-            case 7:
                 presentSafariWithUrl("https://github.com/SwiftyJSON/SwiftyJSON/blob/master/LICENSE")
-            case 8:
+            case 6:
                 presentSafariWithUrl("https://www.flaticon.com/packs/files-8")
             default:
                 break
@@ -132,7 +123,7 @@ final class SettingsTableViewController: UITableViewController {
             }
         } else {
             // Set previous value and tell user that it can't be changed as long as icloud is unreachable
-            let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "выключить" : "включить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "включить" : "выключить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
             present(alert, animated: true, completion: { [weak sender] in
                 sender?.setOn(false, animated: true)

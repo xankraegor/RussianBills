@@ -9,8 +9,6 @@
 import Foundation
 import CloudKit
 import RealmSwift
-import RxSwift
-import RxRealm
 
 enum StorageError: Error {
     case recordNotFound(String)
@@ -41,14 +39,8 @@ public final class BillSyncContainerStorage {
         self.init(realm: nil)
     }
 
-    public var allBills: Observable<[SyncProxy]> {
-        let objects = self.realm.objects(FavoriteBill_.self)
-            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
-
-        return Observable.collection(from: objects).map {
-            realmBills in
-            return realmBills.map{ $0.syncProxy }
-        }
+    public var allBills: [SyncProxy] {
+        return realm.objects(FavoriteBill_.self).sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false).map{$0.syncProxy}
     }
 
     var mostRecentlyModifiedBillSyncContainer: SyncProxy? {

@@ -10,10 +10,6 @@ PODS:
   - Realm/Headers (3.0.2)
   - RealmSwift (3.0.2):
     - Realm (= 3.0.2)
-  - RxRealm (0.7.5):
-    - RealmSwift (~> 3.0)
-    - RxSwift (~> 4.0)
-  - RxSwift (4.0.0)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
@@ -23,8 +19,6 @@ DEPENDENCIES:
   - Fabric
   - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
   - RealmSwift
-  - RxRealm
-  - RxSwift
   - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -45,10 +39,8 @@ SPEC CHECKSUMS:
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
-  RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
-  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: caa6f3b71859810f4cb7fe9e98fa0aa6c46231b3
+PODFILE CHECKSUM: a6f3c9249941462863df9d1295a334fe8365b4c6
 
 COCOAPODS: 1.3.1
