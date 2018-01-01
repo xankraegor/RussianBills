@@ -413,8 +413,8 @@ final class SearchFormController: FormViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = true
         super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
     }
 
     // MARK: - Updating Query
