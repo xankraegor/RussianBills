@@ -19,7 +19,7 @@ final class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Default realm path: \(Realm.Configuration.defaultConfiguration.fileURL?.path ?? "missing")")
+        debugPrint("Default realm path: \(Realm.Configuration.defaultConfiguration.fileURL?.path ?? "missing")")
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
         }

@@ -18,7 +18,6 @@ final class Dispatcher {
     let referenceDownloadDispatchQueue = DispatchQueue(label: "referenceDownloadDispatchQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
 
     let billsDownloadDispatchGroup = DispatchGroup()
-    let billsDownloadDispatchQueue = DispatchQueue(label: "billsDownloadDispatchQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
 
     let attachmentsDownloadQueue = DispatchQueue(label: "attachmentsDownloadQueue", qos: .userInitiated, attributes: DispatchQueue.Attributes.concurrent)
 

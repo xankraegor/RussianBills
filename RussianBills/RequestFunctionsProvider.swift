@@ -25,7 +25,7 @@ enum Request {
     // NOT Enqueued
     static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int) -> Void ) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
-            Alamofire.request(requestMessage).responseJSON { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let error = response.error {
                     debugPrint("∆ Request.billSearch returned an error: \(error.localizedDescription)")
                     return

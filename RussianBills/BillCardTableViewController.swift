@@ -143,23 +143,10 @@ final class BillCardTableViewController: UITableViewController {
         return nil
     }
 
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let count = super.tableView(tableView, numberOfRowsInSection: section)
-//        // Note section
-//        if section == 4 {
-//            if favoriteBill != nil {
-//                return 2
-//            } else {
-//                return 0
-//            }
-//        } else {
-//            return count
-//        }
-//    }
-
     // MARK: - Helper functions
 
     private func fetchExistingBillData() {
+        
         if let bill = bill {
             navigationItem.title = "№ \(bill.number)"
             organizedTextButton.title = bill.favorite ? "Отслеживаемый" : ""
@@ -409,11 +396,12 @@ final class BillCardTableViewController: UITableViewController {
         if let billNumber = bill?.number {
             let searchQuery = BillSearchQuery(withNumber: billNumber)
             UserServices.downloadBills(withQuery: searchQuery, completion: {
-                [weak self] (bills, totalCount) -> Void in
-                if let firstBill = bills.first {
-                    self?.bill = firstBill
+                [weak self] (_, totalCount) -> Void in
+                // self?.bill = firstBill
+                DispatchQueue.main.async {
                     self?.fetchExistingBillData()
                 }
+                
             })
         }
     }
