@@ -307,7 +307,7 @@ final class SearchFormController: FormViewController {
                     }
                 }
             // MARK: Federal Subject
-            <<< PushRow<FederalSubject_>("federalBody") {
+            <<< SearchPushRow<FederalSubject_>("federalBody") {
                 $0.selectorTitle = "Выберите федеральный орган власти"
                 var feds = federalSubjects
                 let absentValue = FederalSubject_(__withFakeName: "Любой")
@@ -364,7 +364,7 @@ final class SearchFormController: FormViewController {
                     }
                 }
             // MARK: Regional Subject
-            <<< PushRow<RegionalSubject_>("regionalBody") {
+            <<< SearchPushRow<RegionalSubject_>("regionalBody") {
                 $0.selectorTitle = "Выберите региональный орган власти"
                 var regs = regionalSubjects
                 let absentValue = RegionalSubject_(__withFakeName: "Любой")

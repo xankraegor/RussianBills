@@ -49,3 +49,12 @@ extension FederalSubject_: QuickSearchFieldsReporting {
     static var hasIsCurrent = true
 
 }
+
+// MARK: - Eureka's Search Push Row Item
+extension FederalSubject_: SearchPushRowItem {
+    
+    func matchesSearchQuery(_ query: String) -> Bool {
+        return name.range(of: query, options: .caseInsensitive, locale: Locale.init(identifier: "ru_RU")) != nil
+    }
+    
+}
