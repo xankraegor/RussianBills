@@ -33,6 +33,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3z-YE-lFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,7 +115,6 @@
                     <navigationItem key="navigationItem" title="Результаты поиска " largeTitleDisplayMode="never" id="cg6-YU-k94">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="MKD-ts-P67"/>
                     </navigationItem>
-                    <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoK-Nr-qo4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1694,12 +1694,14 @@
             <objects>
                 <navigationController storyboardIdentifier="rootViewControllerId" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="FV3-Kl-nKh" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Ru2-vz-ih3">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.1137254902" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.26274509800000001" green="0.46274509800000002" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1709,11 +1711,11 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="UGK-Lf-FAk">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="UGK-Lf-FAk">
                         <rect key="frame" x="0.0" y="729" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.26274509800000001" green="0.46274509800000002" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="EIW-S8-JWd" kind="relationship" relationship="rootViewController" id="JSQ-bR-SKG"/>
@@ -2212,7 +2214,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="wXA-hc-24i"/>
         <segue reference="0xS-fK-VXV"/>
-        <segue reference="LwO-fy-era"/>
-        <segue reference="hLO-Mz-Bcc"/>
+        <segue reference="ECW-Zv-M8L"/>
+        <segue reference="3EB-K3-3Dt"/>
     </inferredMetricsTieBreakers>
 </document>
