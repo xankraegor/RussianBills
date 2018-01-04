@@ -41,6 +41,8 @@ final class MainTableViewController: UITableViewController {
     @objc func methodOfReceivedNotification(notification: Notification) {
         if let dict = notification.userInfo as? [String: Int], let count = dict["count"] {
             setFavoritesBadge(count: count)
+        } else {
+            assertionFailure("∆ Can't unwrap userInfo dictionary of the 'newUpdatedFavoriteBillsCountNotification' notification")
         }
     }
 

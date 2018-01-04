@@ -16,6 +16,10 @@ final class SyncMan {
     static let shared = SyncMan() // Singleton
     
     let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
+    let favoriteBillsInRealmWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue)
+
+    var favoritesRealmNotificationToken: NotificationToken?
+
     var foregroundFavoriteBillsUpdateTimer: Timer?
     var favoriteBillsUpdateTimer: DispatchSourceTimer?
 
@@ -28,6 +32,7 @@ final class SyncMan {
     private init() {
 
         setupForegroundUpdateTimer()
+
         iCloudStorage = BillSyncContainerStorage()
         if let storage = iCloudStorage {
             iCloudSyncEngine = ICloudSyncEngine(storage: storage)
@@ -36,7 +41,12 @@ final class SyncMan {
             }
         }
 
+        favoritesRealmNotificationToken = favoriteBillsInRealmWithUnseenChanges?.observe { [weak self] (_) -> Void in
+            NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": self?.favoriteBillsInRealmWithUnseenChanges?.count ?? 0])
+            UIApplication.shared.applicationIconBadgeNumber = (self?.favoriteBillsInRealmWithUnseenChanges?.count) ?? 0
+        }
     }
+
 
     // MARK: - Updating favorite bills
 
