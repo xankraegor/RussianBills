@@ -66,9 +66,9 @@ final class LegislativeSubjTableViewController: UITableViewController {
             organizationName = fedSubj.name
             typeLabel?.text = "Федеральный орган власти"
             var currentText = fedSubj.isCurrent ? "Действует c " : "Действовал c "
-            currentText.append(contentsOf: fedSubj.startDate)
+            currentText.append(contentsOf: fedSubj.startDate.isoDateToReadableDate())
             if !fedSubj.isCurrent {
-                currentText.append(contentsOf: " по \(fedSubj.stopDate.isoDateToReadableDate() ?? fedSubj.stopDate)")
+                currentText.append(contentsOf: " по \(fedSubj.stopDate.isoDateToReadableDate())")
             }
             isCurrentLabel?.text = currentText
 
@@ -94,9 +94,9 @@ final class LegislativeSubjTableViewController: UITableViewController {
              organizationName = regSubj.name
             typeLabel?.text = "Региональный орган власти"
             var currentText = regSubj.isCurrent ? "Действует c " : "Действовал c "
-            currentText.append(contentsOf: regSubj.startDate.isoDateToReadableDate() ?? regSubj.startDate)
+            currentText.append(contentsOf: regSubj.startDate.isoDateToReadableDate())
             if !regSubj.isCurrent {
-                currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate() ?? regSubj.stopDate)")
+                currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate())")
             }
             isCurrentLabel?.text = currentText
             if let data = regionalSubjectsData[regSubj.id], let addr = data["address"] {
