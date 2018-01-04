@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import MapKit
+import SafariServices
 
 final class LegislativeSubjTableViewController: UITableViewController {
 
@@ -20,6 +21,7 @@ final class LegislativeSubjTableViewController: UITableViewController {
     @IBOutlet weak var isCurrentLabel: UILabel?
     @IBOutlet weak var addressLabel: UILabel?
     @IBOutlet weak var showOnMapLabel: UILabel?
+    @IBOutlet weak var websiteButton: UIButton?
 
     var address: String = "" {
         didSet {
@@ -29,6 +31,17 @@ final class LegislativeSubjTableViewController: UITableViewController {
             } else {
                 addressLabel?.text = "Адрес отсутствует"
             }
+        }
+    }
+
+    var url: URL? {
+        guard websiteAddress.count > 0 else { return nil }
+        return URL(string: websiteAddress)
+    }
+
+    var websiteAddress: String = "" {
+        didSet {
+            websiteButton?.isEnabled = (url != nil)
         }
     }
 
@@ -75,23 +88,29 @@ final class LegislativeSubjTableViewController: UITableViewController {
             switch fedSubj.id {
             case 6231000:    //Верховный Суд РФ
                 address = "121260, Москва, ул. Поварская, 15"
+                websiteAddress = "http://www.supcourt.ru"
             case 6231100:    //Высший Арбитражный Суд РФ
                 address = "101000, Москва, Малый Харитоньевский пер., 12"
+                websiteAddress = "http://www.arbitr.ru/vas/"
             case 6230900:    //Конституционный Суд РФ
                 address = "190000, Санкт-Петербург, Сенатская пл., 1"
+                websiteAddress = "http://www.ksrf.ru"
             case 6230800:    //Правительство РФ
                 address = "103274, Москва, Краснопресненская наб., 2"
+                websiteAddress = "http://government.ru"
             case 6230500:    //Президент РФ
                 address = "101000, Москва, Старая Площадь, 6 стр. 1"
+                websiteAddress = "http://kremlin.ru"
             case 6230600:    //Совет Федерации РФ
                 address = "103426, Москва, ул. Большая Дмитровка, 26"
+                websiteAddress = "http://www.council.gov.ru"
             default:
                 break
             }
 
         } else if let regSubj = item as? RegionalSubject_ {
             nameLabel?.text = regSubj.name
-             organizationName = regSubj.name
+            organizationName = regSubj.name
             typeLabel?.text = "Региональный орган власти"
             var currentText = regSubj.isCurrent ? "Действует c " : "Действовал c "
             currentText.append(contentsOf: regSubj.startDate.isoDateToReadableDate())
@@ -99,10 +118,19 @@ final class LegislativeSubjTableViewController: UITableViewController {
                 currentText.append(contentsOf: " по \(regSubj.stopDate.isoDateToReadableDate())")
             }
             isCurrentLabel?.text = currentText
-            if let data = regionalSubjectsData[regSubj.id], let addr = data["address"] {
-                address = addr
-            } else {
-                address = ""
+
+            if let data = regionalSubjectsData[regSubj.id] {
+                if let addr = data["address"] {
+                    address = addr
+                } else {
+                    address = ""
+                }
+
+                if let webaddr = data["website"] {
+                    websiteAddress = webaddr
+                } else {
+                    websiteAddress = ""
+                }
             }
 
         } else if let deputy = item as? Deputy_ {
@@ -112,9 +140,11 @@ final class LegislativeSubjTableViewController: UITableViewController {
             if deputy.position.lowercased().contains("депутат") {
                 address = "103265, Москва, ул. Охотный ряд, 1"
                 organizationName = "Государственная Дума РФ"
+                websiteAddress = "http://duma.gov.ru"
             } else if deputy.position.lowercased().contains("член") {
                 address = "103426, Москва, ул. Большая Дмитровка, 26"
                 organizationName = "Совет Федерации РФ"
+                websiteAddress = "http://www.council.gov.ru"
             }
         }
     }
@@ -165,5 +195,13 @@ final class LegislativeSubjTableViewController: UITableViewController {
         }
 
     }
+
+    @IBAction func websiteButtonPressed(_ sender: Any) {
+        if let webUrl = url {
+            let svc = SFSafariViewController(url: webUrl)
+            present(svc, animated: true, completion: nil)
+        }
+    }
+
 
 }

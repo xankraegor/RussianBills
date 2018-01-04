@@ -1458,12 +1458,38 @@
                                             <segue destination="1iZ-Fr-et9" kind="show" identifier="showOnMapSegue" id="iOd-N0-QQ4"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Y8Z-EB-H7g">
+                                        <rect key="frame" x="0.0" y="311" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y8Z-EB-H7g" id="myZ-qx-xMs">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdM-tk-Tx9">
+                                                    <rect key="frame" x="20" y="0.0" width="321" height="43.666666666666664"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <state key="normal" title="Посетить сайт">
+                                                        <color key="titleColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="websiteButtonPressed:" destination="HuN-bd-2jP" eventType="touchUpInside" id="Iui-ZL-SMm"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="JdM-tk-Tx9" secondAttribute="trailing" id="R8F-4r-Jjh"/>
+                                                <constraint firstAttribute="bottom" secondItem="JdM-tk-Tx9" secondAttribute="bottom" id="Tsm-jj-cv9"/>
+                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="leading" secondItem="myZ-qx-xMs" secondAttribute="leading" constant="20" symbolic="YES" id="m0n-9g-Up1"/>
+                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="top" secondItem="myZ-qx-xMs" secondAttribute="top" id="r4j-HS-Bq1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="1oH-rP-pxZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lee-dP-7DS" style="IBUITableViewCellStyleDefault" id="0Xh-4O-YwJ">
-                                        <rect key="frame" x="0.0" y="347" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="391" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Xh-4O-YwJ" id="gss-lu-dce">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
@@ -1500,11 +1526,12 @@
                         <outlet property="nameLabel" destination="9E0-Ga-doh" id="hkJ-Af-NhD"/>
                         <outlet property="showOnMapLabel" destination="iaC-A1-Lgv" id="ojU-ze-M9P"/>
                         <outlet property="typeLabel" destination="CO6-oo-iau" id="bFr-u3-Nyv"/>
+                        <outlet property="websiteButton" destination="JdM-tk-Tx9" id="Fpq-QJ-jci"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRd-cv-UJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3177" y="1770"/>
+            <point key="canvasLocation" x="3176.8000000000002" y="1769.7044334975369"/>
         </scene>
         <!--Учреждение на карте-->
         <scene sceneID="brL-Gs-d6O">
@@ -2170,6 +2197,6 @@
         <segue reference="wXA-hc-24i"/>
         <segue reference="0xS-fK-VXV"/>
         <segue reference="ECW-Zv-M8L"/>
-        <segue reference="3EB-K3-3Dt"/>
+        <segue reference="RcN-tU-zP2"/>
     </inferredMetricsTieBreakers>
 </document>

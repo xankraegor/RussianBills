@@ -502,7 +502,6 @@ public final class ICloudSyncEngine: NSObject {
                         toCloud.append(nonEqualLocal[i])
                         slog("[Engine] resolveNew: \(nonEqualLocal[i].number) has new unseen changes timestamp and will pushed to the cloud")
                     }
-
                 } else if nonEqualCloud[i].note != nonEqualLocal[i].note {
                     let text: String
                     if nonEqualCloud[i].note == "" {
