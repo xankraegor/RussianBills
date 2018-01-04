@@ -61,14 +61,25 @@ final public class BillParser {
 
                     // General Event Description
 
-                    guard let eventName = div.xpath("div[contains(@class, 'algstname')]").first?.content else {
+                    guard let eventNameBox = div.xpath("div[contains(@class, 'algstname')]//span[contains(@class, 'name')]").first else {
                         continue
                     }
 
-                    let trimmedName = eventName.prettify()
+                    let eventName: String
+
+                    if let eventNumberBox = eventNameBox.xpath(".//span[contains(@class, 'pun_number')]").first {
+                        let documentNumberText = eventNumberBox.text?.prettify() ?? ""
+                        let nameText = eventNameBox.text ?? ""
+                        eventName = nameText.replacingOccurrences(of: documentNumberText, with: "").prettify() + "\n[\(documentNumberText)]"
+                    } else {
+                        eventName = eventNameBox.text?.prettify() ?? ""
+                    }
+
+                    print("=============================================================")
+                    print(eventName)
 
                     // Reinitializing current event
-                    currentEvent = BillParserEvent(withName: trimmedName, date: nil)
+                    currentEvent = BillParserEvent(withName: eventName, date: nil)
 
                     // Date and time strings
                     if let eventDateString = eventContentDateBlock.xpath("span[contains(@class, 'mob_not')]").first?.content {
