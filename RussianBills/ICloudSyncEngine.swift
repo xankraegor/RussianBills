@@ -504,11 +504,19 @@ public final class ICloudSyncEngine: NSObject {
                     }
 
                 } else if nonEqualCloud[i].note != nonEqualLocal[i].note {
-                    // They have different notes, lets save both
-                    let text = "<<<<===== ВЕРСИЯ ЗАМЕТКИ ИЗ ОБЛАКА от \(nonEqualCloud[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
-                        nonEqualCloud[i].note +
-                        "\n\n<<<<===== ЛОКАЛЬНАЯ ВЕРСИЯ ЗАМЕТКИ от \(nonEqualLocal[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
-                        nonEqualLocal[i].note
+                    let text: String
+                    if nonEqualCloud[i].note == "" {
+                        text = nonEqualLocal[i].note
+                    } else if nonEqualLocal[i].note == "" {
+                        text = nonEqualCloud[i].note
+                    } else {
+                        // They have different notes, lets save both
+                        text = "<<<<===== ВЕРСИЯ ЗАМЕТКИ ИЗ ОБЛАКА от \(nonEqualCloud[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
+                            nonEqualCloud[i].note +
+                            "\n\n<<<<===== ЛОКАЛЬНАЯ ВЕРСИЯ ЗАМЕТКИ от \(nonEqualLocal[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
+                            nonEqualLocal[i].note
+                    }
+
                     let newTimeStamp = Date()
 
                     let newSyncProxy = SyncProxy(withNumber: nonEqualCloud[i].number, name: nonEqualCloud[i].name, comments: nonEqualCloud[i].comments, note: text, favoriteUpdatedTimestamp: newTimeStamp, favoriteHasUnseenChanges: nonEqualCloud[i].favoriteHasUnseenChanges, favoriteHasUnseenChangesTimestamp: nonEqualCloud[i].favoriteHasUnseenChangesTimestamp)
