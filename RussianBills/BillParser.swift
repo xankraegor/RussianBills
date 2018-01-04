@@ -75,9 +75,6 @@ final public class BillParser {
                         eventName = eventNameBox.text?.prettify() ?? ""
                     }
 
-                    print("=============================================================")
-                    print(eventName)
-
                     // Reinitializing current event
                     currentEvent = BillParserEvent(withName: eventName, date: nil)
 
