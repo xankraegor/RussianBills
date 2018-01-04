@@ -172,14 +172,6 @@ final class BillCardTableViewController: UITableViewController {
             profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
             coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
 
-            if let note = favoriteBill?.displayedNote {
-                noteLabel.text = note
-                noteLabel.textColor = UIColor.black
-            } else {
-                noteLabel.text = "Заметка отсутствует"
-                noteLabel.textColor = UIColor.gray
-            }
-
             if animated {
                 tableView.endUpdates()
             } else {
@@ -366,6 +358,19 @@ final class BillCardTableViewController: UITableViewController {
             try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: newFavoriteBill.syncProxy)
             self.organizedTextButton.title = "Отслеживаемый"
         }
+
+        tableView.beginUpdates()
+        if let note = favoriteBill?.displayedNote {
+            noteLabel.text = note
+            noteLabel.textColor = UIColor.black
+        } else {
+            noteLabel.text = "Заметка отсутствует"
+            noteLabel.textColor = UIColor.gray
+        }
+        tableView.endUpdates()
+
+        tableView.reloadData()
+
     }
 
     func askToRemoveFavoriteBillWithNote(completionIfTrue: @escaping ()->Void) {
