@@ -73,7 +73,7 @@ final class BillCardTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
-        fetchExistingBillData()
+        fetchExistingBillData(animated: false)
 
         if favoriteBill?.favoriteHasUnseenChanges ?? false {
             try? realm?.write {
@@ -145,13 +145,15 @@ final class BillCardTableViewController: UITableViewController {
 
     // MARK: - Helper functions
 
-    private func fetchExistingBillData() {
+    private func fetchExistingBillData(animated: Bool) {
         
         if let bill = bill {
             navigationItem.title = "№ \(bill.number)"
             organizedTextButton.title = bill.favorite ? "Отслеживаемый" : ""
 
-            tableView.beginUpdates()
+            if animated {
+                tableView.beginUpdates()
+            }
 
             billTypeLabel?.text = bill.lawType.description
             billTitle?.text = bill.name
@@ -178,12 +180,19 @@ final class BillCardTableViewController: UITableViewController {
                 noteLabel.textColor = UIColor.gray
             }
 
-            tableView.endUpdates()
+            if animated {
+                tableView.endUpdates()
+            } else {
+                tableView.reloadData()
+            }
+
 
         } else if let favbill = favoriteBill {
             organizedTextButton.title = "Отслеживаемый"
 
-            tableView.beginUpdates()
+            if animated {
+                tableView.beginUpdates()
+            }
 
             billTitle?.text = favbill.name
             billCommentsLabel?.text = favbill.comments
@@ -205,7 +214,12 @@ final class BillCardTableViewController: UITableViewController {
             lastEventDateLabel?.text = " … "
             lastEventDocumentLabel?.text = " … "
 
-            tableView.endUpdates()
+            if animated {
+                tableView.endUpdates()
+            } else {
+                tableView.reloadData()
+            }
+
 
             UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: favbill.number), completion: { [weak self] (bills, _) in
                 DispatchQueue.main.async {
@@ -213,7 +227,9 @@ final class BillCardTableViewController: UITableViewController {
 
                     self?.organizedTextButton.title = bill.favorite ? "Отслеживаемый" : ""
 
-                    self?.tableView.beginUpdates()
+                    if animated {
+                        self?.tableView.beginUpdates()
+                    }
 
                     self?.billTypeLabel?.text = bill.lawType.description
                     self?.billTitle?.text = bill.name
@@ -232,7 +248,12 @@ final class BillCardTableViewController: UITableViewController {
                     self?.profileComitteesLabel?.text = bill.generateProfileCommitteesDescription()
                     self?.coexecCommitteeLabel?.text = bill.generateCoexecitorCommitteesDescription()
 
-                    self?.tableView.endUpdates()
+                    if animated {
+                        self?.tableView.endUpdates()
+                    } else {
+                        self?.tableView.reloadData()
+                    }
+
                 }
             })
         } else {
@@ -259,7 +280,7 @@ final class BillCardTableViewController: UITableViewController {
     }
 
     @IBAction func unwindFromNoteController(segue: UIStoryboardSegue) {
-        fetchExistingBillData()
+        fetchExistingBillData(animated: false)
     }
 
     // MARK: - AlertController
@@ -399,9 +420,8 @@ final class BillCardTableViewController: UITableViewController {
                 [weak self] (_, totalCount) -> Void in
                 // self?.bill = firstBill
                 DispatchQueue.main.async {
-                    self?.fetchExistingBillData()
+                    self?.fetchExistingBillData(animated: true)
                 }
-                
             })
         }
     }
