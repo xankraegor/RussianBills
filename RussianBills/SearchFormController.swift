@@ -217,7 +217,7 @@ final class SearchFormController: FormViewController {
                     }
                     return "Любой"
                 }
-                $0.cell.textLabel?.numberOfLines = 0
+
                 }
                 .onChange { [weak self] row in
                     if row.value?.id == 0 { // Absent value
@@ -275,7 +275,7 @@ final class SearchFormController: FormViewController {
                     }
                     return "Любой"
                 }
-                $0.cell.textLabel?.numberOfLines = 0
+                
                 }
                 .onChange { [weak self] row in
                     if row.value?.id == 0 { // Absent value
@@ -331,7 +331,7 @@ final class SearchFormController: FormViewController {
                     }
                     return "Любой"
                 }
-                $0.cell.textLabel?.numberOfLines = 0
+                
                 }
                 .onChange { [weak self] row in
                     if row.value?.id == 0 { // Absent value
@@ -388,7 +388,7 @@ final class SearchFormController: FormViewController {
                     }
                     return "Любой"
                 }
-                $0.cell.textLabel?.numberOfLines = 0
+                
                 }
                 .onChange { [weak self] row in
                     if row.value?.id == 0 { // Absent value

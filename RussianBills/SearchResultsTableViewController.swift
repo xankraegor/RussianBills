@@ -80,7 +80,7 @@ final class SearchResultsTableViewController: UITableViewController {
         }
 
         if bill.favorite {
-            cell.isFavoriteLabel?.text = "В избранном 🎖"
+            cell.isFavoriteLabel?.text = "⭐️ Отслеживается"
         } else {
             cell.isFavoriteLabel?.text = " "
         }

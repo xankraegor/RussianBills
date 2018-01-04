@@ -93,7 +93,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label height="101" alignment="left" text="Появились изменения в избранных законопроектах" numberOfLines="0" id="IdU-wH-bcW"/>
+                        <label height="101" alignment="left" text="Появились изменения в отслеживаемых законопроектах" numberOfLines="0" id="IdU-wH-bcW"/>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
                     <connections>
