@@ -218,7 +218,7 @@ extension SimpleTableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputiesCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = object.name
-            cell.detailTextLabel?.text = (object.isCurrent ? "✅ Действующий " : "⏹ Бывший ") + object.position
+            cell.detailTextLabel?.text = object.isCurrent ? "Полномочия действуют" : "Срок полномочий истёк"
             cell.accessoryType = .disclosureIndicator
             return cell
 
