@@ -68,7 +68,7 @@ final class Bill_: Object {
     }
 
     func generateLastEventDateDescription() -> String {
-        return lastEventDate.isoDateToReadableDate() ?? "Не указана"
+        return lastEventDate.isoDateToReadableDate()
     }
 
     func generateSubjectsDescription() -> String? {
@@ -82,14 +82,14 @@ final class Bill_: Object {
 
     func generateCoexecitorCommitteesDescription() -> String {
         guard committeeCoexecutor.count > 0 else {
-            return "Не указаны"
+            return "Не определены"
         }
         return committeeCoexecutor.map {$0.name}.joined(separator: "; ")
     }
 
     func generateProfileCommitteesDescription() -> String {
         guard committeeProfile.count > 0 else {
-            return "Не указаны"
+            return "Не определены"
         }
         return committeeProfile.map {$0.name}.joined(separator: "; ")
     }
@@ -162,9 +162,7 @@ final class Bill_: Object {
 
         var textArr = Array<String>()
 
-        if let date = lastEventDate.isoDateToReadableDate() {
-            textArr.append(date + ": ")
-        }
+        textArr.append(lastEventDate.isoDateToReadableDate() + ": ")
 
         if let phase = lastEventPhase?.name.trimmingCharacters(in: .whitespacesAndNewlines), phase.count > 0 {
             textArr.append(phase + " — ")

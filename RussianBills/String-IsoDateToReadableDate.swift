@@ -10,6 +10,9 @@ import Foundation
 
 extension String {
     func isoDateToReadableDate() -> String {
+        guard self != "" else {
+            return "Не определена"
+        }
         if let date = Date.dateFromISOString(string: self) {
             return DateFormatter.localizedString(from: date, dateStyle: DateFormatter.Style.long, timeStyle: DateFormatter.Style.none)
         }

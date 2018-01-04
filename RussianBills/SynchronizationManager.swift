@@ -65,7 +65,7 @@ final class SyncMan {
 
 // MARK: - Sync logging
 public func slog(_ format: String, _ args: CVarArg...) {
-    //guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
+    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
     DispatchQueue.main.async {
         NSLog("[SYNC] " + format, args)
     }
