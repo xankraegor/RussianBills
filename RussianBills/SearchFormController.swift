@@ -488,6 +488,7 @@ final class SearchFormController: FormViewController {
         if segue.identifier == "SearchResultsSegueId" {
             (segue.destination as? SearchResultsTableViewController)?.query = query
             (segue.destination as? SearchResultsTableViewController)?.isPrefetched = prefetchedBills
+            
         }
     }
 
