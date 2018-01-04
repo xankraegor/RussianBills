@@ -41,7 +41,8 @@ final class LegislativeSubjTableViewController: UITableViewController {
 
     var websiteAddress: String = "" {
         didSet {
-            websiteButton?.isEnabled = (url != nil)
+            let urlExists = url != nil
+            websiteButton?.isEnabled = urlExists
         }
     }
 
@@ -74,6 +75,7 @@ final class LegislativeSubjTableViewController: UITableViewController {
     // MARK: - Helper functions
 
     func setMainLabels(forItem item: Object) {
+        websiteAddress = ""
         if let fedSubj = item as? FederalSubject_ {
             nameLabel?.text = fedSubj.name
             organizationName = fedSubj.name

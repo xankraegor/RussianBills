@@ -1465,11 +1465,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdM-tk-Tx9">
-                                                    <rect key="frame" x="20" y="0.0" width="321" height="43.666666666666664"/>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdM-tk-Tx9">
+                                                    <rect key="frame" x="16" y="5.3333333333333321" width="325" height="33"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <state key="normal" title="Посетить сайт">
                                                         <color key="titleColor" red="0.1137254902" green="0.46274509800000002" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="websiteButtonPressed:" destination="HuN-bd-2jP" eventType="touchUpInside" id="Iui-ZL-SMm"/>
@@ -1478,9 +1481,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="JdM-tk-Tx9" secondAttribute="trailing" id="R8F-4r-Jjh"/>
-                                                <constraint firstAttribute="bottom" secondItem="JdM-tk-Tx9" secondAttribute="bottom" id="Tsm-jj-cv9"/>
-                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="leading" secondItem="myZ-qx-xMs" secondAttribute="leading" constant="20" symbolic="YES" id="m0n-9g-Up1"/>
-                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="top" secondItem="myZ-qx-xMs" secondAttribute="top" id="r4j-HS-Bq1"/>
+                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="centerY" secondItem="myZ-qx-xMs" secondAttribute="centerY" id="Ui1-mW-hWK"/>
+                                                <constraint firstItem="JdM-tk-Tx9" firstAttribute="leading" secondItem="myZ-qx-xMs" secondAttribute="leadingMargin" id="m0n-9g-Up1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
