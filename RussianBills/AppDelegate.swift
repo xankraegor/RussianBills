@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Other actions
         UserServices.downloadAllReferenceCategories(forced: true)
-        UserServices.updateFavoriteBills(forced: false) {
+        UserServices.updateFavoriteBills(forced: true) {
             unseenFavoriteBillsCount in
             NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
             SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
@@ -158,10 +158,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 navigationController.pushViewController(favoritesVC, animated: false)
 
                 // Open bill card scene
-                if url.pathComponents[1].count > 0 {
-                    if let billVC = mainStoryboard.instantiateViewController(withIdentifier: "BillCardTableViewControllerId") as? BillCardTableViewController {
-                        billVC.billNr = url.pathComponents[1]
-                        navigationController.pushViewController(billVC, animated: false)
+                if url.pathComponents.count > 0 {
+                    if url.pathComponents[1].count > 0 {
+                        if let billVC = mainStoryboard.instantiateViewController(withIdentifier: "BillCardTableViewControllerId") as? BillCardTableViewController {
+                            billVC.billNr = url.pathComponents[1]
+                            navigationController.pushViewController(billVC, animated: false)
+                        }
                     }
                 }
 
