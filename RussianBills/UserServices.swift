@@ -249,17 +249,19 @@ enum UserServices {
                             return
                         }
 
+                        let favoriteBill = try? Realm().object(ofType: FavoriteBill_.self, forPrimaryKey: number)
+
                         try? Realm().write {
                             // Did last event changed since the last update?
                             if downloadedBill.generateHashForLastEvent() != previousHashValue {
-                                favoriteBills[i].favoriteHasUnseenChanges = true
+                                favoriteBill??.favoriteHasUnseenChanges = true
                                 // Change bill updated timestamp accordingly
                                 downloadedBill.updated = Date()
                             }
                             downloadedBill.parserContent = existingBillParserContent
                             try? Realm().add(downloadedBill, update: true)
-                            Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
                         }
+                        Dispatcher.shared.favoritesUpdateDispatchGroup.leave()
 
                     }
                 }
