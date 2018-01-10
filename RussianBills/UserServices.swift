@@ -32,143 +32,77 @@ enum UserServices {
     }
 
     static func downloadCommittees(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
-            return
-        }
-
+        guard forced || UserDefaultsCoordinator.committee.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.committies(current: nil, completion: { (result: [Committee_]) in
-                autoreleasepool{
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        realm?.add(result, update: true)
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             })
         }
     }
 
     static func downloadLawClasses(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
-            return
-        }
+        guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.lawClasses { (result: [LawClass_]) in
-                autoreleasepool {
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
     }
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.topics.updateRequired() else {
-            return
-        }
-
+        guard forced || UserDefaultsCoordinator.topics.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.topics { (result: [Topic_]) in
-                autoreleasepool{
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
     }
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.deputy.updateRequired() else {
-            return
-        }
+        guard forced || UserDefaultsCoordinator.deputy.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.deputies { (result: [Deputy_]) in
-                autoreleasepool {
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
     }
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else {
-            return
-        }
+        guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.federalSubjects { (result: [FederalSubject_]) in
-                autoreleasepool{
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
     }
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else {
-            return
-        }
+        guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.regionalSubjects { (result: [RegionalSubject_]) in
-                autoreleasepool{
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
     }
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.instances.updateRequired() else {
-            return
-        }
+        guard forced || UserDefaultsCoordinator.instances.updateRequired() else { return }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.instances { (result: [Instance_]) in
-                autoreleasepool {
-                    let realm = try? Realm()
-                    try? realm?.write {
-                        for obj in result {
-                            realm?.add(obj, update: true)
-                        }
-                    }
-                }
-                UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
-                completion?()
+                UserServices.downloadRefHandler(result: result, completion: completion)
             }
         }
+    }
+
+    static func downloadRefHandler<T: Object>(result: [T], completion: VoidToVoid) {
+        autoreleasepool{
+            let realm = try? Realm()
+            try? realm?.write {
+                realm?.add(result, update: true)
+            }
+        }
+        UserDefaultsCoordinator.updateTimestampUsingClassType(ofCollection: result)
+        completion?()
     }
 
     // MARK: - Bills
