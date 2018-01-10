@@ -503,6 +503,7 @@
 		2A4ED0E11F0D9922008BF1B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2A07B5C32006865B00746D58 /* Ext-NSError.swift */,
 				2A60900C1FF9D89400587F02 /* EurekaSearchPushRow.swift */,
 				2A60900E1FF9DE4C00587F02 /* EurekaSearchPushRowItem.swift */,
 				2A4C53DD1FFED45000C84547 /* UITableViewController-ConfirmBillRemoval.swift */,
@@ -575,7 +576,6 @@
 				2A4FDBDF1F1039A0005C59AE /* UserServices.swift */,
 				2A92D6601F99386B00B2DD4E /* Dispatcher.swift */,
 				2AA751381FBDFFE600E2535E /* LocationManager.swift */,
-				2A07B5C32006865B00746D58 /* Ext-NSError.swift */,
 				2A8F318C1FC7220400E5E3FD /* Synchronization */,
 				2AAA81671F195A64005DF090 /* Scenes */,
 				2A0C51C51F1E8C61006C011F /* BillParser */,

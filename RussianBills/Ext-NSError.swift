@@ -10,10 +10,15 @@ import Foundation
 
 extension NSError {
 
-    public convenience init(_ domain: NSError.errDomain, code: NSError.errCode, message: String) {
+    public convenience init(_ domain: NSError.errDomain, code: NSError.errCode, message: String, info: [String: Any]? = nil) {
         let domain = domain.rawValue
         let code = code.rawValue
-        let userInfo: [String: Any] = ["erorDescription": message]
+        var userInfo: [String: Any] = ["erorDescription": message]
+        if let additionalInfo = info {
+            for (key, value) in additionalInfo {
+                userInfo[key] = value
+            }
+        }
         self.init(domain: domain, code: code, userInfo: userInfo)
     }
 
@@ -30,8 +35,9 @@ extension NSError {
     }
 
     public enum errCode: Int {
-        // MARK: RequestFunctionsProvider.swift = 1000
         case billSearchResponseErrorCode = 1001
+        case parsingResponseErrorCode = 1002
+        case parserError = 1003
     }
 
 }

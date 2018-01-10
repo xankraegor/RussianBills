@@ -10,17 +10,22 @@ import Foundation
 
 extension String {
 
-    func prettify() -> String {
+    func prettify(noquotes: Bool = false) -> String {
         let output = self
             .components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
             .filter { !$0.isEmpty }
             .joined(separator: " ")
-            .replacingOccurrences(of: " \"", with: " «")
-            .replacingOccurrences(of: "\"", with: "»")
-        if output.first == "»" {
-            return "«" + output.dropFirst()
-        } else {
+        if noquotes {
             return output
+        } else {
+            let quotesOutput = output
+                .replacingOccurrences(of: " \"", with: " «")
+                .replacingOccurrences(of: "\"", with: "»")
+            if quotesOutput.first == "»" {
+                return "«" + quotesOutput.dropFirst()
+            } else {
+                return quotesOutput
+            }
         }
     }
 

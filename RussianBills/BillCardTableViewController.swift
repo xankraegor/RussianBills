@@ -10,6 +10,7 @@ import UIKit
 import Kanna
 import RealmSwift
 import SafariServices
+import Crashlytics
 
 final class BillCardTableViewController: UITableViewController {
     let realm = try? Realm()
@@ -407,9 +408,19 @@ final class BillCardTableViewController: UITableViewController {
             let billUrl = URL(string: billUrlString) {
             debugPrint("BillURL: \(billUrlString)")
 
-            Request.htmlToParse(forUrl: billUrl, completion: { (html) in
-                DispatchQueue.main.async {
-                    self.parser = BillParser(withHTML: html)
+            Request.htmlToParse(forUrl: billUrl, completion: { (html, error) in
+                if let err = error {
+                    assertionFailure("Parser request response error: \(err.desc)")
+                    Crashlytics.sharedInstance().recordError(err)
+                    return
+                } else if let html = html {
+                    DispatchQueue.main.async {
+                        self.parser = BillParser(withHTML: html)
+                    }
+                } else {
+                    let error = NSError(.mainAppl, code: .parsingResponseErrorCode, message: "Parsing request html missing with no error")
+                    assertionFailure("Parser request response error: \(error.desc)")
+                    Crashlytics.sharedInstance().recordError(error)
                 }
             })
         }

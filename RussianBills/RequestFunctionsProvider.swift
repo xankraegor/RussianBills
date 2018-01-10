@@ -71,19 +71,33 @@ enum Request {
     }
 
     // Enqueued
-    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument) -> Void ) {
+    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument?, NSError?) -> Void ) {
         Alamofire.request(url).responseData(queue: Dispatcher.shared.htmlParseQueue) { (response) in
-            if response.error != nil {
-                debugPrint(response.error!.localizedDescription)
+            if let error1 = response.error {
+                debugPrint("∆ Request.billSearch returned an error: \(error1.localizedDescription)")
+                let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: error1.localizedDescription)
+                completion(nil, error)
+                return
             }
 
+            if let error2 = response.result.error {
+                debugPrint("∆ Request.billSearch result returned an error: \(error2.localizedDescription)")
+                let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: error2.localizedDescription)
+                completion(nil, error)
+                return
+            }
+
+            let err: NSError?
             if let resp = response.response,
-                resp.statusCode / 100 != 2 { // Not-normal response
+                resp.statusCode / 100 != 2 { // Non-normal response
+                err = NSError(.mainAppl, code: .parsingResponseErrorCode, message: "HTML respnose code \(resp.statusCode)")
                 debugPrint("∆ Parser [\(Date())] received HTTPURLResponse with status code: \(resp.statusCode)")
+            } else {
+                err = nil
             }
 
             if let doc = try? HTML(url: url, encoding: String.Encoding.utf8) {
-                completion(doc)
+                completion(doc, err)
             }
         }
     }
