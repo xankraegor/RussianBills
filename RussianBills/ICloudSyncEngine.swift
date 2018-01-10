@@ -97,13 +97,13 @@ public final class ICloudSyncEngine: NSObject {
         subscribeToCloudKitChanges()
     }
 
-    func startAnew(completion: @escaping (Bool)->Void) {
-        resolveNew() { [weak self] sucessful in
+    func startAnew(completion: @escaping (Bool, String?)->Void) {
+        resolveNew() { [weak self] sucessful, message in
             if sucessful {
-                completion(true)
+                completion(true, nil)
                 self?.start()
             } else {
-                completion(false)
+                completion(false, message)
             }
         }
     }
@@ -429,7 +429,7 @@ public final class ICloudSyncEngine: NSObject {
 
     // MARK: - Resolve sync
 
-    func resolveNew(completion: @escaping (Bool)->Void) {
+    func resolveNew(completion: @escaping (Bool, String?)->Void) {
         slog("[Engine] resolveNew(completion: @escaping (Bool)->Void)")
         let query = CKQuery(recordType: Constants.billRecordType, predicate: NSPredicate(value: true))
 
@@ -437,7 +437,7 @@ public final class ICloudSyncEngine: NSObject {
 
             guard error == nil, let realm = try? Realm(), let welf = self, let receivedRecords = records else {
                 assertionFailure("∆ Error while performing resolve request: \(error?.localizedDescription ?? "no descr")")
-                completion(false)
+                completion(false, "∆ Error while performing resolve request: \(error?.localizedDescription ?? "no descr")")
                 return
             }
 
@@ -545,7 +545,7 @@ public final class ICloudSyncEngine: NSObject {
                         guard error == nil else {
                             slog("[Engine] resolveNew: error while accessing Cloud Kit to resolve data: \(error?.localizedDescription ?? "description missing")")
                             // Don't turn on!
-                            completion(false)
+                            completion(false, "[Engine] resolveNew: error while accessing Cloud Kit to resolve data: \(error?.localizedDescription ?? "description missing")")
                             return
                         }
                         slog("[Engine] resolveNew: pushOperation completed successfuly")
@@ -568,7 +568,7 @@ public final class ICloudSyncEngine: NSObject {
                         slog("[Engine] resolveNew: local bills marked for removal: removed successfuly")
                     } catch let error {
                         slog("[Engine] resolveNew: local bills marked for removal: realm error: \(error.localizedDescription)")
-                        completion(false)
+                        completion(false, "[Engine] resolveNew: local bills marked for removal: realm error: \(error.localizedDescription)")
                         return
                     }
                 }
@@ -586,7 +586,7 @@ public final class ICloudSyncEngine: NSObject {
                     slog("[Engine] resolveNew: Adding favorite bills from server to the local realm finished successfuly")
                 } catch let error {
                     slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: realm error: \(error.localizedDescription)")
-                    completion(false)
+                    completion(false, "[Engine] resolveNew: Adding favorite bills from server to the local realm: realm error: \(error.localizedDescription)")
                     return
                 }
             }
@@ -597,7 +597,7 @@ public final class ICloudSyncEngine: NSObject {
 
             grp.notify(queue: DispatchQueue.main, execute: {
                 slog("[Engine] resolveNew: Notified, that diff resolved")
-                completion(true)
+                completion(true, nil)
             })
 
         }

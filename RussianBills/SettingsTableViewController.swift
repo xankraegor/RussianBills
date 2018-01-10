@@ -104,14 +104,19 @@ final class SettingsTableViewController: UITableViewController {
 
                 sender.isEnabled = false
 
-                SyncMan.shared.iCloudSyncEngine?.startAnew() { successful in
+                SyncMan.shared.iCloudSyncEngine?.startAnew() { (successful, message)  in
                     if successful {
                         sender.isEnabled = true
                         UserDefaultsCoordinator.iCloudSyncTurnedOn = true
                     } else {
                         sender.isEnabled = true
                         UserDefaultsCoordinator.iCloudSyncTurnedOn = false
-                        sender.isOn = false
+
+                        let alert = UIAlertController(title: "Ошибка синхронизации" , message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
+                        self.present(alert, animated: true, completion: { [weak sender] in
+                            sender?.setOn(false, animated: true)
+                        })
                     }
                 }
             } else {

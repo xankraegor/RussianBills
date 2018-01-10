@@ -78,8 +78,12 @@ final class BillCardTableViewController: UITableViewController {
         if favoriteBill?.favoriteHasUnseenChanges ?? false {
             try? realm?.write {
                 favoriteBill?.favoriteHasUnseenChanges = false
+                favoriteBill?.favoriteUpdatedTimestamp = Date()
             }
-            UIApplication.shared.applicationIconBadgeNumber -= 1
+
+            if let fb = favoriteBill {
+                try? SyncMan.shared.iCloudStorage?.store(billSyncContainer: fb.syncProxy)
+            }
         }
 
         if let currentBill = bill {
