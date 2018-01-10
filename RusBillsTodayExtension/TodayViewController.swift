@@ -63,9 +63,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let totalCount = favoriteBills?.filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).count ?? 0
         let updatedCount =  favoriteBills?.filter(FavoritesFilters.both.rawValue).count ?? 0
 
-        let updatedDate = UserDefaultsCoordinator.favorites.updatedAt()
-        var updatedDateString: String
+        let updatedDate: Date?
+        if let fb = favoriteBillsFilteredAndSorted {
+            updatedDate = Array(fb).flatMap{$0.bill?.updated}.min()
+        } else {
+            updatedDate = nil
+        }
 
+        var updatedDateString: String
         if totalCount > 0, let date = updatedDate {
             updatedDateString = "(обновл. \(dateFormatter.string(from: date)))"
         } else if totalCount > 0, let date = favoriteBillsFilteredAndSorted?.sorted(by: [SortDescriptor(keyPath: "favoriteUpdatedTimestamp", ascending: false)]).first?.favoriteUpdatedTimestamp, date > Date.distantPast {
@@ -96,7 +101,7 @@ extension TodayViewController: UITableViewDataSource {
         let favoriteBill = favoriteBillsFilteredAndSorted![indexPath.row]
         cell.textLabel?.text = "№ \(favoriteBill.number) \(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if let bill = favoriteBill.bill {
-            cell.detailTextLabel?.text = "Обновлен \(bill.lastEventDate)"
+            cell.detailTextLabel?.text = "Последнее событие \(bill.lastEventDate.isoDateToReadableDate())"
         }
         return cell
     }
