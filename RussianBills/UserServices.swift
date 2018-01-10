@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import Alamofire
 import SwiftyJSON
+import Crashlytics
 
 enum UserServices {
     typealias VoidToVoid = (() -> Void)?
@@ -174,8 +175,15 @@ enum UserServices {
 
     static func downloadBills(withQuery query: BillSearchQuery, completion: (([Bill_], Int) -> Void)? = nil) {
 
-        Request.billSearch(forQuery: query) { (result: [Bill_], totalCount: Int)  in
+        Request.billSearch(forQuery: query) { (result: [Bill_], totalCount: Int, error: NSError?) in
             autoreleasepool {
+
+                if let err = error {
+                    assertionFailure("∆ Error while returning bill after search: \(err.desc)")
+                    Crashlytics.sharedInstance().recordError(err)
+                    return
+                }
+
                 let realm = try? Realm()
 
                 for res in result {
@@ -199,9 +207,9 @@ enum UserServices {
                 try? realm?.write {
                     realm?.add(result, update: true)
                 }
-            }
 
-            completion?(result, totalCount)
+                completion?(result, totalCount)
+            }
         }
     }
 
@@ -232,6 +240,7 @@ enum UserServices {
                         assertionFailure("∆ updateFavoriteBills can't get queries[i].number")
                         return
                     }
+
                     guard let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
                         let existingBill = bill else {
                             debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
@@ -242,7 +251,13 @@ enum UserServices {
                     let existingBillParserContent = existingBill.parserContent
                     let previousHashValue = existingBill.generateHashForLastEvent()
 
-                    Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _) in
+                    Request.billSearch(forQuery: queries[i]) { (result: [Bill_], _, error: NSError?) in
+
+                        if let err = error {
+                            assertionFailure("∆ Error while returning bill after search: \(err.desc)")
+                            Crashlytics.sharedInstance().recordError(err)
+                            return
+                        }
 
                         guard let downloadedBill = result.first else {
                             assertionFailure("∆ Bill not received after querying by number \(queries[i].number ?? "nil") while updating favorite bills")

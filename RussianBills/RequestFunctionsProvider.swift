@@ -23,28 +23,46 @@ enum Request {
     // MARK: - Bill Search Request Function
 
     // NOT Enqueued
-    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int) -> Void ) {
+    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int, NSError?) -> Void ) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
+
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
-                if let error = response.error {
-                    debugPrint("∆ Request.billSearch returned an error: \(error.localizedDescription)")
+                if let error1 = response.error {
+                    debugPrint("∆ Request.billSearch returned an error: \(error1.localizedDescription)")
+                    let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: error1.localizedDescription)
+                    completion([], 0, error)
                     return
                 }
 
-                if let error = response.result.error {
-                    debugPrint("∆ Request.billSearch result returned an error: \(error.localizedDescription)")
+                if let error2 = response.result.error {
+                    debugPrint("∆ Request.billSearch result returned an error: \(error2.localizedDescription)")
+                    let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: error2.localizedDescription)
+                    completion([], 0, error)
                     return
                 }
 
                 if let contents = response.result.value {
                     let json = JSON(contents)
+
+                    guard json["code"].intValue == 0 else {
+                        if let errorText = json["text"].string {
+                            let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: "code \(json["code"].intValue): \(errorText)")
+                            completion([], 0, error)
+                            return
+                        } else {
+                            let error = NSError(.mainAppl, code: .billSearchResponseErrorCode, message: "code \(json["code"].intValue): error text missing, using the whole Json answer instead: \(String(describing: response.result.value))")
+                            completion([], 0, error)
+                        }
+                        return
+                    }
+
                     let totalCount: Int = json["count"].intValue
                     var bills: [Bill_] = []
                     for law in json["laws"] {
                         let billToStore = Bill_(withJson: law.1)
                         bills.append(billToStore)
                     }
-                    completion(bills, totalCount)
+                    completion(bills, totalCount, nil)
                 }
             }
         } else {
