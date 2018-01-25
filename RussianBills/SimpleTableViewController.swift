@@ -17,7 +17,7 @@ final class SimpleTableViewController: UITableViewController {
     var realmNotificationToken: NotificationToken?
 
     lazy var objects: Results<Object>? = {
-        if objectsToDisplay == .dumaDeputees {
+        if objectsToDisplay == .dumaDeputies {
             return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'депутат'").sorted(byKeyPath: "name", ascending: true)
         } else if objectsToDisplay == .councilMembers {
             return realm?.objects(objectsToDisplay!.typeUsedForObjects).filter("position CONTAINS[cd] 'член'").sorted(byKeyPath: "name", ascending: true)
@@ -92,7 +92,7 @@ final class SimpleTableViewController: UITableViewController {
             UserServices.downloadInstances { [weak self] in
                 self?.updateTableWithNewData()
             }
-        case .dumaDeputees, .councilMembers:
+        case .dumaDeputies, .councilMembers:
             tableView.allowsSelection = true
             UserServices.downloadDeputies() { [weak self] in
                 self?.updateTableWithNewData()
@@ -129,7 +129,7 @@ final class SimpleTableViewController: UITableViewController {
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch objectsToDisplay! {
-        case .federalSubjects, .regionalSubjects, .dumaDeputees, .councilMembers:
+        case .federalSubjects, .regionalSubjects, .dumaDeputies, .councilMembers:
             return true
         default:
             return false
@@ -157,7 +157,7 @@ final class SimpleTableViewController: UITableViewController {
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.regionalSubject
             }
-        case .dumaDeputees, .councilMembers:
+        case .dumaDeputies, .councilMembers:
             if let object = source[selectedRow] as? Deputy_ {
                 dest.id = object.id
                 dest.subjectType = LegislativeSubjectType.deputy
@@ -214,7 +214,7 @@ extension SimpleTableViewController {
             }
             return cell
 
-        case .dumaDeputees?, .councilMembers?:
+        case .dumaDeputies?, .councilMembers?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputiesCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = object.name
@@ -340,7 +340,7 @@ extension SimpleTableViewController {
         switch self.objectsToDisplay! {
         case .committees:
             newFilteredObjects = Array(realm!.loadObjects(Committee_.self, fiteredBy: filterText, andAreCurrent: current)!)
-        case .dumaDeputees:
+        case .dumaDeputies:
             newFilteredObjects = Array(realm!.loadObjects(Deputy_.self, fiteredBy: filterText, andAreCurrent: current, dumaDeputies: true)!)
         case .councilMembers:
             newFilteredObjects = Array(realm!.loadObjects(Deputy_.self, fiteredBy: filterText, andAreCurrent: current, dumaDeputies: false)!)

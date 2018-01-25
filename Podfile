@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 #=========================================================================
-target 'RussianBills' do
+target "RussianBills" do
     pod 'Alamofire', '~> 4.6'
     pod 'RealmSwift'
     pod 'SwiftyJSON'
@@ -12,14 +12,14 @@ target 'RussianBills' do
     pod 'Crashlytics'
 end
 #=========================================================================
-target 'RusBillsTodayExtension' do
+target "RusBillsTodayExtension" do
     pod 'RealmSwift'
     pod ‘SwiftyJSON'
     pod 'Fabric'
     pod 'Crashlytics'
 end
 #=========================================================================
-target 'RusBillsIMessageExtension' do
+target "RusBillsIMessageExtension" do
     pod 'RealmSwift'
     pod ‘SwiftyJSON'
 end

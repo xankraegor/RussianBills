@@ -41,7 +41,7 @@ final public class BillParser {
                 assertionFailure("∆ BILL PARSER: Can't find any events in a phase")
                 let err = NSError(.mainAppl, code: .parserError,
                                   message: "Bill parser continues with failure: can't find events in phase",
-                                  info: ["phaseContents": phase.content?.prettify(noquotes: true) ?? ""])
+                                  info: ["phaseContents": phase.content?.prettify(noQuotes: true) ?? ""])
                 Crashlytics.sharedInstance().recordError(err)
                 continue
             }
@@ -55,7 +55,7 @@ final public class BillParser {
                         assertionFailure("∆ BILL PARSER: Can't find event header. Event will not be displayed")
                         let err = NSError(.mainAppl, code: .parserError,
                                           message: "Bill parser continues with failure: can't find headerName in div",
-                                          info: ["divContents": div.content?.prettify(noquotes: true) ?? ""])
+                                          info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
                         Crashlytics.sharedInstance().recordError(err)
                         continue
                     }
@@ -146,7 +146,7 @@ final public class BillParser {
                     assertionFailure("∆ Bill parser: div could not be parsed")
                     let err = NSError(.mainAppl, code: .parserError,
                                       message: "Bill parser continues with failure: can't interpret a div",
-                                      info: ["divContents": div.content?.prettify(noquotes: true) ?? ""])
+                                      info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
                     Crashlytics.sharedInstance().recordError(err)
                 }
             }

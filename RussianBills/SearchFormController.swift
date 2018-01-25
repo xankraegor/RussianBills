@@ -23,7 +23,7 @@ final class SearchFormController: FormViewController {
         }
     }
 
-    var prefetchedBills = false
+    var billsAlreadyFetched = false
 
     lazy var deputies: [Deputy_] = {
         if let members = try? Realm().objects(Deputy_.self).filter("position CONTAINS[cd] 'депутат'").sorted(byKeyPath: "name", ascending: true) {
@@ -487,7 +487,7 @@ final class SearchFormController: FormViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SearchResultsSegueId" {
             (segue.destination as? SearchResultsTableViewController)?.query = query
-            (segue.destination as? SearchResultsTableViewController)?.isPrefetched = prefetchedBills
+            (segue.destination as? SearchResultsTableViewController)?.isPrefetched = billsAlreadyFetched
             
         }
     }
@@ -505,7 +505,7 @@ final class SearchFormController: FormViewController {
                 let newList = BillsList_(withName: BillsListType.mainSearch, totalCount: totalCount)
                 newList.bills.append(objectsIn: resultBills)
                 try? realm?.write { realm?.add(newList, update: true) }
-                self?.prefetchedBills = true
+                self?.billsAlreadyFetched = true
             }
         }
     }

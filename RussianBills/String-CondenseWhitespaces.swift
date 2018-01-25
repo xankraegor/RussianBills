@@ -10,12 +10,12 @@ import Foundation
 
 extension String {
 
-    func prettify(noquotes: Bool = false) -> String {
+    func prettify(noQuotes: Bool = false) -> String {
         let output = self
             .components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
             .filter { !$0.isEmpty }
             .joined(separator: " ")
-        if noquotes {
+        if noQuotes {
             return output
         } else {
             let quotesOutput = output

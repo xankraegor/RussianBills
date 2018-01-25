@@ -37,11 +37,11 @@ extension UserDefaultsCoordinator {
     // MARK: - Custom Keys
 
     static func getUsingCustomKeys()-> Bool {
-        return UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.bool(forKey: "isUsingCumstomKeys")
+        return UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.bool(forKey: "isUsingCustomKeys")
     }
 
     static func setUsingCustomKeys(to value: Bool) {
-        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(value, forKey: "isUsingCumstomKeys")
+        UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(value, forKey: "isUsingCustomKeys")
     }
 
     static func customApiKeys()-> (apiKey: String, appToken: String)? {

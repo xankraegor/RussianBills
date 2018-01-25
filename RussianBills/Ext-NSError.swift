@@ -13,7 +13,7 @@ extension NSError {
     public convenience init(_ domain: NSError.errDomain, code: NSError.errCode, message: String, info: [String: Any]? = nil) {
         let domain = domain.rawValue
         let code = code.rawValue
-        var userInfo: [String: Any] = ["erorDescription": message]
+        var userInfo: [String: Any] = ["errorDescription": message]
         if let additionalInfo = info {
             for (key, value) in additionalInfo {
                 userInfo[key] = value
@@ -31,7 +31,7 @@ extension NSError {
     }
 
     public var desc: String {
-        return self.userInfo["erorDescription"] as? String ?? ""
+        return self.userInfo["errorDescription"] as? String ?? ""
     }
 
     public enum errCode: Int {

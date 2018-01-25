@@ -127,7 +127,7 @@ final class SettingsTableViewController: UITableViewController {
                 }
             }
         } else {
-            // Set previous value and tell user that it can't be changed as long as icloud is unreachable
+            // Set previous value and tell user that it can't be changed as long as iCloud is unreachable
             let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "включить" : "выключить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
             present(alert, animated: true, completion: { [weak sender] in
