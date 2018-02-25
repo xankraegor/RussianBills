@@ -35,7 +35,6 @@
 		2A3C163D1FCF636900371B1B /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3C163C1FCF636900371B1B /* Messages.framework */; };
 		2A3C16401FCF636900371B1B /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C163F1FCF636900371B1B /* MessagesViewController.swift */; };
 		2A3C16431FCF636900371B1B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A3C16411FCF636900371B1B /* MainInterface.storyboard */; };
-		2A3C16451FCF636900371B1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3C16441FCF636900371B1B /* Assets.xcassets */; };
 		2A3C16491FCF636900371B1B /* RusBillsIMessageExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2A3C163B1FCF636900371B1B /* RusBillsIMessageExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2A3C164D1FCF66EA00371B1B /* FavoriteBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF15C161FC77DE70018991C /* FavoriteBill.swift */; };
 		2A3C164F1FCF6A3300371B1B /* MessagesViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */; };
@@ -74,6 +73,7 @@
 		2A6F7F9D1FD8CA8200730222 /* DateToReadableDateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F7F9C1FD8CA8200730222 /* DateToReadableDateString.swift */; };
 		2A75E8FD1F2282F30008FD8F /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A75E9041F22B4510008FD8F /* String-FileNameAndExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E9031F22B4510008FD8F /* String-FileNameAndExtension.swift */; };
+		2A77214F20432643003675AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3C16441FCF636900371B1B /* Assets.xcassets */; };
 		2A7CD2321FCCF0C4001DA3AC /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75E8FC1F2282F30008FD8F /* FilesManager.swift */; };
 		2A80F70A1FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F7091FD6CE5F00C74A29 /* WatchSessionManagerWOS.swift */; };
 		2A8424BD1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8424BC1FBDDD3700F6E3BC /* LegislativeSubjTableViewController.swift */; };
@@ -466,7 +466,6 @@
 				2A3C163F1FCF636900371B1B /* MessagesViewController.swift */,
 				2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */,
 				2A3C16411FCF636900371B1B /* MainInterface.storyboard */,
-				2A3C16441FCF636900371B1B /* Assets.xcassets */,
 				2A3C16461FCF636900371B1B /* Info.plist */,
 			);
 			path = RusBillsIMessageExtension;
@@ -523,6 +522,7 @@
 			children = (
 				2A6315B71F0AE1B400611BD8 /* LaunchScreen.storyboard */,
 				2A6315BA1F0AE1B400611BD8 /* Info.plist */,
+				2A3C16441FCF636900371B1B /* Assets.xcassets */,
 				2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */,
 				2A4FDBD01F0EBB93005C59AE /* Keys.plist */,
 			);
@@ -677,18 +677,18 @@
 		2AAA81671F195A64005DF090 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2AD350D61FA51CB300EAC827 /* Attachments */,
+				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
+				2AA6771F1F215325003CFD37 /* BillDetails */,
+				2AECBEDF1FEFF897005CF8C4 /* FavoriteBillNoteViewController.swift */,
+				2AD1E93A1F127AB100CA0D89 /* FavoriteBills */,
+				2ABABAEB1FBDE3D3000B58E5 /* Legislative Subjects Scene */,
 				2A6315B21F0AE1B400611BD8 /* Main.storyboard */,
 				2A4FDBD61F0EEE5E005C59AE /* MainTableViewController.swift */,
-				2A290A281F96D2440056E990 /* SearchFormController.swift */,
-				2AAA81641F19599E005DF090 /* BillCardTableViewController.swift */,
-				2AECBEDF1FEFF897005CF8C4 /* FavoriteBillNoteViewController.swift */,
 				2AA751341FBDF55D00E2535E /* OnMapViewController.swift */,
-				2ABABAEB1FBDE3D3000B58E5 /* Legislative Subjects Scene */,
-				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
-				2AD350D61FA51CB300EAC827 /* Attachments */,
+				2A290A281F96D2440056E990 /* SearchFormController.swift */,
 				2A3A04041F992BDE007D4EFE /* SearchResults */,
-				2AA6771F1F215325003CFD37 /* BillDetails */,
-				2AD1E93A1F127AB100CA0D89 /* FavoriteBills */,
+				2A0DAA261FA11536007CC82A /* SettingsTableViewController.swift */,
 				2A4FDBE71F105639005C59AE /* SimpleTable */,
 			);
 			name = Scenes;
@@ -1001,7 +1001,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A85AFD41FE2C30E0073261A /* fabric.apikey in Resources */,
-				2A3C16451FCF636900371B1B /* Assets.xcassets in Resources */,
 				2A3C16431FCF636900371B1B /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1033,6 +1032,7 @@
 				2A30607E1FE2FDCA0060ED7A /* fabric.apikey in Resources */,
 				2A4FDBD11F0EBB93005C59AE /* Keys.plist in Resources */,
 				2A6315B91F0AE1B400611BD8 /* LaunchScreen.storyboard in Resources */,
+				2A77214F20432643003675AE /* Assets.xcassets in Resources */,
 				2AA62DB91F8CE764000405F5 /* FavEmptyView.xib in Resources */,
 				2A6315B41F0AE1B400611BD8 /* Main.storyboard in Resources */,
 			);

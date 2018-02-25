@@ -78,6 +78,8 @@ final class SettingsTableViewController: UITableViewController {
                 presentSafariWithUrl("https://github.com/SwiftyJSON/SwiftyJSON/blob/master/LICENSE")
             case 6:
                 presentSafariWithUrl("https://www.flaticon.com/packs/files-8")
+            case 7:
+                presentSafariWithUrl("https://icons8.com/color-icons")
             default:
                 break
             }

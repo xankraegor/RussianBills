@@ -23,7 +23,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return realm
     }()
 
-    lazy var favoriteBillsFilteredAndSorted = realm?.objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+    lazy var updatedBills = {
+        return realm?.objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue)
+    }()
+
+    lazy var favoriteBills = {
+        return realm?.objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue)
+            .sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+    }()
+
 
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -44,7 +52,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .expanded {
-            preferredContentSize = maxSize // CGSize(width: 0.0, height: 300.0)
+            preferredContentSize = CGSize(width: 0.0, height: 500.0)
             tableView?.isHidden = false
         } else {
             preferredContentSize = maxSize
@@ -59,12 +67,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     func setupView() {
         tableView?.reloadData()
-        let favoriteBills = realm?.objects(FavoriteBill_.self)
+
         let totalCount = favoriteBills?.filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).count ?? 0
-        let updatedCount =  favoriteBills?.filter(FavoritesFilters.both.rawValue).count ?? 0
+        let updatedCount =  updatedBills?.count ?? 0
 
         let updatedDate: Date?
-        if let fb = favoriteBillsFilteredAndSorted {
+        if let fb = favoriteBills {
             updatedDate = Array(fb).flatMap{$0.bill?.updated}.min()
         } else {
             updatedDate = nil
@@ -73,7 +81,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var updatedDateString: String
         if totalCount > 0, let date = updatedDate {
             updatedDateString = "(обновл. \(dateFormatter.string(from: date)))"
-        } else if totalCount > 0, let date = favoriteBillsFilteredAndSorted?.sorted(by: [SortDescriptor(keyPath: "favoriteUpdatedTimestamp", ascending: false)]).first?.favoriteUpdatedTimestamp, date > Date.distantPast {
+        } else if totalCount > 0, let date = favoriteBills?.sorted(by: [SortDescriptor(keyPath: "favoriteUpdatedTimestamp", ascending: false)]).first?.favoriteUpdatedTimestamp, date > Date.distantPast {
             updatedDateString = "(обновл. \(dateFormatter.string(from: date)))"
         } else {
             updatedDateString = "(не обновлялось)"
@@ -93,12 +101,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 extension TodayViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteBillsFilteredAndSorted?.count ?? 0
+        return (favoriteBills?.count ?? 0) > 5 ? (5) : (favoriteBills?.count ?? 0)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActualFavoriteBillsCellId", for: indexPath)
-        let favoriteBill = favoriteBillsFilteredAndSorted![indexPath.row]
+        let favoriteBill = favoriteBills![indexPath.row]
         cell.textLabel?.text = "№ \(favoriteBill.number) \(favoriteBill.name)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if let bill = favoriteBill.bill {
             cell.detailTextLabel?.text = "Последнее событие \(bill.lastEventDate.isoDateToReadableDate())"
@@ -111,7 +119,7 @@ extension TodayViewController: UITableViewDataSource {
 extension TodayViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let number = favoriteBillsFilteredAndSorted?[indexPath.row].number,
+        guard let number = favoriteBills?[indexPath.row].number,
             number.count > 0 else { return }
         let url = URL(string: "rusBills://favorites")!.appendingPathComponent(number)
 

@@ -45,3 +45,4 @@ playground.xcworkspace
 .build/
 
 GoogleService-Info.plist
+.idea
