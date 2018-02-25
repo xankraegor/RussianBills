@@ -15,24 +15,22 @@ final class SearchResultsTableViewController: UITableViewController {
     var isLoading: Bool = false
     var isPrefetched: Bool = false
     var realmNotificationToken: NotificationToken?
-    let searchResults = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)
+    let searchResults: BillsList_? = try! Realm().object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue)
 
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isToolbarHidden = true
-        if !query.hasAnyFilledFields() {
-            query = BillSearchQuery(withRegistrationEndDate: Date())
+        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch, totalCount: 0)
+
+        realmNotificationToken = results.observe { [weak self] (_) -> Void in
+            self?.navigationItem.title = "Найдено: \(self?.searchResults?.totalCount ?? 0)"
+            self?.tableView.reloadData()
+            self?.isLoading = false
         }
 
-        self.navigationItem.title = "Найдено: \(searchResults?.totalCount ?? 0)"
-
         if !isPrefetched {
+            navigationItem.title = "Поиск..."
             UserServices.downloadBills(withQuery: query, completion: {
                 resultBills, totalCount in
                 let realm = try? Realm()
@@ -42,17 +40,19 @@ final class SearchResultsTableViewController: UITableViewController {
                     realm?.add(newList, update: true)
                 }
             })
+        } else {
+            navigationItem.title = "Найдено: \(searchResults?.totalCount ?? 0)"
         }
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+    }
 
-        let results = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch, totalCount: 0)
-
-        realmNotificationToken = results.observe { [weak self] (_) -> Void in
-            self?.navigationItem.title = "Найдено: \(self?.searchResults?.totalCount ?? 0)"
-            self?.tableView.reloadData()
-            self?.isLoading = false
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
+        if !query.hasAnyFieldsFilled {
+            query = BillSearchQuery(withRegistrationEndDate: Date())
         }
     }
 
@@ -74,7 +74,7 @@ final class SearchResultsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BillTableViewCellId", for: indexPath) as! SearchResultsTableViewCell
         let bill = searchResults!.bills[indexPath.row]
         if bill.comments.count > 0 {
-            cell.nameLabel?.text = bill.name + " [" + bill.comments + "]"
+            cell.nameLabel?.text = "\(bill.name) [\(bill.comments)]"
         } else {
             cell.nameLabel?.text = bill.name
         }
@@ -85,7 +85,7 @@ final class SearchResultsTableViewController: UITableViewController {
             cell.isFavoriteLabel?.text = " "
         }
 
-        cell.numberLabel?.text = " №" + bill.number
+        cell.numberLabel?.text = " № \(bill.number)"
 
         return cell
     }
@@ -99,7 +99,8 @@ final class SearchResultsTableViewController: UITableViewController {
             query.pageNumber += 1
             UserServices.downloadBills(withQuery: query, completion: { resultBills, totalCount in
                 let realm = try? Realm()
-                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ?? BillsList_(withName: .mainSearch, totalCount: totalCount)
+                let existingList = realm?.object(ofType: BillsList_.self, forPrimaryKey: BillsListType.mainSearch.rawValue) ??
+                        BillsList_(withName: .mainSearch, totalCount: totalCount)
                 try? realm?.write {
                     existingList.bills.append(objectsIn: resultBills)
                     realm?.add(existingList, update: true)

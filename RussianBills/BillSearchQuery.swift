@@ -76,7 +76,7 @@ struct BillSearchQuery {
 
     // MARK: - Methods
 
-    func hasAnyFilledFields() -> Bool {
+    public var hasAnyFieldsFilled: Bool {
         let mirror = Mirror(reflecting: self)
         var count = 0
         for child in mirror.children {
