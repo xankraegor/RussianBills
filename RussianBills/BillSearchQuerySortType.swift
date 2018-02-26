@@ -20,7 +20,7 @@ enum BillSearchQuerySortType: String, CustomStringConvertible {
     var description: String {
         get {
             switch self {
-            // Сортировать по:
+                    // Сортировать по:
             case .name: return "названию"
             case .number: return "номеру"
             case .date: return "убыв. даты внесения"

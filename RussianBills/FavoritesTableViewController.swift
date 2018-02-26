@@ -50,7 +50,7 @@ final class FavoritesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "BillCardSegue" {
             if let path = tableView.indexPathForSelectedRow,
-                let dest = segue.destination as? BillCardTableViewController {
+               let dest = segue.destination as? BillCardTableViewController {
                 dest.billNr = favoriteBills![path.row].number
             }
         }
@@ -58,14 +58,14 @@ final class FavoritesTableViewController: UITableViewController {
 
     // MARK: - Additional Views
 
-    func setupEmptyFavoriteViewTemplate () {
+    func setupEmptyFavoriteViewTemplate() {
         if filterString.count == 0 {
             tableView.backgroundView = UINib(nibName: "FavEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? UIView
             tableView.separatorStyle = .none
         }
     }
 
-    func uninstallEmptyFavoriteViewTemplate () {
+    func uninstallEmptyFavoriteViewTemplate() {
         tableView.backgroundView = nil
         tableView.separatorStyle = .singleLine
     }
@@ -164,7 +164,9 @@ extension FavoritesTableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let currentFavoriteBill = favoriteBills?[indexPath.row] else { return }
+            guard let currentFavoriteBill = favoriteBills?[indexPath.row] else {
+                return
+            }
             if currentFavoriteBill.note.count > 0 {
                 askToRemoveFavoriteBillWithNote {
                     self.unfavorite(favoriteBill: currentFavoriteBill, atIndexPath: indexPath)
@@ -186,7 +188,7 @@ extension FavoritesTableViewController {
 
         tableView.deleteRows(at: [indexPath], with: .fade)
         if favoriteBills!.count == 0 {
-            setupEmptyFavoriteViewTemplate ()
+            setupEmptyFavoriteViewTemplate()
         }
     }
 

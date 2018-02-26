@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITableViewController {
-    func askToRemoveFavoriteBillWithNote(completionIfTrue: @escaping ()->Void) {
+    func askToRemoveFavoriteBillWithNote(completionIfTrue: @escaping () -> Void) {
         let alert = UIAlertController(title: "При удалении из отслеживаемых заметка также будет удалена", message: "Подтверждаете удаление из отслеживаемого?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive) { (_) in
             completionIfTrue()

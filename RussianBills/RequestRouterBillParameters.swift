@@ -80,7 +80,7 @@ extension RequestRouter {
 
         /// federal_subject — идентификатор федерального органа власти — субъекта законодательной инициативы
         if let fedSubj = query.federalSubjectId {
-            dict["federal_subject"] =  fedSubj
+            dict["federal_subject"] = fedSubj
         }
 
         /// regional_subject — идентификатор регионального органа власти — субъекта законодательной инициативы

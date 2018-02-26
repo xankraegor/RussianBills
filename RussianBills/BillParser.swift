@@ -25,8 +25,8 @@ final public class BillParser {
             assertionFailure("∆ BILL PARSER: Can't find any phases")
             let title = html.xpath("//title").first?.text ?? "no title"
             let err = NSError(.mainAppl, code: .parserError,
-                              message: "Bill parser returns with failure: can't find phases in the provided html",
-                              info: ["htmlTitle": title])
+                    message: "Bill parser returns with failure: can't find phases in the provided html",
+                    info: ["htmlTitle": title])
             Crashlytics.sharedInstance().recordError(err)
             return nil
         }
@@ -40,8 +40,8 @@ final public class BillParser {
             guard divs.count > 0 else {
                 assertionFailure("∆ BILL PARSER: Can't find any events in a phase")
                 let err = NSError(.mainAppl, code: .parserError,
-                                  message: "Bill parser continues with failure: can't find events in phase",
-                                  info: ["phaseContents": phase.content?.prettify(noQuotes: true) ?? ""])
+                        message: "Bill parser continues with failure: can't find events in phase",
+                        info: ["phaseContents": phase.content?.prettify(noQuotes: true) ?? ""])
                 Crashlytics.sharedInstance().recordError(err)
                 continue
             }
@@ -54,8 +54,8 @@ final public class BillParser {
                     guard let headerName = header.xpath("span[contains(@class, 'name')]").first?.content else {
                         assertionFailure("∆ BILL PARSER: Can't find event header. Event will not be displayed")
                         let err = NSError(.mainAppl, code: .parserError,
-                                          message: "Bill parser continues with failure: can't find headerName in div",
-                                          info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
+                                message: "Bill parser continues with failure: can't find headerName in div",
+                                info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
                         Crashlytics.sharedInstance().recordError(err)
                         continue
                     }
@@ -145,8 +145,8 @@ final public class BillParser {
                 } else {
                     assertionFailure("∆ Bill parser: div could not be parsed")
                     let err = NSError(.mainAppl, code: .parserError,
-                                      message: "Bill parser continues with failure: can't interpret a div",
-                                      info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
+                            message: "Bill parser continues with failure: can't interpret a div",
+                            info: ["divContents": div.content?.prettify(noQuotes: true) ?? ""])
                     Crashlytics.sharedInstance().recordError(err)
                 }
             }

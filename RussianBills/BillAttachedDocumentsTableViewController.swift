@@ -45,7 +45,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let downloadLink = event?.attachments[indexPath.row],
-            let billNr = billNumber, let cell = tableView.cellForRow(at: indexPath) else {
+              let billNr = billNumber, let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
 
@@ -76,7 +76,7 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard let billNr = billNumber,
-            let downloadUrl = event?.attachments[indexPath.row] else {
+              let downloadUrl = event?.attachments[indexPath.row] else {
             assertionFailure("Can't unwrap optional property billNumber")
             return false
         }
@@ -113,13 +113,13 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
                 cell.infoLabel?.text = String(format: "Документ загружается: %2.1f%%", percent)
             }
 
-            }, completion: { [weak self] in
-                self?.downloadingAttachments.remove(downloadLink)
-                DispatchQueue.main.async {
-                    if let indexPath = self?.tableView.indexPath(for: cell) {
-                        self?.setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
-                    }
+        }, completion: { [weak self] in
+            self?.downloadingAttachments.remove(downloadLink)
+            DispatchQueue.main.async {
+                if let indexPath = self?.tableView.indexPath(for: cell) {
+                    self?.setCellDownloadImageAndLabel(cell: cell, atIndexPath: indexPath)
                 }
+            }
         })
     }
 
@@ -138,26 +138,26 @@ final class BillAttachedDocumentsTableViewController: UITableViewController, QLP
 
     func setCellDownloadImageAndLabel(cell: AttachmentTableViewCell, atIndexPath indexPath: IndexPath) {
         if let number = billNumber,
-            let link = event?.attachments[indexPath.row],
-            let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: number, withLink: link) {
+           let link = event?.attachments[indexPath.row],
+           let existingPath = UserServices.pathForDownloadAttachment(forBillNumber: number, withLink: link) {
 
             cell.infoLabel?.text = "Документ загружен (\(FilesManager.sizeOfFile(atPath: existingPath) ?? ""))"
             switch URL(fileURLWithPath: existingPath).pathExtension.lowercased() {
             case "doc", "docx":
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_doc")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_doc")
             case "xls", "xlsx":
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_xls")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_xls")
             case "pdf":
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_pdf")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_pdf")
             case "ppt", "pptx":
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_ppt")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_ppt")
             case "rtf":
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_rtf")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_rtf")
             default:
-                cell.docTypeImage?.image = #imageLiteral(resourceName: "file_unknown")
+                cell.docTypeImage?.image = #imageLiteral(resourceName:"file_unknown")
             }
         } else {
-            cell.docTypeImage?.image = #imageLiteral(resourceName: "file_download")
+            cell.docTypeImage?.image = #imageLiteral(resourceName:"file_download")
             cell.infoLabel?.text = "Документ не загружен"
         }
     }

@@ -14,7 +14,7 @@ import CloudKit
 /// Main Synchronization Class
 final class SyncMan {
     static let shared = SyncMan() // Singleton
-    
+
     let favoriteBillsInRealm = try? Realm().objects(FavoriteBill_.self)
     let favoriteBillsInRealmWithUnseenChanges = try? Realm().objects(FavoriteBill_.self).filter(FavoritesFilters.both.rawValue)
 
@@ -75,7 +75,9 @@ final class SyncMan {
 
 // MARK: - Sync logging
 public func slog(_ format: String, _ args: CVarArg...) {
-    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else { return }
+    guard ProcessInfo.processInfo.arguments.contains("--log-sync") else {
+        return
+    }
     DispatchQueue.main.async {
         NSLog("[SYNC] " + format, args)
     }

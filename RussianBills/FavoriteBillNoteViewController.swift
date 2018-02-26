@@ -77,7 +77,7 @@ class FavoriteBillNoteViewController: UIViewController {
             textView.text = oldText
         }
     }
-    
+
 }
 
 extension FavoriteBillNoteViewController: UITextViewDelegate {
@@ -92,17 +92,17 @@ extension FavoriteBillNoteViewController: UITextViewDelegate {
             let duration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
             let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
-            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            let animationCurve: UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
                 self.keyboardHeightLayoutConstraint?.constant = 0.0
             } else {
                 self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
             }
             UIView.animate(withDuration: duration,
-                           delay: TimeInterval(0),
-                           options: animationCurve,
-                           animations: { self.view.layoutIfNeeded() },
-                           completion: nil)
+                    delay: TimeInterval(0),
+                    options: animationCurve,
+                    animations: { self.view.layoutIfNeeded() },
+                    completion: nil)
         }
     }
 

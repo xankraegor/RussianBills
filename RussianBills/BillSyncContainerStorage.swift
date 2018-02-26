@@ -40,12 +40,14 @@ public final class BillSyncContainerStorage {
     }
 
     public var allBills: [SyncProxy] {
-        return realm.objects(FavoriteBill_.self).sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false).map{$0.syncProxy}
+        return realm.objects(FavoriteBill_.self).sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false).map {
+            $0.syncProxy
+        }
     }
 
     var mostRecentlyModifiedBillSyncContainer: SyncProxy? {
         let realmBillsByFavoriteUpdatedTimestamp = realm.objects(FavoriteBill_.self)
-            .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
+                .sorted(byKeyPath: BillKey.favoriteUpdatedTimestamp.rawValue, ascending: false)
 
         return realmBillsByFavoriteUpdatedTimestamp.first?.syncProxy
     }
@@ -65,14 +67,16 @@ public final class BillSyncContainerStorage {
         }
     }
 
-    private func insertOrUpdate<T: Object>(objects: [T],notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
-        try objects.forEach{ try self.insertOrUpdate(object: $0, notNotifying: token, updateDecisionHandler: updateDecisionHandler) }
+    private func insertOrUpdate<T: Object>(objects: [T], notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
+        try objects.forEach {
+            try self.insertOrUpdate(object: $0, notNotifying: token, updateDecisionHandler: updateDecisionHandler)
+        }
     }
 
     private func insertOrUpdate<T: Object>(object: T, notNotifying token: NotificationToken? = nil, updateDecisionHandler: @escaping UpdateDecisionHandler<T>) throws {
         guard let primaryKey = T.primaryKey(),
-            let primaryKeyValue = object.value(forKey: primaryKey) else {
-                fatalError("insertOrUpdate can't be used for objects without a primary key")
+              let primaryKeyValue = object.value(forKey: primaryKey) else {
+            fatalError("insertOrUpdate can't be used for objects without a primary key")
         }
 
         slog("Container:insertOrUpdate")
@@ -126,11 +130,15 @@ public final class BillSyncContainerStorage {
 
         if let token = token {
             realm.beginWrite()
-            objects.forEach{ realm.delete($0) }
+            objects.forEach {
+                realm.delete($0)
+            }
             try realm.commitWrite(withoutNotifying: [token])
         } else {
             realm.beginWrite()
-            objects.forEach{ realm.delete($0) }
+            objects.forEach {
+                realm.delete($0)
+            }
             try realm.commitWrite()
         }
     }

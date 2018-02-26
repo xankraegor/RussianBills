@@ -15,6 +15,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 
     /// Singleton
     static let sharedManager = WatchSessionManager()
+
     private override init() {
         super.init()
     }
@@ -51,7 +52,9 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     }
 
     func sendContextToWatch() {
-        guard let favs = self.favoriteBills else { return }
+        guard let favs = self.favoriteBills else {
+            return
+        }
         var bills: [[String: String]] = [[:]]
         DispatchQueue.main.async {
             for bill in favs {
@@ -64,7 +67,9 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     }
 
     func sendMessageToWatch() {
-        guard let favs = self.favoriteBills else { return }
+        guard let favs = self.favoriteBills else {
+            return
+        }
         var bills: [[String: String]] = [[:]]
         DispatchQueue.main.async {
             for bill in favs {

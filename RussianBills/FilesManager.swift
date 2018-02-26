@@ -17,7 +17,7 @@ enum FilesManager {
         return path
     }
 
-    #if BASEPROJECT
+#if BASEPROJECT
 
     static func attachmentDir(forBillNumber number: String) -> String {
         return "\(NSHomeDirectory())/Documents/\(number)/Attachments/"
@@ -94,10 +94,10 @@ enum FilesManager {
     }
 
     static func sizeOfFile(atPath: String) -> String? {
-        guard let attributes = try? FileManager.default.attributesOfItem(atPath: atPath), let fileSize = attributes[FileAttributeKey.size] as? UInt64  else {
+        guard let attributes = try? FileManager.default.attributesOfItem(atPath: atPath), let fileSize = attributes[FileAttributeKey.size] as? UInt64 else {
             return nil
         }
-        let  byteCountFormatter =  ByteCountFormatter()
+        let byteCountFormatter = ByteCountFormatter()
         byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
         let sizeToDisplay = byteCountFormatter.string(fromByteCount: Int64(fileSize))
         return sizeToDisplay
@@ -130,7 +130,7 @@ enum FilesManager {
             FileManager.default.enumerator(at: documentsDirectoryURL, includingPropertiesForKeys: [.fileSizeKey], options: [])?.forEach {
                 folderSize += (try? ($0 as? URL)?.resourceValues(forKeys: [.fileSizeKey]))??.fileSize ?? 0
             }
-            let  byteCountFormatter =  ByteCountFormatter()
+            let byteCountFormatter = ByteCountFormatter()
             byteCountFormatter.allowedUnits = [.useKB, .useMB, .useGB]
             if folderSize > 0 {
                 return byteCountFormatter.string(fromByteCount: Int64(folderSize))
@@ -174,5 +174,5 @@ enum FilesManager {
         return nil
     }
 
-    #endif
+#endif
 }

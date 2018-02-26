@@ -24,7 +24,6 @@
 #import "RLMProperty_Private.h"
 #import "RLMQueryUtil.hpp"
 #import "RLMSchema_Private.h"
-#import "RLMSwiftSupport.h"
 #import "RLMThreadSafeReference_Private.hpp"
 #import "RLMUtil.hpp"
 
@@ -34,6 +33,7 @@
     std::unique_ptr<id[]> items;
 }
 @end
+
 @implementation RLMArrayHolder
 @end
 
@@ -69,7 +69,7 @@
 
 #pragma mark - Convenience wrappers used for all RLMArray types
 
-- (void)addObjects:(id<NSFastEnumeration>)objects {
+- (void)addObjects:(id <NSFastEnumeration>)objects {
     for (id obj in objects) {
         [self addObject:obj];
     }
@@ -82,7 +82,7 @@
 - (void)removeLastObject {
     NSUInteger count = self.count;
     if (count) {
-        [self removeObjectAtIndex:count-1];
+        [self removeObjectAtIndex:count - 1];
     }
 }
 
@@ -127,7 +127,7 @@
 - (id)lastObject {
     NSUInteger count = self.count;
     if (count) {
-        return [self objectAtIndex:count-1];
+        return [self objectAtIndex:count - 1];
     }
     return nil;
 }
@@ -146,7 +146,7 @@
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(__unused __unsafe_unretained id [])buffer
+                                  objects:(__unused __unsafe_unretained id[])buffer
                                     count:(__unused NSUInteger)len {
     if (state->state != 0) {
         return 0;
@@ -167,7 +167,7 @@
         copy->items[i++] = object;
     }
 
-    state->itemsPtr = (__unsafe_unretained id *)(void *)copy->items.get();
+    state->itemsPtr = (__unsafe_unretained id *) (void *) copy->items.get();
     // needs to point to something valid, but the whole point of this is so
     // that it can't be changed
     state->mutationsPtr = state->extra;
@@ -179,7 +179,7 @@
 
 template<typename IndexSetFactory>
 static void changeArray(__unsafe_unretained RLMArray *const ar,
-                        NSKeyValueChange kind, dispatch_block_t f, IndexSetFactory&& is) {
+        NSKeyValueChange kind, dispatch_block_t f, IndexSetFactory &&is) {
     if (!ar->_backingArray) {
         ar->_backingArray = [NSMutableArray new];
     }
@@ -189,38 +189,43 @@ static void changeArray(__unsafe_unretained RLMArray *const ar,
         [parent willChange:kind valuesAtIndexes:indexes forKey:ar->_key];
         f();
         [parent didChange:kind valuesAtIndexes:indexes forKey:ar->_key];
-    }
-    else {
+    } else {
         f();
     }
 }
 
 static void changeArray(__unsafe_unretained RLMArray *const ar, NSKeyValueChange kind,
-                        NSUInteger index, dispatch_block_t f) {
-    changeArray(ar, kind, f, [=] { return [NSIndexSet indexSetWithIndex:index]; });
+        NSUInteger index, dispatch_block_t f) {
+    changeArray(ar, kind, f, [=] {
+        return [NSIndexSet indexSetWithIndex:index];
+    });
 }
 
 static void changeArray(__unsafe_unretained RLMArray *const ar, NSKeyValueChange kind,
-                        NSRange range, dispatch_block_t f) {
-    changeArray(ar, kind, f, [=] { return [NSIndexSet indexSetWithIndexesInRange:range]; });
+        NSRange range, dispatch_block_t f) {
+    changeArray(ar, kind, f, [=] {
+        return [NSIndexSet indexSetWithIndexesInRange:range];
+    });
 }
 
 static void changeArray(__unsafe_unretained RLMArray *const ar, NSKeyValueChange kind,
-                        NSIndexSet *is, dispatch_block_t f) {
-    changeArray(ar, kind, f, [=] { return is; });
+        NSIndexSet *is, dispatch_block_t f) {
+    changeArray(ar, kind, f, [=] {
+        return is;
+    });
 }
 
 void RLMArrayValidateMatchingObjectType(__unsafe_unretained RLMArray *const array,
-                                        __unsafe_unretained id const value) {
+        __unsafe_unretained id const value) {
     if (!value && !array->_optional) {
         @throw RLMException(@"Invalid nil value for array of '%@'.",
-                            array->_objectClassName ?: RLMTypeToString(array->_type));
+                array->_objectClassName ?: RLMTypeToString(array->_type));
     }
     if (array->_type != RLMPropertyTypeObject) {
         if (!RLMValidateValue(value, array->_type, array->_optional, false, nil)) {
             @throw RLMException(@"Invalid value '%@' of type '%@' for expected type '%@%s'.",
-                                value, [value class], RLMTypeToString(array->_type),
-                                array->_optional ? "?" : "");
+                    value, [value class], RLMTypeToString(array->_type),
+                    array->_optional ? "?" : "");
         }
         return;
     }
@@ -231,20 +236,20 @@ void RLMArrayValidateMatchingObjectType(__unsafe_unretained RLMArray *const arra
     }
     if (!object->_objectSchema) {
         @throw RLMException(@"Object cannot be inserted unless the schema is initialized. "
-                            "This can happen if you try to insert objects into a RLMArray / List from a default value or from an overriden unmanaged initializer (`init()`).");
+                "This can happen if you try to insert objects into a RLMArray / List from a default value or from an overriden unmanaged initializer (`init()`).");
     }
     if (![array->_objectClassName isEqualToString:object->_objectSchema.className]) {
         @throw RLMException(@"Object of type '%@' does not match RLMArray type '%@'.",
-                            object->_objectSchema.className, array->_objectClassName);
+                object->_objectSchema.className, array->_objectClassName);
     }
 }
 
 static void validateArrayBounds(__unsafe_unretained RLMArray *const ar,
-                                   NSUInteger index, bool allowOnePastEnd=false) {
+        NSUInteger index, bool allowOnePastEnd = false) {
     NSUInteger max = ar->_backingArray.count + allowOnePastEnd;
     if (index >= max) {
         @throw RLMException(@"Index %llu is out of bounds (must be less than %llu).",
-                            (unsigned long long)index, (unsigned long long)max);
+                (unsigned long long) index, (unsigned long long) max);
     }
 }
 
@@ -265,7 +270,7 @@ static void validateArrayBounds(__unsafe_unretained RLMArray *const ar,
     });
 }
 
-- (void)insertObjects:(id<NSFastEnumeration>)objects atIndexes:(NSIndexSet *)indexes {
+- (void)insertObjects:(id <NSFastEnumeration>)objects atIndexes:(NSIndexSet *)indexes {
     changeArray(self, NSKeyValueChangeInsertion, indexes, ^{
         NSUInteger currentIndex = [indexes firstIndex];
         for (RLMObject *obj in objects) {
@@ -381,8 +386,7 @@ static bool canAggregate(RLMPropertyType type, bool allowDate) {
     RLMObjectSchema *objectSchema;
     if (_backingArray.count) {
         objectSchema = [_backingArray[0] objectSchema];
-    }
-    else {
+    } else {
         objectSchema = [RLMSchema.partialPrivateSharedSchema schemaForClassName:_objectClassName];
     }
 
@@ -401,11 +405,9 @@ static bool canAggregate(RLMPropertyType type, bool allowDate) {
     bool sum = false;
     if ([op isEqualToString:@"@min"] || [op isEqualToString:@"@max"]) {
         allowDate = true;
-    }
-    else if ([op isEqualToString:@"@sum"]) {
+    } else if ([op isEqualToString:@"@sum"]) {
         sum = true;
-    }
-    else if (![op isEqualToString:@"@avg"]) {
+    } else if (![op isEqualToString:@"@avg"]) {
         // Just delegate to NSArray for all other operators
         return [_backingArray valueForKeyPath:[op stringByAppendingPathExtension:key]];
     }
@@ -415,11 +417,10 @@ static bool canAggregate(RLMPropertyType type, bool allowDate) {
         NSString *method = sel ? NSStringFromSelector(sel) : op;
         if (_type == RLMPropertyTypeObject) {
             @throw RLMException(@"%@: is not supported for %@ property '%@.%@'",
-                                method, RLMTypeToString(type), _objectClassName, key);
-        }
-        else {
+                    method, RLMTypeToString(type), _objectClassName, key);
+        } else {
             @throw RLMException(@"%@ is not supported for %@%s array",
-                                method, RLMTypeToString(_type), _optional ? "?" : "");
+                    method, RLMTypeToString(_type), _optional ? "?" : "");
         }
     }
 
@@ -473,11 +474,9 @@ static bool canAggregate(RLMPropertyType type, bool allowDate) {
             _backingArray[i] = value;
         }
         return;
-    }
-    else if (_type == RLMPropertyTypeObject) {
+    } else if (_type == RLMPropertyTypeObject) {
         [_backingArray setValue:value forKey:key];
-    }
-    else {
+    } else {
         [self setValue:value forUndefinedKey:key];
     }
 }
@@ -538,6 +537,7 @@ static bool canAggregate(RLMPropertyType type, bool allowDate) {
 // to actually include the generic type
 // http://www.openradar.me/radar?id=6135653276319744
 #pragma clang diagnostic ignored "-Wmismatched-parameter-types"
+
 - (RLMNotificationToken *)addNotificationBlock:(void (^)(RLMArray *, RLMCollectionChange *, NSError *))block {
     @throw RLMException(@"This method may only be called on RLMArray instances retrieved from an RLMRealm");
 }

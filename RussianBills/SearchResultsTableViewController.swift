@@ -93,7 +93,9 @@ final class SearchResultsTableViewController: UITableViewController {
     // MARK: - TableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let foundBills = searchResults, foundBills.bills.count < foundBills.totalCount else { return }
+        guard let foundBills = searchResults, foundBills.bills.count < foundBills.totalCount else {
+            return
+        }
         if !isLoading && indexPath.row > foundBills.bills.count - 19 {
             isLoading = true
             query.pageNumber += 1
@@ -113,7 +115,7 @@ final class SearchResultsTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let path = tableView.indexPathForSelectedRow, let results = searchResults,
-            let dest = segue.destination as? BillCardTableViewController {
+           let dest = segue.destination as? BillCardTableViewController {
             dest.billNr = results.bills[path.row].number
         }
     }

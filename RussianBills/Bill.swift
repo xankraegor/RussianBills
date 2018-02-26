@@ -73,10 +73,18 @@ final class Bill_: Object {
 
     func generateSubjectsDescription() -> String? {
         var output: [String] = []
-        factions.forEach{output.append($0.name)}
-        deputies.forEach{output.append("\($0.position) \($0.name)")}
-        federalSubjects.forEach{output.append($0.name)}
-        regionalSubjects.forEach{output.append($0.name)}
+        factions.forEach {
+            output.append($0.name)
+        }
+        deputies.forEach {
+            output.append("\($0.position) \($0.name)")
+        }
+        federalSubjects.forEach {
+            output.append($0.name)
+        }
+        regionalSubjects.forEach {
+            output.append($0.name)
+        }
         return output.joined(separator: "; ")
     }
 
@@ -84,14 +92,18 @@ final class Bill_: Object {
         guard committeeCoexecutor.count > 0 else {
             return "Не определены"
         }
-        return committeeCoexecutor.map {$0.name}.joined(separator: "; ")
+        return committeeCoexecutor.map {
+            $0.name
+        }.joined(separator: "; ")
     }
 
     func generateProfileCommitteesDescription() -> String {
         guard committeeProfile.count > 0 else {
             return "Не определены"
         }
-        return committeeProfile.map {$0.name}.joined(separator: "; ")
+        return committeeProfile.map {
+            $0.name
+        }.joined(separator: "; ")
     }
 
     private func replace(WithText replacementText: String, ifMissingSourceText source: String) -> String {
@@ -131,7 +143,7 @@ final class Bill_: Object {
                 output += String(repeating: " ", count: 5)
                 for event in phase.events {
                     output += "\n"
-                    output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name ) + "\n"
+                    output += String(repeating: " ", count: 10) + replace(WithText: "Название события не указано", ifMissingSourceText: event.name) + "\n"
                     output += String(repeating: " ", count: 10) + replace(WithText: "Дата события не указана", ifMissingSourceText: event.date ?? "") + "\n"
                     output += String(repeating: " ", count: 10) + "Прикреплено документов: \(event.attachments.count)\n"
                 }
@@ -150,7 +162,9 @@ final class Bill_: Object {
 
     var shortDescription: String {
         var output = "Законопроект №\(number): \(lawType.description) «\(name)»"
-        if comments.count > 0 { output += "[\(comments)]" }
+        if comments.count > 0 {
+            output += "[\(comments)]"
+        }
         output += "\n\nСсылка на зконопроект: \(url)\n"
 
         if introductionDate.count > 0 {

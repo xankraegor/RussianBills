@@ -42,8 +42,10 @@ using namespace realm;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
+
 @implementation RLMNotificationToken
 @end
+
 #pragma clang diagnostic pop
 
 @interface RLMResults () <RLMThreadConfined_Private>
@@ -79,39 +81,39 @@ void RLMThrowResultsError(NSString *aggregateMethod) {
     try {
         throw;
     }
-    catch (realm::InvalidTransactionException const&) {
+    catch (realm::InvalidTransactionException const &) {
         @throw RLMException(@"Cannot modify Results outside of a write transaction.");
     }
-    catch (realm::IncorrectThreadException const&) {
+    catch (realm::IncorrectThreadException const &) {
         @throw RLMException(@"Realm accessed from incorrect thread.");
     }
-    catch (realm::Results::InvalidatedException const&) {
+    catch (realm::Results::InvalidatedException const &) {
         @throw RLMException(@"RLMResults has been invalidated.");
     }
-    catch (realm::Results::DetatchedAccessorException const&) {
+    catch (realm::Results::DetatchedAccessorException const &) {
         @throw RLMException(@"Object has been invalidated.");
     }
-    catch (realm::Results::IncorrectTableException const& e) {
+    catch (realm::Results::IncorrectTableException const &e) {
         @throw RLMException(@"Object of type '%s' does not match RLMResults type '%s'.",
-                            e.actual.data(), e.expected.data());
+                e.actual.data(), e.expected.data());
     }
-    catch (realm::Results::OutOfBoundsIndexException const& e) {
+    catch (realm::Results::OutOfBoundsIndexException const &e) {
         @throw RLMException(@"Index %zu is out of bounds (must be less than %zu).",
-                            e.requested, e.valid_count);
+                e.requested, e.valid_count);
     }
-    catch (realm::Results::UnsupportedColumnTypeException const& e) {
+    catch (realm::Results::UnsupportedColumnTypeException const &e) {
         @throw RLMException(@"%@ is not supported for %s%s property '%s'.",
-                            aggregateMethod,
-                            string_for_property_type(e.property_type),
-                            is_nullable(e.property_type) ? "?" : "",
-                            e.column_name.data());
+                aggregateMethod,
+                string_for_property_type(e.property_type),
+                is_nullable(e.property_type) ? "?" : "",
+                e.column_name.data());
     }
-    catch (std::exception const& e) {
+    catch (std::exception const &e) {
         @throw RLMException(e);
     }
 }
 
-+ (instancetype)resultsWithObjectInfo:(RLMClassInfo&)info
++ (instancetype)resultsWithObjectInfo:(RLMClassInfo &)info
                               results:(realm::Results)results {
     RLMResults *ar = [[self alloc] initPrivate];
     ar->_results = std::move(results);
@@ -130,11 +132,15 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 }
 
 - (BOOL)isInvalidated {
-    return translateRLMResultsErrors([&] { return !_results.is_valid(); });
+    return translateRLMResultsErrors([&] {
+        return !_results.is_valid();
+    });
 }
 
 - (NSUInteger)count {
-    return translateRLMResultsErrors([&] { return _results.size(); });
+    return translateRLMResultsErrors([&] {
+        return _results.size();
+    });
 }
 
 - (RLMPropertyType)type {
@@ -160,7 +166,7 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(__unused __unsafe_unretained id [])buffer
+                                  objects:(__unused __unsafe_unretained id[])buffer
                                     count:(NSUInteger)len {
     if (!_info) {
         return 0;
@@ -249,10 +255,10 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
     }
     if (separatorIndex >= keyPathLength - 1) {
         @throw RLMException(@"Missing key path for KVC collection operator %@ in key path '%@'",
-                            operatorName, keyPath);
+                operatorName, keyPath);
     }
     NSString *operatorKeyPath = [keyPath substringFromIndex:separatorIndex + 1];
-    return ((id(*)(id, SEL, id))objc_msgSend)(self, opSelector, operatorKeyPath);
+    return ((id(*)(id, SEL, id)) objc_msgSend)(self, opSelector, operatorKeyPath);
 }
 
 - (id)valueForKey:(NSString *)key {
@@ -262,7 +268,9 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key {
-    translateRLMResultsErrors([&] { RLMResultsValidateInWriteTransaction(self); });
+    translateRLMResultsErrors([&] {
+        RLMResultsValidateInWriteTransaction(self);
+    });
     RLMCollectionSetValueForKey(self, key, value);
 }
 
@@ -309,7 +317,7 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 
     return translateRLMResultsErrors([&] {
         NSMutableArray *flatArray = [NSMutableArray new];
-        for (id<NSFastEnumeration> array in RLMCollectionValueForKey(_results, keyPath, _realm, *_info)) {
+        for (id <NSFastEnumeration> array in RLMCollectionValueForKey(_results, keyPath, _realm, *_info)) {
             for (id value in array) {
                 [flatArray addObject:value];
             }
@@ -370,17 +378,17 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
             @throw RLMException(@"Cannot distinct on keypath '%@': KVC collection operators are not supported.", keyPath);
         }
     }
-    
+
     return translateRLMResultsErrors([&] {
         if (_results.get_mode() == Results::Mode::Empty) {
             return self;
         }
-        
+
         std::vector<std::string> keyPathsVector;
         for (NSString *keyPath in keyPaths) {
             keyPathsVector.push_back(keyPath.UTF8String);
         }
-        
+
         return [RLMResults resultsWithObjectInfo:*_info results:_results.distinct(keyPathsVector)];
     });
 }
@@ -399,7 +407,9 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
         column = _info->tableColumn(property);
     }
 
-    auto value = translateRLMResultsErrors([&] { return (_results.*method)(column); }, methodName);
+    auto value = translateRLMResultsErrors([&] {
+        return (_results.*method)(column);
+    }, methodName);
     return value ? RLMMixedToObjc(*value) : nil;
 }
 
@@ -426,22 +436,25 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
     if (self.type == RLMPropertyTypeObject || ![property isEqualToString:@"self"]) {
         column = _info->tableColumn(property);
     }
-    auto value = translateRLMResultsErrors([&] { return _results.average(column); }, @"averageOfProperty");
+    auto value = translateRLMResultsErrors([&] {
+        return _results.average(column);
+    }, @"averageOfProperty");
     return value ? @(*value) : nil;
 }
 
 - (void)deleteObjectsFromRealm {
     if (self.type != RLMPropertyTypeObject) {
         @throw RLMException(@"Cannot delete objects from RLMResults<%@>: only RLMObjects can be deleted.",
-                            RLMTypeToString(self.type));
+                RLMTypeToString(self.type));
     }
     return translateRLMResultsErrors([&] {
         if (_results.get_mode() == Results::Mode::Table) {
             RLMResultsValidateInWriteTransaction(self);
             RLMClearTable(*_info);
-        }
-        else {
-            RLMTrackDeletions(_realm, [&] { _results.clear(); });
+        } else {
+            RLMTrackDeletions(_realm, [&] {
+                _results.clear();
+            });
         }
     });
 }
@@ -451,7 +464,9 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 }
 
 - (realm::TableView)tableView {
-    return translateRLMResultsErrors([&] { return _results.get_tableview(); });
+    return translateRLMResultsErrors([&] {
+        return _results.get_tableview();
+    });
 }
 
 - (RLMFastEnumerator *)fastEnumerator {
@@ -467,14 +482,15 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 // http://www.openradar.me/radar?id=6135653276319744
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmismatched-parameter-types"
+
 - (RLMNotificationToken *)addNotificationBlock:(void (^)(RLMResults *, RLMCollectionChange *, NSError *))block {
     [_realm verifyNotificationsAreSupported:true];
     return RLMAddNotificationBlock(self, _results, block, true);
 }
+
 #pragma clang diagnostic pop
 
-- (BOOL)isAttached
-{
+- (BOOL)isAttached {
     return !!_realm;
 }
 

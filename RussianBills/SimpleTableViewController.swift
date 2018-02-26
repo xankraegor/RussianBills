@@ -48,16 +48,16 @@ final class SimpleTableViewController: UITableViewController {
 
         setupRealmNotificationToken()
         setupSearchController()
-        
+
         navigationItem.title = objectsToDisplay!.fullDescription
         navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
-        
+
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+
         super.viewWillAppear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
 
@@ -138,8 +138,8 @@ final class SimpleTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let dest = segue.destination as? LegislativeSubjTableViewController,
-            let selectedRow = tableView.indexPathForSelectedRow?.row, let obj = objects else {
-                return
+              let selectedRow = tableView.indexPathForSelectedRow?.row, let obj = objects else {
+            return
         }
 
         guard let source = isFiltering ? filteredObjects : Array(obj) else {
@@ -187,7 +187,7 @@ extension SimpleTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch objectsToDisplay {
 
-        // Legislative initiative bodies
+                // Legislative initiative bodies
         case .federalSubjects?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommittiesCellId", for: indexPath) as! NameStartEndTableViewCell
             let object = isFiltering ? filteredObjects![indexPath.row] as! FederalSubject_ : objects![indexPath.row] as! FederalSubject_
@@ -216,13 +216,13 @@ extension SimpleTableViewController {
 
         case .dumaDeputies?, .councilMembers?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DeputiesCellId", for: indexPath)
-            let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ :  objects![indexPath.row] as! Deputy_
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Deputy_ : objects![indexPath.row] as! Deputy_
             cell.textLabel?.text = object.name
             cell.detailTextLabel?.text = object.isCurrent ? "Полномочия действуют" : "Срок полномочий истёк"
             cell.accessoryType = .disclosureIndicator
             return cell
 
-        // Other Reference categories
+                // Other Reference categories
         case .lawClasses?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
             let object = isFiltering ? filteredObjects![indexPath.row] as! LawClass_ : objects![indexPath.row] as! LawClass_
@@ -231,7 +231,7 @@ extension SimpleTableViewController {
 
         case .topics?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCellId", for: indexPath)
-            let object = isFiltering ? filteredObjects![indexPath.row] as! Topic_: objects![indexPath.row] as! Topic_
+            let object = isFiltering ? filteredObjects![indexPath.row] as! Topic_ : objects![indexPath.row] as! Topic_
             cell.textLabel?.text = object.name
             return cell
 
@@ -305,8 +305,8 @@ extension SimpleTableViewController {
         }
 
         if objectsToDisplay?.typeUsedForObjects === FederalSubject_.self ||
-            objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
-            objectsToDisplay?.typeUsedForObjects === Deputy_.self {
+                   objectsToDisplay?.typeUsedForObjects === RegionalSubject_.self ||
+                   objectsToDisplay?.typeUsedForObjects === Deputy_.self {
             searchController.searchBar.scopeButtonTitles = ["Все", "Действующие", "Не действ."]
             searchController.searchBar.sizeToFit()
         }

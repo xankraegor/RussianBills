@@ -76,7 +76,9 @@ class MessagesViewController: MSMessagesAppViewController {
     }
 
     override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
-        guard favoriteBillsFilteredAndSorted?.count ?? 0 > 0 else { return }
+        guard favoriteBillsFilteredAndSorted?.count ?? 0 > 0 else {
+            return
+        }
         tableView?.reloadData()
     }
 

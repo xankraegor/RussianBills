@@ -14,7 +14,7 @@ enum LegislativeSubjectType {
     case regionalSubject
     case deputy
 
-    private func objectType()->Object.Type {
+    private func objectType() -> Object.Type {
         switch self {
         case .federalSubject:
             return FederalSubject_.self

@@ -35,12 +35,12 @@ public struct SyncProxy {
 extension SyncProxy: Equatable {
     public static func ==(lhs: SyncProxy, rhs: SyncProxy) -> Bool {
         return lhs.number == rhs.number
-            && lhs.name == rhs.name
-            && lhs.comments == rhs.comments
-            && lhs.note == rhs.note
-            && lhs.favoriteUpdatedTimestamp == rhs.favoriteUpdatedTimestamp
-            && lhs.favoriteHasUnseenChanges == rhs.favoriteHasUnseenChanges
-         && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
+                && lhs.name == rhs.name
+                && lhs.comments == rhs.comments
+                && lhs.note == rhs.note
+                && lhs.favoriteUpdatedTimestamp == rhs.favoriteUpdatedTimestamp
+                && lhs.favoriteHasUnseenChanges == rhs.favoriteHasUnseenChanges
+                && lhs.favoriteHasUnseenChangesTimestamp == rhs.favoriteHasUnseenChangesTimestamp
     }
 }
 

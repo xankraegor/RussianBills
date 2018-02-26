@@ -55,10 +55,10 @@ extension RegionalSubject_: QuickSearchFieldsReporting {
 
 // MARK: - Eureka's Search Push Row Item
 extension RegionalSubject_: SearchPushRowItem {
-    
+
     func matchesSearchQuery(_ query: String) -> Bool {
         return name.range(of: query, options: .caseInsensitive, locale: Locale.init(identifier: "ru_RU")) != nil
     }
-    
+
 }
 

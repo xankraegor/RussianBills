@@ -53,7 +53,9 @@ public final class ICloudSyncEngine: NSObject {
     /// Holds the latest change token we got from CloudKit, storing it in UserDefaults
     private var previousChangeToken: CKServerChangeToken? {
         get {
-            guard let tokenData = UserDefaults.standard.object(forKey: Constants.previousChangeToken) as? Data else { return nil }
+            guard let tokenData = UserDefaults.standard.object(forKey: Constants.previousChangeToken) as? Data else {
+                return nil
+            }
             let token = NSKeyedUnarchiver.unarchiveObject(with: tokenData) as? CKServerChangeToken
             slog("[Engine] previousChangeToken.get:\(token?.description ?? "nil")")
             return token
@@ -97,7 +99,7 @@ public final class ICloudSyncEngine: NSObject {
         subscribeToCloudKitChanges()
     }
 
-    func startAnew(completion: @escaping (Bool, String?)->Void) {
+    func startAnew(completion: @escaping (Bool, String?) -> Void) {
         resolveNew() { [weak self] sucessful, message in
             if sucessful {
                 completion(true, nil)
@@ -290,7 +292,7 @@ public final class ICloudSyncEngine: NSObject {
     // MARK: - Start: Local subscription part
 
     private func subscribeToLocalDatabaseChanges() {
-        
+
         slog("[Engine] subscribeToLocalDatabaseChanges()")
         let bills = storage.realm.objects(FavoriteBill_.self)
 
@@ -304,8 +306,16 @@ public final class ICloudSyncEngine: NSObject {
             switch changes {
             case .update(let collection, _, let insertions, let modifications):
                 // Figure out which bills should be saved and which bills should be deleted
-                let favoriteBillsToSave = (insertions + modifications).map {collection[$0]}.filter {!$0.markedToBeRemovedFromFavorites}
-                let favoriteBillsToDelete = modifications.map { collection[$0]}.filter {$0.markedToBeRemovedFromFavorites}
+                let favoriteBillsToSave = (insertions + modifications).map {
+                    collection[$0]
+                }.filter {
+                    !$0.markedToBeRemovedFromFavorites
+                }
+                let favoriteBillsToDelete = modifications.map {
+                    collection[$0]
+                }.filter {
+                    $0.markedToBeRemovedFromFavorites
+                }
 
                 // Push changes to CloudKit
                 welf.pushToCloudKit(billsToUpdate: favoriteBillsToSave, billsToDelete: favoriteBillsToDelete)
@@ -325,8 +335,12 @@ public final class ICloudSyncEngine: NSObject {
             return
         }
 
-        let recordsToSave = billsToUpdate.map{ $0.record }
-        let recordsToDelete = billsToDelete.map{ $0.recordID }
+        let recordsToSave = billsToUpdate.map {
+            $0.record
+        }
+        let recordsToDelete = billsToDelete.map {
+            $0.recordID
+        }
 
         pushRecordsToCloudKit(recordsToUpdate: recordsToSave, recordIDsToDelete: recordsToDelete)
     }
@@ -338,7 +352,8 @@ public final class ICloudSyncEngine: NSObject {
         operation.modifyRecordsCompletionBlock = { [weak self] _, _, error in
             guard error == nil else {
                 slog("[Engine] pushRecordsToCloudKit: Error modifying records: \(error!)")
-                self?.retryCloudKitOperationIfPossible(with: error) { self?.pushRecordsToCloudKit(recordsToUpdate: recordsToUpdate, recordIDsToDelete: recordIDsToDelete, completion: completion)
+                self?.retryCloudKitOperationIfPossible(with: error) {
+                    self?.pushRecordsToCloudKit(recordsToUpdate: recordsToUpdate, recordIDsToDelete: recordIDsToDelete, completion: completion)
                 }
                 return
             }
@@ -360,7 +375,7 @@ public final class ICloudSyncEngine: NSObject {
 
         // Create the CloudKit subscription so we receive push notifications when bills change remotely
         let subscription = CKQuerySubscription(recordType: Constants.billRecordType, predicate: NSPredicate(value: true),
-                                               options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion])
+                options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion])
 
         let info = CKNotificationInfo()
         info.shouldSendContentAvailable = true
@@ -429,7 +444,7 @@ public final class ICloudSyncEngine: NSObject {
 
     // MARK: - Resolve sync
 
-    func resolveNew(completion: @escaping (Bool, String?)->Void) {
+    func resolveNew(completion: @escaping (Bool, String?) -> Void) {
         slog("[Engine] resolveNew(completion: @escaping (Bool)->Void)")
         let query = CKQuery(recordType: Constants.billRecordType, predicate: NSPredicate(value: true))
 
@@ -445,17 +460,25 @@ public final class ICloudSyncEngine: NSObject {
 
             // STAGE 1. LOOKING FOR UNEQUAL AND UNIQUE VALUES
 
-            let cloudF = receivedRecords.map{SyncProxy(withRecord: $0)}
-            let localF = Array(realm.objects(FavoriteBill_.self)).map{ SyncProxy(withFavoriteBill: $0) }
+            let cloudF = receivedRecords.map {
+                SyncProxy(withRecord: $0)
+            }
+            let localF = Array(realm.objects(FavoriteBill_.self)).map {
+                SyncProxy(withFavoriteBill: $0)
+            }
 
             // Unique & with same number, which differ from each other in two arrays
-            let diffCloud = cloudF.filter { !localF.contains($0) }
-            let diffLocal = localF.filter { !cloudF.contains($0) }
+            let diffCloud = cloudF.filter {
+                !localF.contains($0)
+            }
+            let diffLocal = localF.filter {
+                !cloudF.contains($0)
+            }
 
             // Unequal values
             var nonEqualCloud: [SyncProxy] = []
             var nonEqualLocal: [SyncProxy] = []
-            
+
 
             for c in diffCloud {
                 for l in diffLocal {
@@ -469,17 +492,27 @@ public final class ICloudSyncEngine: NSObject {
             nonEqualCloud.sort(by: { $1.number > $0.number })
             nonEqualLocal.sort(by: { $1.number > $0.number })
 
-            slog("[Engine] resolveNew: Unequal cloud records: \(nonEqualCloud.map{$0.number})")
-            slog("[Engine] resolveNew: Unequal local records: \(nonEqualLocal.map{$0.number})")
+            slog("[Engine] resolveNew: Unequal cloud records: \(nonEqualCloud.map {$0.number})")
+            slog("[Engine] resolveNew: Unequal local records: \(nonEqualLocal.map {$0.number})")
 
             // Unique values
-            let uniqueCloud = diffCloud.filter { !nonEqualCloud.contains($0) }
-            let uniqueLocal = diffLocal.filter { !nonEqualLocal.contains($0) }.filter { $0.markedToBeRemovedFromFavorites ?? false != true }
-            let uniqueLocalToRemove = diffLocal.filter { !nonEqualLocal.contains($0) }.filter{ $0.markedToBeRemovedFromFavorites ?? false == true }
+            let uniqueCloud = diffCloud.filter {
+                !nonEqualCloud.contains($0)
+            }
+            let uniqueLocal = diffLocal.filter {
+                !nonEqualLocal.contains($0)
+            }.filter {
+                $0.markedToBeRemovedFromFavorites ?? false != true
+            }
+            let uniqueLocalToRemove = diffLocal.filter {
+                !nonEqualLocal.contains($0)
+            }.filter {
+                $0.markedToBeRemovedFromFavorites ?? false == true
+            }
 
-            slog("[Engine] resolveNew: Unique cloud records: \(uniqueCloud.map{$0.number})")
-            slog("[Engine] resolveNew: Unique local records: \(uniqueLocal.map{$0.number})")
-            slog("[Engine] resolveNew: Unique local records to remove: \(uniqueLocalToRemove.map{$0.number})")
+            slog("[Engine] resolveNew: Unique cloud records: \(uniqueCloud.map {$0.number})")
+            slog("[Engine] resolveNew: Unique local records: \(uniqueLocal.map {$0.number})")
+            slog("[Engine] resolveNew: Unique local records to remove: \(uniqueLocalToRemove.map {$0.number})")
 
             var toLocal = uniqueCloud
             var toCloud = uniqueLocal
@@ -511,9 +544,9 @@ public final class ICloudSyncEngine: NSObject {
                     } else {
                         // They have different notes, lets save both
                         text = "<<<<===== ВЕРСИЯ ЗАМЕТКИ ИЗ ОБЛАКА от \(nonEqualCloud[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
-                            nonEqualCloud[i].note +
-                            "\n\n<<<<===== ЛОКАЛЬНАЯ ВЕРСИЯ ЗАМЕТКИ от \(nonEqualLocal[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
-                            nonEqualLocal[i].note
+                                nonEqualCloud[i].note +
+                                "\n\n<<<<===== ЛОКАЛЬНАЯ ВЕРСИЯ ЗАМЕТКИ от \(nonEqualLocal[i].favoriteUpdatedTimestamp) =====>>>>>\n\n" +
+                                nonEqualLocal[i].note
                     }
 
                     let newTimeStamp = Date()
@@ -535,7 +568,9 @@ public final class ICloudSyncEngine: NSObject {
             // Pushing local unique and resolved favorite bills to the server
             if toCloud.count > 0 {
                 grp.enter()
-                let localToPush = toCloud.map{$0.record}
+                let localToPush = toCloud.map {
+                    $0.record
+                }
                 slog("[Engine] resolveNew: localToPush count \(localToPush.count)")
                 let pushOp = CKModifyRecordsOperation(recordsToSave: localToPush, recordIDsToDelete: [])
                 pushOp.savePolicy = .allKeys
@@ -558,12 +593,16 @@ public final class ICloudSyncEngine: NSObject {
 
             // Removing favorite bills from local realm, that are marked for removal and not present on the server
             if uniqueLocalToRemove.count > 0 {
-                slog("[Engine] resolveNew: Removing favorite bills from local realm, that are marked for removal and not present on the server: \(uniqueLocalToRemove.map{$0.number})")
-                let localUniqueMarkedToRemove = uniqueLocalToRemove.map{ $0.favoriteBill }
+                slog("[Engine] resolveNew: Removing favorite bills from local realm, that are marked for removal and not present on the server: \(uniqueLocalToRemove.map {$0.number})")
+                let localUniqueMarkedToRemove = uniqueLocalToRemove.map {
+                    $0.favoriteBill
+                }
                 if localUniqueMarkedToRemove.count > 0 {
                     do {
                         realm.beginWrite()
-                        localUniqueMarkedToRemove.forEach{ realm.delete($0) }
+                        localUniqueMarkedToRemove.forEach {
+                            realm.delete($0)
+                        }
                         try realm.commitWrite()
                         slog("[Engine] resolveNew: local bills marked for removal: removed successfuly")
                     } catch let error {
@@ -577,11 +616,15 @@ public final class ICloudSyncEngine: NSObject {
 
             // Adding favorite bills from server to the local realm
             if toLocal.count > 0 {
-                slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: \(toCloud.map{$0.number})")
+                slog("[Engine] resolveNew: Adding favorite bills from server to the local realm: \(toCloud.map {$0.number})")
                 do {
-                    let fromCloudToFetch = toLocal.map{ $0.favoriteBill }
+                    let fromCloudToFetch = toLocal.map {
+                        $0.favoriteBill
+                    }
                     realm.beginWrite()
-                    fromCloudToFetch.forEach{ realm.add($0, update: true)}
+                    fromCloudToFetch.forEach {
+                        realm.add($0, update: true)
+                    }
                     try realm.commitWrite()
                     slog("[Engine] resolveNew: Adding favorite bills from server to the local realm finished successfuly")
                 } catch let error {
@@ -603,6 +646,5 @@ public final class ICloudSyncEngine: NSObject {
         }
     }
 
-    
 
 }

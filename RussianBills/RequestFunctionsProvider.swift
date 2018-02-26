@@ -23,7 +23,7 @@ enum Request {
     // MARK: - Bill Search Request Function
 
     // NOT Enqueued
-    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int, NSError?) -> Void ) {
+    static func billSearch(forQuery bill: BillSearchQuery, completion: @escaping ([Bill_], Int, NSError?) -> Void) {
         if let requestMessage = RequestRouter.search(bill: bill).urlRequest {
 
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
@@ -71,7 +71,7 @@ enum Request {
     }
 
     // Enqueued
-    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument?, NSError?) -> Void ) {
+    static func htmlToParse(forUrl url: URL, completion: @escaping (HTMLDocument?, NSError?) -> Void) {
         Alamofire.request(url).responseData(queue: Dispatcher.shared.htmlParseQueue) { (response) in
             if let error1 = response.error {
                 debugPrint("∆ Request.billSearch returned an error: \(error1.localizedDescription)")
@@ -89,7 +89,7 @@ enum Request {
 
             let err: NSError?
             if let resp = response.response,
-                resp.statusCode / 100 != 2 { // Non-normal response
+               resp.statusCode / 100 != 2 { // Non-normal response
                 err = NSError(.mainAppl, code: .parsingResponseErrorCode, message: "HTML respnose code \(resp.statusCode)")
                 debugPrint("∆ Parser [\(Date())] received HTTPURLResponse with status code: \(resp.statusCode)")
             } else {
@@ -104,7 +104,7 @@ enum Request {
 
     // MARK: - Other request Functions
 
-    static func committies(current: Bool? = nil, completion: @escaping ([Committee_]) -> Void ) {
+    static func committies(current: Bool? = nil, completion: @escaping ([Committee_]) -> Void) {
         if let requestMessage = RequestRouter.committees(current: current).urlRequest {
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
@@ -158,7 +158,7 @@ enum Request {
         }
     }
 
-    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_]) -> Void ) {
+    static func deputies(beginsWithChars: String? = nil, position: DeputyPosition? = nil, current: Bool? = nil, completion: @escaping ([Deputy_]) -> Void) {
         if let requestMessage = RequestRouter.deputy(beginsWithChars: beginsWithChars, position: position, current: current).urlRequest {
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
@@ -176,9 +176,9 @@ enum Request {
         }
     }
 
-    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_]) -> Void ) {
+    static func federalSubjects(current: Bool? = nil, completion: @escaping ([FederalSubject_]) -> Void) {
         if let requestMessage = RequestRouter.federalSubject(current: current).urlRequest {
-            Alamofire.request(requestMessage).responseJSON (queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
+            Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
                     let json = JSON(contents)
                     var subjects: [FederalSubject_] = []
@@ -195,7 +195,7 @@ enum Request {
         }
     }
 
-    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_]) -> Void ) {
+    static func regionalSubjects(current: Bool? = nil, completion: @escaping ([RegionalSubject_]) -> Void) {
         if let requestMessage = RequestRouter.regionalSubject(current: current).urlRequest {
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {
@@ -213,7 +213,7 @@ enum Request {
         }
     }
 
-    static func instances(current: Bool? = nil, completion: @escaping ([Instance_]) -> Void ) {
+    static func instances(current: Bool? = nil, completion: @escaping ([Instance_]) -> Void) {
         if let requestMessage = RequestRouter.instances(current: current).urlRequest {
             Alamofire.request(requestMessage).responseJSON(queue: Dispatcher.shared.referenceDownloadDispatchQueue) { response in
                 if let contents = response.result.value {

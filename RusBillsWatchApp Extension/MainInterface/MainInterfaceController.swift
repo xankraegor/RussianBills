@@ -59,7 +59,9 @@ class MainInterfaceController: WKInterfaceController {
         table?.setNumberOfRows(favoriteBills?.count ?? 0, withRowType: "mainInterfaceRowController")
 
         for index in 0..<(favoriteBills?.count ?? 0) {
-            guard let controller = table.rowController(at: index) as? MainInterfaceRowController else { continue }
+            guard let controller = table.rowController(at: index) as? MainInterfaceRowController else {
+                continue
+            }
             controller.nameLabel.setText("\(favoriteBills?[index].number ?? "") \(favoriteBills?[index].name ?? "")")
         }
     }

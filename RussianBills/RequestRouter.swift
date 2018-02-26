@@ -70,14 +70,14 @@ enum RequestRouter: URLRequestConvertible {
         var dict = ["app_token": appToken]
         switch self {
 
-            // Early exit cases
+                // Early exit cases
 
         case let .bill(number):
-            return ["OpenAgent": "", "RN" : number]
+            return ["OpenAgent": "", "RN": number]
         case .document(link: _):
             return [:]
 
-            // Full cycle cases
+                // Full cycle cases
 
         case let .search(bill):
             var billParameters = RequestRouter.generateBillRequestParameters(forQuery: bill)
@@ -157,5 +157,5 @@ enum RequestRouter: URLRequestConvertible {
         }
     }
 
-    
+
 }

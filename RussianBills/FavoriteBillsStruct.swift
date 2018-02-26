@@ -19,9 +19,8 @@ struct FavoriteBills {
         for (index, element) in billNumbers.enumerated() {
             values[element] = updateTimestamps[index].timeIntervalSince1970
         }
-
-        return [ "favoriteBills" : values ]
         // ["favoriteBills": [ "123456-7" : 542542542542.23134 , "234467-7" : 542542542324.23134 ]]
+        return ["favoriteBills": values]
     }
 
     // MARK: - Initialization

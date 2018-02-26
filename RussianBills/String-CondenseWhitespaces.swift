@@ -12,15 +12,17 @@ extension String {
 
     func prettify(noQuotes: Bool = false) -> String {
         let output = self
-            .components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
-            .filter { !$0.isEmpty }
-            .joined(separator: " ")
+                .components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+                .filter {
+                    !$0.isEmpty
+                }
+                .joined(separator: " ")
         if noQuotes {
             return output
         } else {
             let quotesOutput = output
-                .replacingOccurrences(of: " \"", with: " «")
-                .replacingOccurrences(of: "\"", with: "»")
+                    .replacingOccurrences(of: " \"", with: " «")
+                    .replacingOccurrences(of: "\"", with: "»")
             if quotesOutput.first == "»" {
                 return "«" + quotesOutput.dropFirst()
             } else {

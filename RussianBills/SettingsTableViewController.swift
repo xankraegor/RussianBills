@@ -106,7 +106,7 @@ final class SettingsTableViewController: UITableViewController {
 
                 sender.isEnabled = false
 
-                SyncMan.shared.iCloudSyncEngine?.startAnew() { (successful, message)  in
+                SyncMan.shared.iCloudSyncEngine?.startAnew() { (successful, message) in
                     if successful {
                         sender.isEnabled = true
                         UserDefaultsCoordinator.iCloudSyncTurnedOn = true
@@ -114,7 +114,7 @@ final class SettingsTableViewController: UITableViewController {
                         sender.isEnabled = true
                         UserDefaultsCoordinator.iCloudSyncTurnedOn = false
 
-                        let alert = UIAlertController(title: "Ошибка синхронизации" , message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = UIAlertController(title: "Ошибка синхронизации", message: message, preferredStyle: UIAlertControllerStyle.alert)
                         alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
                         self.present(alert, animated: true, completion: { [weak sender] in
                             sender?.setOn(false, animated: true)
@@ -130,7 +130,7 @@ final class SettingsTableViewController: UITableViewController {
             }
         } else {
             // Set previous value and tell user that it can't be changed as long as iCloud is unreachable
-            let alert = UIAlertController(title: "Синхронизация" , message: "Невозможно \(sender.isOn ? "включить" : "выключить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Синхронизация", message: "Невозможно \(sender.isOn ? "включить" : "выключить") синхронизацию с iCloud, так как iCloud недоступен, выключен или запрещен системными настройками.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
             present(alert, animated: true, completion: { [weak sender] in
                 sender?.setOn(false, animated: true)
@@ -140,7 +140,7 @@ final class SettingsTableViewController: UITableViewController {
 
     // MARK: - Helper functions
 
-    func setSizeLabelText () {
+    func setSizeLabelText() {
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
             let size = FilesManager.sizeOfDirectoryContents(atPath: documentsDirectory) ?? "0 байт"
             downloadedFilesSizeLabel?.text = "Загруженные приложения к законопроектам занимают \(size)"
@@ -155,7 +155,7 @@ final class SettingsTableViewController: UITableViewController {
             // Reset keys to default
             UserServices.resetToDefaultApiKeys()
             updateKeysCells()
-            let alert = UIAlertController(title: "Используются системные ключи" , message: "", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Используются системные ключи", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
             present(alert, animated: true, completion: nil)
         } else {
@@ -163,11 +163,11 @@ final class SettingsTableViewController: UITableViewController {
 
             let alert = UIAlertController(title: "Введите полученные ключи", message: "", preferredStyle: UIAlertControllerStyle.alert)
 
-            alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            alert.addTextField(configurationHandler: { (textField: UITextField!) in
                 textField.placeholder = "Ключ API"
             })
 
-            alert.addTextField(configurationHandler: {(textField: UITextField!) in
+            alert.addTextField(configurationHandler: { (textField: UITextField!) in
                 textField.placeholder = "Ключ приложения"
             })
 
@@ -175,10 +175,12 @@ final class SettingsTableViewController: UITableViewController {
             let actionCancel = UIAlertAction(title: "Отменить", style: UIAlertActionStyle.default, handler: nil)
 
             let actionDone = UIAlertAction(title: "Применить", style: UIAlertActionStyle.default) { [weak self] _ in
-                guard let inputApiKey = alert.textFields?[0].text, let inputAppKey = alert.textFields?[1].text else { return }
+                guard let inputApiKey = alert.textFields?[0].text, let inputAppKey = alert.textFields?[1].text else {
+                    return
+                }
                 UserServices.setupCustomApiKeys(apiKey: inputApiKey, appToken: inputAppKey, completionMessage: {
                     (passing, message) in
-                    let alert = UIAlertController(title: passing ? "Успешно" : "Ошибка" , message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: passing ? "Успешно" : "Ошибка", message: message, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ок", style: UIAlertActionStyle.default))
                     self?.present(alert, animated: true) {
                         [weak self] in

@@ -1,5 +1,5 @@
 //
-//  BillSearchQuery.swift
+//  BillSearchself.swift
 //  RussianBills
 //
 //  Created by Xan Kraegor on 05.07.2017.
@@ -53,15 +53,16 @@ struct BillSearchQuery {
     /// Параметры stage и phase взаимоисключающие. Параметр phase позволяет фильтровать по типу события, т.е. производить более точную фильтрацию по сравнению с параметром stage.
 
     /// ПРОЧИЕ ПАРАМЕТРЫ
+    // По умолчанию - первая страница с результатами поиска
     var pageNumber: UInt = 1
     // Используется всегда максимальное значение
     let pageLimit: Int = 20
+    // Сортировка по-умолчанию
     var sortType: BillSearchQuerySortType = .last_event_date
 
     // MARK: - Initialization
 
     init() {
-
     }
 
     init(withNumber: String) {
@@ -78,15 +79,75 @@ struct BillSearchQuery {
 
     public var hasAnyFieldsFilled: Bool {
         let mirror = Mirror(reflecting: self)
-        var count = 0
         for child in mirror.children {
-            let val = child.value
-            let mir = Mirror(reflecting: val)
-            if mir.displayStyle == .optional, mir.children.first != nil {
-                count += 1
+            let value = child.value
+            let valueMirror = Mirror(reflecting: value)
+            if valueMirror.displayStyle == .optional, valueMirror.children.first != nil {
+                return true
             }
         }
-        return count > 0
+        return false
+    }
+
+    // MARK: - Updating Query
+
+    mutating func setLawType(withDescription description: String) {
+        switch description {
+        case LawType.federalLaw.description:
+            self.lawType = LawType.federalLaw
+        case LawType.federalConstitutionalLaw.description:
+            self.lawType = LawType.federalConstitutionalLaw
+        case LawType.constitutionalAmendment.description:
+            self.lawType = LawType.constitutionalAmendment
+        default: // "Любой"
+            self.lawType = nil
+        }
+    }
+
+    mutating func setBillStatus(withDescription description: String) {
+        switch description {
+        case BillStatus.examination.description:
+            self.status = BillStatus.examination
+        case BillStatus.extraprogrammaticalSubmitted.description:
+            self.status = BillStatus.extraprogrammaticalSubmitted
+        case BillStatus.finished.description:
+            self.status = BillStatus.finished
+        case BillStatus.finishedByOtherReasons.description:
+            self.status = BillStatus.finishedByOtherReasons
+        case BillStatus.inCommitteeProgramme.description:
+            self.status = BillStatus.inCommitteeProgramme
+        case BillStatus.inProgramme.description:
+            self.status = BillStatus.inProgramme
+        case BillStatus.recalled.description:
+            self.status = BillStatus.recalled
+        case BillStatus.rejected.description:
+            self.status = BillStatus.rejected
+        case BillStatus.signed.description:
+            self.status = BillStatus.signed
+        case BillStatus.submitted.description:
+            self.status = BillStatus.submitted
+        default: // "Любой"
+            self.status = nil
+        }
+    }
+
+    mutating func setSortOrder(withDescription description: String) {
+        switch description {
+        case BillSearchQuerySortType.name.description:
+            self.sortType = .name
+        case BillSearchQuerySortType.number.description:
+            self.sortType = .number
+        case BillSearchQuerySortType.date.description:
+            self.sortType = .date
+        case BillSearchQuerySortType.date_asc.description:
+            self.sortType = .date_asc
+        case BillSearchQuerySortType.last_event_date_asc.description:
+            self.sortType = .last_event_date_asc
+        case BillSearchQuerySortType.responsible_committee.description:
+            self.sortType = .responsible_committee
+        default: //this one used by default in the API
+            self.sortType = .last_event_date
+        }
     }
 
 }

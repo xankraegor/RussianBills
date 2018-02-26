@@ -16,7 +16,7 @@ extension UserDefaultsCoordinator {
 
     static func appToken() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
-            let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
+           let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let token = dict["appToken"] as? String {
                 return token
             }
@@ -26,7 +26,7 @@ extension UserDefaultsCoordinator {
 
     static func apiKey() -> String {
         if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
-            let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
+           let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] {
             if let key = dict["apiKey"] as? String {
                 return key
             }
@@ -36,7 +36,7 @@ extension UserDefaultsCoordinator {
 
     // MARK: - Custom Keys
 
-    static func getUsingCustomKeys()-> Bool {
+    static func getUsingCustomKeys() -> Bool {
         return UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.bool(forKey: "isUsingCustomKeys")
     }
 
@@ -44,9 +44,9 @@ extension UserDefaultsCoordinator {
         UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(value, forKey: "isUsingCustomKeys")
     }
 
-    static func customApiKeys()-> (apiKey: String, appToken: String)? {
+    static func customApiKeys() -> (apiKey: String, appToken: String)? {
         if let customApiKey = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "customApiKey"),
-            let customAppToken = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "customAppToken") {
+           let customAppToken = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "customAppToken") {
             return (customApiKey, customAppToken)
         } else {
             return nil

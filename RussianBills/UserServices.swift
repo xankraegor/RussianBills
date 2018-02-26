@@ -32,7 +32,9 @@ enum UserServices {
     }
 
     static func downloadCommittees(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.committee.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.committee.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.committies(current: nil, completion: { (result: [Committee_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -41,7 +43,9 @@ enum UserServices {
     }
 
     static func downloadLawClasses(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.lawClass.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.lawClasses { (result: [LawClass_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -50,7 +54,9 @@ enum UserServices {
     }
 
     static func downloadTopics(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.topics.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.topics.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.topics { (result: [Topic_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -59,7 +65,9 @@ enum UserServices {
     }
 
     static func downloadDeputies(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.deputy.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.deputy.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.deputies { (result: [Deputy_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -68,7 +76,9 @@ enum UserServices {
     }
 
     static func downloadFederalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.federalSubject.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.federalSubjects { (result: [FederalSubject_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -77,7 +87,9 @@ enum UserServices {
     }
 
     static func downloadRegionalSubjects(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.regionalSubject.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.regionalSubjects { (result: [RegionalSubject_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -86,7 +98,9 @@ enum UserServices {
     }
 
     static func downloadInstances(forced: Bool = false, completion: VoidToVoid = nil) {
-        guard forced || UserDefaultsCoordinator.instances.updateRequired() else { return }
+        guard forced || UserDefaultsCoordinator.instances.updateRequired() else {
+            return
+        }
         Dispatcher.shared.dispatchReferenceDownload {
             Request.instances { (result: [Instance_]) in
                 UserServices.downloadRefHandler(result: result, completion: completion)
@@ -95,7 +109,7 @@ enum UserServices {
     }
 
     static func downloadRefHandler<T: Object>(result: [T], completion: VoidToVoid) {
-        autoreleasepool{
+        autoreleasepool {
             let realm = try? Realm()
             try? realm?.write {
                 realm?.add(result, update: true)
@@ -127,8 +141,8 @@ enum UserServices {
 
                         // Check if a favorite bill has changes
                         if let existingFavoriteBillRecord = realm?.object(ofType: FavoriteBill_.self,
-                                                                          forPrimaryKey: res.number),
-                            res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
+                                forPrimaryKey: res.number),
+                           res.generateHashForLastEvent() != existingBill.generateHashForLastEvent() {
                             try? realm?.write {
                                 existingFavoriteBillRecord.favoriteHasUnseenChanges = true
                                 // Change bill updated timestamp accordingly
@@ -155,16 +169,18 @@ enum UserServices {
         autoreleasepool {
 
             guard let favoriteBills = try? Realm().objects(FavoriteBill_.self)
-                .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
-                    assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
-                    return
+                    .filter(FavoritesFilters.notMarkedToBeRemoved.rawValue) else {
+                assertionFailure("∆ UserServices can not instantiate Realm while updating favorite bills")
+                return
             }
 
             guard favoriteBills.count > 0 else {
                 return
             }
 
-            let queries: [BillSearchQuery] = favoriteBills.map { BillSearchQuery(withNumber: $0.number) }
+            let queries: [BillSearchQuery] = favoriteBills.map {
+                BillSearchQuery(withNumber: $0.number)
+            }
 
             for i in 0..<queries.count {
                 Dispatcher.shared.favoritesUpdateDispatchGroup.enter()
@@ -176,10 +192,10 @@ enum UserServices {
                     }
 
                     guard let bill = try? Realm().objects(Bill_.self).filter("number = '\(number)'").first,
-                        let existingBill = bill else {
-                            debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
-                            UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: number))
-                            return
+                          let existingBill = bill else {
+                        debugPrint("∆ Bill \(number) missing in Realm while updating favorite bills")
+                        UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: number))
+                        return
                     }
 
                     let existingBillParserContent = existingBill.parserContent
@@ -242,7 +258,7 @@ enum UserServices {
     static func pathForDownloadAttachment(forBillNumber: String, withLink link: String) -> String? {
         let billAttachmentsDirectory = FilesManager.attachmentDir(forBillNumber: forBillNumber)
         if let docId = FilesManager.extractUniqueDocumentNameFrom(urlString: link),
-            let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
+           let path = FilesManager.pathForFile(containingInName: docId, inDirectory: billAttachmentsDirectory) {
             return path
         } else {
             return nil
@@ -264,53 +280,53 @@ enum UserServices {
 
         Alamofire.download(downloadLink, to: destinationAF)
 
-            .downloadProgress(closure: { (progress) in
-                // For UI update
-                DispatchQueue.main.async {
-                    updateProgressStatus(progress.fractionCompleted)
-                }
-            })
-
-            .validate()
-
-            .responseData(queue: Dispatcher.shared.attachmentsDownloadQueue, completionHandler: { (response) in
-                if let error = response.result.error as? AFError {
-                    switch error {
-                    case .invalidURL(let url):
-                        assertionFailure("Invalid URL: \(url) - \(error.localizedDescription)")
-                    case .parameterEncodingFailed(let reason):
-                        assertionFailure("Parameter encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
-                    case .multipartEncodingFailed(let reason):
-                        assertionFailure("Multipart encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
-                    case .responseValidationFailed(let reason):
-                        assertionFailure("Response validation failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
-
-                        switch reason {
-                        case .dataFileNil, .dataFileReadFailed:
-                            assertionFailure("Downloaded file could not be read")
-                        case .missingContentType(let acceptableContentTypes):
-                            assertionFailure("Content Type Missing: \(acceptableContentTypes)")
-                        case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
-                            assertionFailure("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
-                        case .unacceptableStatusCode(let code):
-                            assertionFailure("Response status code was unacceptable: \(code)")
-                        }
-                    case .responseSerializationFailed(let reason):
-                        assertionFailure("Response serialization failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
+                .downloadProgress(closure: { (progress) in
+                    // For UI update
+                    DispatchQueue.main.async {
+                        updateProgressStatus(progress.fractionCompleted)
                     }
-                } else {
-                    if let suggestedFullFileName = response.response?.suggestedFilename?.removingPercentEncoding,
-                        let fileId = fileId {
-                        let suggestedExtension = URL(fileURLWithPath: suggestedFullFileName).pathExtension
-                        let fileNameWithoutExtension = URL(fileURLWithPath: suggestedFullFileName).deletingPathExtension()
-                        let targetFileName = "\(fileNameWithoutExtension.lastPathComponent.removingPercentEncoding ?? "")_#\(fileId).\(suggestedExtension)"
-                        FilesManager.renameFile(named: temporaryFileName, atPath: billAttachmentsDirectory, newName: targetFileName)
-                        if let comp = completion {
-                            comp()
+                })
+
+                .validate()
+
+                .responseData(queue: Dispatcher.shared.attachmentsDownloadQueue, completionHandler: { (response) in
+                    if let error = response.result.error as? AFError {
+                        switch error {
+                        case .invalidURL(let url):
+                            assertionFailure("Invalid URL: \(url) - \(error.localizedDescription)")
+                        case .parameterEncodingFailed(let reason):
+                            assertionFailure("Parameter encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
+                        case .multipartEncodingFailed(let reason):
+                            assertionFailure("Multipart encoding failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
+                        case .responseValidationFailed(let reason):
+                            assertionFailure("Response validation failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
+
+                            switch reason {
+                            case .dataFileNil, .dataFileReadFailed:
+                                assertionFailure("Downloaded file could not be read")
+                            case .missingContentType(let acceptableContentTypes):
+                                assertionFailure("Content Type Missing: \(acceptableContentTypes)")
+                            case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                                assertionFailure("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                            case .unacceptableStatusCode(let code):
+                                assertionFailure("Response status code was unacceptable: \(code)")
+                            }
+                        case .responseSerializationFailed(let reason):
+                            assertionFailure("Response serialization failed: \(error.localizedDescription)\nFailure Reason: \(reason)")
+                        }
+                    } else {
+                        if let suggestedFullFileName = response.response?.suggestedFilename?.removingPercentEncoding,
+                           let fileId = fileId {
+                            let suggestedExtension = URL(fileURLWithPath: suggestedFullFileName).pathExtension
+                            let fileNameWithoutExtension = URL(fileURLWithPath: suggestedFullFileName).deletingPathExtension()
+                            let targetFileName = "\(fileNameWithoutExtension.lastPathComponent.removingPercentEncoding ?? "")_#\(fileId).\(suggestedExtension)"
+                            FilesManager.renameFile(named: temporaryFileName, atPath: billAttachmentsDirectory, newName: targetFileName)
+                            if let comp = completion {
+                                comp()
+                            }
                         }
                     }
-                }
-            })
+                })
     }
 
     static func deleteAttachment(usingKey key: String, forBillNr: String) {
@@ -324,7 +340,7 @@ enum UserServices {
 
     // MARK: - Custom Keys
 
-    public static func setupCustomApiKeys(apiKey: String, appToken: String, completionMessage: @escaping (Bool, String)->Void) {
+    public static func setupCustomApiKeys(apiKey: String, appToken: String, completionMessage: @escaping (Bool, String) -> Void) {
         UserDefaultsCoordinator.setCustomKeys(apiKey: apiKey, appToken: appToken)
         UserDefaultsCoordinator.setUsingCustomKeys(to: true)
         UserServices.testSavedCustomKeys { (passing, message) in
@@ -340,11 +356,13 @@ enum UserServices {
         UserDefaultsCoordinator.setCustomKeys(apiKey: "", appToken: "")
     }
 
-    private static func testSavedCustomKeys(completion: @escaping (_ passing: Bool, _ message: String)->Void) {
+    private static func testSavedCustomKeys(completion: @escaping (_ passing: Bool, _ message: String) -> Void) {
         // Error Response {"code":1,"text":"API token _ is not found."}
 
         let searchQuery = BillSearchQuery(withNumber: "274618-7")
-        guard let requestMessage = RequestRouter.search(bill: searchQuery).urlRequest else { return }
+        guard let requestMessage = RequestRouter.search(bill: searchQuery).urlRequest else {
+            return
+        }
         Alamofire.request(requestMessage).responseJSON { response in
             if let error = response.error {
                 completion(false, "Ошибка при сохранении ключей: \(error.localizedDescription)")

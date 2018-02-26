@@ -11,7 +11,9 @@ import UIKit
 final class Dispatcher {
     // Singleton
     static let shared = Dispatcher()
-    private init() {}
+
+    private init() {
+    }
 
     // Queues and groups
     let referenceDownloadDispatchGroup = DispatchGroup()
@@ -31,13 +33,13 @@ final class Dispatcher {
 
     // Dispatcher Functions
 
-    func dispatchReferenceDownload(with: @escaping ()->Void) {
+    func dispatchReferenceDownload(with: @escaping () -> Void) {
         DispatchQueue.global().async(group: Dispatcher.shared.referenceDownloadDispatchGroup) {
             with()
         }
     }
 
-    func dispatchBillsPrefetching(afterSeconds: Double, block: @escaping ()->Void) {
+    func dispatchBillsPrefetching(afterSeconds: Double, block: @escaping () -> Void) {
         prefetchBillsWorkItem?.cancel()
         billsPrefetchDispatchQueue.asyncAfter(deadline: DispatchTime.now() + afterSeconds) {
             block()

@@ -96,7 +96,7 @@ extension WatchSessionManager {
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         // handle receiving user info
         //        DispatchQueue.main.async() {
-            // make sure to put on the main queue to update UI!
+        // make sure to put on the main queue to update UI!
         //        }
     }
 }
@@ -116,7 +116,7 @@ extension WatchSessionManager {
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         // handle receiving file
         // DispatchQueue.main.async() {
-            // make sure to put on the main queue to update UI!
+        // make sure to put on the main queue to update UI!
         // }
     }
 

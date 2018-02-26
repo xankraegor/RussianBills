@@ -35,14 +35,14 @@ enum UserDefaultsCoordinator: String {
         let key = variableNameForUpdateTimestamp()
 
         guard let updatedDate = updatedAt(),
-            let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
+              let previousUpdateTimestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double?, previousUpdateTimestamp > 0 else {
             return true
         }
 
         let timeout: TimeInterval
         switch self {
         case .favorites:
-            timeout =  UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
+            timeout = UserDefaultsCoordinator.favoriteBillsUpdateTimeout()
         default:
             timeout = UserDefaultsCoordinator.referenceValuesUpdateTimeout
         }
@@ -54,7 +54,9 @@ enum UserDefaultsCoordinator: String {
 
     public func updatedAt() -> Date? {
         let key = variableNameForUpdateTimestamp()
-        guard let timestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double? else { return nil }
+        guard let timestamp = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.double(forKey: key) as Double? else {
+            return nil
+        }
 
         let date = Date(timeIntervalSince1970: timestamp)
         let reference = Date(timeIntervalSinceReferenceDate: 0)
@@ -76,27 +78,27 @@ enum UserDefaultsCoordinator: String {
             return
         }
 
-        #if BASEPROJECT
-            switch element {
-            case _ as FederalSubject_:
-                UserDefaultsCoordinator.federalSubject.updateTimestamp()
-            case _ as RegionalSubject_ :
-                UserDefaultsCoordinator.regionalSubject.updateTimestamp()
-            case _ as Committee_:
-                UserDefaultsCoordinator.committee.updateTimestamp()
-            case _ as LawClass_:
-                UserDefaultsCoordinator.lawClass.updateTimestamp()
-            case _ as Deputy_:
-                UserDefaultsCoordinator.deputy.updateTimestamp()
-            case _ as Topic_:
-                UserDefaultsCoordinator.topics.updateTimestamp()
-            case _ as Instance_:
-                UserDefaultsCoordinator.instances.updateTimestamp()
-            case _ as Stage_:
-                UserDefaultsCoordinator.stage.updateTimestamp()
-            default: break
-            }
-        #endif
+#if BASEPROJECT
+        switch element {
+        case _ as FederalSubject_:
+            UserDefaultsCoordinator.federalSubject.updateTimestamp()
+        case _ as RegionalSubject_:
+            UserDefaultsCoordinator.regionalSubject.updateTimestamp()
+        case _ as Committee_:
+            UserDefaultsCoordinator.committee.updateTimestamp()
+        case _ as LawClass_:
+            UserDefaultsCoordinator.lawClass.updateTimestamp()
+        case _ as Deputy_:
+            UserDefaultsCoordinator.deputy.updateTimestamp()
+        case _ as Topic_:
+            UserDefaultsCoordinator.topics.updateTimestamp()
+        case _ as Instance_:
+            UserDefaultsCoordinator.instances.updateTimestamp()
+        case _ as Stage_:
+            UserDefaultsCoordinator.stage.updateTimestamp()
+        default: break
+        }
+#endif
 
     }
 
@@ -106,7 +108,7 @@ enum UserDefaultsCoordinator: String {
         UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.set(nr2, forKey: "quickSearchSavedNr2")
     }
 
-    public static func getQuickSearchFields()->(name: String?, nr1: String?, nr2: String?) {
+    public static func getQuickSearchFields() -> (name: String?, nr1: String?, nr2: String?) {
         let name = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedName")
         let nr1 = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedNr1")
         let nr2 = UserDefaults(suiteName: UserDefaultsCoordinator.suiteName)!.string(forKey: "quickSearchSavedNr2")

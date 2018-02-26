@@ -1,12 +1,12 @@
 {
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
+  "info": {
+    "version": 1,
+    "author": "xcode"
   },
-  "data" : [
+  "data": [
     {
-      "idiom" : "universal",
-      "filename" : "README.md"
+      "idiom": "universal",
+      "filename": "README.md"
     }
   ]
 }

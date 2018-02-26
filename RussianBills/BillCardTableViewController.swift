@@ -151,7 +151,7 @@ final class BillCardTableViewController: UITableViewController {
     // MARK: - Helper functions
 
     private func fetchExistingBillData(animated: Bool) {
-        
+
         if let bill = bill {
             navigationItem.title = "№ \(bill.number)"
             organizedTextButton.title = bill.favorite ? "Отслеживаемый" : ""
@@ -220,7 +220,9 @@ final class BillCardTableViewController: UITableViewController {
 
             UserServices.downloadBills(withQuery: BillSearchQuery(withNumber: favbill.number), completion: { [weak self] (bills, _) in
                 DispatchQueue.main.async {
-                    guard let bill = bills.first else { return }
+                    guard let bill = bills.first else {
+                        return
+                    }
 
                     self?.organizedTextButton.title = bill.favorite ? "Отслеживаемый" : ""
 
@@ -289,11 +291,11 @@ final class BillCardTableViewController: UITableViewController {
             UIPasteboard.general.string = self?.description
         }))
 
-        alert.addAction(UIAlertAction(title: "Скопировать ссылку", style: .default, handler: {[weak self] (action) in
+        alert.addAction(UIAlertAction(title: "Скопировать ссылку", style: .default, handler: { [weak self] (action) in
             UIPasteboard.general.string = self?.bill?.url
         }))
 
-        alert.addAction(UIAlertAction(title: "Открыть в браузере", style: .default, handler: {[weak self] (action) in
+        alert.addAction(UIAlertAction(title: "Открыть в браузере", style: .default, handler: { [weak self] (action) in
             if let urlString = self?.bill?.url, let url = URL(string: urlString) {
                 let svc = SFSafariViewController(url: url)
                 self?.present(svc, animated: true, completion: nil)
@@ -322,7 +324,8 @@ final class BillCardTableViewController: UITableViewController {
             return
         }
 
-        alert.addAction(UIAlertAction(title: fav ? "Убрать из отслеживаемых" : "Добавить в отслеживаемые", style: fav ? .destructive : .default, handler: { [weak self] _ in self?.changeFavoriteStatusAction()
+        alert.addAction(UIAlertAction(title: fav ? "Убрать из отслеживаемых" : "Добавить в отслеживаемые", style: fav ? .destructive : .default, handler: { [weak self] _ in
+            self?.changeFavoriteStatusAction()
         }))
 
         alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
@@ -378,8 +381,6 @@ final class BillCardTableViewController: UITableViewController {
 
     }
 
-    
-
 
     // MARK: - Helper functions
 
@@ -405,7 +406,7 @@ final class BillCardTableViewController: UITableViewController {
 
     private func beginStagesParsing() {
         if let billUrlString = bill?.url,
-            let billUrl = URL(string: billUrlString) {
+           let billUrl = URL(string: billUrlString) {
             debugPrint("BillURL: \(billUrlString)")
 
             Request.htmlToParse(forUrl: billUrl, completion: { (html, error) in

@@ -29,7 +29,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     lazy var favoriteBills = {
         return realm?.objects(FavoriteBill_.self).filter(FavoritesFilters.notMarkedToBeRemoved.rawValue)
-            .sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
+                .sorted(by: [SortDescriptor(keyPath: "favoriteHasUnseenChanges", ascending: false), "number"])
     }()
 
 
@@ -69,11 +69,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         tableView?.reloadData()
 
         let totalCount = favoriteBills?.filter(FavoritesFilters.notMarkedToBeRemoved.rawValue).count ?? 0
-        let updatedCount =  updatedBills?.count ?? 0
+        let updatedCount = updatedBills?.count ?? 0
 
         let updatedDate: Date?
         if let fb = favoriteBills {
-            updatedDate = Array(fb).flatMap{$0.bill?.updated}.min()
+            updatedDate = Array(fb).flatMap {
+                $0.bill?.updated
+            }.min()
         } else {
             updatedDate = nil
         }
@@ -120,7 +122,9 @@ extension TodayViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let number = favoriteBills?[indexPath.row].number,
-            number.count > 0 else { return }
+              number.count > 0 else {
+            return
+        }
         let url = URL(string: "rusBills://favorites")!.appendingPathComponent(number)
 
         extensionContext?.open(url, completionHandler: nil)

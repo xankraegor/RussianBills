@@ -66,18 +66,18 @@ final class MainTableViewController: UITableViewController {
                 (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.lawClasses
             case "TopicsSegue":
                 (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.topics
-                case "CommittiesSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.committees
-                case "FederalSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.federalSubjects
-                case "RegionalSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
-                case "InstancesSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.instances
-                case "DeputiesSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.dumaDeputies
-                case "CouncilSegue":
-                    (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.councilMembers
+            case "CommittiesSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.committees
+            case "FederalSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.federalSubjects
+            case "RegionalSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.regionalSubjects
+            case "InstancesSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.instances
+            case "DeputiesSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.dumaDeputies
+            case "CouncilSegue":
+                (segue.destination as? SimpleTableViewController)?.objectsToDisplay = SimpleTableViewControllerSelector.councilMembers
             default:
                 break
             }

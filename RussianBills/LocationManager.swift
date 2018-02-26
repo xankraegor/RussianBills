@@ -16,7 +16,9 @@ protocol LocationManagerDelegate: class {
 final class LocationManager: NSObject {
     // Singleton
     static let instance = LocationManager()
-    private override init() {}
+
+    private override init() {
+    }
 
     weak var delegate: LocationManagerDelegate?
 

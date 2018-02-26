@@ -35,7 +35,9 @@ final class LegislativeSubjTableViewController: UITableViewController {
     }
 
     var url: URL? {
-        guard websiteAddress.count > 0 else { return nil }
+        guard websiteAddress.count > 0 else {
+            return nil
+        }
         return URL(string: websiteAddress)
     }
 
@@ -173,13 +175,13 @@ final class LegislativeSubjTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "showOnMapSegue",
-            let dest = segue.destination as? OnMapViewController {
+           let dest = segue.destination as? OnMapViewController {
             dest.locationToDisplay = self.locationForMap
             dest.nameToDisplay = organizationName
         }
 
         if segue.identifier == "SearchWithThisSubjectSegueId",
-            let dest = segue.destination as? SearchFormController, let st = subjectType, let existingId = id {
+           let dest = segue.destination as? SearchFormController, let st = subjectType, let existingId = id {
             switch st {
             case .deputy:
                 if let dep = st.item(byId: existingId) as? Deputy_ {

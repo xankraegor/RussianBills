@@ -84,15 +84,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-       backgroundTask = application.beginBackgroundTask(withName: "BackgroundFavoriteBillsUpdating", expirationHandler: {
-        [weak self] in
-        UserServices.updateFavoriteBills(forced: false, completeWithUpdatedCount: {
-            [weak self] (unseenFavoriteBillsCount) in
-            NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
-            SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
-            self?.endBackgroundTask()
+        backgroundTask = application.beginBackgroundTask(withName: "BackgroundFavoriteBillsUpdating", expirationHandler: {
+            [weak self] in
+            UserServices.updateFavoriteBills(forced: false, completeWithUpdatedCount: {
+                [weak self] (unseenFavoriteBillsCount) in
+                NotificationCenter.default.post(name: Notification.Name("newUpdatedFavoriteBillsCountNotification"), object: nil, userInfo: ["count": unseenFavoriteBillsCount])
+                SyncMan.shared.appBadgeToUnseenChangedFavoriteBills(unseenFavoriteBillsCount)
+                self?.endBackgroundTask()
+            })
         })
-       })
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         Dispatcher.shared.favoriteBillsUpdateTimer
-            = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
+                = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
 
         Dispatcher.shared.favoriteBillsUpdateTimer?.schedule(deadline: .now(), repeating: DispatchTimeInterval.seconds(29), leeway: .seconds(1))
         Dispatcher.shared.favoriteBillsUpdateTimer?.resume()

@@ -9,7 +9,7 @@
 import Foundation
 
 #if os(iOS)
-    import RealmSwift
+import RealmSwift
 #endif
 
 public final class FavoriteBillForWatchOS {
@@ -22,7 +22,7 @@ public final class FavoriteBillForWatchOS {
     var lastEventPhase: String
     var lastEventFullDecision: String
 
-    #if os(iOS)
+#if os(iOS)
 
     init(withFavoriteBill fav: FavoriteBill_) {
         self.number = fav.number
@@ -35,12 +35,14 @@ public final class FavoriteBillForWatchOS {
         self.lastEventFullDecision = fav.bill?.generateSolutionDescription() ?? ""
     }
 
-    #endif
+#endif
 
     init?(withDictionary dict: [String: String]) {
         guard let existingNumber = dict["number"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
-            let existingName = dict["name"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
-            existingName.count > 0, existingNumber.count > 0 else { return nil }
+              let existingName = dict["name"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+              existingName.count > 0, existingNumber.count > 0 else {
+            return nil
+        }
         self.number = existingNumber
         self.name = existingName
         self.comments = dict["comments"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -50,15 +52,15 @@ public final class FavoriteBillForWatchOS {
         self.lastEventFullDecision = dict["lastEventFullDecision"]?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
     }
 
-    func dictionary()->Dictionary<String, String> {
+    func dictionary() -> Dictionary<String, String> {
         return [
-            "number" : self.number,
-            "name" : self.name,
-            "comments" : self.comments,
-            "lastEventDate" : self.lastEventDate,
-            "lastEventStage" : self.lastEventStage,
-            "lastEventPhase" : self.lastEventPhase,
-            "lastEventFullDecision" : self.lastEventFullDecision
+            "number": self.number,
+            "name": self.name,
+            "comments": self.comments,
+            "lastEventDate": self.lastEventDate,
+            "lastEventStage": self.lastEventStage,
+            "lastEventPhase": self.lastEventPhase,
+            "lastEventFullDecision": self.lastEventFullDecision
         ]
     }
 

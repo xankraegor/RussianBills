@@ -46,11 +46,11 @@ extension FavoriteBill_ {
     static func from(record: CKRecord) -> FavoriteBill_? {
         let number = record.recordID.recordName
         guard let name = record[.name] as? String,
-        let comments = record[.comments] as? String,
-        let note = record[.note] as? String,
-        let favoriteUpdatedTimestamp = record[.favoriteUpdatedTimestamp] as? Date,
-        let favoriteHasUnseenChanges = record[.favoriteHasUnseenChanges] as? Int,
-        let favoriteHasUnseenChangesTimestamp = record[.favoriteHasUnseenChangesTimestamp] as? Date else {
+              let comments = record[.comments] as? String,
+              let note = record[.note] as? String,
+              let favoriteUpdatedTimestamp = record[.favoriteUpdatedTimestamp] as? Date,
+              let favoriteHasUnseenChanges = record[.favoriteHasUnseenChanges] as? Int,
+              let favoriteHasUnseenChangesTimestamp = record[.favoriteHasUnseenChangesTimestamp] as? Date else {
             return nil
         }
 
