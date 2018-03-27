@@ -149,5 +149,29 @@ struct BillSearchQuery {
             self.sortType = .last_event_date
         }
     }
+}
+
+extension BillSearchQuery: Equatable {
+    static func ==(lhs: BillSearchQuery, rhs: BillSearchQuery) -> Bool {
+        return lhs.appendedDocumentNumber == rhs.appendedDocumentNumber &&
+            lhs.committeeCoexecutorId == rhs.committeeCoexecutorId &&
+            lhs.committeeProfileId == rhs.committeeProfileId &&
+            lhs.committeeResponsibleId == rhs.committeeResponsibleId &&
+            lhs.deputyId == rhs.deputyId &&
+            lhs.federalSubjectId == rhs.federalSubjectId &&
+            lhs.lawClass?.id ?? -1 == rhs.lawClass?.id ?? -1 &&
+            lhs.lawType == rhs.lawType &&
+            lhs.name == rhs.name &&
+            lhs.number == rhs.number &&
+            lhs.pageLimit == rhs.pageLimit &&
+            lhs.pageNumber == rhs.pageNumber &&
+            lhs.regionalSubjectId == rhs.regionalSubjectId &&
+            lhs.registrationEnd == rhs.registrationEnd &&
+            lhs.registrationStart == rhs.registrationStart &&
+            lhs.sortType == rhs.sortType &&
+            lhs.status == rhs.status &&
+            lhs.topic?.id ?? -1 == rhs.topic?.id ?? -1
+    }
+
 
 }
