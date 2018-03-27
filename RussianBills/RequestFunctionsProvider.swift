@@ -66,7 +66,7 @@ enum Request {
                 }
             }
         } else {
-            assertionFailure("Cannot generate a request about regional subjects")
+            assertionFailure("Cannot generate a bill request")
         }
     }
 

@@ -28,6 +28,7 @@
 		2A290A291F96D2440056E990 /* SearchFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A290A281F96D2440056E990 /* SearchFormController.swift */; };
 		2A2F0A2E1F1FEFEF001D4B89 /* BillParserPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */; };
 		2A30607E1FE2FDCA0060ED7A /* fabric.apikey in Resources */ = {isa = PBXBuildFile; fileRef = 2A85AFD11FE2C30D0073261A /* fabric.apikey */; };
+		2A370DB920544BCA0022437F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A370DB820544BCA0022437F /* Assets.xcassets */; };
 		2A3A03FD1F990773007D4EFE /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */; };
 		2A3A04031F992BB9007D4EFE /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */; };
 		2A3A19E91F218BB900CE7BAF /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */; };
@@ -257,6 +258,7 @@
 		2A23F0BF1FC4A5DD00462428 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2A290A281F96D2440056E990 /* SearchFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormController.swift; sourceTree = "<group>"; };
 		2A2F0A2D1F1FEFEF001D4B89 /* BillParserPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillParserPhase.swift; sourceTree = "<group>"; };
+		2A370DB820544BCA0022437F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A3A03FC1F990773007D4EFE /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		2A3A04021F992BB9007D4EFE /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		2A3A19E81F218BB900CE7BAF /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				2AF254861FD070DE00F48DEA /* RusBillsIMessageExtension.entitlements */,
 				2A3C163F1FCF636900371B1B /* MessagesViewController.swift */,
 				2A3C164E1FCF6A3300371B1B /* MessagesViewTableViewCell.swift */,
+				2A370DB820544BCA0022437F /* Assets.xcassets */,
 				2A3C16411FCF636900371B1B /* MainInterface.storyboard */,
 				2A3C16461FCF636900371B1B /* Info.plist */,
 			);
@@ -1001,6 +1004,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A85AFD41FE2C30E0073261A /* fabric.apikey in Resources */,
+				2A370DB920544BCA0022437F /* Assets.xcassets in Resources */,
 				2A3C16431FCF636900371B1B /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
