@@ -21,19 +21,21 @@
 #import "RLMAccessor.h"
 #import "RLMArray.h"
 #import "RLMCollection_Private.hpp"
+#import "RLMObjectBase_Private.h"
 #import "RLMObjectSchema_Private.hpp"
 #import "RLMObjectStore.h"
 #import "RLMProperty.h"
 #import "RLMQueryUtil.hpp"
+#import "RLMRealm_Private.hpp"
 #import "RLMSchema_Private.h"
 
 #import "collection_notifications.hpp"
 #import "object.hpp"
 
 @interface RLMPropertyChange ()
-@property(nonatomic, readwrite, strong) NSString *name;
-@property(nonatomic, readwrite, strong, nullable) id previousValue;
-@property(nonatomic, readwrite, strong, nullable) id value;
+@property (nonatomic, readwrite, strong) NSString *name;
+@property (nonatomic, readwrite, strong, nullable) id previousValue;
+@property (nonatomic, readwrite, strong, nullable) id value;
 @end
 
 // We declare things in RLMObject which are actually implemented in RLMObjectBase
@@ -70,11 +72,11 @@
 #pragma mark - Class-based Object Creation
 
 + (instancetype)createInDefaultRealmWithValue:(id)value {
-    return (RLMObject *) RLMCreateObjectInRealmWithValue([RLMRealm defaultRealm], [self className], value, false);
+    return (RLMObject *)RLMCreateObjectInRealmWithValue([RLMRealm defaultRealm], [self className], value, false);
 }
 
 + (instancetype)createInRealm:(RLMRealm *)realm withValue:(id)value {
-    return (RLMObject *) RLMCreateObjectInRealmWithValue(realm, [self className], value, false);
+    return (RLMObject *)RLMCreateObjectInRealmWithValue(realm, [self className], value, false);
 }
 
 + (instancetype)createOrUpdateInDefaultRealmWithValue:(id)value {
@@ -88,7 +90,7 @@
         NSString *reason = [NSString stringWithFormat:@"'%@' does not have a primary key and can not be updated", schema.className];
         @throw [NSException exceptionWithName:@"RLMExecption" reason:reason userInfo:nil];
     }
-    return (RLMObject *) RLMCreateObjectInRealmWithValue(realm, [self className], value, true);
+    return (RLMObject *)RLMCreateObjectInRealmWithValue(realm, [self className], value, true);
 }
 
 #pragma mark - Subscripting
@@ -159,12 +161,14 @@
 
 - (RLMNotificationToken *)addNotificationBlock:(RLMObjectChangeBlock)block {
     return RLMObjectAddNotificationBlock(self, ^(NSArray<NSString *> *propertyNames,
-            NSArray *oldValues, NSArray *newValues, NSError *error) {
+                                                 NSArray *oldValues, NSArray *newValues, NSError *error) {
         if (error) {
             block(false, nil, error);
-        } else if (!propertyNames) {
+        }
+        else if (!propertyNames) {
             block(true, nil, nil);
-        } else {
+        }
+        else {
             auto properties = [NSMutableArray arrayWithCapacity:propertyNames.count];
             for (NSUInteger i = 0, count = propertyNames.count; i < count; ++i) {
                 auto prop = [RLMPropertyChange new];
@@ -261,7 +265,6 @@
 @end
 
 static bool treatFakeObjectAsRLMObject = false;
-
 void RLMSetTreatFakeObjectAsRLMObject(BOOL flag) {
     treatFakeObjectAsRLMObject = flag;
 }
@@ -296,7 +299,6 @@ BOOL RLMIsObjectSubclass(Class klass) {
 
 @interface RLMObjectNotificationToken : RLMCancellationToken
 @end
-
 @implementation RLMObjectNotificationToken {
 @public
     realm::Object _object;
@@ -311,14 +313,13 @@ RLMNotificationToken *RLMObjectAddNotificationBlock(RLMObjectBase *obj, RLMObjec
 
     struct {
         void (^block)(NSArray<NSString *> *, NSArray *, NSArray *, NSError *);
-
         RLMObjectBase *object;
 
         NSArray<NSString *> *propertyNames = nil;
         NSArray *oldValues = nil;
         bool deleted = false;
 
-        void populateProperties(realm::CollectionChangeSet const &c) {
+        void populateProperties(realm::CollectionChangeSet const& c) {
             if (propertyNames) {
                 return;
             }
@@ -344,7 +345,7 @@ RLMNotificationToken *RLMObjectAddNotificationBlock(RLMObjectBase *obj, RLMObjec
             }
         }
 
-        NSArray *readValues(realm::CollectionChangeSet const &c) {
+        NSArray *readValues(realm::CollectionChangeSet const& c) {
             if (c.empty()) {
                 return nil;
             }
@@ -358,25 +359,27 @@ RLMNotificationToken *RLMObjectAddNotificationBlock(RLMObjectBase *obj, RLMObjec
                 id value = [object valueForKey:name];
                 if (!value || [value isKindOfClass:[RLMArray class]]) {
                     [values addObject:NSNull.null];
-                } else {
+                }
+                else {
                     [values addObject:value];
                 }
             }
             return values;
         }
 
-        void before(realm::CollectionChangeSet const &c) {
+        void before(realm::CollectionChangeSet const& c) {
             @autoreleasepool {
                 oldValues = readValues(c);
             }
         }
 
-        void after(realm::CollectionChangeSet const &c) {
+        void after(realm::CollectionChangeSet const& c) {
             @autoreleasepool {
                 auto newValues = readValues(c);
                 if (deleted) {
                     block(nil, nil, nil, nil);
-                } else if (newValues) {
+                }
+                else if (newValues) {
                     block(propertyNames, oldValues, newValues, nil);
                 }
                 propertyNames = nil;

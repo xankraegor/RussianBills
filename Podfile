@@ -6,7 +6,7 @@ target "RussianBills" do
   pod 'Alamofire', '~> 4.6'
   pod 'RealmSwift'
   pod 'SwiftyJSON'
-  pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feature/v4.0.0'
+  pod 'Kanna', '~> 4.0.0'
   pod 'Eureka'
   pod 'Fabric'
   pod 'Crashlytics'
@@ -14,12 +14,12 @@ end
 #=========================================================================
 target "RusBillsTodayExtension" do
   pod 'RealmSwift'
-  pod ‘SwiftyJSON '
-    pod ' Fabric '
-    pod ' Crashlytics '
+  pod 'SwiftyJSON'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 #=========================================================================
 target "RusBillsIMessageExtension" do
-    pod ' RealmSwift '
-    pod ‘SwiftyJSON'
+  pod 'RealmSwift'
+  pod 'SwiftyJSON'
 end

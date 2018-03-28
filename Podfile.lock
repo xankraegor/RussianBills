@@ -1,15 +1,15 @@
 PODS:
-  - Alamofire (4.6.0)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
-  - Eureka (4.0.1)
-  - Fabric (1.7.2)
+  - Alamofire (4.7.0)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Eureka (4.1.1)
+  - Fabric (1.7.6)
   - Kanna (4.0.0)
-  - Realm (3.1.0):
-    - Realm/Headers (= 3.1.0)
-  - Realm/Headers (3.1.0)
-  - RealmSwift (3.1.0):
-    - Realm (= 3.1.0)
+  - Realm (3.3.0):
+    - Realm/Headers (= 3.3.0)
+  - Realm/Headers (3.3.0)
+  - RealmSwift (3.3.0):
+    - Realm (= 3.3.0)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
@@ -17,30 +17,20 @@ DEPENDENCIES:
   - Crashlytics
   - Eureka
   - Fabric
-  - Kanna (from `https://github.com/tid-kijyun/Kanna.git`, branch `feature/v4.0.0`)
+  - Kanna (~> 4.0.0)
   - RealmSwift
   - SwiftyJSON
 
-EXTERNAL SOURCES:
-  Kanna:
-    :branch: feature/v4.0.0
-    :git: https://github.com/tid-kijyun/Kanna.git
-
-CHECKOUT OPTIONS:
-  Kanna:
-    :commit: 58e3513d20cd16fe8b9ff16b5a2b481fcd643499
-    :git: https://github.com/tid-kijyun/Kanna.git
-
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   Kanna: d5ae2a26472f7e7a474e7f36a9cd8aa2c8c63ad3
-  Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
-  RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
+  Realm: 7d74ad6c5020432f58fe5e1df90bb6d97b2c7fef
+  RealmSwift: b2fa31a09c22e246026766557405505eeaad2b01
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: a6f3c9249941462863df9d1295a334fe8365b4c6
+PODFILE CHECKSUM: 14c23818a6ff49a89383b4839399c3e0beeef6b9
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

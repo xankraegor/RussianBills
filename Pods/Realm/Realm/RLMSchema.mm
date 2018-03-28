@@ -23,13 +23,17 @@
 #import "RLMObject_Private.hpp"
 #import "RLMObjectSchema_Private.hpp"
 #import "RLMProperty_Private.h"
+#import "RLMRealm_Private.hpp"
 #import "RLMSwiftSupport.h"
+#import "RLMUtil.hpp"
 
+#import "object_schema.hpp"
 #import "object_store.hpp"
 #import "schema.hpp"
 
 #import <realm/group.hpp>
 
+#import <objc/runtime.h>
 #include <mutex>
 
 using namespace realm;
@@ -38,13 +42,12 @@ const uint64_t RLMNotVersioned = realm::ObjectStore::NotVersioned;
 
 // RLMSchema private properties
 @interface RLMSchema ()
-@property(nonatomic, readwrite) NSMutableDictionary *objectSchemaByName;
+@property (nonatomic, readwrite) NSMutableDictionary *objectSchemaByName;
 @end
 
 // Private RLMSchema subclass that skips class registration on lookup
 @interface RLMPrivateSchema : RLMSchema
 @end
-
 @implementation RLMPrivateSchema
 - (RLMObjectSchema *)schemaForClassName:(NSString *)className {
     return self.objectSchemaByName[className];
@@ -111,9 +114,9 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
         if ([RLMSwiftSupport isSwiftClassName:className]) {
             className = [RLMSwiftSupport demangleClassName:className];
         }
-            // NSStringFromClass demangles the names for top-level Swift classes
-            // but not for nested classes. _T indicates it's a Swift symbol, t
-            // indicates it's a type, and C indicates it's a class.
+        // NSStringFromClass demangles the names for top-level Swift classes
+        // but not for nested classes. _T indicates it's a Swift symbol, t
+        // indicates it's a type, and C indicates it's a class.
         else if ([className hasPrefix:@"_TtC"]) {
             @throw RLMException(@"RLMObject subclasses cannot be nested within other declarations. Please move %@ to global scope.", className);
         }
@@ -121,7 +124,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
         if (Class existingClass = s_localNameToClass[className]) {
             if (existingClass != cls) {
                 @throw RLMException(@"RLMObject subclasses with the same name cannot be included twice in the same target. "
-                        @"Please make sure '%@' is only linked once to your current target.", className);
+                                    @"Please make sure '%@' is only linked once to your current target.", className);
             }
             continue;
         }
@@ -179,7 +182,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
     [classes getObjects:classArray.get() range:NSMakeRange(0, count)];
 
     RLMSchema *schema = [[self alloc] init];
-    @synchronized (s_localNameToClass) {
+    @synchronized(s_localNameToClass) {
         RLMRegisterClassLocalNames(classArray.get(), count);
 
         schema->_objectSchemaByName = [NSMutableDictionary dictionaryWithCapacity:count];
@@ -211,7 +214,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
 }
 
 + (RLMObjectSchema *)sharedSchemaForClass:(Class)cls {
-    @synchronized (s_localNameToClass) {
+    @synchronized(s_localNameToClass) {
         // We create instances of Swift objects during schema init, and they
         // obviously need to not also try to initialize the schema
         if (s_sharedSchemaState == SharedSchemaState::Initializing) {
@@ -235,7 +238,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
 
 // schema based on runtime objects
 + (instancetype)sharedSchema {
-    @synchronized (s_localNameToClass) {
+    @synchronized(s_localNameToClass) {
         // We replace this method with one which just returns s_sharedSchema
         // once initialization is complete, but we still need to check if it's
         // already complete because it may have been done by another thread
@@ -269,9 +272,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
 
         // Replace this method with one that doesn't need to acquire a lock
         Class metaClass = objc_getMetaClass(class_getName(self));
-        IMP imp = imp_implementationWithBlock(^{
-            return s_sharedSchema;
-        });
+        IMP imp = imp_implementationWithBlock(^{ return s_sharedSchema; });
         class_replaceMethod(metaClass, @selector(sharedSchema), imp, "@@:");
 
         s_sharedSchemaState = SharedSchemaState::Initialized;
@@ -281,7 +282,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
 }
 
 // schema based on tables in a realm
-+ (instancetype)dynamicSchemaFromObjectStoreSchema:(Schema const &)objectStoreSchema {
++ (instancetype)dynamicSchemaFromObjectStoreSchema:(Schema const&)objectStoreSchema {
     // cache descriptors for all subclasses of RLMObject
     NSMutableArray *schemaArray = [NSMutableArray arrayWithCapacity:objectStoreSchema.size()];
     for (auto &objectSchema : objectStoreSchema) {
@@ -318,7 +319,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
 - (id)copyWithZone:(NSZone *)zone {
     RLMSchema *schema = [[RLMSchema allocWithZone:zone] init];
     schema->_objectSchemaByName = [[NSMutableDictionary allocWithZone:zone]
-            initWithDictionary:_objectSchemaByName copyItems:YES];
+                                   initWithDictionary:_objectSchemaByName copyItems:YES];
     return schema;
 }
 
@@ -341,7 +342,7 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
     NSArray *sort = @[[NSSortDescriptor sortDescriptorWithKey:@"className" ascending:YES]];
     for (RLMObjectSchema *objectSchema in [self.objectSchema sortedArrayUsingDescriptors:sort]) {
         [objectSchemaString appendFormat:@"\t%@\n",
-                                         [objectSchema.description stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"]];
+         [objectSchema.description stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"]];
     }
     return [NSString stringWithFormat:@"Schema {\n%@}", objectSchemaString];
 }
@@ -351,8 +352,21 @@ static void RLMRegisterClassLocalNames(Class *classes, NSUInteger count) {
         std::vector<realm::ObjectSchema> schema;
         schema.reserve(_objectSchemaByName.count);
         [_objectSchemaByName enumerateKeysAndObjectsUsingBlock:[&](NSString *, RLMObjectSchema *objectSchema, BOOL *) {
-            schema.push_back(objectSchema.objectStoreCopy);
+            schema.push_back([objectSchema objectStoreCopy:self]);
         }];
+
+        // Having both obj-c and Swift classes for the same tables results in
+        // duplicate ObjectSchemas that we need to filter out
+        std::sort(begin(schema), end(schema), [](auto&& a, auto&& b) { return a.name < b.name; });
+        schema.erase(std::unique(begin(schema), end(schema), [](auto&& a, auto&& b) {
+            if (a.name == b.name) {
+                // If we make _realmObjectName public this needs to be turned into an exception
+                REALM_ASSERT_DEBUG(a.persisted_properties == b.persisted_properties);
+                return true;
+            }
+            return false;
+        }), end(schema));
+
         _objectStoreSchema = std::move(schema);
     }
     return _objectStoreSchema;
